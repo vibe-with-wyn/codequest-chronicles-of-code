@@ -5,8 +5,13 @@ using System.Linq;
 public class QuestManager : MonoBehaviour
 {
     [Header("Quest Configuration")]
-    [SerializeField] private QuestDatabase questDatabase; // NEW: Reference to QuestDatabase
+    [SerializeField] private QuestDatabase questDatabase;
     [SerializeField] private QuestData[] allQuests;
+    
+    // NEW: Development setting
+    [Header("Development Settings")]
+    [Tooltip("If true, quest progress will reset every time you enter Play Mode in the Editor")]
+    [SerializeField] private bool resetQuestsInEditor = true;
     
     // Current active quest
     private QuestData currentQuest;
@@ -23,11 +28,39 @@ public class QuestManager : MonoBehaviour
     
     void Awake()
     {
+        // NEW: Handle editor reset
+        #if UNITY_EDITOR
+        if (resetQuestsInEditor)
+        {
+            // Destroy any existing QuestManager from previous play sessions
+            if (Instance != null && Instance != this)
+            {
+                Debug.Log("QuestManager: Destroying previous instance for editor reset");
+                Destroy(Instance.gameObject);
+                Instance = null;
+            }
+        }
+        #endif
+        
         // Singleton setup
         if (Instance == null)
         {
             Instance = this;
+            
+            // NEW: Only use DontDestroyOnLoad in builds, not in editor during development
+            #if UNITY_EDITOR
+            if (!resetQuestsInEditor)
+            {
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Debug.Log("QuestManager: Editor reset mode enabled - progress will NOT persist between play sessions");
+            }
+            #else
             DontDestroyOnLoad(gameObject);
+            #endif
+            
             InitializeQuests();
         }
         else
@@ -38,7 +71,30 @@ public class QuestManager : MonoBehaviour
     
     private void InitializeQuests()
     {
-        // Try to load from QuestDatabase first
+        // NEW: Force fresh quest data in editor
+        #if UNITY_EDITOR
+        if (resetQuestsInEditor && questDatabase != null)
+        {
+            Debug.Log("QuestManager: Resetting all quest data for editor session");
+            
+            // Get fresh copy of quests from database
+            var databaseQuests = questDatabase.GetAllQuests();
+            if (databaseQuests.Count > 0)
+            {
+                // Create NEW instances to avoid modifying the ScriptableObject
+                allQuests = new QuestData[databaseQuests.Count];
+                for (int i = 0; i < databaseQuests.Count; i++)
+                {
+                    allQuests[i] = CreateFreshQuestCopy(databaseQuests[i]);
+                }
+                
+                Debug.Log($"Loaded {allQuests.Length} fresh quests from QuestDatabase (Editor Mode)");
+                return;
+            }
+        }
+        #endif
+        
+        // Normal initialization (for builds or when reset is disabled)
         if (questDatabase != null)
         {
             var databaseQuests = questDatabase.GetAllQuests();
@@ -73,10 +129,36 @@ public class QuestManager : MonoBehaviour
             Debug.LogWarning("No QuestDatabase assigned to QuestManager!");
         }
         
-        // Fallback: If no database or empty database, create a simple default
         CreateEmptyQuestArray();
-        
         Debug.Log($"QuestManager initialized with {allQuests.Length} quests");
+    }
+    
+    // NEW: Create a fresh copy of quest data (not referencing the ScriptableObject)
+    private QuestData CreateFreshQuestCopy(QuestData original)
+    {
+        QuestData copy = new QuestData(original.questId, original.questTitle, original.questDescription);
+        copy.isActive = false;
+        copy.isCompleted = false;
+        copy.questImage = original.questImage;
+        copy.nextQuestId = original.nextQuestId;
+        
+        // Copy objectives
+        foreach (var originalObjective in original.objectives)
+        {
+            QuestObjective objCopy = new QuestObjective(
+                originalObjective.objectiveTitle,
+                originalObjective.objectiveDescription,
+                originalObjective.isOptional,
+                originalObjective.targetCount
+            );
+            objCopy.isActive = false;
+            objCopy.isCompleted = false;
+            objCopy.currentCount = 0;
+            
+            copy.objectives.Add(objCopy);
+        }
+        
+        return copy;
     }
     
     // NEW: Create empty array instead of default quests

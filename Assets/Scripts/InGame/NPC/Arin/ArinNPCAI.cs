@@ -68,6 +68,10 @@ public class ArinNPCAI : MonoBehaviour
     private ArinAttackCollider arinAttackCollider;
     private CircleCollider2D attackCollider;
 
+    [Header("Quest Integration")]
+    [SerializeField] private string helpObjectiveTitle = "Help the Water Magician";
+    [SerializeField] private bool completeObjectiveOnBattleStart = true;
+
     void Start()
     {
         InitializeComponents();
@@ -403,6 +407,14 @@ public class ArinNPCAI : MonoBehaviour
     {
         battleStarted = true;
         Debug.Log("Battle started! Arin begins combat with Cave Boss!");
+        
+        // NEW: Complete quest objective when player helps Arin
+        if (completeObjectiveOnBattleStart && QuestManager.Instance != null)
+        {
+            QuestManager.Instance.CompleteObjectiveByTitle(helpObjectiveTitle);
+            Debug.Log($"Quest objective '{helpObjectiveTitle}' completed!");
+        }
+        
         TransitionToState(NPCState.InCombat);
     }
     #endregion

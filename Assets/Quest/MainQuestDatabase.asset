@@ -13,36 +13,33 @@ MonoBehaviour:
   m_Name: MainQuestDatabase
   m_EditorClassIdentifier: Assembly-CSharp::QuestDatabase
   allQuests:
-  - questId: welcome_adventure
-    questTitle: Welcome to the Adventure
-    questDescription: You've just arrived in this mysterious land. Begin your journey
-      by getting oriented and finding the local settlement.
+  - questId: quest_001
+    questTitle: The Adventurer's Journey
+    questDescription: Discover the skull cave, aid the trapped Water Magician, and
+      defeat the Bringer of Death
     questImage: {fileID: 0}
     isCompleted: 0
     isActive: 1
     objectives:
     - objectiveTitle: Go find the mysterious skull cave
-      objectiveDescription: Locate the nearby village to start your adventure. Follow
-        the main path eastward.
+      objectiveDescription: Locate the nearby cave. Follow the main path eastward.
+      isCompleted: 1
+      isActive: 1
+      isOptional: 0
+      targetCount: 1
+      currentCount: 1
+    - objectiveTitle: Help the Water Magician
+      objectiveDescription: Find the water magcian inside the cave.
+      isCompleted: 1
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 1
+    - objectiveTitle: Defeat the Bringer of Death
+      objectiveDescription: Complete the first quest by defeating the cave boss.
       isCompleted: 0
       isActive: 1
       isOptional: 0
-      targetCount: 0
-      currentCount: 0
-    - objectiveTitle: Help the Water Magician
-      objectiveDescription: Find the adventurer's guild in the village. It should
-        be the largest building with a wooden sign.
-      isCompleted: 0
-      isActive: 0
-      isOptional: 0
-      targetCount: 0
-      currentCount: 0
-    - objectiveTitle: Defeat the Bringer of Death
-      objectiveDescription: Complete your registration at the guild to become an
-        official adventurer.
-      isCompleted: 0
-      isActive: 0
-      isOptional: 0
-      targetCount: 0
+      targetCount: 1
       currentCount: 0
     nextQuestId: 
