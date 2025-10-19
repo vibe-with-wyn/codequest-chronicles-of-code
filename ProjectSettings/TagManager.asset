@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Death
   - Enemy
+  - CaveBoss
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - GameUI
   - AttackIcons
   - Panel
-  - 
+  - Enemy
   - 
   - 
   - 
