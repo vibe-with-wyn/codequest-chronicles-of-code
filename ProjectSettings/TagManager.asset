@@ -8,6 +8,7 @@ TagManager:
   - Death
   - Enemy
   - CaveBoss
+  - NPC
   layers:
   - Default
   - TransparentFX

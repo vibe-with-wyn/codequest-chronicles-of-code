@@ -408,11 +408,26 @@ public class ArinNPCAI : MonoBehaviour
         battleStarted = true;
         Debug.Log("Battle started! Arin begins combat with Cave Boss!");
         
-        // NEW: Complete quest objective when player helps Arin
+        // Complete quest objective when player helps Arin
         if (completeObjectiveOnBattleStart && QuestManager.Instance != null)
         {
             QuestManager.Instance.CompleteObjectiveByTitle(helpObjectiveTitle);
             Debug.Log($"Quest objective '{helpObjectiveTitle}' completed!");
+        }
+        
+        // NEW: Start boss battle
+        if (caveBossTarget != null)
+        {
+            CaveBossAI bossAI = caveBossTarget.GetComponent<CaveBossAI>();
+            if (bossAI != null)
+            {
+                bossAI.StartBattle();
+                Debug.Log("Boss battle started!");
+            }
+            else
+            {
+                Debug.LogError("CaveBossAI component not found on boss!");
+            }
         }
         
         TransitionToState(NPCState.InCombat);
