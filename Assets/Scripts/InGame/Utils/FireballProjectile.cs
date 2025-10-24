@@ -9,8 +9,8 @@ public class FireballProjectile : MonoBehaviour
     [SerializeField] private float lifeTime = 3f;
     [SerializeField] private float explosionAnimationDuration = 0.5f;
     
-    [Header("Visual Settings")] // NEW: Visual settings
-    [SerializeField] private bool useScaleFlipping = true; // Use scale to flip instead of SpriteRenderer
+    [Header("Visual Settings")]
+    [SerializeField] private bool useScaleFlipping = true;
     
     [Header("Debug")]
     [SerializeField] private bool enableDebugLogs = true;
@@ -21,7 +21,7 @@ public class FireballProjectile : MonoBehaviour
     private Rigidbody2D rb;
     private CircleCollider2D projectileCollider;
     private Animator animator;
-    private SpriteRenderer spriteRenderer; // NEW: For sprite flipping
+    private SpriteRenderer spriteRenderer;
     private bool hasHit = false;
     private bool hasExploded = false;
     private bool isInitialized = false;
@@ -30,11 +30,7 @@ public class FireballProjectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         projectileCollider = GetComponent<CircleCollider2D>();
-        
-        // Find animator in child object
         animator = GetComponentInChildren<Animator>();
-        
-        // NEW: Find sprite renderer (could be on this object or child)
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         
         if (animator == null)
@@ -47,7 +43,6 @@ public class FireballProjectile : MonoBehaviour
             Debug.LogWarning("SpriteRenderer not found in Fireball or its children! Visual flipping may not work.");
         }
 
-        // Ensure collider is set as trigger
         if (projectileCollider != null)
         {
             projectileCollider.isTrigger = true;
@@ -68,7 +63,6 @@ public class FireballProjectile : MonoBehaviour
 
         startPosition = transform.position;
         
-        // Set velocity for movement
         if (rb != null)
         {
             rb.linearVelocity = direction * speed;
@@ -76,7 +70,6 @@ public class FireballProjectile : MonoBehaviour
                 Debug.Log($"Fireball velocity set to: {direction * speed}");
         }
         
-        // Auto-destroy after lifetime as safety net
         Destroy(gameObject, lifeTime);
         
         if (enableDebugLogs)
@@ -87,7 +80,6 @@ public class FireballProjectile : MonoBehaviour
     {
         if (!isInitialized || hasExploded) return;
 
-        // Check if fireball has traveled max distance
         float distanceTraveled = Vector2.Distance(startPosition, transform.position);
         if (distanceTraveled >= maxDistance)
         {
@@ -105,31 +97,24 @@ public class FireballProjectile : MonoBehaviour
         hasExploded = false;
         isInitialized = true;
         
-        // NEW: Set visual orientation based on player facing direction
         SetVisualOrientation(playerFacingDirection);
-        
-        // Ensure the fireball is active
         gameObject.SetActive(true);
         
         if (enableDebugLogs)
             Debug.Log($"Fireball initialized: Damage={damage}, Direction={direction}, FacingDirection={playerFacingDirection}, Position={transform.position}");
     }
 
-    // NEW: Set the visual orientation of the fireball
     private void SetVisualOrientation(float facingDirection)
     {
         if (useScaleFlipping)
         {
-            // Method 1: Use scale flipping (recommended for most cases)
             Vector3 currentScale = transform.localScale;
             if (facingDirection < 0)
             {
-                // Player facing left - flip fireball horizontally
                 currentScale.x = Mathf.Abs(currentScale.x) * -1f;
             }
             else
             {
-                // Player facing right - normal orientation
                 currentScale.x = Mathf.Abs(currentScale.x);
             }
             transform.localScale = currentScale;
@@ -139,7 +124,6 @@ public class FireballProjectile : MonoBehaviour
         }
         else if (spriteRenderer != null)
         {
-            // Method 2: Use SpriteRenderer flipX (alternative method)
             spriteRenderer.flipX = facingDirection < 0;
             
             if (enableDebugLogs)
@@ -159,8 +143,36 @@ public class FireballProjectile : MonoBehaviour
         if (enableDebugLogs)
             Debug.Log($"Fireball collision detected with: {other.name} (tag: {other.tag}) on GameObject: {other.gameObject.name}");
 
-        // Hit enemy
-        if (other.CompareTag("Enemy"))
+        // NEW: Hit Cave Boss
+        if (other.CompareTag("CaveBoss"))
+        {
+            if (IsValidBossBodyHit(other))
+            {
+                CaveBossAI bossAI = other.GetComponent<CaveBossAI>();
+                if (bossAI != null)
+                {
+                    bossAI.TakeDamage(damage);
+                    hasHit = true;
+                    if (enableDebugLogs)
+                        Debug.Log($"Fireball dealt {damage} damage to Cave Boss {other.name}");
+                    ExplodeFireball();
+                    return;
+                }
+                else
+                {
+                    if (enableDebugLogs)
+                        Debug.LogWarning($"Cave Boss {other.name} has no CaveBossAI component!");
+                }
+            }
+            else
+            {
+                if (enableDebugLogs)
+                    Debug.Log($"Fireball hit boss detection zone, not body - continuing flight");
+                return;
+            }
+        }
+        // Hit regular enemy
+        else if (other.CompareTag("Enemy"))
         {
             if (IsValidEnemyBodyHit(other))
             {
@@ -184,7 +196,7 @@ public class FireballProjectile : MonoBehaviour
             {
                 if (enableDebugLogs)
                     Debug.Log($"Fireball hit enemy detection zone, not body - continuing flight");
-                return; // Don't explode on detection zones
+                return;
             }
         }
         // Hit ground or obstacles
@@ -201,9 +213,51 @@ public class FireballProjectile : MonoBehaviour
         }
     }
 
+    // NEW: Validate boss body hit
+    private bool IsValidBossBodyHit(Collider2D hitCollider)
+    {
+        CaveBossAI bossAI = hitCollider.GetComponent<CaveBossAI>();
+        if (bossAI != null)
+        {
+            bool isBodyHit = bossAI.IsBodyCollider(hitCollider);
+            bool isDetectionHit = bossAI.IsDetectionCollider(hitCollider);
+            
+            if (isBodyHit)
+            {
+                if (enableDebugLogs)
+                    Debug.Log("✓ Fireball hit confirmed: Boss body collider");
+                return true;
+            }
+            else if (isDetectionHit)
+            {
+                if (enableDebugLogs)
+                    Debug.Log("✗ Fireball hit rejected: Boss detection collider");
+                return false;
+            }
+        }
+
+        // Fallback logic
+        if (hitCollider is CapsuleCollider2D && !hitCollider.isTrigger)
+        {
+            if (enableDebugLogs)
+                Debug.Log("✓ Fireball hit confirmed: CapsuleCollider2D non-trigger (assumed boss body)");
+            return true;
+        }
+        else if (hitCollider is CircleCollider2D circleCol && circleCol.isTrigger)
+        {
+            if (enableDebugLogs)
+                Debug.Log("✗ Fireball hit rejected: CircleCollider2D trigger (assumed detection zone)");
+            return false;
+        }
+
+        // Default allow hit
+        if (enableDebugLogs)
+            Debug.Log("✓ Fireball hit allowed: Unknown collider type, defaulting to allow");
+        return true;
+    }
+
     private bool IsValidEnemyBodyHit(Collider2D hitCollider)
     {
-        // Same logic as PlayerAttackCollider for consistency
         EnemyAI enemyAI = hitCollider.GetComponent<EnemyAI>();
         if (enemyAI != null)
         {
@@ -224,7 +278,6 @@ public class FireballProjectile : MonoBehaviour
             }
         }
 
-        // Fallback logic
         if (hitCollider is CapsuleCollider2D)
         {
             if (enableDebugLogs)
@@ -238,7 +291,6 @@ public class FireballProjectile : MonoBehaviour
             return false;
         }
 
-        // Default allow hit
         if (enableDebugLogs)
             Debug.Log("✓ Fireball hit allowed: Unknown collider type, defaulting to allow");
         return true;
@@ -253,32 +305,27 @@ public class FireballProjectile : MonoBehaviour
         if (enableDebugLogs)
             Debug.Log("Fireball exploding...");
         
-        // Stop movement
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
             rb.bodyType = RigidbodyType2D.Kinematic;
         }
         
-        // Disable collider to prevent multiple hits
         if (projectileCollider != null)
         {
             projectileCollider.enabled = false;
         }
         
-        // Trigger explosion animation
         if (animator != null && HasAnimatorParameter("Hit", AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger("Hit");
             if (enableDebugLogs)
                 Debug.Log("Fireball explosion animation triggered");
             
-            // Destroy after explosion animation
             StartCoroutine(DestroyAfterExplosion());
         }
         else
         {
-            // No explosion animation, destroy immediately
             if (enableDebugLogs)
                 Debug.LogWarning("Hit trigger not found in fireball animator - destroying immediately");
             Destroy(gameObject);
@@ -287,7 +334,6 @@ public class FireballProjectile : MonoBehaviour
 
     private IEnumerator DestroyAfterExplosion()
     {
-        // Wait for explosion animation to complete
         yield return new WaitForSeconds(explosionAnimationDuration);
         
         if (enableDebugLogs)
@@ -316,11 +362,9 @@ public class FireballProjectile : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        // Visualize max distance in editor
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, maxDistance);
         
-        // Visualize direction
         if (isInitialized)
         {
             Gizmos.color = Color.yellow;
