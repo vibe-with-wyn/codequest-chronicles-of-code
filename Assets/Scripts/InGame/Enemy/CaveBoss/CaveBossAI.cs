@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// NightBorne Boss AI - Prioritizes player attacks, can pass through NPC Arin
+/// NightBorne Boss AI - Continuously chases nearest target using circular detection
+/// Players can pass through the boss without being blocked
 /// </summary>
 public class CaveBossAI : MonoBehaviour
 {
@@ -75,11 +76,11 @@ public class CaveBossAI : MonoBehaviour
     [SerializeField] private EnemyHealth enemyHealth;
 
     // State Management
-    private enum BossState { Idle, InCombat, Attacking, Cooldown, Hurt, Dead }
+    private enum BossState { Idle, Chasing, Attacking, Hurt, Dead }
     private BossState currentState = BossState.Idle;
     private BossState previousState = BossState.Idle;
 
-    // Target Management - PLAYER IS PRIORITY
+    // Target Management
     private Transform currentTarget;
     private Transform playerTransform;
     private Transform npcTransform;
@@ -92,7 +93,6 @@ public class CaveBossAI : MonoBehaviour
     private bool isAttacking = false;
     private BossAttackCollider bossAttackCollider;
     private CircleCollider2D attackCollider;
-    private bool isAttackColliderPending = false;
 
     // Hurt Management
     private bool isHurt = false;
@@ -110,9 +110,9 @@ public class CaveBossAI : MonoBehaviour
         InitializeAttackSystem();
         SetupDetectionColliders();
         ValidateBodyCollider();
-        SetupNPCCollision(); // NEW: Setup to pass through NPC Arin
-
-        Debug.Log("NightBorne Boss AI initialized - can pass through NPC Arin");
+        SetupPassthroughCollision();
+        
+        Debug.Log("NightBorne Boss AI initialized - continuous chase with passthrough collision");
     }
 
     void Update()
@@ -120,8 +120,8 @@ public class CaveBossAI : MonoBehaviour
         if (isDead) return;
 
         CheckDeath();
-        HandleHurtRecovery();
-        SelectBestTarget(); // PLAYER HAS PRIORITY
+        HandleHurtRecovery(); // CRITICAL: This must run every frame to reset isHurt
+        SelectNearestTarget();
         ProcessStateMachine();
     }
 
@@ -173,25 +173,27 @@ public class CaveBossAI : MonoBehaviour
         }
     }
 
-    // NEW: Setup collision to pass through NPC Arin
-    private void SetupNPCCollision()
+    private void SetupPassthroughCollision()
     {
-        // Find all NPCs with the NPC tag in the scene
-        GameObject[] npcs = GameObject.FindGameObjectsWithTag(npcTag);
-
-        Collider2D bossCollider = GetComponent<Collider2D>();
-
-        if (bossCollider != null)
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        if (player != null)
         {
-            foreach (GameObject npc in npcs)
+            Collider2D playerCollider = player.GetComponent<Collider2D>();
+            if (playerCollider != null && bodyCollider != null)
             {
-                Collider2D npcCollider = npc.GetComponent<Collider2D>();
-                if (npcCollider != null)
-                {
-                    // Ignore collision between boss and NPC
-                    Physics2D.IgnoreCollision(bossCollider, npcCollider, true);
-                    Debug.Log($"NightBorne will pass through NPC: {npc.name}");
-                }
+                Physics2D.IgnoreCollision(bodyCollider, playerCollider, true);
+                Debug.Log($"NightBorne: Player can now pass through boss (collision ignored)");
+            }
+        }
+
+        GameObject[] npcs = GameObject.FindGameObjectsWithTag(npcTag);
+        foreach (GameObject npc in npcs)
+        {
+            Collider2D npcCollider = npc.GetComponent<Collider2D>();
+            if (npcCollider != null && bodyCollider != null)
+            {
+                Physics2D.IgnoreCollision(bodyCollider, npcCollider, true);
+                Debug.Log($"NightBorne: NPC {npc.name} can now pass through boss");
             }
         }
     }
@@ -278,16 +280,12 @@ public class CaveBossAI : MonoBehaviour
                 HandleIdleState();
                 break;
 
-            case BossState.InCombat:
-                HandleInCombatState();
+            case BossState.Chasing:
+                HandleChasingState();
                 break;
 
             case BossState.Attacking:
                 HandleAttackingState();
-                break;
-
-            case BossState.Cooldown:
-                HandleCooldownState();
                 break;
 
             case BossState.Hurt:
@@ -309,18 +307,21 @@ public class CaveBossAI : MonoBehaviour
 
         SetAnimatorBool("isRunning", false);
 
+        // Wait for battle to start if required
         if (requireBattleStart && !battleStarted)
         {
             return;
         }
 
+        // If we have a target, start chasing immediately
         if (currentTarget != null)
         {
-            TransitionToState(BossState.InCombat);
+            TransitionToState(BossState.Chasing);
         }
     }
 
-    private void HandleInCombatState()
+    // UPDATED: Continuous chase - only stops when in attack range
+    private void HandleChasingState()
     {
         if (currentTarget == null)
         {
@@ -330,7 +331,8 @@ public class CaveBossAI : MonoBehaviour
 
         float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
 
-        if (distanceToTarget <= attackRange)
+        // Check if target is in attack range AND attack is ready
+        if (distanceToTarget <= attackRange && CanAttack() && !isAttacking)
         {
             // Stop and attack
             if (rb != null)
@@ -343,14 +345,11 @@ public class CaveBossAI : MonoBehaviour
             float directionToTarget = Mathf.Sign(currentTarget.position.x - transform.position.x);
             UpdateFacingDirection(directionToTarget);
 
-            if (CanAttack())
-            {
-                TransitionToState(BossState.Attacking);
-            }
+            TransitionToState(BossState.Attacking);
         }
         else
         {
-            // Chase target (will pass through NPC Arin to reach player)
+            // CONTINUOUS CHASE - never stop until in attack range
             Vector2 direction = (currentTarget.position - transform.position).normalized;
 
             if (rb != null)
@@ -361,7 +360,9 @@ public class CaveBossAI : MonoBehaviour
             UpdateFacingDirection(direction.x);
             SetAnimatorBool("isRunning", true);
 
-            Debug.Log($"NightBorne chasing {(currentTarget == playerTransform ? "PLAYER" : "NPC")} - Distance: {distanceToTarget:F2}");
+            string targetName = currentTarget == playerTransform ? "PLAYER" : "NPC Arin";
+            string cooldownStatus = CanAttack() ? "Ready" : $"Cooldown: {(attackCooldown - (Time.time - lastAttackTime)):F1}s";
+            Debug.Log($"NightBorne chasing {targetName} - Distance: {distanceToTarget:F2}, Attack: {cooldownStatus}");
         }
     }
 
@@ -378,28 +379,6 @@ public class CaveBossAI : MonoBehaviour
         {
             float directionToTarget = Mathf.Sign(currentTarget.position.x - transform.position.x);
             UpdateFacingDirection(directionToTarget);
-        }
-    }
-
-    private void HandleCooldownState()
-    {
-        if (rb != null)
-        {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-        }
-
-        SetAnimatorBool("isRunning", false);
-
-        if (Time.time >= lastAttackTime + attackCooldown)
-        {
-            if (currentTarget != null && (battleStarted || !requireBattleStart))
-            {
-                TransitionToState(BossState.InCombat);
-            }
-            else
-            {
-                TransitionToState(BossState.Idle);
-            }
         }
     }
 
@@ -456,10 +435,12 @@ public class CaveBossAI : MonoBehaviour
 
         isAttacking = true;
 
+        string targetName = currentTarget == playerTransform ? "PLAYER" : "NPC Arin";
+
         if (animator != null && HasAnimatorParameter("Attack", AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger("Attack");
-            Debug.Log($"NightBorne attacking {(currentTarget == playerTransform ? "PLAYER" : "NPC")}!");
+            Debug.Log($"NightBorne attacking {targetName}!");
         }
         else
         {
@@ -490,9 +471,17 @@ public class CaveBossAI : MonoBehaviour
         lastAttackTime = Time.time;
         isAttacking = false;
 
-        Debug.Log($"[NightBorne Attack] Attack sequence complete");
+        Debug.Log($"[NightBorne Attack] Attack sequence complete - resuming chase");
 
-        TransitionToState(BossState.Cooldown);
+        // After attack, immediately return to chasing
+        if (currentTarget != null && (battleStarted || !requireBattleStart))
+        {
+            TransitionToState(BossState.Chasing);
+        }
+        else
+        {
+            TransitionToState(BossState.Idle);
+        }
     }
 
     private void ActivateMeleeAttack()
@@ -530,41 +519,42 @@ public class CaveBossAI : MonoBehaviour
         return Time.time >= lastAttackTime + attackCooldown;
     }
 
+    // FIXED: Remove isHurt check to allow spam attacks
     public void TakeDamage(int damage)
     {
-        if (isDead || isHurt) return;
+        if (isDead) return; // Only block if dead, NOT if hurt!
 
-        Debug.Log($"NightBorne taking damage: {damage}");
+        Debug.Log($"NightBorne taking damage: {damage} (isHurt={isHurt})");
 
-        isHurt = true;
-        hurtRecoveryTimer = hurtDuration;
-
-        if (currentState != BossState.Attacking)
-        {
-            TransitionToState(BossState.Hurt);
-        }
-
+        // Play hurt animation
         if (animator != null && HasAnimatorParameter("Hurt", AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger("Hurt");
             Debug.Log("NightBorne hurt animation triggered");
         }
-        else
-        {
-            Debug.LogError("Hurt trigger not found in NightBorne animator!");
-        }
 
+        // Apply damage immediately (even if already hurt)
         if (enemyHealth != null)
         {
             enemyHealth.TakeDamage(damage);
             Debug.Log($"NightBorne HP: {enemyHealth.GetCurrentHealth()}/{enemyHealth.GetMaxHealth()}");
         }
-        else
+
+        // Set hurt state (but it won't block damage anymore)
+        if (!isHurt) // Only set hurt state if not already hurt
         {
-            Debug.LogError("EnemyHealth component not found on NightBorne boss!");
+            isHurt = true;
+            hurtRecoveryTimer = hurtDuration;
+
+            // Only transition to Hurt state if not currently attacking
+            if (currentState != BossState.Attacking)
+            {
+                TransitionToState(BossState.Hurt);
+            }
         }
     }
 
+    // CRITICAL FIX: This MUST run every frame to reset isHurt properly
     private void HandleHurtRecovery()
     {
         if (!isHurt) return;
@@ -573,6 +563,7 @@ public class CaveBossAI : MonoBehaviour
         if (hurtRecoveryTimer <= 0f)
         {
             isHurt = false;
+            Debug.Log("Boss hurt state RESET - can now be damaged again");
 
             if (currentState == BossState.Hurt)
             {
@@ -585,16 +576,7 @@ public class CaveBossAI : MonoBehaviour
     {
         if (currentTarget != null && (battleStarted || !requireBattleStart))
         {
-            float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
-
-            if (distanceToTarget <= attackRange && CanAttack())
-            {
-                TransitionToState(BossState.Attacking);
-            }
-            else
-            {
-                TransitionToState(BossState.InCombat);
-            }
+            TransitionToState(BossState.Chasing);
         }
         else
         {
@@ -603,36 +585,86 @@ public class CaveBossAI : MonoBehaviour
     }
     #endregion
 
-    #region Target Selection - PLAYER PRIORITY
-    private void SelectBestTarget()
+    #region Target Selection - FIXED: Keep tracking targets even outside detection zone
+    private void SelectNearestTarget()
     {
-        // PRIORITY 1: Player (if detected and alive)
-        if (canChasePlayer && isPlayerDetected && playerTransform != null)
+        Transform nearestTarget = null;
+        float nearestDistance = float.MaxValue;
+
+        // CRITICAL FIX: Check if player is STILL ALIVE and track them even if they leave detection zone
+        if (canChasePlayer && playerTransform != null)
         {
             PlayerHealth playerHealth = playerTransform.GetComponent<PlayerHealth>();
             if (playerHealth != null && playerHealth.IsAlive())
             {
-                if (currentTarget != playerTransform)
+                float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+
+                // Only stop tracking if player is REALLY far away (2x detection range)
+                if (distanceToPlayer <= playerDetectionRange * 2f)
                 {
-                    Debug.Log("NightBorne now targeting PLAYER (priority target)");
+                    if (distanceToPlayer < nearestDistance)
+                    {
+                        nearestDistance = distanceToPlayer;
+                        nearestTarget = playerTransform;
+                    }
                 }
-                currentTarget = playerTransform;
-                return;
+                else
+                {
+                    // Player is too far - clear reference
+                    Debug.Log($"Player is too far ({distanceToPlayer:F2} > {playerDetectionRange * 2f}) - clearing reference");
+                    playerTransform = null;
+                    isPlayerDetected = false;
+                }
             }
-        }
-
-        // PRIORITY 2: NPC Arin (fallback if no player)
-        if (canChaseNPC && isNPCDetected && npcTransform != null)
-        {
-            if (currentTarget != npcTransform)
+            else
             {
-                Debug.Log("NightBorne now targeting NPC Arin (fallback target)");
+                // Player is dead - clear reference
+                Debug.Log("Player is dead - clearing reference");
+                playerTransform = null;
+                isPlayerDetected = false;
             }
-            currentTarget = npcTransform;
-            return;
         }
 
-        currentTarget = null;
+        // CRITICAL FIX: Same for NPC - keep tracking even outside detection zone
+        if (canChaseNPC && npcTransform != null)
+        {
+            float distanceToNPC = Vector2.Distance(transform.position, npcTransform.position);
+
+            // Only stop tracking if NPC is REALLY far away (2x detection range)
+            if (distanceToNPC <= npcDetectionRange * 2f)
+            {
+                if (distanceToNPC < nearestDistance)
+                {
+                    nearestDistance = distanceToNPC;
+                    nearestTarget = npcTransform;
+                }
+            }
+            else
+            {
+                // NPC is too far - clear reference
+                Debug.Log($"NPC is too far ({distanceToNPC:F2} > {npcDetectionRange * 2f}) - clearing reference");
+                npcTransform = null;
+                isNPCDetected = false;
+            }
+        }
+
+        // Update current target if changed
+        if (currentTarget != nearestTarget)
+        {
+            if (nearestTarget != null)
+            {
+                Vector2 directionToTarget = (nearestTarget.position - transform.position).normalized;
+                UpdateFacingDirection(directionToTarget.x);
+                
+                string targetName = nearestTarget == playerTransform ? "PLAYER" : "NPC Arin";
+                Debug.Log($"NightBorne now targeting: {targetName} (Nearest, Distance: {nearestDistance:F2})");
+            }
+            else if (currentTarget != null)
+            {
+                Debug.Log("NightBorne lost all targets");
+            }
+            currentTarget = nearestTarget;
+        }
     }
     #endregion
 
@@ -707,14 +739,14 @@ public class CaveBossAI : MonoBehaviour
         if (attackColliderTransform != null)
             attackColliderTransform.gameObject.SetActive(false);
 
-        if (animator != null && HasAnimatorParameter("Death", AnimatorControllerParameterType.Trigger))
+        if (animator != null && HasAnimatorParameter("Die", AnimatorControllerParameterType.Trigger))
         {
-            animator.SetTrigger("Death");
+            animator.SetTrigger("Die");
             Debug.Log("NightBorne death animation triggered");
         }
         else
         {
-            Debug.LogError("Death trigger not found in NightBorne animator!");
+            Debug.LogError("Die trigger not found in NightBorne animator!");
         }
 
         StartCoroutine(HandleDeathSequence());
@@ -724,7 +756,7 @@ public class CaveBossAI : MonoBehaviour
     {
         Debug.Log("NightBorne death sequence started");
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.8f);
 
         if (spriteRenderer != null)
         {
@@ -749,7 +781,7 @@ public class CaveBossAI : MonoBehaviour
 
         if (currentTarget != null)
         {
-            TransitionToState(BossState.InCombat);
+            TransitionToState(BossState.Chasing);
         }
     }
 
@@ -773,7 +805,7 @@ public class CaveBossAI : MonoBehaviour
     }
     #endregion
 
-    #region Detection System
+    #region Detection System - FIXED: Don't clear targets on exit
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(playerTag))
@@ -791,20 +823,22 @@ public class CaveBossAI : MonoBehaviour
         }
     }
 
+    // CRITICAL FIX: Don't clear playerTransform/npcTransform on exit!
+    // Just mark as "not detected" - we'll clear the reference when they're too far away
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag(playerTag) && other.transform == playerTransform)
         {
-            Debug.Log("Player left NightBorne detection range");
+            Debug.Log("Player left NightBorne detection range (but still tracking)");
             isPlayerDetected = false;
-            playerTransform = null;
+            // DON'T DO: playerTransform = null; <-- This was the bug!
         }
 
         if ((other.CompareTag(npcTag) || other.name.Contains("Arin")) && other.transform == npcTransform)
         {
-            Debug.Log("NPC left NightBorne detection range");
+            Debug.Log("NPC left NightBorne detection range (but still tracking)");
             isNPCDetected = false;
-            npcTransform = null;
+            // DON'T DO: npcTransform = null; <-- This was the bug!
         }
     }
 
@@ -834,16 +868,23 @@ public class CaveBossAI : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
 
+        // NEW: Show extended tracking range
+        Gizmos.color = new Color(1f, 1f, 0f, 0.3f);
+        Gizmos.DrawWireSphere(transform.position, playerDetectionRange * 2f);
+
         if (currentTarget != null && Application.isPlaying)
         {
             Gizmos.color = battleStarted ? Color.green : Color.gray;
             Gizmos.DrawLine(transform.position, currentTarget.position);
 
             float distance = Vector2.Distance(transform.position, currentTarget.position);
-            string targetName = currentTarget == playerTransform ? "PLAYER (PRIORITY)" : "NPC Arin";
+            string targetName = currentTarget == playerTransform ? "PLAYER" : "NPC Arin";
+
+            string cooldownStatus = CanAttack() ? "READY" : $"CD: {(attackCooldown - (Time.time - lastAttackTime)):F1}s";
+
 #if UNITY_EDITOR
             UnityEditor.Handles.Label(transform.position + Vector3.up * 3f,
-                $"Target: {targetName}\nDistance: {distance:F2}\nAttack Range: {attackRange:F2}\nBattle: {(battleStarted ? "ACTIVE" : "WAITING")}\nState: {currentState}");
+                $"Target: {targetName} (Nearest)\nDistance: {distance:F2}\nAttack: {cooldownStatus}\nBattle: {(battleStarted ? "ACTIVE" : "WAITING")}\nState: {currentState}\nHurt: {isHurt}");
 #endif
         }
 

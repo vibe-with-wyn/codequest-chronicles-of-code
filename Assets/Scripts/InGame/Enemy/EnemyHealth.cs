@@ -109,7 +109,7 @@ public class EnemyHealth : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("EnemyAI not found - using fallback death sequence");
+            Debug.Log("EnemyAI not found - using fallback death sequence");
             StartCoroutine(FallbackDeathSequence());
         }
     }

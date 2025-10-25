@@ -23,14 +23,14 @@ MonoBehaviour:
     objectives:
     - objectiveTitle: Go find the mysterious skull cave
       objectiveDescription: Locate the nearby cave. Follow the main path eastward.
-      isCompleted: 1
+      isCompleted: 0
       isActive: 1
       isOptional: 0
       targetCount: 1
       currentCount: 1
     - objectiveTitle: Help the Water Magician
       objectiveDescription: Find the water magcian inside the cave.
-      isCompleted: 1
+      isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
