@@ -11,34 +11,68 @@ public class ArinAttackData
     public float cooldown = 2.0f;
     public float attackRange = 3f;
     public float animationDuration = 1.0f;
-    public float attackDelay = 0.3f; // Delay before damage is dealt (animation windup)
+    
+    [Header("Attack Timing")]
+    [Tooltip("Delay after animation starts before damage collider activates")]
+    public float damageDelay = 0.3f;
+    
+    [Tooltip("How long the damage collider stays active after activation")]
+    public float damageActiveDuration = 0.4f;
     
     [Header("Attack Collider Settings")]
     public Vector2 attackColliderOffset = new Vector2(1.5f, 0f);
-    public float attackColliderRadius = 1.0f;
+    public float attackColliderRadius = 8.0f;
 }
 
+/// <summary>
+/// NPC Arin AI - Follows player intelligently and attacks the boss with cooldown system
+/// Can take hits from boss and play hurt animation (but never dies)
+/// </summary>
 public class ArinNPCAI : MonoBehaviour
 {
     [Header("Detection Settings")]
-    [SerializeField] private float bosDetectionRange = 10f; // Detection range for cave boss
-    [SerializeField] private float playerDetectionRange = 5f; // NEW: Player must be this close to trigger battle
+    [Tooltip("How far Arin can detect the boss to trigger battle START ONLY")]
+    [SerializeField] private float bossBattleTriggerRange = 10f;
+    
+    [Tooltip("How far Arin can detect the player to follow")]
+    [SerializeField] private float playerFollowRange = 8f;
+    
+    [Tooltip("How close to the boss Arin needs to be to attack (separate from detection)")]
+    [SerializeField] private float bossAttackProximityRange = 12f;
+    
     [SerializeField] private string caveBossTag = "CaveBoss";
-    [SerializeField] private string playerTag = "Player"; // NEW: Tag for player detection
+    [SerializeField] private string playerTag = "Player";
     
     [Header("Combat Settings")]
-    [SerializeField] private float attackRange = 3.5f; // NEW: Single attack range - if boss is within this, stop and attack
-    [SerializeField] private float attackCooldownGlobal = 1.5f; // Global cooldown between any attacks
+    [Tooltip("Distance to stop and attack the boss")]
+    [SerializeField] private float attackRange = 3.5f;
+    
+    [Tooltip("Minimum time Arin must wait between attacks (cooldown in seconds)")]
+    [SerializeField] private float attackCooldownDuration = 1.5f;
     
     [Header("Movement Settings")]
+    [Tooltip("Speed when moving/following")]
     [SerializeField] private float moveSpeed = 3f;
+    
+    [Tooltip("Distance to maintain from the player when following (safe side)")]
+    [SerializeField] private float followDistanceFromPlayer = 2.5f;
+    
+    [Tooltip("How close Arin gets to the follow position before stopping")]
+    [SerializeField] private float followStopDistance = 0.5f;
+    
+    [Tooltip("Delay after attacking before returning to player")]
+    [SerializeField] private float returnToPlayerDelay = 0.5f;
     
     [Header("Attack Configuration")]
     [SerializeField] private ArinAttackData[] attacks = new ArinAttackData[4];
     
     [Header("Collider References")]
-    [SerializeField] private CircleCollider2D bossDetectionCollider; // NEW: Renamed for clarity
-    [SerializeField] private CircleCollider2D playerDetectionCollider; // NEW: Separate collider for player detection
+    [Tooltip("Circle collider for triggering battle when boss is detected (larger range)")]
+    [SerializeField] private CircleCollider2D bossBattleTriggerCollider;
+    
+    [Tooltip("Circle collider for detecting player to follow (smaller range)")]
+    [SerializeField] private CircleCollider2D playerFollowCollider;
+    
     [SerializeField] private Transform attackColliderTransform;
     
     [Header("References")]
@@ -46,23 +80,30 @@ public class ArinNPCAI : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Rigidbody2D rb;
     
+    [Header("Collision Settings")]
+    [Tooltip("Layer for the player - Arin won't collide with player")]
+    [SerializeField] private LayerMask playerLayer;
+    
     // State Management
-    private enum NPCState { Idle, MovingToTarget, InCombat, Attacking, Cooldown }
+    private enum NPCState { Idle, FollowingPlayer, ApproachingBoss, Attacking, ReturningToPlayer, AttackCooldown }
     private NPCState currentState = NPCState.Idle;
     
     // Target Management
-    private Transform caveBossTarget; // The cave boss
-    private bool isCaveBossDetected = false;
-    private bool isPlayerNearby = false; // NEW: Tracks if player is nearby
-    private bool battleStarted = false; // NEW: Tracks if battle has been initiated
+    private Transform caveBossTarget;
+    private Transform playerTarget;
+    private bool isBossInBattleRange = false;
+    private bool isBossInAttackProximity = false;
+    private bool isPlayerInFollowRange = false;
+    private bool battleStarted = false;
     
     // Attack Management
-    private float lastAttackTime = 0f;
-    private float[] attackCooldownTimers = new float[4];
+    private float lastAttackTime = -999f;
+    private float attackCooldownTimer = 0f;
     private bool isAttacking = false;
+    private float returnToPlayerTimer = 0f;
     
     // Direction
-    private float facingDirection = 1f; // 1 = right, -1 = left
+    private float facingDirection = 1f;
     
     // Attack Collider Component
     private ArinAttackCollider arinAttackCollider;
@@ -76,22 +117,22 @@ public class ArinNPCAI : MonoBehaviour
     {
         InitializeComponents();
         InitializeAttackSystem();
-        SetupDetectionColliders(); // UPDATED
+        SetupDetectionColliders();
         ValidateAttackData();
         
-        Debug.Log("Arin NPC AI initialized - waiting for player to trigger battle");
+        Debug.Log("Arin NPC AI initialized - intelligent positioning with attack cooldown system");
     }
 
     void Update()
     {
-        UpdateAttackCooldowns();
+        UpdateAttackCooldown();
+        UpdateReturnToPlayerTimer();
         ProcessStateMachine();
     }
 
     #region Initialization
     private void InitializeComponents()
     {
-        // Auto-find components if not assigned
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
         
@@ -101,7 +142,6 @@ public class ArinNPCAI : MonoBehaviour
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
         
-        // Validate critical components
         if (animator == null)
             Debug.LogError("Animator not found on Arin NPC!");
         
@@ -111,20 +151,10 @@ public class ArinNPCAI : MonoBehaviour
 
     private void InitializeAttackSystem()
     {
-        // Initialize attack cooldown timers
-        attackCooldownTimers = new float[attacks.Length];
-        for (int i = 0; i < attackCooldownTimers.Length; i++)
-        {
-            attackCooldownTimers[i] = 0f;
-        }
-        
-        // Setup attack collider
         if (attackColliderTransform == null)
         {
-            // Try to find existing attack collider
             attackColliderTransform = transform.Find("ArinAttackCollider");
             
-            // Create if doesn't exist
             if (attackColliderTransform == null)
             {
                 GameObject attackColliderObj = new GameObject("ArinAttackCollider");
@@ -134,7 +164,6 @@ public class ArinNPCAI : MonoBehaviour
             }
         }
         
-        // Get or add components to attack collider
         attackCollider = attackColliderTransform.GetComponent<CircleCollider2D>();
         if (attackCollider == null)
         {
@@ -142,63 +171,53 @@ public class ArinNPCAI : MonoBehaviour
         }
         
         attackCollider.isTrigger = true;
-        attackCollider.radius = 1.0f; // Default radius
         
-        // Get or add ArinAttackCollider script
         arinAttackCollider = attackColliderTransform.GetComponent<ArinAttackCollider>();
         if (arinAttackCollider == null)
         {
             arinAttackCollider = attackColliderTransform.gameObject.AddComponent<ArinAttackCollider>();
         }
         
-        // Initially disable attack collider
         attackColliderTransform.gameObject.SetActive(false);
         
         Debug.Log("Arin attack system initialized");
     }
 
-    // UPDATED: Setup both boss detection and player detection colliders
     private void SetupDetectionColliders()
     {
-        // Setup Boss Detection Collider
-        if (bossDetectionCollider == null)
+        if (bossBattleTriggerCollider == null)
         {
-            // Try to find existing collider
             CircleCollider2D[] colliders = GetComponents<CircleCollider2D>();
             if (colliders.Length > 0)
             {
-                bossDetectionCollider = colliders[0];
+                bossBattleTriggerCollider = colliders[0];
             }
             else
             {
-                bossDetectionCollider = gameObject.AddComponent<CircleCollider2D>();
+                bossBattleTriggerCollider = gameObject.AddComponent<CircleCollider2D>();
             }
         }
         
-        bossDetectionCollider.isTrigger = true;
-        bossDetectionCollider.radius = bosDetectionRange;
+        bossBattleTriggerCollider.isTrigger = true;
+        bossBattleTriggerCollider.radius = bossBattleTriggerRange;
         
-        Debug.Log($"Arin boss detection collider configured: radius={bosDetectionRange}");
-        
-        // Setup Player Detection Collider
-        if (playerDetectionCollider == null)
+        if (playerFollowCollider == null)
         {
-            // Check if there's a second collider
             CircleCollider2D[] colliders = GetComponents<CircleCollider2D>();
             if (colliders.Length > 1)
             {
-                playerDetectionCollider = colliders[1];
+                playerFollowCollider = colliders[1];
             }
             else
             {
-                playerDetectionCollider = gameObject.AddComponent<CircleCollider2D>();
+                playerFollowCollider = gameObject.AddComponent<CircleCollider2D>();
             }
         }
         
-        playerDetectionCollider.isTrigger = true;
-        playerDetectionCollider.radius = playerDetectionRange;
+        playerFollowCollider.isTrigger = true;
+        playerFollowCollider.radius = playerFollowRange;
         
-        Debug.Log($"Arin player detection collider configured: radius={playerDetectionRange}");
+        Debug.Log($"Arin detection colliders configured: Boss={bossBattleTriggerRange}, Player={playerFollowRange}");
     }
 
     private void ValidateAttackData()
@@ -208,10 +227,10 @@ public class ArinNPCAI : MonoBehaviour
             Debug.LogWarning("Arin should have exactly 4 attacks configured!");
             attacks = new ArinAttackData[4]
             {
-                new ArinAttackData { attackName = "Water Blast", animatorTrigger = "Attack1", damage = 20, cooldown = 2.0f },
-                new ArinAttackData { attackName = "Ice Shard", animatorTrigger = "Attack2", damage = 25, cooldown = 3.0f },
-                new ArinAttackData { attackName = "Tidal Wave", animatorTrigger = "Attack3", damage = 30, cooldown = 4.0f },
-                new ArinAttackData { attackName = "Frost Nova", animatorTrigger = "Attack4", damage = 35, cooldown = 5.0f }
+                new ArinAttackData { attackName = "Water Blast", animatorTrigger = "Attack1", damage = 20, cooldown = 2.0f, attackColliderRadius = 8.0f, damageDelay = 0.3f, damageActiveDuration = 0.4f },
+                new ArinAttackData { attackName = "Ice Shard", animatorTrigger = "Attack2", damage = 25, cooldown = 3.0f, attackColliderRadius = 8.0f, damageDelay = 0.4f, damageActiveDuration = 0.4f },
+                new ArinAttackData { attackName = "Tidal Wave", animatorTrigger = "Attack3", damage = 30, cooldown = 4.0f, attackColliderRadius = 8.0f, damageDelay = 0.5f, damageActiveDuration = 0.5f },
+                new ArinAttackData { attackName = "Frost Nova", animatorTrigger = "Attack4", damage = 35, cooldown = 5.0f, attackColliderRadius = 8.0f, damageDelay = 0.6f, damageActiveDuration = 0.5f }
             };
         }
         
@@ -228,88 +247,106 @@ public class ArinNPCAI : MonoBehaviour
                 HandleIdleState();
                 break;
             
-            case NPCState.MovingToTarget:
-                HandleMovingToTargetState();
+            case NPCState.FollowingPlayer:
+                HandleFollowingPlayerState();
                 break;
             
-            case NPCState.InCombat:
-                HandleInCombatState(); // NEW: Combat state - decides between moving and attacking
+            case NPCState.ApproachingBoss:
+                HandleApproachingBossState();
                 break;
             
             case NPCState.Attacking:
                 HandleAttackingState();
                 break;
             
-            case NPCState.Cooldown:
-                HandleCooldownState();
+            case NPCState.ReturningToPlayer:
+                HandleReturningToPlayerState();
+                break;
+            
+            case NPCState.AttackCooldown:
+                HandleAttackCooldownState();
                 break;
         }
     }
 
-    // UPDATED: Now checks if player is nearby before starting battle
     private void HandleIdleState()
     {
-        // Stop movement
         if (rb != null)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
         
-        // Play idle animation
         SetAnimatorBool("isMoving", false);
         
-        // NEW: Check if battle should start
-        if (isCaveBossDetected && isPlayerNearby && !battleStarted)
+        if (isBossInBattleRange && isPlayerInFollowRange && !battleStarted)
         {
             StartBattle();
         }
+        else if (isPlayerInFollowRange && playerTarget != null)
+        {
+            TransitionToState(NPCState.FollowingPlayer);
+        }
     }
 
-    // REMOVED: Old HandleMovingToTargetState - replaced with InCombat state
-    private void HandleMovingToTargetState()
+    private void HandleFollowingPlayerState()
     {
-        // This state is now only used for initial approach before battle starts
-        // Once battle starts, all movement/combat logic is in InCombat state
-        
-        if (caveBossTarget == null)
+        if (playerTarget == null || !isPlayerInFollowRange)
         {
             TransitionToState(NPCState.Idle);
             return;
         }
         
-        float distanceToBoss = Vector2.Distance(transform.position, caveBossTarget.position);
-        
-        // Move towards boss
-        Vector2 direction = (caveBossTarget.position - transform.position).normalized;
-        
-        if (rb != null)
+        if (battleStarted && isBossInAttackProximity && caveBossTarget != null && IsAttackReady())
         {
-            rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
+            TransitionToState(NPCState.ApproachingBoss);
+            return;
         }
         
-        // Update facing direction
-        UpdateFacingDirection(direction.x);
+        Vector3 targetPosition = CalculateSafeFollowPosition();
         
-        // Play walk animation
-        SetAnimatorBool("isMoving", true);
+        float distanceToTarget = Vector2.Distance(transform.position, targetPosition);
+        
+        if (distanceToTarget > followStopDistance)
+        {
+            Vector2 direction = (targetPosition - transform.position).normalized;
+            
+            if (rb != null)
+            {
+                rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
+            }
+            
+            UpdateFacingDirection(direction.x);
+            SetAnimatorBool("isMoving", true);
+        }
+        else
+        {
+            if (rb != null)
+            {
+                rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            }
+            SetAnimatorBool("isMoving", false);
+        }
     }
 
-    // NEW: Combat state - handles both movement and attack decisions
-    private void HandleInCombatState()
+    private void HandleApproachingBossState()
     {
-        if (caveBossTarget == null)
+        if (caveBossTarget == null || !isBossInAttackProximity)
         {
-            battleStarted = false;
-            TransitionToState(NPCState.Idle);
+            TransitionToState(NPCState.FollowingPlayer);
+            return;
+        }
+        
+        if (!IsAttackReady())
+        {
+            Debug.Log("Attack cooldown not ready during approach - returning to player");
+            TransitionToState(NPCState.FollowingPlayer);
             return;
         }
         
         float distanceToBoss = Vector2.Distance(transform.position, caveBossTarget.position);
         
-        // REQUIREMENT 3: If boss is within attack range, stop and attack
         if (distanceToBoss <= attackRange)
         {
-            // Stop movement
             if (rb != null)
             {
                 rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -317,17 +354,11 @@ public class ArinNPCAI : MonoBehaviour
             
             SetAnimatorBool("isMoving", false);
             
-            // Face the boss
             float directionToBoss = Mathf.Sign(caveBossTarget.position.x - transform.position.x);
             UpdateFacingDirection(directionToBoss);
             
-            // Try to attack if ready
-            if (CanAttack())
-            {
-                TransitionToState(NPCState.Attacking);
-            }
+            TransitionToState(NPCState.Attacking);
         }
-        // REQUIREMENT 3: If boss is out of attack range, walk towards it
         else
         {
             Vector2 direction = (caveBossTarget.position - transform.position).normalized;
@@ -337,34 +368,55 @@ public class ArinNPCAI : MonoBehaviour
                 rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
             }
             
-            // Update facing direction
             UpdateFacingDirection(direction.x);
-            
-            // Play walk animation
             SetAnimatorBool("isMoving", true);
             
-            Debug.Log($"Arin moving towards boss - Distance: {distanceToBoss:F2}, Attack Range: {attackRange:F2}\nBattle: {(battleStarted ? "ACTIVE" : "WAITING")}");
+            Debug.Log($"Arin approaching boss - Distance: {distanceToBoss:F2}");
         }
     }
 
     private void HandleAttackingState()
     {
-        // Stop movement during attack
         if (rb != null)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
         
         SetAnimatorBool("isMoving", false);
-        
-        // Attack is handled by PerformRandomAttack() which is called when entering this state
-        // This state is temporary and will transition to Cooldown automatically
     }
 
-    // UPDATED: Returns to InCombat state after cooldown
-    private void HandleCooldownState()
+    private void HandleReturningToPlayerState()
     {
-        // Stop movement during cooldown
+        if (playerTarget == null)
+        {
+            TransitionToState(NPCState.Idle);
+            return;
+        }
+        
+        Vector3 targetPosition = CalculateSafeFollowPosition();
+        
+        float distanceToTarget = Vector2.Distance(transform.position, targetPosition);
+        
+        if (distanceToTarget > followStopDistance)
+        {
+            Vector2 direction = (targetPosition - transform.position).normalized;
+            
+            if (rb != null)
+            {
+                rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
+            }
+            
+            UpdateFacingDirection(direction.x);
+            SetAnimatorBool("isMoving", true);
+        }
+        else
+        {
+            TransitionToState(NPCState.FollowingPlayer);
+        }
+    }
+
+    private void HandleAttackCooldownState()
+    {
         if (rb != null)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -372,17 +424,10 @@ public class ArinNPCAI : MonoBehaviour
         
         SetAnimatorBool("isMoving", false);
         
-        // Check if cooldown is over
-        if (Time.time >= lastAttackTime + attackCooldownGlobal)
+        if (IsAttackReady())
         {
-            if (caveBossTarget != null && battleStarted)
-            {
-                TransitionToState(NPCState.InCombat); // Return to combat state
-            }
-            else
-            {
-                TransitionToState(NPCState.Idle);
-            }
+            Debug.Log($"Attack cooldown finished ({attackCooldownDuration}s) - returning to player");
+            TransitionToState(NPCState.ReturningToPlayer);
         }
     }
 
@@ -393,29 +438,29 @@ public class ArinNPCAI : MonoBehaviour
         
         Debug.Log($"Arin state transition: {oldState} -> {newState}");
         
-        // Handle state entry actions
         switch (newState)
         {
             case NPCState.Attacking:
                 PerformRandomAttack();
                 break;
+            
+            case NPCState.ReturningToPlayer:
+                returnToPlayerTimer = returnToPlayerDelay;
+                break;
         }
     }
 
-    // NEW: Start battle when player is nearby
     private void StartBattle()
     {
         battleStarted = true;
-        Debug.Log("Battle started! Arin begins combat with Cave Boss!");
+        Debug.Log("Battle started! Arin begins combat with Boss!");
         
-        // Complete quest objective when player helps Arin
         if (completeObjectiveOnBattleStart && QuestManager.Instance != null)
         {
             QuestManager.Instance.CompleteObjectiveByTitle(helpObjectiveTitle);
             Debug.Log($"Quest objective '{helpObjectiveTitle}' completed!");
         }
         
-        // NEW: Start boss battle
         if (caveBossTarget != null)
         {
             CaveBossAI bossAI = caveBossTarget.GetComponent<CaveBossAI>();
@@ -424,102 +469,99 @@ public class ArinNPCAI : MonoBehaviour
                 bossAI.StartBattle();
                 Debug.Log("Boss battle started!");
             }
-            else
-            {
-                Debug.LogError("CaveBossAI component not found on boss!");
-            }
         }
         
-        TransitionToState(NPCState.InCombat);
+        SetupPlayerCollision();
+        TransitionToState(NPCState.FollowingPlayer);
+    }
+
+    private void SetupPlayerCollision()
+    {
+        if (playerTarget != null)
+        {
+            Collider2D arinCollider = GetComponent<Collider2D>();
+            Collider2D playerCollider = playerTarget.GetComponent<Collider2D>();
+            
+            if (arinCollider != null && playerCollider != null)
+            {
+                Physics2D.IgnoreCollision(arinCollider, playerCollider, true);
+                Debug.Log("Arin will not collide with player - player can pass through");
+            }
+        }
     }
     #endregion
 
     #region Combat System
-    // UPDATED: Now truly random - selects from Attack1, Attack2, Attack3, Attack4
     private void PerformRandomAttack()
     {
         if (isAttacking) return;
         
-        // REQUIREMENT 1: Get list of available attacks (off cooldown)
-        int[] availableAttacks = GetAvailableAttacks();
-        
-        if (availableAttacks.Length == 0)
-        {
-            Debug.Log("No attacks available - waiting for cooldowns");
-            TransitionToState(NPCState.Cooldown);
-            return;
-        }
-        
-        // REQUIREMENT 1: Select a RANDOM attack from available attacks
-        int selectedAttackIndex = availableAttacks[Random.Range(0, availableAttacks.Length)];
+        int selectedAttackIndex = Random.Range(0, attacks.Length);
         ArinAttackData selectedAttack = attacks[selectedAttackIndex];
         
-        Debug.Log($"Arin randomly selected: {selectedAttack.attackName} (Attack{selectedAttackIndex + 1})");
+        Debug.Log($"Arin randomly selected: {selectedAttack.attackName} (Radius: {selectedAttack.attackColliderRadius}, Damage Delay: {selectedAttack.damageDelay}s)");
         
-        // Face the target
         if (caveBossTarget != null)
         {
             float directionToTarget = Mathf.Sign(caveBossTarget.position.x - transform.position.x);
             UpdateFacingDirection(directionToTarget);
         }
         
-        // Trigger attack
         isAttacking = true;
         
-        // Trigger animation
         if (animator != null && HasAnimatorParameter(selectedAttack.animatorTrigger, AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger(selectedAttack.animatorTrigger);
-            Debug.Log($"Arin using {selectedAttack.attackName} (Trigger: {selectedAttack.animatorTrigger})");
+            Debug.Log($"Arin using {selectedAttack.attackName}");
         }
         else
         {
             Debug.LogError($"Animator trigger '{selectedAttack.animatorTrigger}' not found!");
         }
         
-        // Schedule attack collider activation
-        StartCoroutine(ExecuteAttackSequence(selectedAttack, selectedAttackIndex));
+        StartCoroutine(ExecuteAttackSequence(selectedAttack));
     }
 
-    private IEnumerator ExecuteAttackSequence(ArinAttackData attackData, int attackIndex)
+    private IEnumerator ExecuteAttackSequence(ArinAttackData attackData)
     {
-        // Wait for attack delay (animation windup)
-        yield return new WaitForSeconds(attackData.attackDelay);
+        Debug.Log($"[Arin Attack] Starting attack sequence for {attackData.attackName}");
         
-        // Activate attack collider
+        yield return new WaitForSeconds(attackData.damageDelay);
+        
+        Debug.Log($"[Arin Attack] Activating damage collider after {attackData.damageDelay}s delay");
         ActivateAttackCollider(attackData);
         
-        // Wait for attack to complete
-        yield return new WaitForSeconds(attackData.animationDuration - attackData.attackDelay);
+        yield return new WaitForSeconds(attackData.damageActiveDuration);
         
-        // Deactivate attack collider
+        Debug.Log($"[Arin Attack] Deactivating damage collider after {attackData.damageActiveDuration}s active time");
         DeactivateAttackCollider();
         
-        // Mark attack as used
-        attackCooldownTimers[attackIndex] = attackData.cooldown;
-        lastAttackTime = Time.time;
+        float remainingTime = attackData.animationDuration - attackData.damageDelay - attackData.damageActiveDuration;
+        if (remainingTime > 0)
+        {
+            yield return new WaitForSeconds(remainingTime);
+        }
+        
+        StartAttackCooldown();
         
         isAttacking = false;
         
-        // Transition to cooldown state
-        TransitionToState(NPCState.Cooldown);
+        Debug.Log($"Attack complete - starting {attackCooldownDuration}s cooldown");
+        
+        TransitionToState(NPCState.AttackCooldown);
     }
 
     private void ActivateAttackCollider(ArinAttackData attackData)
     {
         if (attackColliderTransform == null || arinAttackCollider == null || attackCollider == null)
         {
-            Debug.LogError("Attack collider components not set up!");
+            Debug.LogError("[Arin] Attack collider components not set up!");
             return;
         }
         
-        // Enable attack collider GameObject
         attackColliderTransform.gameObject.SetActive(true);
-        
-        // Set damage
         arinAttackCollider.SetDamage(attackData.damage);
         
-        // Position the attack collider
         Vector3 attackPosition = transform.position + new Vector3(
             facingDirection * attackData.attackColliderOffset.x,
             attackData.attackColliderOffset.y,
@@ -527,10 +569,16 @@ public class ArinNPCAI : MonoBehaviour
         );
         attackColliderTransform.position = attackPosition;
         
-        // Set collider radius
         attackCollider.radius = attackData.attackColliderRadius;
         
-        Debug.Log($"Arin attack collider activated: Position={attackPosition}, Radius={attackData.attackColliderRadius}, Damage={attackData.damage}");
+        Debug.Log($"[Arin] Attack collider activated:");
+        Debug.Log($"  - Attack: {attackData.attackName}");
+        Debug.Log($"  - Damage: {attackData.damage}");
+        Debug.Log($"  - Position: {attackPosition}");
+        Debug.Log($"  - Radius: {attackData.attackColliderRadius}");
+        
+        float effectiveRange = Mathf.Abs(attackData.attackColliderOffset.x) + attackData.attackColliderRadius;
+        Debug.Log($"  - Effective Range: {effectiveRange} units from Arin");
     }
 
     private void DeactivateAttackCollider()
@@ -538,47 +586,93 @@ public class ArinNPCAI : MonoBehaviour
         if (attackColliderTransform != null)
         {
             attackColliderTransform.gameObject.SetActive(false);
-            Debug.Log("Arin attack collider deactivated");
+            Debug.Log("[Arin] Attack collider deactivated");
         }
     }
 
-    // REQUIREMENT 1: Returns all attacks that are off cooldown
-    private int[] GetAvailableAttacks()
+    private void StartAttackCooldown()
     {
-        System.Collections.Generic.List<int> available = new System.Collections.Generic.List<int>();
-        
-        for (int i = 0; i < attacks.Length; i++)
+        lastAttackTime = Time.time;
+        attackCooldownTimer = attackCooldownDuration;
+        Debug.Log($"Attack cooldown started: {attackCooldownDuration}s");
+    }
+
+    private bool IsAttackReady()
+    {
+        bool ready = Time.time >= lastAttackTime + attackCooldownDuration;
+        return ready;
+    }
+
+    private void UpdateAttackCooldown()
+    {
+        if (attackCooldownTimer > 0f)
         {
-            if (attackCooldownTimers[i] <= 0f)
+            attackCooldownTimer -= Time.deltaTime;
+            
+            if (attackCooldownTimer <= 0f)
             {
-                available.Add(i);
+                attackCooldownTimer = 0f;
             }
         }
-        
-        return available.ToArray();
     }
 
-    private bool CanAttack()
+    private void UpdateReturnToPlayerTimer()
     {
-        // Check if global cooldown is ready
-        if (Time.time < lastAttackTime + attackCooldownGlobal)
+        if (returnToPlayerTimer > 0f)
         {
-            return false;
+            returnToPlayerTimer -= Time.deltaTime;
+        }
+    }
+    #endregion
+
+    #region Hurt System - SIMPLE (Like Player/Enemies)
+    /// <summary>
+    /// Called by boss attack collider to make Arin play hurt animation
+    /// Works exactly like PlayerMovement.TriggerHurt() - just triggers animation, no state changes
+    /// </summary>
+    public void TakeHit()
+    {
+        Debug.Log("Arin got hit by boss - playing hurt animation!");
+        
+        // Just trigger the hurt animation - that's it!
+        // Same as PlayerMovement.TriggerHurt() and EnemyAI.TakeDamage()
+        if (animator != null && HasAnimatorParameter("Hurt", AnimatorControllerParameterType.Trigger))
+        {
+            animator.SetTrigger("Hurt");
+            Debug.Log("Arin hurt animation triggered - continuing normal behavior");
+        }
+        else
+        {
+            Debug.LogWarning("Hurt trigger not found in Arin's animator!");
         }
         
-        // Check if any attack is available
-        return GetAvailableAttacks().Length > 0;
+        // That's all! No state changes, no pausing, no invulnerability
+        // Arin just plays the animation and keeps doing what she was doing
+        // Exactly like how the player and enemies work
     }
+    #endregion
 
-    private void UpdateAttackCooldowns()
+    #region Smart Positioning
+    private Vector3 CalculateSafeFollowPosition()
     {
-        for (int i = 0; i < attackCooldownTimers.Length; i++)
+        if (playerTarget == null)
+            return transform.position;
+        
+        Vector3 playerPos = playerTarget.position;
+        
+        if (caveBossTarget == null || !battleStarted)
         {
-            if (attackCooldownTimers[i] > 0f)
-            {
-                attackCooldownTimers[i] -= Time.deltaTime;
-            }
+            float playerFacing = playerTarget.GetComponent<PlayerMovement>()?.GetFacingDirection() ?? 1f;
+            return playerPos + new Vector3(-playerFacing * followDistanceFromPlayer, 0, 0);
         }
+        
+        Vector3 bossPos = caveBossTarget.position;
+        Vector2 playerToBoss = (bossPos - playerPos).normalized;
+        
+        Vector2 safeDirection = -playerToBoss;
+        Vector3 safePosition = playerPos + new Vector3(safeDirection.x * followDistanceFromPlayer, 0, 0);
+        
+        return safePosition;
     }
     #endregion
 
@@ -620,22 +714,26 @@ public class ArinNPCAI : MonoBehaviour
     #region Detection System
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if it's the cave boss
         if (other.CompareTag(caveBossTag))
         {
-            Debug.Log($"Arin detected Cave Boss: {other.name}");
+            Debug.Log($"Arin detected Boss for battle trigger: {other.name}");
             caveBossTarget = other.transform;
-            isCaveBossDetected = true;
+            isBossInBattleRange = true;
+            
+            if (isPlayerInFollowRange && !battleStarted)
+            {
+                StartBattle();
+            }
         }
         
-        // NEW: Check if it's the player
         if (other.CompareTag(playerTag))
         {
-            Debug.Log($"Player entered Arin's trigger zone: {other.name}");
-            isPlayerNearby = true;
+            Debug.Log($"Arin detected Player for following: {other.name}");
+            playerTarget = other.transform;
+            isPlayerInFollowRange = true;
+            SetupPlayerCollision();
             
-            // REQUIREMENT 2: Start battle if both boss and player are detected
-            if (isCaveBossDetected && !battleStarted)
+            if (isBossInBattleRange && !battleStarted)
             {
                 StartBattle();
             }
@@ -644,34 +742,35 @@ public class ArinNPCAI : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        // Check if cave boss left detection range
         if (other.CompareTag(caveBossTag) && other.transform == caveBossTarget)
         {
-            Debug.Log("Cave Boss left Arin's detection range");
-            isCaveBossDetected = false;
+            Debug.Log("Boss left Arin's battle trigger range");
+            isBossInBattleRange = false;
         }
         
-        // NEW: Check if player left detection range
         if (other.CompareTag(playerTag))
         {
-            Debug.Log("Player left Arin's trigger zone");
-            isPlayerNearby = false;
-            // Note: Battle continues even if player leaves
+            Debug.Log("Player left Arin's follow range");
+            isPlayerInFollowRange = false;
         }
     }
 
     void OnTriggerStay2D(Collider2D other)
     {
-        // Continuously update that boss is still in range
         if (other.CompareTag(caveBossTag))
         {
-            isCaveBossDetected = true;
+            isBossInBattleRange = true;
+            
+            if (caveBossTarget != null)
+            {
+                float distanceToBoss = Vector2.Distance(transform.position, caveBossTarget.position);
+                isBossInAttackProximity = distanceToBoss <= bossAttackProximityRange;
+            }
         }
         
-        // NEW: Continuously update that player is still in range
         if (other.CompareTag(playerTag))
         {
-            isPlayerNearby = true;
+            isPlayerInFollowRange = true;
         }
     }
     #endregion
@@ -679,43 +778,63 @@ public class ArinNPCAI : MonoBehaviour
     #region Debug
     void OnDrawGizmosSelected()
     {
-        // Draw boss detection range (yellow)
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, bosDetectionRange);
+        Gizmos.DrawWireSphere(transform.position, bossBattleTriggerRange);
         
-        // Draw player detection range (cyan) - NEW
+        Gizmos.color = new Color(1f, 0.5f, 0f);
+        Gizmos.DrawWireSphere(transform.position, bossAttackProximityRange);
+        
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, playerDetectionRange);
+        Gizmos.DrawWireSphere(transform.position, playerFollowRange);
         
-        // Draw attack range (red) - UPDATED
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         
-        // Draw line to target
-        if (caveBossTarget != null && Application.isPlaying)
+        if (attacks != null && attacks.Length > 0)
         {
-            Gizmos.color = battleStarted ? Color.green : Color.gray;
-            Gizmos.DrawLine(transform.position, caveBossTarget.position);
-            
-            // Draw distance text
-            float distance = Vector2.Distance(transform.position, caveBossTarget.position);
-            UnityEditor.Handles.Label(transform.position + Vector3.up * 2f, 
-                $"Distance: {distance:F2}\nAttack Range: {attackRange:F2}\nBattle: {(battleStarted ? "ACTIVE" : "WAITING")}");
+            Gizmos.color = Color.magenta;
+            for (int i = 0; i < attacks.Length; i++)
+            {
+                ArinAttackData attack = attacks[i];
+                if (attack != null)
+                {
+                    Vector3 attackPos = transform.position + new Vector3(
+                        facingDirection * attack.attackColliderOffset.x,
+                        attack.attackColliderOffset.y,
+                        0
+                    );
+                    Gizmos.DrawWireSphere(attackPos, attack.attackColliderRadius);
+                }
+            }
         }
         
-        // Draw attack collider positions for each attack
-        if (attacks != null && Application.isPlaying)
+        if (playerTarget != null && Application.isPlaying)
         {
-            foreach (var attack in attacks)
-            {
-                Vector3 attackPos = transform.position + new Vector3(
-                    facingDirection * attack.attackColliderOffset.x,
-                    attack.attackColliderOffset.y,
-                    0
-                );
-                Gizmos.color = Color.magenta;
-                Gizmos.DrawWireSphere(attackPos, attack.attackColliderRadius);
-            }
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, playerTarget.position);
+            
+            Vector3 safePos = CalculateSafeFollowPosition();
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(safePos, 0.3f);
+            Gizmos.DrawLine(transform.position, safePos);
+            
+            #if UNITY_EDITOR
+            float cooldownRemaining = Mathf.Max(0, attackCooldownTimer);
+            UnityEditor.Handles.Label(transform.position + Vector3.up * 2.5f, 
+                $"State: {currentState}\nCooldown: {cooldownRemaining:F1}s\nBattle: {(battleStarted ? "ACTIVE" : "WAITING")}");
+            #endif
+        }
+        
+        if (caveBossTarget != null && Application.isPlaying)
+        {
+            Gizmos.color = battleStarted ? Color.red : Color.gray;
+            Gizmos.DrawLine(transform.position, caveBossTarget.position);
+            
+            float distance = Vector2.Distance(transform.position, caveBossTarget.position);
+            #if UNITY_EDITOR
+            UnityEditor.Handles.Label(caveBossTarget.position + Vector3.up * 3f, 
+                $"Distance: {distance:F2}\nIn Proximity: {isBossInAttackProximity}");
+            #endif
         }
     }
     #endregion
