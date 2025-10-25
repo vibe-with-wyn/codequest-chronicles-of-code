@@ -35,7 +35,7 @@ MonoBehaviour:
       isOptional: 0
       targetCount: 1
       currentCount: 1
-    - objectiveTitle: Defeat the Bringer of Death
+    - objectiveTitle: Defeat the Night Borne
       objectiveDescription: Complete the first quest by defeating the cave boss.
       isCompleted: 0
       isActive: 1

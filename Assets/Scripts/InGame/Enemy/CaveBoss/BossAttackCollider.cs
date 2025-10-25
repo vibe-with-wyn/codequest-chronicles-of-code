@@ -36,12 +36,20 @@ public class BossAttackCollider : MonoBehaviour
                 Debug.Log($"Boss dealt {damage} damage to player!");
             }
         }
-        // Hit NPC Arin (Arin doesn't have health, but you can add logic later)
+        // NEW: Hit NPC Arin (triggers hurt animation, no damage/health)
         else if (other.CompareTag("NPC") || other.name.Contains("Arin"))
         {
-            hasHit = true;
-            Debug.Log($"Boss attacked NPC Arin!");
-            // TODO: Add Arin damage handling if needed
+            ArinNPCAI arinAI = other.GetComponent<ArinNPCAI>();
+            if (arinAI != null)
+            {
+                arinAI.TakeHit();
+                hasHit = true;
+                Debug.Log($"Boss hit NPC Arin - hurt animation triggered!");
+            }
+            else
+            {
+                Debug.LogWarning($"NPC {other.name} doesn't have ArinNPCAI component!");
+            }
         }
     }
 

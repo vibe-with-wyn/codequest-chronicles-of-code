@@ -55,6 +55,9 @@ TagManager:
   - name: Panel
     uniqueID: 912852335
     locked: 0
+  - name: Enemy
+    uniqueID: 46909677
+    locked: 0
   m_RenderingLayers:
   - Default
   - Layer 1
