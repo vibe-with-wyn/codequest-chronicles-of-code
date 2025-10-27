@@ -1,0 +1,168 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a7aad384136c84cb9bb4e73c7f3422, type: 3}
+  m_Name: QuestDatabase_OakWoods
+  m_EditorClassIdentifier: Assembly-CSharp::QuestDatabase
+  allQuests:
+  - questId: Q1_SyntaxCave
+    questTitle: Into the Skull Cave
+    questDescription: Find the Skull Cave, aid the Water Magician, then defeat the
+      Night Borne.
+    questImage: {fileID: 0}
+    isCompleted: 0
+    isActive: 0
+    objectives:
+    - objectiveTitle: Find the Skull Cave
+      objectiveDescription: Reach the skull-shaped cave entrance.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    - objectiveTitle: Help the Water Magician
+      objectiveDescription: Assist Arin as the battle begins. (Auto when combat starts)
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    - objectiveTitle: Defeat the Night Borne
+      objectiveDescription: Defeat the cave boss.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    nextQuestId: Q2_HelloJava
+  - questId: Q2_HelloJava
+    questTitle: Hello, Java!
+    questDescription: Learn what Java is, how programs start, and print a message.
+    questImage: {fileID: 0}
+    isCompleted: 0
+    isActive: 0
+    objectives:
+    - objectiveTitle: Follow Arin to Her House
+      objectiveDescription: "Go to Arin\u2019s cottage to begin your first lesson."
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    - objectiveTitle: "Listen to Arin\u2019s Lesson: Java Basics"
+      objectiveDescription: Learn class, main method, braces, semicolons, and System.out.println.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    - objectiveTitle: Complete the Hello World Altar
+      objectiveDescription: Fill in class, main signature, and a println statement.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    nextQuestId: Q3_Types
+  - questId: Q3_Types
+    questTitle: The Language of Types
+    questDescription: "Learn basic types and declarations; restore the grove\u2019s
+      wards."
+    questImage: {fileID: 0}
+    isCompleted: 0
+    isActive: 0
+    objectives:
+    - objectiveTitle: Collect the Type Runes (3)
+      objectiveDescription: Gather runes labeled int, boolean, and String.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 3
+      currentCount: 0
+    - objectiveTitle: Fix the Declarations Tablet
+      objectiveDescription: Write valid variable declarations with correct types,
+        names, and semicolons.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    - objectiveTitle: Return to Arin
+      objectiveDescription: Report back after stabilizing the wards.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    nextQuestId: Q4_StringsPrinting
+  - questId: Q4_StringsPrinting
+    questTitle: Strings and Printing
+    questDescription: 'Work with text: string literals, escape sequences, and concatenation.'
+    questImage: {fileID: 0}
+    isCompleted: 0
+    isActive: 0
+    objectives:
+    - objectiveTitle: "Listen to Arin\u2019s Lesson: Strings and Printing"
+      objectiveDescription: Learn string literals, \n and \t, \" quotes, and using
+        + for concatenation.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    - objectiveTitle: Fix the Print Lines
+      objectiveDescription: Fill in println calls that concatenate text and show
+        escape sequences.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    - objectiveTitle: Activate the Echo Stone
+      objectiveDescription: Use the Echo Stone to read your printed lines aloud.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    nextQuestId: Q5_SyntaxTrial
+  - questId: Q5_SyntaxTrial
+    questTitle: The Syntax Trial
+    questDescription: Assemble a clean class with main and valid statements to prove
+      mastery.
+    questImage: {fileID: 0}
+    isCompleted: 0
+    isActive: 0
+    objectives:
+    - objectiveTitle: Assemble the Class Skeleton
+      objectiveDescription: Put the class header, main method, and braces in the
+        right places.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    - objectiveTitle: Complete the Syntax Trial Tablet
+      objectiveDescription: 'Write valid statements: declarations, string concatenation,
+        and println (with semicolons).'
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    - objectiveTitle: Speak with Arin at the Forest Edge
+      objectiveDescription: Conclude the Oak Woods chapter.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    nextQuestId: 

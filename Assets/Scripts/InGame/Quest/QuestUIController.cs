@@ -14,19 +14,28 @@ public class QuestUIController : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private Button closeButton;
     
-    [Header("NEW: Individual Objective Text Fields")]
-    [SerializeField] private TextMeshProUGUI objective1Text; // First objective
-    [SerializeField] private TextMeshProUGUI objective2Text; // Second objective
-    [SerializeField] private TextMeshProUGUI objective3Text; // Third objective
-    [SerializeField] private TextMeshProUGUI[] additionalObjectiveTexts; // For quests with more than 3 objectives
+    [Header("Individual Objective Text Fields")]
+    [SerializeField] private TextMeshProUGUI objective1Text;
+    [SerializeField] private TextMeshProUGUI objective2Text;
+    [SerializeField] private TextMeshProUGUI objective3Text;
+    [SerializeField] private TextMeshProUGUI[] additionalObjectiveTexts;
     
-    [Header("Objective Display (Dynamic)")]
-    [SerializeField] private Transform objectivesContainer; // Parent for objective list
-    [SerializeField] private GameObject objectivePrefab; // Prefab for each objective
-    [SerializeField] private bool useStaticTextFields = true; // Toggle between static fields and dynamic creation
+    [Header("Objective Styling")]
+    [SerializeField] private Color completedObjectiveColor = Color.green;
+    [SerializeField] private Color activeObjectiveColor = Color.white;
+    [SerializeField] private Color inactiveObjectiveColor = Color.gray;
+    [SerializeField] private Sprite completedIcon;
+    [SerializeField] private Sprite activeIcon;
+    [SerializeField] private Sprite inactiveIcon;
+    
+    [Header("Objective Status Icons")]
+    [SerializeField] private Image objective1Icon;
+    [SerializeField] private Image objective2Icon;
+    [SerializeField] private Image objective3Icon;
+    [SerializeField] private Image[] additionalObjectiveIcons;
     
     [Header("Progress Display")]
-    [SerializeField] private Slider questProgressBar; // Overall progress
+    [SerializeField] private Slider questProgressBar;
     [SerializeField] private TextMeshProUGUI progressText; // "2/3 completed"
     
     [Header("Decoration Settings")]
@@ -100,7 +109,7 @@ public class QuestUIController : MonoBehaviour
         // Initialize objective text fields
         InitializeObjectiveTextFields();
         
-        Debug.Log("QuestUIController initialized with separate objective text fields");
+        Debug.Log("QuestUIController initialized with customizable objective styling");
     }
     
     private void InitializeObjectiveTextFields()
@@ -108,11 +117,7 @@ public class QuestUIController : MonoBehaviour
         // Clear all objective text fields initially
         ClearAllObjectiveTexts();
         
-        Debug.Log($"Initialized objective text fields - Static: {useStaticTextFields}");
-        if (useStaticTextFields)
-        {
-            Debug.Log($"Static fields available: Obj1: {objective1Text != null}, Obj2: {objective2Text != null}, Obj3: {objective3Text != null}");
-        }
+        Debug.Log($"Objective text fields available: Obj1: {objective1Text != null}, Obj2: {objective2Text != null}, Obj3: {objective3Text != null}");
     }
     
     private void ClearAllObjectiveTexts()
@@ -126,6 +131,19 @@ public class QuestUIController : MonoBehaviour
             foreach (var objText in additionalObjectiveTexts)
             {
                 if (objText != null) objText.text = "";
+            }
+        }
+        
+        // Clear icons as well
+        if (objective1Icon != null) objective1Icon.sprite = null;
+        if (objective2Icon != null) objective2Icon.sprite = null;
+        if (objective3Icon != null) objective3Icon.sprite = null;
+        
+        if (additionalObjectiveIcons != null)
+        {
+            foreach (var icon in additionalObjectiveIcons)
+            {
+                if (icon != null) icon.sprite = null;
             }
         }
     }
@@ -190,8 +208,8 @@ public class QuestUIController : MonoBehaviour
         
         foreach (Image img in allImages)
         {
-            // Skip the main quest scroll image
-            if (img != questScrollImage)
+            // Skip the main quest scroll image and objective icons
+            if (img != questScrollImage && !IsObjectiveIcon(img))
             {
                 decorationImagesList.Add(img);
             }
@@ -202,6 +220,22 @@ public class QuestUIController : MonoBehaviour
             decorationImages = decorationImagesList.ToArray();
             Debug.Log($"Auto-found {decorationImages.Length} Image decorations");
         }
+    }
+    
+    private bool IsObjectiveIcon(Image img)
+    {
+        if (objective1Icon == img || objective2Icon == img || objective3Icon == img)
+            return true;
+        
+        if (additionalObjectiveIcons != null)
+        {
+            foreach (var icon in additionalObjectiveIcons)
+            {
+                if (icon == img) return true;
+            }
+        }
+        
+        return false;
     }
     
     private void SetDecorationsVisibility(bool visible)
@@ -321,7 +355,6 @@ public class QuestUIController : MonoBehaviour
     private void OnQuestCompleted(QuestData quest)
     {
         Debug.Log($"Quest completed: {quest.questTitle}");
-        // You can add special completion effects here
     }
     
     // Called when objective is completed
@@ -382,7 +415,7 @@ public class QuestUIController : MonoBehaviour
         }
     }
     
-    // ENHANCED: Update quest display with separate objective texts
+    // Update quest display with separate objective texts
     private void UpdateQuestDisplay(QuestData quest)
     {
         if (questTitleText != null)
@@ -394,8 +427,6 @@ public class QuestUIController : MonoBehaviour
         // Update quest image if provided
         if (questScrollImage != null && quest.questImage != null)
             questScrollImage.sprite = quest.questImage;
-        else if (questScrollImage != null && defaultScrollSprite != null)
-            questScrollImage.sprite = defaultScrollSprite;
         
         // Update progress bar
         if (questProgressBar != null)
@@ -415,44 +446,47 @@ public class QuestUIController : MonoBehaviour
         UpdateObjectiveDisplay(quest);
     }
     
-    // NEW: Update objectives using separate text fields
+    // Update objectives with customizable colors and icons
     private void UpdateObjectiveDisplay(QuestData quest)
-    {
-        if (useStaticTextFields)
-        {
-            UpdateStaticObjectiveTexts(quest);
-        }
-        else
-        {
-            UpdateDynamicObjectiveTexts(quest);
-        }
-    }
-    
-    // NEW: Update static text fields for objectives
-    private void UpdateStaticObjectiveTexts(QuestData quest)
     {
         // Clear all texts first
         ClearAllObjectiveTexts();
         
-        Debug.Log($"Updating static objective texts. Quest has {quest.objectives.Count} objectives");
+        Debug.Log($"Updating objective display. Quest has {quest.objectives.Count} objectives");
         
         // Update each objective text field
         for (int i = 0; i < quest.objectives.Count; i++)
         {
             var objective = quest.objectives[i];
-            string status = objective.isCompleted ? "✓" : (objective.isActive ? "▶" : "○");
-            string objectiveText = $"{status} {objective.objectiveTitle}";
             
-            // Add progress for count-based objectives
+            // Determine color and icon based on objective state
+            Color textColor;
+            Sprite iconSprite;
+            
+            if (objective.isCompleted)
+            {
+                textColor = completedObjectiveColor;
+                iconSprite = completedIcon;
+            }
+            else if (objective.isActive)
+            {
+                textColor = activeObjectiveColor;
+                iconSprite = activeIcon;
+            }
+            else
+            {
+                textColor = inactiveObjectiveColor;
+                iconSprite = inactiveIcon;
+            }
+            
+            // Build objective text with progress if applicable
+            string objectiveText = objective.objectiveTitle;
             if (objective.targetCount > 1)
             {
                 objectiveText += $" ({objective.currentCount}/{objective.targetCount})";
             }
             
-            Color textColor = objective.isCompleted ? Color.green : 
-                             (objective.isActive ? Color.white : Color.gray);
-            
-            // Assign to appropriate text field
+            // Assign to appropriate text field and icon
             switch (i)
             {
                 case 0:
@@ -460,7 +494,10 @@ public class QuestUIController : MonoBehaviour
                     {
                         objective1Text.text = objectiveText;
                         objective1Text.color = textColor;
-                        Debug.Log($"Set objective 1: {objectiveText}");
+                    }
+                    if (objective1Icon != null)
+                    {
+                        objective1Icon.sprite = iconSprite;
                     }
                     break;
                 case 1:
@@ -468,7 +505,10 @@ public class QuestUIController : MonoBehaviour
                     {
                         objective2Text.text = objectiveText;
                         objective2Text.color = textColor;
-                        Debug.Log($"Set objective 2: {objectiveText}");
+                    }
+                    if (objective2Icon != null)
+                    {
+                        objective2Icon.sprite = iconSprite;
                     }
                     break;
                 case 2:
@@ -476,7 +516,10 @@ public class QuestUIController : MonoBehaviour
                     {
                         objective3Text.text = objectiveText;
                         objective3Text.color = textColor;
-                        Debug.Log($"Set objective 3: {objectiveText}");
+                    }
+                    if (objective3Icon != null)
+                    {
+                        objective3Icon.sprite = iconSprite;
                     }
                     break;
                 default:
@@ -488,75 +531,18 @@ public class QuestUIController : MonoBehaviour
                         {
                             additionalObjectiveTexts[additionalIndex].text = objectiveText;
                             additionalObjectiveTexts[additionalIndex].color = textColor;
-                            Debug.Log($"Set additional objective {additionalIndex + 1}: {objectiveText}");
+                        }
+                    }
+                    if (additionalObjectiveIcons != null && additionalIndex < additionalObjectiveIcons.Length)
+                    {
+                        if (additionalObjectiveIcons[additionalIndex] != null)
+                        {
+                            additionalObjectiveIcons[additionalIndex].sprite = iconSprite;
                         }
                     }
                     break;
             }
         }
-    }
-    
-    // Existing dynamic objective creation (kept as fallback)
-    private void UpdateDynamicObjectiveTexts(QuestData quest)
-    {
-        if (objectivesContainer == null) return;
-        
-        // Clear existing objective UI
-        ClearObjectiveItems();
-        
-        // Create UI for each objective
-        foreach (var objective in quest.objectives)
-        {
-            CreateObjectiveItem(objective);
-        }
-    }
-    
-    // Create individual objective UI item (existing method)
-    private void CreateObjectiveItem(QuestObjective objective)
-    {
-        if (objectivePrefab != null)
-        {
-            GameObject objectiveItem = Instantiate(objectivePrefab, objectivesContainer);
-            activeObjectiveItems.Add(objectiveItem);
-            
-            // Setup objective UI
-            ObjectiveItemUI objectiveUI = objectiveItem.GetComponent<ObjectiveItemUI>();
-            if (objectiveUI != null)
-            {
-                objectiveUI.SetupObjective(objective);
-            }
-        }
-        else
-        {
-            // Fallback: create simple text display
-            GameObject textObj = new GameObject("ObjectiveText");
-            textObj.transform.SetParent(objectivesContainer);
-            
-            TextMeshProUGUI text = textObj.AddComponent<TextMeshProUGUI>();
-            string status = objective.isCompleted ? "✓" : (objective.isActive ? "▶" : "○");
-            text.text = $"{status} {objective.objectiveTitle}";
-            
-            // Color coding
-            if (objective.isCompleted)
-                text.color = Color.green;
-            else if (objective.isActive)
-                text.color = Color.white;
-            else
-                text.color = Color.gray;
-            
-            activeObjectiveItems.Add(textObj);
-        }
-    }
-    
-    // Clear all objective UI items
-    private void ClearObjectiveItems()
-    {
-        foreach (GameObject item in activeObjectiveItems)
-        {
-            if (item != null)
-                Destroy(item);
-        }
-        activeObjectiveItems.Clear();
     }
     
     private IEnumerator AutoHideAfterDelay()
@@ -592,7 +578,7 @@ public class QuestUIController : MonoBehaviour
         questDisplayPanel.SetActive(false);
         SetDecorationsVisibility(false);
         ClearObjectiveItems();
-        ClearAllObjectiveTexts(); // NEW: Clear static texts too
+        ClearAllObjectiveTexts();
         isDisplaying = false;
         
         Debug.Log("Quest display and decorations hidden");
@@ -626,6 +612,17 @@ public class QuestUIController : MonoBehaviour
         SetDecorationsAlpha(endAlpha);
         
         Debug.Log($"Fade completed: Panel and decorations alpha set to {endAlpha}");
+    }
+    
+    // Clear all objective UI items (for dynamic prefab fallback if needed)
+    private void ClearObjectiveItems()
+    {
+        foreach (GameObject item in activeObjectiveItems)
+        {
+            if (item != null)
+                Destroy(item);
+        }
+        activeObjectiveItems.Clear();
     }
     
     // Button event handlers
