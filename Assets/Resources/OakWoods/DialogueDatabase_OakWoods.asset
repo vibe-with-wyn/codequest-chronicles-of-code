@@ -1,0 +1,147 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: DialogueDatabase_OakWoods
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueDatabase
+  conversations:
+  - conversationId: Arin_01_PostBoss
+    lines:
+    - speaker: Arin
+      text: You fought bravely. Not many step into that cave and walk back out.
+    - speaker: Roran
+      text: You looked like you needed help.
+    - speaker: Arin
+      text: "I did. Thank you. You don\u2019t look like a local. What brings you
+        to Oak Woods?"
+    - speaker: Roran
+      text: "I\u2019m new to this land. I\u2019m searching for knowledge\u2014and
+        a way to survive."
+    - speaker: Arin
+      text: "Then you\u2019ve chosen the right power. Here, code is more than ink\u2014it
+        moves the world."
+    - speaker: Roran
+      text: "I\u2019ve heard. But I don\u2019t know where to start."
+    - speaker: Arin
+      text: "Start with me. I\u2019ll mentor you. Come to my cottage. We\u2019ll
+        begin with Java: what it is, and how to speak it."
+    - speaker: Roran
+      text: Lead the way.
+    - speaker: Arin
+      text: "Follow me to the edge of the woods. Don\u2019t stray. The forest tests
+        syntax more than strength."
+  - conversationId: Arin_02_JavaBasics
+    lines:
+    - speaker: Arin
+      text: "Let\u2019s start simple. Java is a language used to build many kinds
+        of applications."
+    - speaker: Arin
+      text: You put code inside a class. A class is a container for your program.
+    - speaker: Arin
+      text: Programs begin in a special method named main. Java looks for this to
+        start.
+    - speaker: Arin
+      text: "The exact main method you\u2019ll use is:"
+    - speaker: Arin
+      text: public static void main(String[] args)
+    - speaker: Arin
+      text: Curly braces { } group code. End each statement with a semicolon ;
+    - speaker: Arin
+      text: 'To show text: System.out.println("your message");'
+    - speaker: Arin
+      text: The class name should start with a capital letter, like HelloOak.
+    - speaker: Arin
+      text: 'Now fill in the blanks to create your first program: class, main, and
+        a println.'
+    - speaker: Roran
+      text: Understood. Class, main, braces, semicolons, and System.out.println.
+  - conversationId: Arin_02b_PostHello
+    lines:
+    - speaker: Arin
+      text: Well done! Your first program prints a message.
+    - speaker: Roran
+      text: So many symbols for one sentence.
+    - speaker: Arin
+      text: "Symbols give structure; structure gives power. Next, we\u2019ll store
+        values using variables and types."
+  - conversationId: Arin_03_TypesLecture
+    lines:
+    - speaker: Arin
+      text: Variables store information. Each has a type and a name.
+    - speaker: Arin
+      text: 'Common types: int (whole numbers), double (decimals), boolean (true/false),
+        String (text).'
+    - speaker: Arin
+      text: 'Examples:'
+    - speaker: Arin
+      text: int lives = 3;    double speed = 2.5;
+    - speaker: Arin
+      text: boolean isMage = false;    String name = "Roran";
+    - speaker: Arin
+      text: 'Remember: end with a semicolon. Names are case-sensitive.'
+    - speaker: Arin
+      text: Gather the runes int, boolean, and String, then fix the Declarations
+        Tablet.
+  - conversationId: Arin_03_PostTypes
+    lines:
+    - speaker: Arin
+      text: "Your types align. The grove\u2019s wards are stable again."
+    - speaker: Roran
+      text: A missing semicolon breaks everything.
+    - speaker: Arin
+      text: "That\u2019s syntax. Next: strings and printing details."
+  - conversationId: Arin_04_StringsLecture
+    lines:
+    - speaker: Arin
+      text: Strings are text in quotes, like "Hello".
+    - speaker: Arin
+      text: Use System.out.println to print with a new line, or System.out.print
+        to stay on the same line.
+    - speaker: Arin
+      text: 'Join pieces with +, like "Name: " + name.'
+    - speaker: Arin
+      text: 'Escape sequences help inside quotes: \" for a quote, \\ for backslash,
+        \n for new line, \t for tab.'
+    - speaker: Arin
+      text: Fix the print lines to show your name and a two-line message using these
+        rules.
+  - conversationId: Arin_04_PostStrings
+    lines:
+    - speaker: Arin
+      text: Clear and correct. Your text rings true.
+    - speaker: Roran
+      text: I can shape messages exactly now.
+    - speaker: Arin
+      text: 'One final trial: build a clean class with main and valid statements.'
+  - conversationId: Arin_05_SyntaxRecap
+    lines:
+    - speaker: Arin
+      text: 'Recap: A class wraps code. main is the entry point.'
+    - speaker: Arin
+      text: Statements end with semicolons. Braces must match.
+    - speaker: Arin
+      text: 'You can add comments: // single line, or /* multi-line */.'
+    - speaker: Arin
+      text: Use declarations and println with concatenation to present information
+        clearly.
+  - conversationId: Arin_05_Epilogue
+    lines:
+    - speaker: Arin
+      text: "You\u2019ve mastered the basics of Java syntax. Oak Woods recognizes
+        you."
+    - speaker: Roran
+      text: "I can finally read the forest\u2019s words."
+    - speaker: Arin
+      text: Syntax is your compass. Keep practicing, Codebreaker.
+    - speaker: Roran
+      text: Thank you, Arin.
+    - speaker: Arin
+      text: "If fate loops us back, I\u2019ll be here. For now, walk on."
