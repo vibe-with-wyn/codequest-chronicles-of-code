@@ -351,11 +351,34 @@ public class UIController : MonoBehaviour
     #endregion
 
     #region Public Methods
+    // FIXED: Health bar now properly reflects max HP changes
     public void UpdateHealth(float newHealth)
     {
-        playerHealth = Mathf.Clamp(newHealth, 0f, 100f);
         if (healthBar != null)
-            healthBar.value = playerHealth / 100f;
+        {
+            // Get the actual max HP from PlayerHealth to calculate correct percentage
+            PlayerHealth playerHealthComponent = Object.FindFirstObjectByType<PlayerHealth>();
+            if (playerHealthComponent != null)
+            {
+                int maxHP = playerHealthComponent.GetMaxHealth();
+                int currentHP = Mathf.Clamp((int)newHealth, 0, maxHP);
+                
+                // Calculate percentage based on ACTUAL max HP, not hardcoded 100
+                float healthPercentage = (float)currentHP / maxHP;
+                healthBar.value = healthPercentage;
+                
+                playerHealth = newHealth;
+                
+                Debug.Log($"Health updated: {currentHP}/{maxHP} = {healthPercentage * 100:F1}%");
+            }
+            else
+            {
+                // Fallback if PlayerHealth not found
+                playerHealth = Mathf.Clamp(newHealth, 0f, 200f);
+                healthBar.value = playerHealth / 200f;
+                Debug.LogWarning("PlayerHealth component not found, using fallback calculation");
+            }
+        }
     }
 
     public void ResetJump()

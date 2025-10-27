@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -593,63 +593,64 @@ public class CaveBossAI : MonoBehaviour
     private void SelectNearestTarget()
     {
         Transform nearestTarget = null;
-        float nearestDistance = float.MaxValue;
+        float playerDistance = float.MaxValue;
+        float npcDistance = float.MaxValue;
 
-        // CRITICAL FIX: Check if player is STILL ALIVE and track them even if they leave detection zone
+        // CHECK PLAYER: Always check player first and get their distance
         if (canChasePlayer && playerTransform != null)
         {
             PlayerHealth playerHealth = playerTransform.GetComponent<PlayerHealth>();
             if (playerHealth != null && playerHealth.IsAlive())
             {
-                float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+                playerDistance = Vector2.Distance(transform.position, playerTransform.position);
 
                 // Only stop tracking if player is REALLY far away (2x detection range)
-                if (distanceToPlayer <= playerDetectionRange * 2f)
+                if (playerDistance > playerDetectionRange * 2f)
                 {
-                    if (distanceToPlayer < nearestDistance)
-                    {
-                        nearestDistance = distanceToPlayer;
-                        nearestTarget = playerTransform;
-                    }
-                }
-                else
-                {
-                    // Player is too far - clear reference
-                    Debug.Log($"Player is too far ({distanceToPlayer:F2} > {playerDetectionRange * 2f}) - clearing reference");
+                    Debug.Log($"Player is too far ({playerDistance:F2} > {playerDetectionRange * 2f}) - clearing reference");
                     playerTransform = null;
                     isPlayerDetected = false;
+                    playerDistance = float.MaxValue;
                 }
             }
             else
             {
                 // Player is dead - clear reference
-                Debug.Log("Player is dead - clearing reference");
-                playerTransform = null;
+                if (playerTransform != null)
+                {
+                    Debug.Log("Player is dead - clearing reference");
+                    playerTransform = null;
+                }
                 isPlayerDetected = false;
+                playerDistance = float.MaxValue;
             }
         }
 
-        // CRITICAL FIX: Same for NPC - keep tracking even outside detection zone
+        // CHECK NPC: Then check NPC distance
         if (canChaseNPC && npcTransform != null)
         {
-            float distanceToNPC = Vector2.Distance(transform.position, npcTransform.position);
+            npcDistance = Vector2.Distance(transform.position, npcTransform.position);
 
             // Only stop tracking if NPC is REALLY far away (2x detection range)
-            if (distanceToNPC <= npcDetectionRange * 2f)
+            if (npcDistance > npcDetectionRange * 2f)
             {
-                if (distanceToNPC < nearestDistance)
-                {
-                    nearestDistance = distanceToNPC;
-                    nearestTarget = npcTransform;
-                }
-            }
-            else
-            {
-                // NPC is too far - clear reference
-                Debug.Log($"NPC is too far ({distanceToNPC:F2} > {npcDetectionRange * 2f}) - clearing reference");
+                Debug.Log($"NPC is too far ({npcDistance:F2} > {npcDetectionRange * 2f}) - clearing reference");
                 npcTransform = null;
                 isNPCDetected = false;
+                npcDistance = float.MaxValue;
             }
+        }
+
+        // PRIORITY: Player is ALWAYS targeted if alive and in range, regardless of proximity
+        if (playerDistance < float.MaxValue)
+        {
+            nearestTarget = playerTransform;
+            Debug.Log($"★ TARGETING PLAYER (Distance: {playerDistance:F2}, NPC Distance: {npcDistance:F2})");
+        }
+        else if (npcDistance < float.MaxValue)
+        {
+            nearestTarget = npcTransform;
+            Debug.Log($"★ TARGETING NPC (Player unavailable, NPC Distance: {npcDistance:F2})");
         }
 
         // Update current target if changed
@@ -660,8 +661,8 @@ public class CaveBossAI : MonoBehaviour
                 Vector2 directionToTarget = (nearestTarget.position - transform.position).normalized;
                 UpdateFacingDirection(directionToTarget.x);
                 
-                string targetName = nearestTarget == playerTransform ? "PLAYER" : "NPC Arin";
-                Debug.Log($"NightBorne now targeting: {targetName} (Nearest, Distance: {nearestDistance:F2})");
+                string targetName = nearestTarget == playerTransform ? "PLAYER ★" : "NPC Arin";
+                Debug.Log($"NightBorne now targeting: {targetName} (Distance: {(nearestTarget == playerTransform ? playerDistance : npcDistance):F2})");
             }
             else if (currentTarget != null)
             {
