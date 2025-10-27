@@ -104,6 +104,8 @@ public class CaveBossAI : MonoBehaviour
     // Death
     private bool isDead = false;
 
+    public static event System.Action<CaveBossAI> BossDefeated;
+
     void Start()
     {
         InitializeComponents();
@@ -519,14 +521,15 @@ public class CaveBossAI : MonoBehaviour
         return Time.time >= lastAttackTime + attackCooldown;
     }
 
-    // FIXED: Remove isHurt check to allow spam attacks
+    // CRITICAL FIX: Remove isHurt check - boss can now take damage repeatedly!
     public void TakeDamage(int damage)
     {
-        if (isDead) return; // Only block if dead, NOT if hurt!
+        // ONLY block damage if boss is dead (not if hurt!)
+        if (isDead) return;
 
         Debug.Log($"NightBorne taking damage: {damage} (isHurt={isHurt})");
 
-        // Play hurt animation
+        // Play hurt animation (doesn't block damage)
         if (animator != null && HasAnimatorParameter("Hurt", AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger("Hurt");
@@ -540,8 +543,8 @@ public class CaveBossAI : MonoBehaviour
             Debug.Log($"NightBorne HP: {enemyHealth.GetCurrentHealth()}/{enemyHealth.GetMaxHealth()}");
         }
 
-        // Set hurt state (but it won't block damage anymore)
-        if (!isHurt) // Only set hurt state if not already hurt
+        // Set hurt state for animation/visual feedback (but doesn't block damage anymore)
+        if (!isHurt)
         {
             isHurt = true;
             hurtRecoveryTimer = hurtDuration;
@@ -549,6 +552,7 @@ public class CaveBossAI : MonoBehaviour
             // Only transition to Hurt state if not currently attacking
             if (currentState != BossState.Attacking)
             {
+                previousState = currentState;
                 TransitionToState(BossState.Hurt);
             }
         }
@@ -563,7 +567,7 @@ public class CaveBossAI : MonoBehaviour
         if (hurtRecoveryTimer <= 0f)
         {
             isHurt = false;
-            Debug.Log("Boss hurt state RESET - can now be damaged again");
+            Debug.Log("Boss hurt state RESET - visual feedback complete");
 
             if (currentState == BossState.Hurt)
             {
@@ -747,6 +751,22 @@ public class CaveBossAI : MonoBehaviour
         else
         {
             Debug.LogError("Die trigger not found in NightBorne animator!");
+        }
+
+        // NEW: Complete Q1 objective if active (safe no-op otherwise)
+        if (QuestManager.Instance != null)
+        {
+            QuestManager.Instance.CompleteObjectiveByTitle("Defeat the Night Borne");
+        }
+
+        // NEW: Notify listeners (Arin approach + dialogue)
+        try
+        {
+            BossDefeated?.Invoke(this);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Error invoking BossDefeated: {e.Message}");
         }
 
         StartCoroutine(HandleDeathSequence());

@@ -86,9 +86,9 @@ public class PlayerAttackCollider : MonoBehaviour
         {
             bool isBodyHit = bossAI.IsBodyCollider(hitCollider);
             bool isDetectionHit = bossAI.IsDetectionCollider(hitCollider);
-            
+
             Debug.Log($"Boss collision analysis - Body: {isBodyHit}, Detection: {isDetectionHit}");
-            
+
             if (isBodyHit)
             {
                 Debug.Log("✓ Player hit confirmed: Boss body collider");
@@ -137,9 +137,9 @@ public class PlayerAttackCollider : MonoBehaviour
         {
             bool isBodyHit = enemyAI.IsBodyCollider(hitCollider);
             bool isDetectionHit = enemyAI.IsDetectionCollider(hitCollider);
-            
+
             Debug.Log($"Collision analysis - Body: {isBodyHit}, Detection: {isDetectionHit}");
-            
+
             if (isBodyHit)
             {
                 Debug.Log("✓ Hit confirmed: Enemy body collider");
@@ -165,7 +165,7 @@ public class PlayerAttackCollider : MonoBehaviour
         }
 
         // Method 3: Check by GameObject name (additional fallback)
-        if (hitCollider.gameObject.name.ToLower().Contains("detection") || 
+        if (hitCollider.gameObject.name.ToLower().Contains("detection") ||
             hitCollider.gameObject.name.ToLower().Contains("trigger"))
         {
             Debug.Log("✗ Hit rejected: GameObject name suggests detection/trigger collider");
