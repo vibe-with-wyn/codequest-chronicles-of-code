@@ -49,7 +49,7 @@ public class GameWorldContextController : MonoBehaviour
 
         if (!isSkipping)
         {
-            yield return new WaitForSeconds(2f); // 2-second delay after narration ends
+            yield return new WaitForSeconds(1.2f); // 2-second delay after narration ends
             LoadNextScene();
         }
     }
