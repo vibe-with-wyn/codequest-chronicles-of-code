@@ -54,11 +54,14 @@ public class ArinNPCAI : MonoBehaviour
     [Tooltip("Speed when moving/following")]
     [SerializeField] private float moveSpeed = 3f;
     
-    [Tooltip("Distance to maintain from the player when following (safe side)")]
-    [SerializeField] private float followDistanceFromPlayer = 2.5f;
+    [Tooltip("Distance to maintain from the player when following (safe side behind player)")]
+    [SerializeField] private float followDistanceFromPlayer = 3.5f;
     
     [Tooltip("How close Arin gets to the follow position before stopping")]
-    [SerializeField] private float followStopDistance = 0.5f;
+    [SerializeField] private float followStopDistance = 0.3f;
+    
+    [Tooltip("Distance Arin moves toward boss when attacking")]
+    [SerializeField] private float attackAdvanceDistance = 2.5f;
     
     [Tooltip("Delay after attacking before returning to player")]
     [SerializeField] private float returnToPlayerDelay = 0.5f;
@@ -296,12 +299,14 @@ public class ArinNPCAI : MonoBehaviour
             return;
         }
         
+        // Only approach boss if ready to attack AND boss is in range
         if (battleStarted && isBossInAttackProximity && caveBossTarget != null && IsAttackReady())
         {
             TransitionToState(NPCState.ApproachingBoss);
             return;
         }
         
+        // ALWAYS maintain distance behind player - this is the safe position
         Vector3 targetPosition = CalculateSafeFollowPosition();
         
         float distanceToTarget = Vector2.Distance(transform.position, targetPosition);
@@ -320,6 +325,7 @@ public class ArinNPCAI : MonoBehaviour
         }
         else
         {
+            // At safe distance - stop moving
             if (rb != null)
             {
                 rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -345,8 +351,10 @@ public class ArinNPCAI : MonoBehaviour
         
         float distanceToBoss = Vector2.Distance(transform.position, caveBossTarget.position);
         
+        // ONLY move forward to attack if within attack range
         if (distanceToBoss <= attackRange)
         {
+            // Stop moving - ready to attack
             if (rb != null)
             {
                 rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -361,6 +369,7 @@ public class ArinNPCAI : MonoBehaviour
         }
         else
         {
+            // Move toward boss only if far away
             Vector2 direction = (caveBossTarget.position - transform.position).normalized;
             
             if (rb != null)
@@ -371,12 +380,13 @@ public class ArinNPCAI : MonoBehaviour
             UpdateFacingDirection(direction.x);
             SetAnimatorBool("isMoving", true);
             
-            Debug.Log($"Arin approaching boss - Distance: {distanceToBoss:F2}");
+            Debug.Log($"Arin approaching boss - Distance: {distanceToBoss:F2} (Need: {attackRange})");
         }
     }
 
     private void HandleAttackingState()
     {
+        // Stop all movement during attack
         if (rb != null)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -393,6 +403,7 @@ public class ArinNPCAI : MonoBehaviour
             return;
         }
         
+        // Return to safe position behind player
         Vector3 targetPosition = CalculateSafeFollowPosition();
         
         float distanceToTarget = Vector2.Distance(transform.position, targetPosition);
@@ -411,12 +422,14 @@ public class ArinNPCAI : MonoBehaviour
         }
         else
         {
+            // Back at safe position
             TransitionToState(NPCState.FollowingPlayer);
         }
     }
 
     private void HandleAttackCooldownState()
     {
+        // Stop movement during cooldown
         if (rb != null)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -625,7 +638,7 @@ public class ArinNPCAI : MonoBehaviour
     }
     #endregion
 
-    #region Hurt System - SIMPLE (Like Player/Enemies)
+    #region Hurt System
     /// <summary>
     /// Called by boss attack collider to make Arin play hurt animation
     /// Works exactly like PlayerMovement.TriggerHurt() - just triggers animation, no state changes
@@ -634,8 +647,6 @@ public class ArinNPCAI : MonoBehaviour
     {
         Debug.Log("Arin got hit by boss - playing hurt animation!");
         
-        // Just trigger the hurt animation - that's it!
-        // Same as PlayerMovement.TriggerHurt() and EnemyAI.TakeDamage()
         if (animator != null && HasAnimatorParameter("Hurt", AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger("Hurt");
@@ -645,14 +656,13 @@ public class ArinNPCAI : MonoBehaviour
         {
             Debug.LogWarning("Hurt trigger not found in Arin's animator!");
         }
-        
-        // That's all! No state changes, no pausing, no invulnerability
-        // Arin just plays the animation and keeps doing what she was doing
-        // Exactly like how the player and enemies work
     }
     #endregion
 
     #region Smart Positioning
+    /// <summary>
+    /// Calculate safe follow position - ALWAYS behind player, away from boss
+    /// </summary>
     private Vector3 CalculateSafeFollowPosition()
     {
         if (playerTarget == null)
@@ -660,19 +670,28 @@ public class ArinNPCAI : MonoBehaviour
         
         Vector3 playerPos = playerTarget.position;
         
-        if (caveBossTarget == null || !battleStarted)
+        // Get player's facing direction to place Arin BEHIND the player
+        float playerFacing = playerTarget.GetComponent<PlayerMovement>()?.GetFacingDirection() ?? 1f;
+        
+        // If battle NOT started, just follow behind player's current facing
+        if (!battleStarted || caveBossTarget == null)
         {
-            float playerFacing = playerTarget.GetComponent<PlayerMovement>()?.GetFacingDirection() ?? 1f;
-            return playerPos + new Vector3(-playerFacing * followDistanceFromPlayer, 0, 0);
+            // ALWAYS place Arin behind player (opposite of player's facing direction)
+            Vector3 safePos = playerPos + new Vector3(-playerFacing * followDistanceFromPlayer, 0, 0);
+            Debug.Log($"Non-battle follow: Player at {playerPos}, Arin target: {safePos}, Distance: {followDistanceFromPlayer}");
+            return safePos;
         }
         
+        // BATTLE ACTIVE: Calculate position based on player-to-boss direction
         Vector3 bossPos = caveBossTarget.position;
         Vector2 playerToBoss = (bossPos - playerPos).normalized;
         
+        // Place Arin BEHIND player (away from boss)
         Vector2 safeDirection = -playerToBoss;
-        Vector3 safePosition = playerPos + new Vector3(safeDirection.x * followDistanceFromPlayer, 0, 0);
+        Vector3 battleSafePos = playerPos + new Vector3(safeDirection.x * followDistanceFromPlayer, 0, 0);
         
-        return safePosition;
+        Debug.Log($"Battle follow: Player={playerPos}, Boss={bossPos}, SafeDir={safeDirection.x:F2}, Arin target={battleSafePos}");
+        return battleSafePos;
     }
     #endregion
 
@@ -821,7 +840,7 @@ public class ArinNPCAI : MonoBehaviour
             #if UNITY_EDITOR
             float cooldownRemaining = Mathf.Max(0, attackCooldownTimer);
             UnityEditor.Handles.Label(transform.position + Vector3.up * 2.5f, 
-                $"State: {currentState}\nCooldown: {cooldownRemaining:F1}s\nBattle: {(battleStarted ? "ACTIVE" : "WAITING")}");
+                $"State: {currentState}\nCooldown: {cooldownRemaining:F1}s\nBattle: {(battleStarted ? "ACTIVE" : "WAITING")}\nDistance to Safe: {Vector2.Distance(transform.position, safePos):F2}");
             #endif
         }
         
