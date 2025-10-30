@@ -39,25 +39,6 @@ public class PostBossConversationController : MonoBehaviour
     [Header("Cabin Walk Speed")]
     [SerializeField] private float cabinWalkSpeed = 3.0f;
 
-    [Header("NEW: Improved Ground Detection")]
-    [SerializeField] private LayerMask groundLayerMask = 1;
-    [Tooltip("Width of the ground detection box (slightly narrower than Arin's collider)")]
-    [SerializeField] private float groundCheckWidth = 0.8f;
-    [Tooltip("Height of the ground detection box")]
-    [SerializeField] private float groundCheckHeight = 0.2f;
-    [Tooltip("How far ahead of Arin to check for ground")]
-    [SerializeField] private float groundCheckAheadDistance = 0.5f;
-    [Tooltip("How far down to check for ground from Arin's feet")]
-    [SerializeField] private float groundCheckDownDistance = 1.5f;
-    [Tooltip("Offset from Arin's bottom to start ground checks")]
-    [SerializeField] private Vector2 groundCheckOffset = new Vector2(0, -0.9f);
-    [Tooltip("Maximum step height Arin can climb (for stairs)")]
-    [SerializeField] private float maxStepHeight = 0.5f;
-    [Tooltip("Fine-tune Arin's Y position above detected ground")]
-    [SerializeField] private float groundSnapOffset = 0.05f;
-    [Tooltip("How smoothly Arin adjusts to ground height (lower = smoother)")]
-    [SerializeField] private float groundAdjustmentSpeed = 10f;
-
     [Header("UI Canvas Reference")]
     [SerializeField] private CanvasGroup uiCanvasGroup;
 
@@ -65,9 +46,9 @@ public class PostBossConversationController : MonoBehaviour
     private Animator arinAnimator;
     private Rigidbody2D arinRb;
     private SpriteRenderer arinSprite;
-    private CapsuleCollider2D arinCollider; // NEW: Store Arin's collider for accurate height calculations
     private PlayerMovement playerMovement;
     private UIController uiController;
+    private QuestUIController questUIController; // NEW: Reference to quest UI
     private bool runningSequence;
     private Vector3 bossDeathPosition;
 
@@ -108,7 +89,6 @@ public class PostBossConversationController : MonoBehaviour
             if (arinAnimator == null) arinAnimator = arinAI.GetComponentInChildren<Animator>();
             if (arinRb == null) arinRb = arinAI.GetComponent<Rigidbody2D>();
             if (arinSprite == null) arinSprite = arinAI.GetComponentInChildren<SpriteRenderer>();
-            if (arinCollider == null) arinCollider = arinAI.GetComponent<CapsuleCollider2D>(); // NEW: Cache collider
 
             // Store original Rigidbody2D settings for restoration
             if (arinRb != null)
@@ -123,6 +103,9 @@ public class PostBossConversationController : MonoBehaviour
         // Cache player components
         if (playerMovement == null) playerMovement = Object.FindFirstObjectByType<PlayerMovement>();
         if (uiController == null) uiController = Object.FindFirstObjectByType<UIController>();
+        
+        // NEW: Cache quest UI controller
+        if (questUIController == null) questUIController = Object.FindFirstObjectByType<QuestUIController>();
 
         // Cache UI CanvasGroup if not assigned
         if (uiCanvasGroup == null)
@@ -188,10 +171,18 @@ public class PostBossConversationController : MonoBehaviour
         // Wait for boss death animation to settle
         yield return new WaitForSeconds(startDelayAfterDeath);
 
-        // ============= PHASE 2: DISABLE ARIN AI & STOP MOVEMENT =============
+        // ============= PHASE 2: DISABLE ARIN AI & PREPARE FOR MOVEMENT =============
         Debug.Log("[PostBoss] PHASE 2: Disabling Arin AI for cinematic...");
         arinAI.enabled = false;
-        arinRb.linearVelocity = Vector2.zero; // CHANGED: No vertical preservation during cinematic
+        arinRb.linearVelocity = Vector2.zero;
+
+        // FIXED: Use Dynamic with gravity for conversation approach to respect platforms
+        if (arinRb != null)
+        {
+            arinRb.bodyType = RigidbodyType2D.Dynamic;
+            arinRb.gravityScale = originalGravityScale; // Restore original gravity
+            Debug.Log($"[PostBoss] Set Arin to Dynamic with gravity={originalGravityScale} for platform-aware movement");
+        }
 
         // ============= PHASE 3: INTELLIGENT DISTANCE ADJUSTMENT =============
         Debug.Log("[PostBoss] PHASE 3: Adjusting Arin's position for conversation...");
@@ -200,6 +191,13 @@ public class PostBossConversationController : MonoBehaviour
         // ============= PHASE 4: FACE EACH OTHER FOR CONVERSATION =============
         Debug.Log("[PostBoss] PHASE 4: Characters facing each other...");
         FaceBothCharactersTogether(player);
+
+        // Ensure Arin is stationary before dialogue
+        if (arinAnimator != null)
+        {
+            TrySetAnimatorBool(arinAnimator, "isMoving", false);
+        }
+        arinRb.linearVelocity = Vector2.zero;
 
         // ============= PHASE 5: WAIT FOR CINEMATIC POSITIONING =============
         yield return new WaitForSeconds(dialogueDelayAfterApproach);
@@ -242,7 +240,6 @@ public class PostBossConversationController : MonoBehaviour
             currentDistance <= conversationDistance + stopDistance)
         {
             Debug.Log("[PostBoss] ✓ Distance is perfect - no adjustment needed");
-            SnapToGround(arinAI.transform.position); // Ensure grounded
             yield break;
         }
 
@@ -297,9 +294,6 @@ public class PostBossConversationController : MonoBehaviour
             0f
         );
 
-        // Ground the target position
-        targetPosition = SnapToGround(targetPosition);
-
         Debug.Log($"[PostBoss] Forced separation target: {targetPosition}");
 
         // Move Arin to the forced separation position
@@ -331,8 +325,9 @@ public class PostBossConversationController : MonoBehaviour
             }
             else
             {
-                Vector3 newPosition = currentArinPos + (Vector3)moveDir * step;
-                arinAI.transform.position = SmoothSnapToGround(newPosition, moveDir.x);
+                // FIXED: Use velocity for horizontal movement, let gravity handle vertical
+                Vector2 horizontalVelocity = new Vector2(moveDir.x * approachSpeed, arinRb.linearVelocity.y);
+                arinRb.linearVelocity = horizontalVelocity;
             }
 
             // Update sprite facing
@@ -460,23 +455,10 @@ public class PostBossConversationController : MonoBehaviour
 
             // Calculate movement direction toward target
             Vector2 moveDir = (targetPosition - arinPos).normalized;
-            float step = approachSpeed * Time.deltaTime;
 
-            float distanceToTarget = Vector2.Distance(
-                new Vector2(arinPos.x, arinPos.y),
-                new Vector2(targetPosition.x, targetPosition.y)
-            );
-
-            // Prevent overshooting
-            if (step >= distanceToTarget)
-            {
-                arinAI.transform.position = SnapToGround(targetPosition);
-            }
-            else
-            {
-                Vector3 newPosition = arinPos + (Vector3)moveDir * step;
-                arinAI.transform.position = SmoothSnapToGround(newPosition, moveDir.x);
-            }
+            // FIXED: Use velocity-based movement for platform awareness
+            Vector2 horizontalVelocity = new Vector2(moveDir.x * approachSpeed, arinRb.linearVelocity.y);
+            arinRb.linearVelocity = horizontalVelocity;
 
             // Update sprite facing
             if (arinSprite != null && Mathf.Abs(moveDir.x) > 0.01f)
@@ -507,210 +489,159 @@ public class PostBossConversationController : MonoBehaviour
     {
         if (conversationId != "Arin_01_PostBoss") return;
 
-        Debug.Log("[PostBoss] Dialogue completed - NOW Arin will walk to cabin");
+        Debug.Log("[PostBoss] ✓ Dialogue completed - restoring UI and triggering quest");
         if (DialogueManager.Instance != null)
             DialogueManager.Instance.OnConversationCompleted -= OnDialogueCompleted;
 
-        StartCoroutine(HandleExitSequence());
+        StartCoroutine(HandlePostDialogueSequence());
     }
 
-    private IEnumerator HandleExitSequence()
+    // FIXED: Restore UI, complete quest, wait for quest UI auto-close, then walk to cabin
+    private IEnumerator HandlePostDialogueSequence()
     {
-        Debug.Log("[PostBoss] PHASE 8: Arin heading to cabin...");
+        // ============= PHASE 8: RESTORE GAME UI =============
+        Debug.Log("[PostBoss] PHASE 8: Restoring Game UI...");
+        yield return StartCoroutine(RestoreUIGradually());
+
+        // ============= PHASE 9: COMPLETE QUEST (TRIGGERS QUEST UI DISPLAY) =============
+        Debug.Log("[PostBoss] PHASE 9: Completing quest objective (will trigger quest UI display)...");
+        
+        if (QuestManager.Instance != null)
+        {
+            QuestManager.Instance.CompleteObjectiveByTitle("Defeat the Night Borne");
+            Debug.Log("[PostBoss] Quest objective 'Defeat the Night Borne' completed - Quest UI should now be visible!");
+        }
+
+        // ============= PHASE 10: WAIT FOR QUEST UI AUTO-CLOSE =============
+        // FIXED: Get the auto-close duration from QuestUIController to ensure consistency
+        float questAutoCloseDuration = 5f; // Default fallback
+        
+        if (questUIController != null)
+        {
+            // Access the autoDisplayDuration field via reflection (it's private)
+            var autoDisplayDurationField = typeof(QuestUIController).GetField("autoDisplayDuration", 
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            
+            if (autoDisplayDurationField != null)
+            {
+                questAutoCloseDuration = (float)autoDisplayDurationField.GetValue(questUIController);
+                Debug.Log($"[PostBoss] Retrieved quest auto-close duration from QuestUIController: {questAutoCloseDuration}s");
+            }
+            else
+            {
+                Debug.LogWarning("[PostBoss] Could not retrieve autoDisplayDuration - using fallback value of 5s");
+            }
+        }
+        
+        Debug.Log($"[PostBoss] PHASE 10: Waiting {questAutoCloseDuration}s for quest UI to auto-close (or user to click continue)...");
+        yield return new WaitForSeconds(questAutoCloseDuration);
+
+        // ============= PHASE 11: START CABIN WALK =============
+        Debug.Log("[PostBoss] PHASE 11: Quest UI should be closed - starting cabin walk sequence...");
+        yield return StartCoroutine(HandleCabinWalkSequence());
+    }
+
+    private IEnumerator HandleCabinWalkSequence()
+    {
+        Debug.Log("[PostBoss] Arin leading the way to cabin...");
 
         // Validate cabin location
         if (cabinLocation == Vector3.zero)
         {
-            Debug.LogError("[PostBoss] Cabin location not set! Please set X and Y values in inspector.");
+            Debug.LogError("[PostBoss] ⚠ Cabin location not set! Please set X and Y values in inspector.");
             runningSequence = false;
             yield break;
         }
 
-        Debug.Log($"[PostBoss] Cabin target: {cabinLocation}");
-        Debug.Log("[PostBoss] Restoring UI...");
-        yield return StartCoroutine(RestoreUIGradually());
+        Debug.Log($"[PostBoss] Cabin destination: X={cabinLocation.x}, Y={cabinLocation.y}");
 
-        // Disable Arin AI (already disabled, but just to be sure)
-        arinAI.enabled = false;
+        // Ensure Arin AI remains disabled during walk
+        if (arinAI != null)
+            arinAI.enabled = false;
 
-        // Prepare physics for kinematic walking (no gravity, full control)
+        // Enable Dynamic physics with gravity for natural falling on stairs
         if (arinRb != null)
         {
-            arinRb.bodyType = RigidbodyType2D.Kinematic;
-            arinRb.gravityScale = 0f;
+            arinRb.bodyType = RigidbodyType2D.Dynamic;
+            arinRb.gravityScale = originalGravityScale;
             arinRb.linearVelocity = Vector2.zero;
+            Debug.Log($"[PostBoss] Physics enabled: Dynamic with gravity={originalGravityScale}");
         }
 
-        float totalDistance = Mathf.Abs(arinAI.transform.position.x - cabinLocation.x);
-        Debug.Log($"[PostBoss] Walking to cabin - Distance: {totalDistance:F2}m");
+        float totalDistance = Vector2.Distance(
+            new Vector2(arinAI.transform.position.x, arinAI.transform.position.y),
+            new Vector2(cabinLocation.x, cabinLocation.y)
+        );
+        Debug.Log($"[PostBoss] Total distance to cabin: {totalDistance:F2}m");
 
-        // Walk to cabin smoothly with proper ground detection
+        // Walk to cabin - gravity will handle vertical movement naturally
+        int frameCount = 0;
         while (true)
         {
+            frameCount++;
             Vector3 currentPos = arinAI.transform.position;
-            float currentDistance = Mathf.Abs(currentPos.x - cabinLocation.x);
+            
+            // Calculate distance to cabin (both X and Y)
+            float distanceX = Mathf.Abs(currentPos.x - cabinLocation.x);
+            float distanceY = Mathf.Abs(currentPos.y - cabinLocation.y);
+            float totalDistanceRemaining = Vector2.Distance(
+                new Vector2(currentPos.x, currentPos.y),
+                new Vector2(cabinLocation.x, cabinLocation.y)
+            );
 
-            // Check arrival
-            if (currentDistance <= cabinArrivalDistance)
+            // Check arrival (close to both X and Y destination)
+            if (totalDistanceRemaining <= cabinArrivalDistance)
             {
-                Debug.Log("[PostBoss] ✓ Arrived at cabin!");
+                Debug.Log($"[PostBoss] ✓ Arrived at cabin after {frameCount} frames!");
                 break;
             }
 
-            // Calculate direction
-            float direction = Mathf.Sign(cabinLocation.x - currentPos.x);
+            // Calculate horizontal direction
+            float directionX = Mathf.Sign(cabinLocation.x - currentPos.x);
 
-            // NEW: Check if ground exists ahead using improved detection
-            if (!IsGroundAheadSafe(currentPos, direction))
-            {
-                Debug.LogWarning("[PostBoss] ⚠ No safe ground ahead - stopping to prevent falling!");
-                break;
-            }
+            // FIXED: Use velocity for horizontal movement - gravity handles stairs naturally
+            arinRb.linearVelocity = new Vector2(directionX * cabinWalkSpeed, arinRb.linearVelocity.y);
 
-            // Move smoothly
-            float moveStep = cabinWalkSpeed * Time.deltaTime;
-            float newX = currentPos.x + (direction * moveStep);
-
-            // Prevent overshooting
-            if (Mathf.Abs(newX - cabinLocation.x) < Mathf.Abs(moveStep))
-                newX = cabinLocation.x;
-
-            // Apply position with smooth ground snapping
-            Vector3 targetPos = new Vector3(newX, currentPos.y, currentPos.z);
-            arinAI.transform.position = SmoothSnapToGround(targetPos, direction);
-
-            // Update sprite and animation
+            // Update sprite facing
             if (arinSprite != null)
-                arinSprite.flipX = (direction < 0);
+                arinSprite.flipX = (directionX < 0);
 
+            // Update animation
             if (arinAnimator != null)
                 TrySetAnimatorBool(arinAnimator, "isMoving", true);
+
+            // Log progress every 60 frames
+            if (frameCount % 60 == 0)
+            {
+                Debug.Log($"[PostBoss] Walking to cabin: {totalDistanceRemaining:F2}m remaining (frame {frameCount})");
+            }
 
             yield return null;
         }
 
-        // Final positioning at cabin
-        Vector3 finalCabinPos = new Vector3(cabinLocation.x, cabinLocation.y, arinAI.transform.position.z);
-        arinAI.transform.position = SnapToGround(finalCabinPos);
-
-        // Stop movement
+        // FIXED: Stop movement and set to IDLE state
         if (arinRb != null)
             arinRb.linearVelocity = Vector2.zero;
 
         if (arinAnimator != null)
+        {
             TrySetAnimatorBool(arinAnimator, "isMoving", false);
+            Debug.Log("[PostBoss] Arin animation set to idle (isMoving = false)");
+        }
 
-        // Restore physics
+        // FIXED: Reset sprite to face forward (not flipped)
+        if (arinSprite != null)
+        {
+            arinSprite.flipX = false;
+            Debug.Log("[PostBoss] Arin sprite reset to face forward (flipX = false)");
+        }
+
+        // Restore original physics
         RestoreOriginalPhysics();
 
-        Debug.Log($"[PostBoss] ✓ Arin arrived at cabin location: {arinAI.transform.position}");
+        Debug.Log($"[PostBoss] ✓✓✓ Arin successfully arrived at cabin and is now in IDLE state!");
+        Debug.Log($"[PostBoss] Final position: {arinAI.transform.position}");
         runningSequence = false;
-    }
-    #endregion
-
-    #region NEW: Improved Ground Detection System
-    /// <summary>
-    /// Check if ground exists ahead and is safe to walk on (handles stairs and platforms)
-    /// Uses BoxCast positioned in front of Arin for reliable detection
-    /// </summary>
-    private bool IsGroundAheadSafe(Vector3 currentPosition, float direction)
-    {
-        // Calculate the check position in front of Arin
-        Vector2 checkOrigin = new Vector2(
-            currentPosition.x + (direction * groundCheckAheadDistance),
-            currentPosition.y + groundCheckOffset.y
-        );
-
-        // Use BoxCast to check for ground (better than raycast for stairs)
-        Vector2 boxSize = new Vector2(groundCheckWidth, groundCheckHeight);
-        RaycastHit2D hit = Physics2D.BoxCast(
-            checkOrigin,
-            boxSize,
-            0f,
-            Vector2.down,
-            groundCheckDownDistance,
-            groundLayerMask
-        );
-
-        if (hit.collider != null && hit.collider.CompareTag("Ground"))
-        {
-            // Check step height for stairs
-            float stepHeight = Mathf.Abs(hit.point.y - (currentPosition.y + groundCheckOffset.y));
-
-            if (stepHeight <= maxStepHeight)
-            {
-                // Ground is safe (either level or acceptable stair step)
-                Debug.DrawLine(checkOrigin, hit.point, Color.green, 0.1f);
-                return true;
-            }
-            else
-            {
-                // Step too high - might be a wall or large drop
-                Debug.DrawLine(checkOrigin, hit.point, Color.yellow, 0.1f);
-                Debug.Log($"[Ground] Step too high: {stepHeight:F2}m (max: {maxStepHeight}m)");
-                return false;
-            }
-        }
-        else
-        {
-            // No ground detected - edge/cliff
-            Debug.DrawLine(checkOrigin, checkOrigin + Vector2.down * groundCheckDownDistance, Color.red, 0.1f);
-            Debug.Log($"[Ground] No ground detected ahead at {checkOrigin}");
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Snap Arin to ground immediately (instant positioning)
-    /// </summary>
-    private Vector3 SnapToGround(Vector3 position)
-    {
-        // Get Arin's collider height for accurate positioning
-        float colliderHeight = arinCollider != null ? arinCollider.size.y * arinCollider.transform.localScale.y : 1.8f;
-        float halfHeight = colliderHeight * 0.5f;
-
-        // Start raycast from above the position
-        Vector2 rayOrigin = new Vector2(position.x, position.y + halfHeight);
-
-        RaycastHit2D hit = Physics2D.Raycast(
-            rayOrigin,
-            Vector2.down,
-            groundCheckDownDistance + halfHeight,
-            groundLayerMask
-        );
-
-        if (hit.collider != null && hit.collider.CompareTag("Ground"))
-        {
-            // Position Arin so her feet are on the ground
-            float groundY = hit.point.y + halfHeight + groundSnapOffset;
-
-            Debug.DrawLine(rayOrigin, hit.point, Color.cyan, 0.1f);
-
-            return new Vector3(position.x, groundY, position.z);
-        }
-        else
-        {
-            // No ground found - keep current position
-            Debug.DrawLine(rayOrigin, rayOrigin + Vector2.down * (groundCheckDownDistance + halfHeight), Color.magenta, 0.1f);
-            Debug.LogWarning($"[Ground] No ground found at {position} - keeping current Y");
-            return position;
-        }
-    }
-
-    /// <summary>
-    /// Smoothly adjust Arin's Y position to match ground height (handles stairs smoothly)
-    /// </summary>
-    private Vector3 SmoothSnapToGround(Vector3 position, float movementDirection)
-    {
-        Vector3 currentPos = arinAI.transform.position;
-
-        // Get target ground position
-        Vector3 targetGroundPos = SnapToGround(position);
-
-        // Smoothly lerp Y position for smooth stair climbing
-        float smoothY = Mathf.Lerp(currentPos.y, targetGroundPos.y, groundAdjustmentSpeed * Time.deltaTime);
-
-        return new Vector3(targetGroundPos.x, smoothY, targetGroundPos.z);
     }
     #endregion
 
@@ -833,6 +764,8 @@ public class PostBossConversationController : MonoBehaviour
         UIController uiCtrl = Object.FindFirstObjectByType<UIController>();
         if (uiCtrl != null)
             uiCtrl.ReinitializeButtons();
+        
+        Debug.Log("[PostBoss] Game UI fully restored - Quest UI can now display");
     }
 
     private void RestoreOriginalStates()
