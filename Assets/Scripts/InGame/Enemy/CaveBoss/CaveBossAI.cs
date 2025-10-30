@@ -122,7 +122,7 @@ public class CaveBossAI : MonoBehaviour
         if (isDead) return;
 
         CheckDeath();
-        HandleHurtRecovery(); // CRITICAL: This must run every frame to reset isHurt
+        HandleHurtRecovery();
         SelectNearestTarget();
         ProcessStateMachine();
     }
@@ -521,35 +521,29 @@ public class CaveBossAI : MonoBehaviour
         return Time.time >= lastAttackTime + attackCooldown;
     }
 
-    // CRITICAL FIX: Remove isHurt check - boss can now take damage repeatedly!
     public void TakeDamage(int damage)
     {
-        // ONLY block damage if boss is dead (not if hurt!)
         if (isDead) return;
 
         Debug.Log($"NightBorne taking damage: {damage} (isHurt={isHurt})");
 
-        // Play hurt animation (doesn't block damage)
         if (animator != null && HasAnimatorParameter("Hurt", AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger("Hurt");
             Debug.Log("NightBorne hurt animation triggered");
         }
 
-        // Apply damage immediately (even if already hurt)
         if (enemyHealth != null)
         {
             enemyHealth.TakeDamage(damage);
             Debug.Log($"NightBorne HP: {enemyHealth.GetCurrentHealth()}/{enemyHealth.GetMaxHealth()}");
         }
 
-        // Set hurt state for animation/visual feedback (but doesn't block damage anymore)
         if (!isHurt)
         {
             isHurt = true;
             hurtRecoveryTimer = hurtDuration;
 
-            // Only transition to Hurt state if not currently attacking
             if (currentState != BossState.Attacking)
             {
                 previousState = currentState;
@@ -558,7 +552,6 @@ public class CaveBossAI : MonoBehaviour
         }
     }
 
-    // CRITICAL FIX: This MUST run every frame to reset isHurt properly
     private void HandleHurtRecovery()
     {
         if (!isHurt) return;
@@ -589,14 +582,13 @@ public class CaveBossAI : MonoBehaviour
     }
     #endregion
 
-    #region Target Selection - FIXED: Keep tracking targets even outside detection zone
+    #region Target Selection
     private void SelectNearestTarget()
     {
         Transform nearestTarget = null;
         float playerDistance = float.MaxValue;
         float npcDistance = float.MaxValue;
 
-        // CHECK PLAYER: Always check player first and get their distance
         if (canChasePlayer && playerTransform != null)
         {
             PlayerHealth playerHealth = playerTransform.GetComponent<PlayerHealth>();
@@ -604,7 +596,6 @@ public class CaveBossAI : MonoBehaviour
             {
                 playerDistance = Vector2.Distance(transform.position, playerTransform.position);
 
-                // Only stop tracking if player is REALLY far away (2x detection range)
                 if (playerDistance > playerDetectionRange * 2f)
                 {
                     Debug.Log($"Player is too far ({playerDistance:F2} > {playerDetectionRange * 2f}) - clearing reference");
@@ -615,7 +606,6 @@ public class CaveBossAI : MonoBehaviour
             }
             else
             {
-                // Player is dead - clear reference
                 if (playerTransform != null)
                 {
                     Debug.Log("Player is dead - clearing reference");
@@ -626,12 +616,10 @@ public class CaveBossAI : MonoBehaviour
             }
         }
 
-        // CHECK NPC: Then check NPC distance
         if (canChaseNPC && npcTransform != null)
         {
             npcDistance = Vector2.Distance(transform.position, npcTransform.position);
 
-            // Only stop tracking if NPC is REALLY far away (2x detection range)
             if (npcDistance > npcDetectionRange * 2f)
             {
                 Debug.Log($"NPC is too far ({npcDistance:F2} > {npcDetectionRange * 2f}) - clearing reference");
@@ -641,7 +629,6 @@ public class CaveBossAI : MonoBehaviour
             }
         }
 
-        // PRIORITY: Player is ALWAYS targeted if alive and in range, regardless of proximity
         if (playerDistance < float.MaxValue)
         {
             nearestTarget = playerTransform;
@@ -653,7 +640,6 @@ public class CaveBossAI : MonoBehaviour
             Debug.Log($"★ TARGETING NPC (Player unavailable, NPC Distance: {npcDistance:F2})");
         }
 
-        // Update current target if changed
         if (currentTarget != nearestTarget)
         {
             if (nearestTarget != null)
@@ -754,16 +740,12 @@ public class CaveBossAI : MonoBehaviour
             Debug.LogError("Die trigger not found in NightBorne animator!");
         }
 
-        // NEW: Complete Q1 objective if active (safe no-op otherwise)
-        if (QuestManager.Instance != null)
-        {
-            QuestManager.Instance.CompleteObjectiveByTitle("Defeat the Night Borne");
-        }
-
-        // NEW: Notify listeners (Arin approach + dialogue)
+        // REMOVED: Quest completion from here - it will be triggered by PostBossConversationController after dialogue
+        // NEW: Only notify listeners (for cinematic sequence to start)
         try
         {
             BossDefeated?.Invoke(this);
+            Debug.Log("BossDefeated event invoked - PostBossConversationController will handle quest completion after dialogue");
         }
         catch (System.Exception e)
         {
@@ -826,7 +808,7 @@ public class CaveBossAI : MonoBehaviour
     }
     #endregion
 
-    #region Detection System - FIXED: Don't clear targets on exit
+    #region Detection System
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(playerTag))
@@ -844,22 +826,18 @@ public class CaveBossAI : MonoBehaviour
         }
     }
 
-    // CRITICAL FIX: Don't clear playerTransform/npcTransform on exit!
-    // Just mark as "not detected" - we'll clear the reference when they're too far away
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag(playerTag) && other.transform == playerTransform)
         {
             Debug.Log("Player left NightBorne detection range (but still tracking)");
             isPlayerDetected = false;
-            // DON'T DO: playerTransform = null; <-- This was the bug!
         }
 
         if ((other.CompareTag(npcTag) || other.name.Contains("Arin")) && other.transform == npcTransform)
         {
             Debug.Log("NPC left NightBorne detection range (but still tracking)");
             isNPCDetected = false;
-            // DON'T DO: npcTransform = null; <-- This was the bug!
         }
     }
 
@@ -889,7 +867,6 @@ public class CaveBossAI : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
 
-        // NEW: Show extended tracking range
         Gizmos.color = new Color(1f, 1f, 0f, 0.3f);
         Gizmos.DrawWireSphere(transform.position, playerDetectionRange * 2f);
 
