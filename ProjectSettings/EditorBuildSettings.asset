@@ -6,26 +6,26 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TapToStart.unity
+    path: Assets/Scenes/Tap To Start.unity
     guid: d5fbba8b2c62b5048b015019a9341575
   - enabled: 1
-    path: Assets/Scenes/LoadingScreen.unity
+    path: Assets/Scenes/Loading Screen.unity
     guid: 23e0a375dbea7f448abd9d09c79ed928
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Scenes/Main Menu.unity
     guid: dd6474419e3db7b49be62afa30e9403b
   - enabled: 1
-    path: Assets/Scenes/LanguageSelection.unity
+    path: Assets/Scenes/Language Selection.unity
     guid: f4a35e488b42e8f44a766744ad431e56
   - enabled: 1
-    path: Assets/Scenes/CharacterSelection.unity
+    path: Assets/Scenes/Character Selection.unity
     guid: 08919643b357a9545b99062675b07d34
   - enabled: 1
-    path: Assets/Scenes/GameWorldContext.unity
+    path: Assets/Scenes/Game World Context.unity
     guid: 58e49989f100b8549b3d7aa8b6bbcd52
   - enabled: 1
-    path: Assets/Scenes/OakWoodsOfSyntax.unity
-    guid: 1ea3e9dd713c3bc4590e311a1b7ebb1d
+    path: Assets/Scenes/Oak Woods Of Syntax.unity
+    guid: 11cee9f321f9ff141ba16b99244192f8
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: c1487030605eecf4ea36ec45597070f8, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 244295abc99bf064c872b15ce4494441, type: 2}

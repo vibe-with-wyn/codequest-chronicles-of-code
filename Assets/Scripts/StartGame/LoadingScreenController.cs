@@ -29,7 +29,7 @@ public class LoadingScreenController : MonoBehaviour
         else if (Instance != this)
         {
             Scene currentScene = SceneManager.GetActiveScene();
-            if (currentScene.name == "LoadingScreen")
+            if (currentScene.name == "Loading Screen")
             {
                 Instance = this;
                 Debug.Log("LoadingScreenController updated for scene reload");
@@ -127,9 +127,9 @@ public class LoadingScreenController : MonoBehaviour
     {
         switch (sceneName.ToLower())
         {
-            case "gameworldcontext":
+            case "game world context":
                 return "World";
-            case "oakwoodsofsyntax":
+            case "oak woods of syntax":
                 return "Oak Woods of Syntax";
             default:
                 return sceneName; // fallback

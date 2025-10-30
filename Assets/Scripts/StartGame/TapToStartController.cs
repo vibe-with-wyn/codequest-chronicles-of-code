@@ -19,6 +19,6 @@ public class TapToStartController : MonoBehaviour
             yield return new WaitForSeconds(tapSound.clip.length);
             Debug.Log($"Sound played for {tapSound.clip.length} seconds");
         }
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Main Menu");
     }
 }

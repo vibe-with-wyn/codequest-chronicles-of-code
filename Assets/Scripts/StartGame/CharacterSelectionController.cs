@@ -65,7 +65,7 @@ public class CharacterSelectionController : MonoBehaviour
 
                 Debug.Log("Proceeding to load LoadingScreen and then GameWorldContext");
 
-                StartCoroutine(LoadLoadingScreenAndProceed("GameWorldContext"));
+                StartCoroutine(LoadLoadingScreenAndProceed("Game World Context"));
             }
             else
             {
@@ -99,7 +99,7 @@ public class CharacterSelectionController : MonoBehaviour
         Debug.Log("Loading LoadingScreen scene");
         LoadingScreenController.TargetSceneName = targetScene; // Set the target scene
 
-        AsyncOperation loadOp = SceneManager.LoadSceneAsync("LoadingScreen");
+        AsyncOperation loadOp = SceneManager.LoadSceneAsync("Loading Screen");
         // No need to delay activation, just let LoadingScreenController handle the rest
         yield return null;
     }

@@ -49,7 +49,7 @@ public class GameWorldContextController : MonoBehaviour
 
         if (!isSkipping)
         {
-            yield return new WaitForSeconds(1.2f); // 2-second delay after narration ends
+            yield return new WaitForSeconds(0.7f);
             LoadNextScene();
         }
     }
@@ -76,15 +76,15 @@ public class GameWorldContextController : MonoBehaviour
 
         if (LoadingScreenController.Instance != null)
         {
-            LoadingScreenController.Instance.LoadScene("OakWoodsOfSyntax");
-            Debug.Log("Directly using existing LoadingScreenController to load OakWoodsOfSyntax");
+            LoadingScreenController.Instance.LoadScene("Oak Woods Of Syntax");
+            Debug.Log("Directly using existing Loading Screen Controller to load Oak Woods Of Syntax");
         }
         else
         {
             // fallback if somehow missing
-            LoadingScreenController.TargetSceneName = "OakWoodsOfSyntax";
-            SceneManager.LoadScene("LoadingScreen");
-            Debug.Log("Transitioning to LoadingScreen for OakWoodsOfSyntax");
+            LoadingScreenController.TargetSceneName = "Oak Woods Of Syntax";
+            SceneManager.LoadScene("Loading Screen");
+            Debug.Log("Transitioning to Loading Screen for OakWoods Of Syntax");
         }
     }
 

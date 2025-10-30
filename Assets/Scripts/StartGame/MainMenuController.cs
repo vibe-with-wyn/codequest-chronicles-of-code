@@ -24,7 +24,7 @@ public class MainMenuController : MonoBehaviour
         {
             GameDataManager.Instance.ResetPlayerData();
         }
-        SceneManager.LoadScene("LanguageSelection");
+        SceneManager.LoadScene("Language Selection");
     }
 
     public void OnResumeButton()
@@ -44,25 +44,25 @@ public class MainMenuController : MonoBehaviour
         if (GameDataManager.Instance != null)
         {
             PlayerData data = GameDataManager.Instance.GetPlayerData();
-            string targetScene = (data.ProgressLevel >= 1 && data.LastScene == "GameWorldContext")
-                ? "OakWoodsOfSyntax" : data.LastScene;
+            string targetScene = (data.ProgressLevel >= 1 && data.LastScene == "Game World Context")
+                ? "Oak Woods Of Syntax" : data.LastScene;
             if (!string.IsNullOrEmpty(targetScene) && data.ProgressLevel >= 1)
             {
                 Debug.Log($"Resuming to {targetScene} with progress level {data.ProgressLevel}");
                 LoadingScreenController.TargetSceneName = targetScene;
-                AsyncOperation loadOp = SceneManager.LoadSceneAsync("LoadingScreen");
+                AsyncOperation loadOp = SceneManager.LoadSceneAsync("Loading Screen");
                 yield return null;
             }
             else
             {
                 Debug.LogWarning("No valid saved progress or scene, starting new game");
-                SceneManager.LoadScene("LanguageSelection");
+                SceneManager.LoadScene("Language Selection");
             }
         }
         else
         {
             Debug.LogError("GameDataManager not found, starting new game");
-            SceneManager.LoadScene("LanguageSelection");
+            SceneManager.LoadScene("Language Selection");
         }
     }
 

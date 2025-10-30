@@ -41,7 +41,7 @@ public class LanguageSelectionController : MonoBehaviour
         {
             GameDataManager.Instance.SetLanguage(language);
 
-            StartCoroutine(LoadSceneAsync("CharacterSelection"));
+            StartCoroutine(LoadSceneAsync("Character Selection"));
         }
         else
         {

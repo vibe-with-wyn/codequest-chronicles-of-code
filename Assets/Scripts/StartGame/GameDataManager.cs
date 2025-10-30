@@ -115,7 +115,7 @@ public class GameDataManager : MonoBehaviour
 
     public void ResetPlayerData()
     {
-        playerData = new PlayerData("", "swordsman", 1, "GameWorldContext", Vector3.zero);
+        playerData = new PlayerData("", "swordsman", 1, "Game World Context", Vector3.zero);
         HasPlayedIntro = false; // Reset intro flag when resetting data
         SavePlayerData();
         Debug.Log("Player data reset to defaults");
@@ -135,7 +135,7 @@ public class GameDataManager : MonoBehaviour
         string json = PlayerPrefs.GetString(PLAYER_DATA_KEY, "");
         if (string.IsNullOrEmpty(json))
         {
-            playerData = new PlayerData("", "swordsman", 1, "GameWorldContext", Vector3.zero);
+            playerData = new PlayerData("", "swordsman", 1, "Game World Context", Vector3.zero);
             SavePlayerData();
             Debug.Log("Created new player data with defaults");
         }
