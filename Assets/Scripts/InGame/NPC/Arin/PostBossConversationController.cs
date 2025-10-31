@@ -103,7 +103,7 @@ public class PostBossConversationController : MonoBehaviour
         // Cache player components
         if (playerMovement == null) playerMovement = Object.FindFirstObjectByType<PlayerMovement>();
         if (uiController == null) uiController = Object.FindFirstObjectByType<UIController>();
-        
+
         // NEW: Cache quest UI controller
         if (questUIController == null) questUIController = Object.FindFirstObjectByType<QuestUIController>();
 
@@ -505,7 +505,7 @@ public class PostBossConversationController : MonoBehaviour
 
         // ============= PHASE 9: COMPLETE QUEST (TRIGGERS QUEST UI DISPLAY) =============
         Debug.Log("[PostBoss] PHASE 9: Completing quest objective (will trigger quest UI display)...");
-        
+
         if (QuestManager.Instance != null)
         {
             QuestManager.Instance.CompleteObjectiveByTitle("Defeat the Night Borne");
@@ -515,13 +515,13 @@ public class PostBossConversationController : MonoBehaviour
         // ============= PHASE 10: WAIT FOR QUEST UI AUTO-CLOSE =============
         // FIXED: Get the auto-close duration from QuestUIController to ensure consistency
         float questAutoCloseDuration = 5f; // Default fallback
-        
+
         if (questUIController != null)
         {
             // Access the autoDisplayDuration field via reflection (it's private)
-            var autoDisplayDurationField = typeof(QuestUIController).GetField("autoDisplayDuration", 
+            var autoDisplayDurationField = typeof(QuestUIController).GetField("autoDisplayDuration",
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            
+
             if (autoDisplayDurationField != null)
             {
                 questAutoCloseDuration = (float)autoDisplayDurationField.GetValue(questUIController);
@@ -532,7 +532,7 @@ public class PostBossConversationController : MonoBehaviour
                 Debug.LogWarning("[PostBoss] Could not retrieve autoDisplayDuration - using fallback value of 5s");
             }
         }
-        
+
         Debug.Log($"[PostBoss] PHASE 10: Waiting {questAutoCloseDuration}s for quest UI to auto-close (or user to click continue)...");
         yield return new WaitForSeconds(questAutoCloseDuration);
 
@@ -568,11 +568,9 @@ public class PostBossConversationController : MonoBehaviour
             Debug.Log($"[PostBoss] Physics enabled: Dynamic with gravity={originalGravityScale}");
         }
 
-        float totalDistance = Vector2.Distance(
-            new Vector2(arinAI.transform.position.x, arinAI.transform.position.y),
-            new Vector2(cabinLocation.x, cabinLocation.y)
-        );
-        Debug.Log($"[PostBoss] Total distance to cabin: {totalDistance:F2}m");
+        // Calculate initial X-only distance (horizontal distance to cabin)
+        float initialDistanceX = Mathf.Abs(arinAI.transform.position.x - cabinLocation.x);
+        Debug.Log($"[PostBoss] Initial horizontal distance to cabin: {initialDistanceX:F2}m");
 
         // Walk to cabin - gravity will handle vertical movement naturally
         int frameCount = 0;
@@ -580,56 +578,55 @@ public class PostBossConversationController : MonoBehaviour
         {
             frameCount++;
             Vector3 currentPos = arinAI.transform.position;
-            
-            // Calculate distance to cabin (both X and Y)
-            float distanceX = Mathf.Abs(currentPos.x - cabinLocation.x);
-            float distanceY = Mathf.Abs(currentPos.y - cabinLocation.y);
-            float totalDistanceRemaining = Vector2.Distance(
-                new Vector2(currentPos.x, currentPos.y),
-                new Vector2(cabinLocation.x, cabinLocation.y)
-            );
 
-            // Check arrival (close to both X and Y destination)
-            if (totalDistanceRemaining <= cabinArrivalDistance)
+            // CRITICAL: Only check HORIZONTAL distance (X-axis) for arrival
+            float distanceX = Mathf.Abs(currentPos.x - cabinLocation.x);
+
+            // Check arrival based on X distance only
+            if (distanceX <= cabinArrivalDistance)
             {
-                Debug.Log($"[PostBoss] ✓ Arrived at cabin after {frameCount} frames!");
+                Debug.Log($"[PostBoss] ✓ Arrived at cabin after {frameCount} frames! (X distance: {distanceX:F2}m)");
                 break;
             }
 
             // Calculate horizontal direction
             float directionX = Mathf.Sign(cabinLocation.x - currentPos.x);
 
-            // FIXED: Use velocity for horizontal movement - gravity handles stairs naturally
+            // Use velocity for horizontal movement - gravity handles stairs naturally
             arinRb.linearVelocity = new Vector2(directionX * cabinWalkSpeed, arinRb.linearVelocity.y);
 
             // Update sprite facing
             if (arinSprite != null)
                 arinSprite.flipX = (directionX < 0);
 
-            // Update animation
+            // CRITICAL: Manually update animation since ArinNPCAI is disabled
             if (arinAnimator != null)
                 TrySetAnimatorBool(arinAnimator, "isMoving", true);
 
-            // Log progress every 60 frames
+            // Log progress using X-distance only (every 60 frames)
             if (frameCount % 60 == 0)
             {
-                Debug.Log($"[PostBoss] Walking to cabin: {totalDistanceRemaining:F2}m remaining (frame {frameCount})");
+                Debug.Log($"[PostBoss] Walking to cabin: {distanceX:F2}m remaining horizontally (frame {frameCount})");
             }
 
             yield return null;
         }
 
-        // FIXED: Stop movement and set to IDLE state
+        // CRITICAL: Stop movement and set to IDLE state
         if (arinRb != null)
+        {
             arinRb.linearVelocity = Vector2.zero;
+            Debug.Log("[PostBoss] Rigidbody velocity set to zero");
+        }
 
+        // CRITICAL: Manually stop animation since ArinNPCAI is disabled
         if (arinAnimator != null)
         {
             TrySetAnimatorBool(arinAnimator, "isMoving", false);
-            Debug.Log("[PostBoss] Arin animation set to idle (isMoving = false)");
+            Debug.Log("[PostBoss] Arin animation MANUALLY set to idle (isMoving = false)");
         }
 
-        // FIXED: Reset sprite to face forward (not flipped)
+        // Reset sprite to face forward (not flipped)
         if (arinSprite != null)
         {
             arinSprite.flipX = false;
@@ -764,7 +761,7 @@ public class PostBossConversationController : MonoBehaviour
         UIController uiCtrl = Object.FindFirstObjectByType<UIController>();
         if (uiCtrl != null)
             uiCtrl.ReinitializeButtons();
-        
+
         Debug.Log("[PostBoss] Game UI fully restored - Quest UI can now display");
     }
 
