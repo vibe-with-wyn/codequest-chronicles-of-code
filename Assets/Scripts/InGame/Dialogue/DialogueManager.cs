@@ -74,7 +74,7 @@ public class DialogueManager : MonoBehaviour
             "Roran", "I'm new to this land. I'm searching for knowledge—and a way to survive.",
             "Arin", "Then you've chosen the right power. Here, code is more than ink—it moves the world.",
             "Roran", "I've heard. But I don't know where to start.",
-            "Arin", "Start with me. I'll mentor you. Come to my cottage. We'll begin with Java: what it is, and how to speak it.",
+            "Arin", "Start with me. I'll mentor you. Come to my cabin. We'll begin with Java: what it is, and how to speak it.",
             "Roran", "Lead the way.",
             "Arin", "Follow me to the edge of the woods. Don't stray. The forest tests syntax more than strength."
         ));

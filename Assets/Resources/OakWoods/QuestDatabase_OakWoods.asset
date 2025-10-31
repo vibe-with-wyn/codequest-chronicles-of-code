@@ -50,8 +50,8 @@ MonoBehaviour:
     isCompleted: 0
     isActive: 0
     objectives:
-    - objectiveTitle: Follow Arin to Her House
-      objectiveDescription: "Go to Arin\u2019s cottage to begin your first lesson."
+    - objectiveTitle: Follow Arin to Her Cabin
+      objectiveDescription: "Go to Arin\u2019s cabin to begin your first lesson."
       isCompleted: 0
       isActive: 0
       isOptional: 0
