@@ -22,7 +22,7 @@ public class CabinQuestTrigger : MonoBehaviour
     
     [Header("NPC Settings")]
     [Tooltip("Distance Arin should be from player during lecture")]
-    [SerializeField] private float conversationDistance = 3.0f;
+    [SerializeField] private float conversationDistance = 5.0f; // UPDATED: Changed from 3.0f to match PostBossConversationController
     
     [Tooltip("Speed Arin approaches player")]
     [SerializeField] private float approachSpeed = 2.0f;
@@ -53,10 +53,16 @@ public class CabinQuestTrigger : MonoBehaviour
     private RigidbodyType2D originalArinBodyType;
     private float originalArinGravity;
     
-    // Store UI state
+    // UPDATED: Enhanced UI state storage to include sprite icons
     private bool originalInteractable;
     private bool originalBlocksRaycasts;
     private float originalAlpha;
+    private Color[] originalImageColors;
+    private Color[] originalTextColors;
+    private Color[] originalSpriteColors; // NEW: For UI sprite icons
+    private UnityEngine.UI.Image[] allImages;
+    private TMPro.TextMeshProUGUI[] allTexts;
+    private SpriteRenderer[] allSprites; // NEW: For UI sprite icons
 
     void Awake()
     {
@@ -146,10 +152,10 @@ public class CabinQuestTrigger : MonoBehaviour
             yield break;
         }
         
-        // ============= PHASE 3: HIDE UI =============
+        // ============= PHASE 3: HIDE UI (INCLUDING SPRITE ICONS) =============
         if (debugMode)
         {
-            Debug.Log("[CabinTrigger] PHASE 3: Hiding UI...");
+            Debug.Log("[CabinTrigger] PHASE 3: Hiding UI including sprite icons...");
         }
         
         HideUIImmediately();
@@ -314,13 +320,13 @@ public class CabinQuestTrigger : MonoBehaviour
         
         yield return new WaitForSeconds(0.5f);
         
-        // ============= PHASE 10: RESTORE UI =============
+        // ============= PHASE 10: RESTORE UI (INCLUDING SPRITE ICONS) =============
         if (debugMode)
         {
-            Debug.Log("[CabinTrigger] PHASE 10: Restoring UI...");
+            Debug.Log("[CabinTrigger] PHASE 10: Restoring UI including sprite icons...");
         }
         
-        RestoreUI();
+        yield return StartCoroutine(RestoreUIGradually());
         
         // ============= PHASE 11: RESTORE ARIN PHYSICS =============
         if (debugMode)
@@ -377,6 +383,7 @@ public class CabinQuestTrigger : MonoBehaviour
         return playerObj != null ? playerObj.transform : null;
     }
 
+    // UPDATED: Comprehensive UI hiding including sprite icons
     private void HideUIImmediately()
     {
         if (uiCanvasGroup != null)
@@ -389,29 +396,156 @@ public class CabinQuestTrigger : MonoBehaviour
             uiCanvasGroup.interactable = false;
             uiCanvasGroup.blocksRaycasts = false;
             
+            StoreOriginalStatesAndHide();
+            
             if (debugMode)
             {
-                Debug.Log("[CabinTrigger] UI hidden");
+                Debug.Log("[CabinTrigger] UI hidden including sprite icons");
             }
         }
     }
 
-    private void RestoreUI()
+    // NEW: Store and hide all UI elements including sprite icons
+    private void StoreOriginalStatesAndHide()
     {
         if (uiCanvasGroup != null)
         {
-            uiCanvasGroup.alpha = originalAlpha;
-            uiCanvasGroup.interactable = originalInteractable;
-            uiCanvasGroup.blocksRaycasts = originalBlocksRaycasts;
+            // Get all UI Images
+            allImages = uiCanvasGroup.GetComponentsInChildren<UnityEngine.UI.Image>(true);
+            originalImageColors = new Color[allImages.Length];
             
-            if (uiController != null)
+            for (int i = 0; i < allImages.Length; i++)
             {
-                uiController.ReinitializeButtons();
+                originalImageColors[i] = allImages[i].color;
+                Color hiddenColor = allImages[i].color;
+                hiddenColor.a = 0f;
+                allImages[i].color = hiddenColor;
             }
+
+            // Get all UI Texts
+            allTexts = uiCanvasGroup.GetComponentsInChildren<TMPro.TextMeshProUGUI>(true);
+            originalTextColors = new Color[allTexts.Length];
             
+            for (int i = 0; i < allTexts.Length; i++)
+            {
+                originalTextColors[i] = allTexts[i].color;
+                Color hiddenColor = allTexts[i].color;
+                hiddenColor.a = 0f;
+                allTexts[i].color = hiddenColor;
+            }
+
+            // NEW: Get all SpriteRenderers (UI sprite icons)
+            allSprites = uiCanvasGroup.GetComponentsInChildren<SpriteRenderer>(true);
+            originalSpriteColors = new Color[allSprites.Length];
+            
+            for (int i = 0; i < allSprites.Length; i++)
+            {
+                originalSpriteColors[i] = allSprites[i].color;
+                Color hiddenColor = allSprites[i].color;
+                hiddenColor.a = 0f;
+                allSprites[i].color = hiddenColor;
+            }
+
+            // Disable interactivity for buttons and sliders
+            UnityEngine.UI.Button[] buttons = uiCanvasGroup.GetComponentsInChildren<UnityEngine.UI.Button>(true);
+            foreach (UnityEngine.UI.Button button in buttons)
+            {
+                button.interactable = false;
+            }
+
+            UnityEngine.UI.Slider[] sliders = uiCanvasGroup.GetComponentsInChildren<UnityEngine.UI.Slider>(true);
+            foreach (UnityEngine.UI.Slider slider in sliders)
+            {
+                slider.interactable = false;
+            }
+
             if (debugMode)
             {
-                Debug.Log("[CabinTrigger] UI restored");
+                Debug.Log($"[CabinTrigger] Stored and hidden: {allImages.Length} images, {allTexts.Length} texts, {allSprites.Length} sprites, {buttons.Length} buttons, {sliders.Length} sliders");
+            }
+        }
+    }
+
+    // UPDATED: Gradual UI restoration including sprite icons
+    private IEnumerator RestoreUIGradually()
+    {
+        uiCanvasGroup.alpha = originalAlpha;
+        uiCanvasGroup.interactable = originalInteractable;
+        uiCanvasGroup.blocksRaycasts = originalBlocksRaycasts;
+
+        yield return null;
+
+        RestoreOriginalStates();
+
+        yield return null;
+
+        Canvas.ForceUpdateCanvases();
+
+        yield return null;
+
+        if (uiController != null)
+        {
+            uiController.ReinitializeButtons();
+        }
+
+        if (debugMode)
+        {
+            Debug.Log("[CabinTrigger] UI fully restored including sprite icons");
+        }
+    }
+
+    // NEW: Restore all UI elements including sprite icons
+    private void RestoreOriginalStates()
+    {
+        if (uiCanvasGroup != null)
+        {
+            // Restore all Image components with original colors
+            if (allImages != null && originalImageColors != null)
+            {
+                for (int i = 0; i < allImages.Length && i < originalImageColors.Length; i++)
+                {
+                    if (allImages[i] != null)
+                        allImages[i].color = originalImageColors[i];
+                }
+            }
+
+            // Restore all Text components with original colors
+            if (allTexts != null && originalTextColors != null)
+            {
+                for (int i = 0; i < allTexts.Length && i < originalTextColors.Length; i++)
+                {
+                    if (allTexts[i] != null)
+                        allTexts[i].color = originalTextColors[i];
+                }
+            }
+
+            // NEW: Restore all SpriteRenderer components with original colors
+            if (allSprites != null && originalSpriteColors != null)
+            {
+                for (int i = 0; i < allSprites.Length && i < originalSpriteColors.Length; i++)
+                {
+                    if (allSprites[i] != null)
+                        allSprites[i].color = originalSpriteColors[i];
+                }
+            }
+
+            // Restore all Button components
+            UnityEngine.UI.Button[] buttons = uiCanvasGroup.GetComponentsInChildren<UnityEngine.UI.Button>(true);
+            foreach (UnityEngine.UI.Button button in buttons)
+            {
+                button.interactable = true;
+            }
+
+            // Restore all Slider components
+            UnityEngine.UI.Slider[] sliders = uiCanvasGroup.GetComponentsInChildren<UnityEngine.UI.Slider>(true);
+            foreach (UnityEngine.UI.Slider slider in sliders)
+            {
+                slider.interactable = true;
+            }
+
+            if (debugMode)
+            {
+                Debug.Log($"[CabinTrigger] Restored: {allImages?.Length ?? 0} images, {allTexts?.Length ?? 0} texts, {allSprites?.Length ?? 0} sprites");
             }
         }
     }
