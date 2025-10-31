@@ -51,13 +51,13 @@ MonoBehaviour:
     isActive: 0
     objectives:
     - objectiveTitle: Follow Arin to Her Cabin
-      objectiveDescription: "Go to Arin\u2019s cabin to begin your first lesson."
+      objectiveDescription: Go to Arin's cottage to begin your first lesson.
       isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
       currentCount: 0
-    - objectiveTitle: "Listen to Arin\u2019s Lesson: Java Basics"
+    - objectiveTitle: 'Listen to Arin''s Lesson: Java Basics'
       objectiveDescription: Learn class, main method, braces, semicolons, and System.out.println.
       isCompleted: 0
       isActive: 0
@@ -74,12 +74,27 @@ MonoBehaviour:
     nextQuestId: Q3_Types
   - questId: Q3_Types
     questTitle: The Language of Types
-    questDescription: "Learn basic types and declarations; restore the grove\u2019s
-      wards."
+    questDescription: Learn basic data types and variable declarations to restore
+      the grove's wards.
     questImage: {fileID: 0}
     isCompleted: 0
     isActive: 0
     objectives:
+    - objectiveTitle: Meet Arin at the Sacred Grove
+      objectiveDescription: Travel to the Sacred Grove to begin your types lesson.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    - objectiveTitle: 'Listen to Arin''s Lesson: Data Types'
+      objectiveDescription: Learn about int, double, boolean, String, and variable
+        declarations.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
     - objectiveTitle: Collect the Type Runes (3)
       objectiveDescription: Gather runes labeled int, boolean, and String.
       isCompleted: 0
@@ -95,24 +110,25 @@ MonoBehaviour:
       isOptional: 0
       targetCount: 1
       currentCount: 0
-    - objectiveTitle: Return to Arin
-      objectiveDescription: Report back after stabilizing the wards.
+    nextQuestId: Q4_StringsPrinting
+  - questId: Q4_StringsPrinting
+    questTitle: Strings and Printing
+    questDescription: 'Master text manipulation: string literals, escape sequences,
+      and concatenation.'
+    questImage: {fileID: 0}
+    isCompleted: 0
+    isActive: 0
+    objectives:
+    - objectiveTitle: Find Arin at the Echo Chamber
+      objectiveDescription: Locate Arin at the mystical Echo Chamber.
       isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
       currentCount: 0
-    nextQuestId: Q4_StringsPrinting
-  - questId: Q4_StringsPrinting
-    questTitle: Strings and Printing
-    questDescription: 'Work with text: string literals, escape sequences, and concatenation.'
-    questImage: {fileID: 0}
-    isCompleted: 0
-    isActive: 0
-    objectives:
-    - objectiveTitle: "Listen to Arin\u2019s Lesson: Strings and Printing"
-      objectiveDescription: Learn string literals, \n and \t, \" quotes, and using
-        + for concatenation.
+    - objectiveTitle: 'Listen to Arin''s Lesson: Strings and Printing'
+      objectiveDescription: Learn string literals, escape sequences (\n, \t, \",
+        \\), and concatenation with +.
       isCompleted: 0
       isActive: 0
       isOptional: 0
@@ -127,7 +143,7 @@ MonoBehaviour:
       targetCount: 1
       currentCount: 0
     - objectiveTitle: Activate the Echo Stone
-      objectiveDescription: Use the Echo Stone to read your printed lines aloud.
+      objectiveDescription: Use the Echo Stone to verify your printed lines are correct.
       isCompleted: 0
       isActive: 0
       isOptional: 0
@@ -136,30 +152,39 @@ MonoBehaviour:
     nextQuestId: Q5_SyntaxTrial
   - questId: Q5_SyntaxTrial
     questTitle: The Syntax Trial
-    questDescription: Assemble a clean class with main and valid statements to prove
-      mastery.
+    questDescription: Prove your mastery by assembling a complete Java class with
+      all learned concepts.
     questImage: {fileID: 0}
     isCompleted: 0
     isActive: 0
     objectives:
-    - objectiveTitle: Assemble the Class Skeleton
-      objectiveDescription: Put the class header, main method, and braces in the
-        right places.
+    - objectiveTitle: Approach the Trial Monument
+      objectiveDescription: Stand before the ancient Trial Monument at the forest
+        edge.
+      isCompleted: 0
+      isActive: 0
+      isOptional: 0
+      targetCount: 1
+      currentCount: 0
+    - objectiveTitle: Listen to Arin's Final Recap
+      objectiveDescription: 'Review all Java syntax concepts: class structure, main
+        method, types, strings, and statements.'
       isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
       currentCount: 0
     - objectiveTitle: Complete the Syntax Trial Tablet
-      objectiveDescription: 'Write valid statements: declarations, string concatenation,
-        and println (with semicolons).'
+      objectiveDescription: Write a complete Java program with declarations, string
+        concatenation, and println (with proper syntax).
       isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
       currentCount: 0
-    - objectiveTitle: Speak with Arin at the Forest Edge
-      objectiveDescription: Conclude the Oak Woods chapter.
+    - objectiveTitle: Receive Arin's Blessing
+      objectiveDescription: Conclude the Oak Woods chapter and earn the title of
+        Codebreaker.
       isCompleted: 0
       isActive: 0
       isOptional: 0

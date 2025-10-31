@@ -15,7 +15,7 @@ public class CabinQuestTrigger : MonoBehaviour
     [SerializeField] private string enterCabinObjective = "Follow Arin to Her Cabin";
     
     [Tooltip("Objective 2: Listen to Arin's lecture")]
-    [SerializeField] private string lecturObjective = "Listen to Arin’s Lesson: Java Basics";
+    [SerializeField] private string lecturObjective = "Listen to Arin's Lesson: Java Basics";
     
     [Tooltip("Dialogue conversation ID for Arin's lecture")]
     [SerializeField] private string lectureDialogueId = "Arin_02_JavaBasics";
