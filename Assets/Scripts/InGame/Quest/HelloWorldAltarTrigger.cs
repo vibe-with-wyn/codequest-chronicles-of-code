@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 /// <summary>
 /// Handles player detection at the Hello World Altar and manages the "Start Quiz" button visibility
-/// UPDATED: Uses world-space canvas prefab button that stays near the altar
+/// CORRECTED: Phase 1 starts AFTER Quiz UI closes, Phase 4 restores UI after 1 second delay
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class HelloWorldAltarTrigger : MonoBehaviour
@@ -22,10 +23,30 @@ public class HelloWorldAltarTrigger : MonoBehaviour
 
     [Header("Button Position")]
     [Tooltip("Offset from the altar where the button should appear (world space)")]
-    [SerializeField] private Vector3 buttonOffset = new Vector3(0, 2f, 0); // Above the altar
+    [SerializeField] private Vector3 buttonOffset = new Vector3(0, 2f, 0);
 
     [Header("Button Settings")]
     [SerializeField] private float buttonFadeSpeed = 5f;
+
+    [Header("Altar Activation Settings")]
+    [Tooltip("Delay AFTER Quiz UI closes before triggering altar activation (seconds)")]
+    [SerializeField] private float altarActivationDelay = 1f;
+    
+    [Tooltip("Animator component for the altar (auto-found if not assigned)")]
+    [SerializeField] private Animator altarAnimator;
+    
+    [Tooltip("Trigger parameter name for altar activation animation")]
+    [SerializeField] private string activationTriggerName = "Activate";
+    
+    [Tooltip("Duration of the altar activation animation (seconds) - MUST MATCH YOUR ANIMATION LENGTH")]
+    [SerializeField] private float activationAnimationDuration = 2f;
+    
+    [Tooltip("Delay before UI restoration and Quest 3 display (seconds)")]
+    [SerializeField] private float quest3DisplayDelay = 1f;
+
+    [Header("Game UI Reference")]
+    [Tooltip("Main game Canvas to restore before Quest 3 displays")]
+    [SerializeField] private CanvasGroup gameUICanvasGroup;
 
     [Header("Debug")]
     [SerializeField] private bool debugMode = true;
@@ -33,10 +54,10 @@ public class HelloWorldAltarTrigger : MonoBehaviour
     private bool isPlayerInRange = false;
     private bool isQuizActive = false;
     private bool hasCompletedQuiz = false;
+    private bool isActivating = false;
     private Transform playerTransform;
     private MiniQuestUIController miniQuestUI;
 
-    // Runtime instantiated button
     private GameObject startQuizButtonInstance;
     private Button startQuizButton;
     private CanvasGroup buttonCanvasGroup;
@@ -50,6 +71,35 @@ public class HelloWorldAltarTrigger : MonoBehaviour
             col.isTrigger = true;
             Debug.LogWarning($"HelloWorldAltarTrigger on {gameObject.name}: Collider was not set as trigger. Fixed automatically.");
         }
+        
+        // Auto-find altar animator if not assigned
+        if (altarAnimator == null)
+        {
+            altarAnimator = GetComponent<Animator>();
+            if (altarAnimator == null)
+            {
+                altarAnimator = GetComponentInChildren<Animator>();
+            }
+            
+            if (altarAnimator != null && debugMode)
+            {
+                Debug.Log($"[HelloWorldAltar] Auto-found Animator component: {altarAnimator.gameObject.name}");
+            }
+        }
+
+        // Auto-find game UI if not assigned
+        if (gameUICanvasGroup == null)
+        {
+            Canvas canvas = Object.FindFirstObjectByType<Canvas>();
+            if (canvas != null && canvas.name != "Quiz UI")
+            {
+                gameUICanvasGroup = canvas.GetComponent<CanvasGroup>();
+                if (debugMode)
+                {
+                    Debug.Log("[HelloWorldAltar] Auto-found game UI CanvasGroup");
+                }
+            }
+        }
     }
 
     void Start()
@@ -57,6 +107,7 @@ public class HelloWorldAltarTrigger : MonoBehaviour
         CacheMiniQuestUI();
         ValidateMiniQuestData();
         InitializeStartQuizButton();
+        ValidateAnimatorSetup();
     }
 
     void Update()
@@ -68,18 +119,14 @@ public class HelloWorldAltarTrigger : MonoBehaviour
     {
         if (startQuizButtonPrefab == null)
         {
-            Debug.LogError("[HelloWorldAltar] Start Quiz Button Prefab not assigned! Please assign it in the Inspector.");
+            Debug.LogError("[HelloWorldAltar] Start Quiz Button Prefab not assigned!");
             return;
         }
 
-        // Instantiate the button prefab at the altar's position
         Vector3 buttonPosition = transform.position + buttonOffset;
         startQuizButtonInstance = Instantiate(startQuizButtonPrefab, buttonPosition, Quaternion.identity);
+        startQuizButtonInstance.transform.SetParent(transform, true);
 
-        // Parent it to the altar so it moves with the altar (if altar moves)
-        startQuizButtonInstance.transform.SetParent(transform, true); // worldPositionStays = true
-
-        // Get references to button components
         startQuizButton = startQuizButtonInstance.GetComponentInChildren<Button>();
         buttonCanvasGroup = startQuizButtonInstance.GetComponent<CanvasGroup>();
 
@@ -91,14 +138,11 @@ public class HelloWorldAltarTrigger : MonoBehaviour
 
         if (buttonCanvasGroup == null)
         {
-            // Add CanvasGroup if missing
             buttonCanvasGroup = startQuizButtonInstance.AddComponent<CanvasGroup>();
         }
 
-        // Setup button listener
         startQuizButton.onClick.AddListener(OnStartQuizButtonClicked);
 
-        // Initially hide button
         buttonCanvasGroup.alpha = 0f;
         buttonCanvasGroup.interactable = false;
         buttonCanvasGroup.blocksRaycasts = false;
@@ -118,14 +162,11 @@ public class HelloWorldAltarTrigger : MonoBehaviour
 
             if (miniQuestUI == null)
             {
-                Debug.LogError("[HelloWorldAltar] MiniQuestUIController not found in scene! Please add it to Mini Quest Controller GameObject.");
+                Debug.LogError("[HelloWorldAltar] MiniQuestUIController not found in scene!");
             }
-            else
+            else if (debugMode)
             {
-                if (debugMode)
-                {
-                    Debug.Log("[HelloWorldAltar] MiniQuestUIController found successfully");
-                }
+                Debug.Log("[HelloWorldAltar] MiniQuestUIController found successfully");
             }
         }
     }
@@ -134,7 +175,7 @@ public class HelloWorldAltarTrigger : MonoBehaviour
     {
         if (miniQuestData == null)
         {
-            Debug.LogError("[HelloWorldAltar] MiniQuestData not assigned! Please create and assign a MiniQuestData ScriptableObject.");
+            Debug.LogError("[HelloWorldAltar] MiniQuestData not assigned!");
             return;
         }
 
@@ -150,16 +191,55 @@ public class HelloWorldAltarTrigger : MonoBehaviour
         }
     }
 
+    private void ValidateAnimatorSetup()
+    {
+        if (altarAnimator == null)
+        {
+            Debug.LogWarning("[HelloWorldAltar] No Animator assigned - altar activation will be skipped");
+            return;
+        }
+
+        if (altarAnimator.runtimeAnimatorController == null)
+        {
+            Debug.LogError("[HelloWorldAltar] Animator has no controller assigned!");
+            return;
+        }
+
+        bool hasTrigger = false;
+        foreach (var param in altarAnimator.parameters)
+        {
+            if (param.name == activationTriggerName)
+            {
+                if (param.type == AnimatorControllerParameterType.Trigger)
+                {
+                    hasTrigger = true;
+                    if (debugMode)
+                    {
+                        Debug.Log($"[HelloWorldAltar] ✓ Found trigger parameter '{activationTriggerName}' in Animator");
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"[HelloWorldAltar] Parameter '{activationTriggerName}' exists but is NOT a Trigger!");
+                }
+                break;
+            }
+        }
+
+        if (!hasTrigger)
+        {
+            Debug.LogError($"[HelloWorldAltar] Trigger parameter '{activationTriggerName}' NOT FOUND in Animator!");
+        }
+    }
+
     private void UpdateButtonVisibility()
     {
         if (buttonCanvasGroup == null || startQuizButtonInstance == null) return;
 
-        // Check if quest objective is active
-        bool shouldShowButton = isPlayerInRange && !isQuizActive && !hasCompletedQuiz && IsObjectiveActive();
+        bool shouldShowButton = isPlayerInRange && !isQuizActive && !hasCompletedQuiz && !isActivating && IsObjectiveActive();
 
         if (shouldShowButton)
         {
-            // Fade in
             if (!startQuizButtonInstance.activeSelf)
             {
                 startQuizButtonInstance.SetActive(true);
@@ -171,7 +251,6 @@ public class HelloWorldAltarTrigger : MonoBehaviour
         }
         else
         {
-            // Fade out
             buttonCanvasGroup.alpha = Mathf.Lerp(buttonCanvasGroup.alpha, 0f, Time.deltaTime * buttonFadeSpeed);
             buttonCanvasGroup.interactable = false;
             buttonCanvasGroup.blocksRaycasts = false;
@@ -190,7 +269,6 @@ public class HelloWorldAltarTrigger : MonoBehaviour
         QuestData currentQuest = QuestManager.Instance.GetCurrentQuest();
         if (currentQuest == null || currentQuest.questId != requiredQuestId) return false;
 
-        // Check if the specific objective is active
         QuestObjective objective = currentQuest.objectives.Find(o => o.objectiveTitle == requiredObjectiveTitle);
         if (objective != null && objective.isActive && !objective.isCompleted)
         {
@@ -207,19 +285,12 @@ public class HelloWorldAltarTrigger : MonoBehaviour
             Debug.Log("[HelloWorldAltar] Start Quiz button clicked!");
         }
 
-        if (miniQuestData == null)
+        if (miniQuestData == null || miniQuestUI == null)
         {
-            Debug.LogError("[HelloWorldAltar] Cannot start quiz - MiniQuestData not assigned!");
+            Debug.LogError("[HelloWorldAltar] Cannot start quiz - missing data or controller!");
             return;
         }
 
-        if (miniQuestUI == null)
-        {
-            Debug.LogError("[HelloWorldAltar] Cannot start quiz - MiniQuestUIController not found!");
-            return;
-        }
-
-        // Start the quiz
         isQuizActive = true;
         miniQuestUI.StartMiniQuest(miniQuestData, OnQuizCompleted);
 
@@ -237,23 +308,229 @@ public class HelloWorldAltarTrigger : MonoBehaviour
         {
             hasCompletedQuiz = true;
 
-            // Complete the quest objective
-            if (QuestManager.Instance != null)
+            if (debugMode)
             {
-                QuestManager.Instance.CompleteObjectiveByTitle(requiredObjectiveTitle);
-                if (debugMode)
-                {
-                    Debug.Log($"[HelloWorldAltar] ✓ Quest objective '{requiredObjectiveTitle}' completed!");
-                }
+                Debug.Log("[HelloWorldAltar] Quiz completed successfully!");
+                Debug.Log("[HelloWorldAltar] Quiz UI will now close (handled by MiniQuestUI)...");
+                Debug.Log("[HelloWorldAltar] Starting delayed activation sequence AFTER Quiz UI closes...");
+            }
+
+            StartCoroutine(DelayedActivationSequence());
+        }
+        else if (debugMode)
+        {
+            Debug.Log("[HelloWorldAltar] Quiz was cancelled or failed");
+        }
+    }
+
+    // CORRECTED: Phase 1 starts AFTER Quiz UI closes, Phase 4 includes 1s delay + UI restoration
+    private IEnumerator DelayedActivationSequence()
+    {
+        isActivating = true;
+
+        // ============= PHASE 1: WAIT 1 SECOND AFTER QUIZ UI CLOSES =============
+        if (debugMode)
+        {
+            Debug.Log($"[HelloWorldAltar] PHASE 1: Quiz UI has closed. Waiting {altarActivationDelay}s before altar activation...");
+        }
+        
+        yield return new WaitForSeconds(altarActivationDelay);
+
+        // ============= PHASE 2: TRIGGER ALTAR ACTIVATION ANIMATION =============
+        if (debugMode)
+        {
+            Debug.Log("[HelloWorldAltar] PHASE 2: Triggering altar activation animation...");
+        }
+
+        TriggerAltarActivation();
+
+        // ============= PHASE 3: WAIT FOR ACTIVATION ANIMATION (2 seconds) =============
+        if (debugMode)
+        {
+            Debug.Log($"[HelloWorldAltar] PHASE 3: Waiting {activationAnimationDuration}s for altar activation animation to complete...");
+            Debug.Log("[HelloWorldAltar] UI remains HIDDEN during altar activation");
+        }
+        
+        yield return new WaitForSeconds(activationAnimationDuration);
+
+        // ============= PHASE 4: WAIT 1 SECOND, THEN RESTORE GAME UI =============
+        if (debugMode)
+        {
+            Debug.Log($"[HelloWorldAltar] PHASE 4: Altar activation complete! Waiting {quest3DisplayDelay}s before UI restoration...");
+        }
+        
+        yield return new WaitForSeconds(quest3DisplayDelay);
+
+        if (debugMode)
+        {
+            Debug.Log("[HelloWorldAltar] PHASE 4 (continued): Now restoring game UI...");
+        }
+
+        yield return StartCoroutine(RestoreGameUI());
+
+        // ============= PHASE 5: COMPLETE QUEST OBJECTIVE (TRIGGERS QUEST 3 DISPLAY) =============
+        if (debugMode)
+        {
+            Debug.Log("[HelloWorldAltar] PHASE 5: UI restored! Completing quest objective - Quest 3 will display now!");
+        }
+
+        if (QuestManager.Instance != null)
+        {
+            QuestManager.Instance.CompleteObjectiveByTitle(requiredObjectiveTitle);
+            if (debugMode)
+            {
+                Debug.Log($"[HelloWorldAltar] ✓ Quest objective '{requiredObjectiveTitle}' completed!");
+                Debug.Log("[HelloWorldAltar] Quest 3 should now be displaying");
             }
         }
-        else
+
+        isActivating = false;
+
+        if (debugMode)
+        {
+            Debug.Log("[HelloWorldAltar] ✓✓✓ Delayed activation sequence completed!");
+        }
+    }
+
+    // Restore game UI method
+    private IEnumerator RestoreGameUI()
+    {
+        if (gameUICanvasGroup == null)
+        {
+            Debug.LogWarning("[HelloWorldAltar] No game UI CanvasGroup assigned - skipping UI restoration");
+            yield break;
+        }
+
+        if (debugMode)
+        {
+            Debug.Log("[HelloWorldAltar] Starting game UI restoration...");
+        }
+
+        // Restore CanvasGroup properties
+        gameUICanvasGroup.alpha = 1f;
+        gameUICanvasGroup.interactable = true;
+        gameUICanvasGroup.blocksRaycasts = true;
+
+        yield return null;
+
+        // Restore all Image components
+        Image[] allImages = gameUICanvasGroup.GetComponentsInChildren<Image>(true);
+        foreach (Image img in allImages)
+        {
+            Color color = img.color;
+            color.a = 1f;
+            img.color = color;
+        }
+
+        // Restore all TextMeshProUGUI components
+        TextMeshProUGUI[] allTexts = gameUICanvasGroup.GetComponentsInChildren<TextMeshProUGUI>(true);
+        foreach (TextMeshProUGUI text in allTexts)
+        {
+            Color color = text.color;
+            color.a = 1f;
+            text.color = color;
+        }
+
+        // Restore all SpriteRenderer components (UI sprite icons)
+        SpriteRenderer[] allSprites = gameUICanvasGroup.GetComponentsInChildren<SpriteRenderer>(true);
+        foreach (SpriteRenderer sprite in allSprites)
+        {
+            Color color = sprite.color;
+            color.a = 1f;
+            sprite.color = color;
+        }
+
+        yield return null;
+
+        // Restore button interactivity
+        Button[] buttons = gameUICanvasGroup.GetComponentsInChildren<Button>(true);
+        foreach (Button button in buttons)
+        {
+            button.interactable = true;
+        }
+
+        // Restore slider interactivity
+        Slider[] sliders = gameUICanvasGroup.GetComponentsInChildren<Slider>(true);
+        foreach (Slider slider in sliders)
+        {
+            slider.interactable = true;
+        }
+
+        yield return null;
+
+        // Force canvas update
+        Canvas.ForceUpdateCanvases();
+
+        yield return null;
+
+        // Reinitialize UIController buttons
+        UIController uiController = Object.FindFirstObjectByType<UIController>();
+        if (uiController != null)
+        {
+            uiController.ReinitializeButtons();
+            if (debugMode)
+            {
+                Debug.Log("[HelloWorldAltar] UIController buttons reinitialized");
+            }
+        }
+
+        if (debugMode)
+        {
+            Debug.Log("[HelloWorldAltar] ✓ Game UI fully restored!");
+            Debug.Log($"[HelloWorldAltar] Restored: {allImages.Length} images, {allTexts.Length} texts, {allSprites.Length} sprites, {buttons.Length} buttons, {sliders.Length} sliders");
+        }
+    }
+
+    private void TriggerAltarActivation()
+    {
+        if (altarAnimator == null)
         {
             if (debugMode)
             {
-                Debug.Log("[HelloWorldAltar] Quiz was cancelled or failed");
+                Debug.LogWarning("[HelloWorldAltar] No Animator assigned - skipping activation animation");
+            }
+            return;
+        }
+
+        if (altarAnimator.runtimeAnimatorController == null)
+        {
+            Debug.LogError("[HelloWorldAltar] Animator has no controller - cannot trigger animation!");
+            return;
+        }
+
+        bool hasTrigger = false;
+        AnimatorControllerParameterType foundType = AnimatorControllerParameterType.Float;
+        
+        foreach (var param in altarAnimator.parameters)
+        {
+            if (param.name == activationTriggerName)
+            {
+                hasTrigger = true;
+                foundType = param.type;
+                break;
             }
         }
+
+        if (!hasTrigger)
+        {
+            Debug.LogError($"[HelloWorldAltar] Trigger parameter '{activationTriggerName}' NOT FOUND!");
+            return;
+        }
+
+        if (foundType != AnimatorControllerParameterType.Trigger)
+        {
+            Debug.LogError($"[HelloWorldAltar] Parameter '{activationTriggerName}' is NOT a Trigger!");
+            return;
+        }
+
+        altarAnimator.SetTrigger(activationTriggerName);
+        
+        if (debugMode)
+        {
+            Debug.Log($"[HelloWorldAltar] ✓ Triggered altar activation: '{activationTriggerName}'");
+        }
+
+        altarAnimator.Update(0f);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -286,7 +563,6 @@ public class HelloWorldAltarTrigger : MonoBehaviour
 
     void OnDestroy()
     {
-        // Clean up instantiated button when altar is destroyed
         if (startQuizButtonInstance != null)
         {
             Destroy(startQuizButtonInstance);
@@ -295,7 +571,6 @@ public class HelloWorldAltarTrigger : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        // Draw trigger zone
         Collider2D col = GetComponent<Collider2D>();
         if (col != null)
         {
@@ -311,13 +586,17 @@ public class HelloWorldAltarTrigger : MonoBehaviour
             }
         }
 
-        // Draw button spawn position
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position + buttonOffset, 0.3f);
 
 #if UNITY_EDITOR
+        string statusText = hasCompletedQuiz ? "COMPLETED" : (isActivating ? "ACTIVATING..." : "READY");
+        string animatorStatus = altarAnimator != null ? "✓" : "✗ MISSING";
+        string uiStatus = gameUICanvasGroup != null ? "✓" : "✗ MISSING";
+        float totalDelay = altarActivationDelay + activationAnimationDuration + quest3DisplayDelay;
+        
         UnityEditor.Handles.Label(transform.position + Vector3.up * 1f,
-            $"Hello World Altar\n{requiredObjectiveTitle}\nButton Offset: {buttonOffset}",
+            $"Hello World Altar [{statusText}]\n{requiredObjectiveTitle}\nAnimator: {animatorStatus} | Game UI: {uiStatus}\nTrigger: '{activationTriggerName}'\n\nSEQUENCE:\n1. Quiz UI Closes (MiniQuestUI)\n2. Wait {altarActivationDelay}s\n3. Altar Animation {activationAnimationDuration}s\n4. Wait {quest3DisplayDelay}s + Restore UI\n5. Quest 3 Displays\n\nTotal Time: {totalDelay}s",
             new GUIStyle() { normal = new GUIStyleState() { textColor = Color.cyan } });
 #endif
     }
