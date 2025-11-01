@@ -3,6 +3,7 @@ using System.Collections;
 
 /// <summary>
 /// Specialized trigger for the cabin that handles Quest 2 objectives and NPC Arin's lecture dialogue
+/// UPDATED: Arin walks to POST-LECTURE waiting position (different from post-boss cabin location)
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class CabinQuestTrigger : MonoBehaviour
@@ -22,13 +23,23 @@ public class CabinQuestTrigger : MonoBehaviour
     
     [Header("NPC Settings")]
     [Tooltip("Distance Arin should be from player during lecture")]
-    [SerializeField] private float conversationDistance = 5.0f; // UPDATED: Changed from 3.0f to match PostBossConversationController
+    [SerializeField] private float conversationDistance = 5.0f;
     
     [Tooltip("Speed Arin approaches player")]
     [SerializeField] private float approachSpeed = 2.0f;
     
     [Tooltip("How close Arin needs to be before stopping")]
     [SerializeField] private float stopDistance = 0.1f;
+    
+    [Header("Post-Lecture Arin Positioning")]
+    [Tooltip("QUEST 2: Where Arin should wait after the lecture (right of cabin, before boss fight)")]
+    [SerializeField] private Vector3 postLectureWaitingPosition = new Vector3(0, 0, 0); // SET THIS IN INSPECTOR - RIGHT OF CABIN
+    
+    [Tooltip("Speed Arin walks to post-lecture waiting position")]
+    [SerializeField] private float walkToWaitingSpeed = 2.5f;
+    
+    [Tooltip("How close Arin needs to be to waiting position before stopping")]
+    [SerializeField] private float waitingPositionStopDistance = 0.3f;
     
     [Header("Timing")]
     [Tooltip("Delay before starting lecture dialogue after Arin arrives")]
@@ -59,10 +70,10 @@ public class CabinQuestTrigger : MonoBehaviour
     private float originalAlpha;
     private Color[] originalImageColors;
     private Color[] originalTextColors;
-    private Color[] originalSpriteColors; // NEW: For UI sprite icons
+    private Color[] originalSpriteColors; // For UI sprite icons
     private UnityEngine.UI.Image[] allImages;
     private TMPro.TextMeshProUGUI[] allTexts;
-    private SpriteRenderer[] allSprites; // NEW: For UI sprite icons
+    private SpriteRenderer[] allSprites; // For UI sprite icons
 
     void Awake()
     {
@@ -72,6 +83,12 @@ public class CabinQuestTrigger : MonoBehaviour
         {
             col.isTrigger = true;
             Debug.LogWarning($"CabinQuestTrigger on {gameObject.name}: Collider was not set as trigger. Fixed automatically.");
+        }
+        
+        // Validate waiting position is set
+        if (postLectureWaitingPosition == Vector3.zero)
+        {
+            Debug.LogError("[CabinTrigger] ⚠ Post-Lecture Waiting Position not set! Please configure it in the Inspector (right of cabin).");
         }
     }
 
@@ -328,26 +345,128 @@ public class CabinQuestTrigger : MonoBehaviour
         
         yield return StartCoroutine(RestoreUIGradually());
         
-        // ============= PHASE 11: RESTORE ARIN PHYSICS =============
+        // ============= PHASE 11: ARIN WALKS TO POST-LECTURE WAITING POSITION =============
         if (debugMode)
         {
-            Debug.Log("[CabinTrigger] PHASE 11: Restoring Arin's original state...");
+            Debug.Log("[CabinTrigger] PHASE 11: Arin walking to POST-LECTURE waiting position (right of cabin)...");
         }
         
-        RestoreArinPhysics();
+        yield return StartCoroutine(MoveArinToPostLecturePosition());
         
-        // Re-enable Arin AI
-        if (arinAI != null)
+        // ============= PHASE 12: FINALIZE ARIN STATE =============
+        if (debugMode)
         {
-            arinAI.enabled = true;
+            Debug.Log("[CabinTrigger] PHASE 12: Finalizing Arin's idle state at POST-LECTURE position...");
         }
+        
+        FinalizeArinState();
         
         isLectureActive = false;
         
         if (debugMode)
         {
-            Debug.Log("[CabinTrigger] ✓✓✓ Quest 2 lecture sequence completed successfully!");
+            Debug.Log("[CabinTrigger] ✓✓✓ Quest 2 lecture sequence completed successfully! Arin waiting at POST-LECTURE position.");
         }
+    }
+
+    // UPDATED: Move Arin to her POST-LECTURE waiting position (right of cabin, BEFORE boss fight)
+    private IEnumerator MoveArinToPostLecturePosition()
+    {
+        if (postLectureWaitingPosition == Vector3.zero)
+        {
+            Debug.LogError("[CabinTrigger] ⚠ Post-Lecture Waiting Position not set! Skipping movement.");
+            yield break;
+        }
+
+        Debug.Log($"[CabinTrigger] Moving Arin to POST-LECTURE waiting position: {postLectureWaitingPosition}");
+
+        int iterationCount = 0;
+        const int maxIterations = 1000;
+
+        while (iterationCount < maxIterations)
+        {
+            iterationCount++;
+
+            Vector3 currentPos = arinAI.transform.position;
+            
+            // Calculate horizontal distance only (X-axis)
+            float distanceX = Mathf.Abs(currentPos.x - postLectureWaitingPosition.x);
+
+            // Check if arrived (using horizontal distance only)
+            if (distanceX <= waitingPositionStopDistance)
+            {
+                if (debugMode)
+                {
+                    Debug.Log($"[CabinTrigger] ✓ Arin arrived at POST-LECTURE waiting position after {iterationCount} iterations!");
+                }
+                break;
+            }
+
+            // Calculate horizontal direction
+            float directionX = Mathf.Sign(postLectureWaitingPosition.x - currentPos.x);
+
+            // Use velocity for horizontal movement - gravity handles vertical
+            arinRb.linearVelocity = new Vector2(directionX * walkToWaitingSpeed, arinRb.linearVelocity.y);
+
+            // Update sprite facing
+            if (arinSprite != null)
+            {
+                arinSprite.flipX = (directionX < 0);
+            }
+
+            // Update animation
+            if (arinAnimator != null)
+            {
+                TrySetAnimatorBool(arinAnimator, "isMoving", true);
+            }
+
+            // Log progress every 60 frames
+            if (debugMode && iterationCount % 60 == 0)
+            {
+                Debug.Log($"[CabinTrigger] Walking to POST-LECTURE position: {distanceX:F2}m remaining (frame {iterationCount})");
+            }
+
+            yield return null;
+        }
+
+        // Stop movement
+        arinRb.linearVelocity = Vector2.zero;
+        
+        if (arinAnimator != null)
+        {
+            TrySetAnimatorBool(arinAnimator, "isMoving", false);
+        }
+
+        Debug.Log($"[CabinTrigger] Arin stopped at POST-LECTURE position: {arinAI.transform.position}");
+    }
+
+    // UPDATED: Finalize Arin's state after reaching POST-LECTURE waiting position
+    private void FinalizeArinState()
+    {
+        // Stop all movement
+        if (arinRb != null)
+        {
+            arinRb.linearVelocity = Vector2.zero;
+            arinRb.bodyType = originalArinBodyType;
+            arinRb.gravityScale = originalArinGravity;
+        }
+
+        // Stop animation
+        if (arinAnimator != null)
+        {
+            TrySetAnimatorBool(arinAnimator, "isMoving", false);
+        }
+
+        // Reset sprite facing (face forward)
+        if (arinSprite != null)
+        {
+            arinSprite.flipX = false;
+        }
+
+        // CRITICAL: Keep ArinNPCAI DISABLED so she stays at POST-LECTURE waiting position
+        // She will be re-enabled when boss fight starts
+        
+        Debug.Log("[CabinTrigger] Arin is now in idle state at POST-LECTURE waiting position (AI disabled, waiting for boss fight)");
     }
 
     #region Helper Methods
@@ -405,7 +524,7 @@ public class CabinQuestTrigger : MonoBehaviour
         }
     }
 
-    // NEW: Store and hide all UI elements including sprite icons
+    // Store and hide all UI elements including sprite icons
     private void StoreOriginalStatesAndHide()
     {
         if (uiCanvasGroup != null)
@@ -434,7 +553,7 @@ public class CabinQuestTrigger : MonoBehaviour
                 allTexts[i].color = hiddenColor;
             }
 
-            // NEW: Get all SpriteRenderers (UI sprite icons)
+            // Get all SpriteRenderers (UI sprite icons)
             allSprites = uiCanvasGroup.GetComponentsInChildren<SpriteRenderer>(true);
             originalSpriteColors = new Color[allSprites.Length];
             
@@ -494,7 +613,7 @@ public class CabinQuestTrigger : MonoBehaviour
         }
     }
 
-    // NEW: Restore all UI elements including sprite icons
+    // Restore all UI elements including sprite icons
     private void RestoreOriginalStates()
     {
         if (uiCanvasGroup != null)
@@ -519,7 +638,7 @@ public class CabinQuestTrigger : MonoBehaviour
                 }
             }
 
-            // NEW: Restore all SpriteRenderer components with original colors
+            // Restore all SpriteRenderer components with original colors
             if (allSprites != null && originalSpriteColors != null)
             {
                 for (int i = 0; i < allSprites.Length && i < originalSpriteColors.Length; i++)
@@ -546,21 +665,6 @@ public class CabinQuestTrigger : MonoBehaviour
             if (debugMode)
             {
                 Debug.Log($"[CabinTrigger] Restored: {allImages?.Length ?? 0} images, {allTexts?.Length ?? 0} texts, {allSprites?.Length ?? 0} sprites");
-            }
-        }
-    }
-
-    private void RestoreArinPhysics()
-    {
-        if (arinRb != null)
-        {
-            arinRb.bodyType = originalArinBodyType;
-            arinRb.gravityScale = originalArinGravity;
-            arinRb.linearVelocity = Vector2.zero;
-            
-            if (debugMode)
-            {
-                Debug.Log($"[CabinTrigger] Arin physics restored: BodyType={originalArinBodyType}, Gravity={originalArinGravity}");
             }
         }
     }
@@ -623,10 +727,22 @@ public class CabinQuestTrigger : MonoBehaviour
             }
         }
         
+        // UPDATED: Draw POST-LECTURE waiting position (BEFORE boss fight)
+        if (postLectureWaitingPosition != Vector3.zero)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(postLectureWaitingPosition, 0.5f);
+            Gizmos.DrawLine(transform.position, postLectureWaitingPosition);
+        }
+        
         // Draw label
         #if UNITY_EDITOR
+        string waitingPosText = postLectureWaitingPosition != Vector3.zero 
+            ? $"\nPOST-LECTURE Position: ({postLectureWaitingPosition.x:F1}, {postLectureWaitingPosition.y:F1})" 
+            : "\n⚠ POST-LECTURE Position NOT SET!";
+        
         UnityEditor.Handles.Label(transform.position + Vector3.up * 0.5f, 
-            $"Cabin Quest Trigger\n{enterCabinObjective}\n{lecturObjective}", 
+            $"Cabin Quest Trigger (QUEST 2)\n{enterCabinObjective}\n{lecturObjective}{waitingPosText}", 
             new GUIStyle() { normal = new GUIStyleState() { textColor = Color.yellow } });
         #endif
     }
