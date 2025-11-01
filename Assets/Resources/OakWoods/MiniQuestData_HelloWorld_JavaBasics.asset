@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e9c5a5dc0362d48ad62c982b85df84, type: 3}
+  m_Name: MiniQuestData_HelloWorld_JavaBasics
+  m_EditorClassIdentifier: Assembly-CSharp::MiniQuestData
+  miniQuestId: Q2_Obj3_HelloWorld
+  miniQuestTitle: 'Hello World: Java Basics'
+  instructions: Answer all questions correctly to complete this quest objective.
+  questions:
+  - questionText: What is the entry point of every Java application?
+    choices:
+    - choiceText: The main() method
+      isCorrect: 1
+    - choiceText: The start() method
+      isCorrect: 0
+    - choiceText: The run() method
+      isCorrect: 0
+    - choiceText: The init() method
+      isCorrect: 0
+    hintOnWrongAnswer: Every Java program starts execution from a specific method.
+      It's the first method called when the program runs, and it has a very specific
+      signature that includes 'String[] args'.
+    explanationOnCorrect: Correct! The main() method is the entry point of every
+      Java application. The JVM looks for this method to begin program execution.
+  - questionText: Which statement is used to display text in the console in Java?
+    choices:
+    - choiceText: System.out.println()
+      isCorrect: 1
+    - choiceText: console.log()
+      isCorrect: 0
+    - choiceText: print()
+      isCorrect: 0
+    - choiceText: display()
+      isCorrect: 0
+    hintOnWrongAnswer: Think about what Arin showed you in the lecture. It's a method
+      that 'prints' to the system output, and it comes from the System class.
+    explanationOnCorrect: Perfect! System.out.println() is used to print text to
+      the console. 'println' stands for 'print line', which prints the text and moves
+      to a new line.
+  - questionText: What is the exact signature of the main method that every Java
+      program needs?
+    choices:
+    - choiceText: public void main(String[] args)
+      isCorrect: 0
+    - choiceText: public static void main(String[] args)
+      isCorrect: 1
+    - choiceText: static void main(String args)
+      isCorrect: 0
+    - choiceText: public static main(String[] args)
+      isCorrect: 0
+    hintOnWrongAnswer: Arin taught you to memorize this exact format. It starts with
+      'public static void main' and includes String[] args in parentheses. The order
+      and spelling of every word matters!
+    explanationOnCorrect: Excellent! 'public static void main(String[] args)' is
+      the exact signature. PUBLIC means accessible from anywhere, STATIC means it
+      belongs to the class, VOID means no return value, and String[] args allows
+      passing text arguments when running the program.
+  - questionText: In Java, what is the purpose of curly braces { }?
+    choices:
+    - choiceText: To store variable values
+      isCorrect: 0
+    - choiceText: To create comments in the code
+      isCorrect: 0
+    - choiceText: To group blocks of code together
+      isCorrect: 1
+    - choiceText: To end statements like semicolons
+      isCorrect: 0
+    hintOnWrongAnswer: 'Remember what Arin said: curly braces group blocks of code
+      together. Your class starts with { and ends with }. Your main method also starts
+      with { and ends with }. They define where code blocks begin and end.'
+    explanationOnCorrect: Perfect! Curly braces { } group blocks of code together.
+      Every opening brace { MUST have a matching closing brace }. They define the
+      boundaries of classes, methods, loops, and other code structures.
+  - questionText: Every statement in Java must end with which symbol?
+    choices:
+    - choiceText: A period ( . )
+      isCorrect: 0
+    - choiceText: A comma ( , )
+      isCorrect: 0
+    - choiceText: A closing brace ( } )
+      isCorrect: 0
+    - choiceText: A semicolon ( ; )
+      isCorrect: 1
+    hintOnWrongAnswer: Arin compared this to a period ending a sentence. It's a single
+      punctuation mark that appears at the end of every Java statement. Think about
+      what you saw after System.out.println("Hello!");
+    explanationOnCorrect: Correct! Every statement in Java must end with a semicolon
+      ( ; ). Think of it as a period ending a sentence. Forgetting the semicolon
+      is one of the most common syntax errors for beginners!
+  objectiveTitleToComplete: Complete the Hello World Altar Quiz
