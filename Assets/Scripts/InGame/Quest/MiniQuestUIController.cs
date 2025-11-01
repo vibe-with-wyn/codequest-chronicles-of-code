@@ -5,7 +5,7 @@ using System.Collections;
 
 /// <summary>
 /// Manages the Mini Quest UI for displaying questions, choices, hints, and feedback
-/// UPDATED: Now works with custom Quiz UI structure
+/// FIXED: Properly synchronized fade animations for panel and decorations (matching Quest UI exactly)
 /// </summary>
 public class MiniQuestUIController : MonoBehaviour
 {
@@ -14,45 +14,51 @@ public class MiniQuestUIController : MonoBehaviour
     [SerializeField] private CanvasGroup panelCanvasGroup;
     
     [Header("Title and Instructions")]
-    [SerializeField] private TextMeshProUGUI titleText; // Title Box Text
-    [SerializeField] private TextMeshProUGUI instructionsText; // Instruction Text
+    [SerializeField] private TextMeshProUGUI titleText;
+    [SerializeField] private TextMeshProUGUI instructionsText;
     
     [Header("Progress and Questions")]
-    [SerializeField] private TextMeshProUGUI progressText; // Progress Text
-    [SerializeField] private TextMeshProUGUI questionText; // Question Text
-    [SerializeField] private TextMeshProUGUI feedbackText; // Feedback Text
+    [SerializeField] private TextMeshProUGUI progressText;
+    [SerializeField] private TextMeshProUGUI questionText;
+    [SerializeField] private TextMeshProUGUI feedbackText;
     
     [Header("Choice Buttons")]
-    [SerializeField] private Button choice1Button; // Choice 1 Button
-    [SerializeField] private Button choice2Button; // Choice 2 Button
-    [SerializeField] private Button choice3Button; // Choice 3 Button
-    [SerializeField] private Button choice4Button; // Choice 4 Button
+    [SerializeField] private Button choice1Button;
+    [SerializeField] private Button choice2Button;
+    [SerializeField] private Button choice3Button;
+    [SerializeField] private Button choice4Button;
     
     [Header("Choice Button Texts")]
-    [SerializeField] private TextMeshProUGUI choice1Text; // Choice 1 Text child
-    [SerializeField] private TextMeshProUGUI choice2Text; // Choice 2 Text child
-    [SerializeField] private TextMeshProUGUI choice3Text; // Choice 3 Text child
-    [SerializeField] private TextMeshProUGUI choice4Text; // Choice 4 Text child
+    [SerializeField] private TextMeshProUGUI choice1Text;
+    [SerializeField] private TextMeshProUGUI choice2Text;
+    [SerializeField] private TextMeshProUGUI choice3Text;
+    [SerializeField] private TextMeshProUGUI choice4Text;
     
     [Header("Navigation Buttons")]
-    [SerializeField] private Button nextButton; // Next Button (visual only)
-    [SerializeField] private Button closeButton; // Close Button (visual only)
+    [SerializeField] private Button nextButton;
+    [SerializeField] private Button closeButton;
     
-    [Header("Visual Elements")]
-    [SerializeField] private GameObject[] decorationObjects; // Sprite Decorations
-    [SerializeField] private GameObject instructionBackground; // Instruction Background
-    [SerializeField] private GameObject questionBackground; // Question Background
+    [Header("Decoration Settings")]
+    [Tooltip("GameObjects to show/hide (optional)")]
+    [SerializeField] private GameObject[] decorationObjects;
+    
+    [Tooltip("SpriteRenderers for synchronized fade (auto-found if empty)")]
+    [SerializeField] private SpriteRenderer[] decorationSpriteRenderers;
+    
+    [Tooltip("Images for synchronized fade (auto-found if empty)")]
+    [SerializeField] private Image[] decorationImages;
     
     [Header("Game UI Reference")]
-    [SerializeField] private CanvasGroup gameUICanvasGroup; // Main game UI to hide during quiz
+    [Tooltip("Main game Canvas to hide during quiz")]
+    [SerializeField] private CanvasGroup gameUICanvasGroup;
     
     [Header("Display Settings")]
     [SerializeField] private float fadeInDuration = 0.5f;
     [SerializeField] private float fadeOutDuration = 0.3f;
-    [SerializeField] private Color correctColor = new Color(0.2f, 0.8f, 0.2f, 1f); // Green
-    [SerializeField] private Color incorrectColor = new Color(0.9f, 0.2f, 0.2f, 1f); // Red
+    [SerializeField] private Color correctColor = new Color(0.2f, 0.8f, 0.2f, 1f);
+    [SerializeField] private Color incorrectColor = new Color(0.9f, 0.2f, 0.2f, 1f);
     [SerializeField] private Color defaultColor = Color.white;
-    [SerializeField] private Color hintColor = new Color(1f, 0.9f, 0.3f, 1f); // Yellow
+    [SerializeField] private Color hintColor = new Color(1f, 0.9f, 0.3f, 1f);
     
     [Header("Feedback Settings")]
     [SerializeField] private float feedbackDisplayDuration = 2f;
@@ -67,10 +73,20 @@ public class MiniQuestUIController : MonoBehaviour
     private bool waitingForNextQuestion = false;
     private System.Action<bool> onQuestCompleteCallback;
     
-    // UI State Storage
+    // Game UI state storage
     private bool originalGameUIInteractable;
     private bool originalGameUIBlocksRaycasts;
     private float originalGameUIAlpha;
+    private Color[] originalImageColors;
+    private Color[] originalTextColors;
+    private Color[] originalSpriteColors;
+    private Image[] allImages;
+    private TextMeshProUGUI[] allTexts;
+    private SpriteRenderer[] allSprites;
+    
+    // CRITICAL: Store original decoration colors for synchronized fading
+    private Color[] originalDecorationSpriteColors;
+    private Color[] originalDecorationImageColors;
     
     void Start()
     {
@@ -79,7 +95,7 @@ public class MiniQuestUIController : MonoBehaviour
     
     private void InitializeUI()
     {
-        // Get or add CanvasGroup for fading
+        // Get or add CanvasGroup
         if (miniQuestPanel != null && panelCanvasGroup == null)
         {
             panelCanvasGroup = miniQuestPanel.GetComponent<CanvasGroup>();
@@ -89,6 +105,9 @@ public class MiniQuestUIController : MonoBehaviour
             }
         }
         
+        // CRITICAL: Initialize decorations BEFORE hiding panel
+        InitializeDecorations();
+        
         // Setup button listeners
         SetupButtonListeners();
         
@@ -96,7 +115,7 @@ public class MiniQuestUIController : MonoBehaviour
         if (gameUICanvasGroup == null)
         {
             Canvas canvas = Object.FindFirstObjectByType<Canvas>();
-            if (canvas != null && canvas.name != "Quiz UI") // Don't grab the quiz UI itself
+            if (canvas != null && canvas.name != "Quiz UI")
             {
                 gameUICanvasGroup = canvas.GetComponent<CanvasGroup>();
             }
@@ -110,8 +129,156 @@ public class MiniQuestUIController : MonoBehaviour
         
         if (debugMode)
         {
-            Debug.Log("[MiniQuestUI] Initialized with custom Quiz UI structure");
+            Debug.Log("[MiniQuestUI] Initialized with synchronized decoration fade");
             ValidateUIReferences();
+        }
+    }
+    
+    // CRITICAL: Initialize decorations (matching Quest UI exactly)
+    private void InitializeDecorations()
+    {
+        // Auto-find decorations if not assigned
+        if ((decorationObjects == null || decorationObjects.Length == 0) && 
+            (decorationSpriteRenderers == null || decorationSpriteRenderers.Length == 0) &&
+            (decorationImages == null || decorationImages.Length == 0))
+        {
+            AutoFindDecorations();
+        }
+        
+        // Store original colors for SpriteRenderers
+        if (decorationSpriteRenderers != null && decorationSpriteRenderers.Length > 0)
+        {
+            originalDecorationSpriteColors = new Color[decorationSpriteRenderers.Length];
+            for (int i = 0; i < decorationSpriteRenderers.Length; i++)
+            {
+                if (decorationSpriteRenderers[i] != null)
+                {
+                    originalDecorationSpriteColors[i] = decorationSpriteRenderers[i].color;
+                }
+            }
+        }
+        
+        // Store original colors for Images
+        if (decorationImages != null && decorationImages.Length > 0)
+        {
+            originalDecorationImageColors = new Color[decorationImages.Length];
+            for (int i = 0; i < decorationImages.Length; i++)
+            {
+                if (decorationImages[i] != null)
+                {
+                    originalDecorationImageColors[i] = decorationImages[i].color;
+                }
+            }
+        }
+        
+        // CRITICAL: Initially hide all decorations with alpha = 0
+        SetDecorationsAlpha(0f);
+        SetDecorationsVisibility(false);
+        
+        if (debugMode)
+        {
+            Debug.Log($"[MiniQuestUI] Decorations initialized: {decorationObjects?.Length ?? 0} objects, {decorationSpriteRenderers?.Length ?? 0} sprites, {decorationImages?.Length ?? 0} images");
+        }
+    }
+    
+    // Auto-find decorations in the Quiz UI panel
+    private void AutoFindDecorations()
+    {
+        if (miniQuestPanel == null) return;
+        
+        // Find all SpriteRenderers
+        SpriteRenderer[] foundSprites = miniQuestPanel.GetComponentsInChildren<SpriteRenderer>(true);
+        if (foundSprites.Length > 0)
+        {
+            decorationSpriteRenderers = foundSprites;
+            if (debugMode) Debug.Log($"[MiniQuestUI] Auto-found {foundSprites.Length} SpriteRenderer decorations");
+        }
+        
+        // Find all Images (excluding button images)
+        Image[] allPanelImages = miniQuestPanel.GetComponentsInChildren<Image>(true);
+        System.Collections.Generic.List<Image> decorationImagesList = new System.Collections.Generic.List<Image>();
+        
+        foreach (Image img in allPanelImages)
+        {
+            if (!IsUIElement(img))
+            {
+                decorationImagesList.Add(img);
+            }
+        }
+        
+        if (decorationImagesList.Count > 0)
+        {
+            decorationImages = decorationImagesList.ToArray();
+            if (debugMode) Debug.Log($"[MiniQuestUI] Auto-found {decorationImages.Length} Image decorations");
+        }
+    }
+    
+    // Check if Image is a UI element (button) rather than decoration
+    private bool IsUIElement(Image img)
+    {
+        if (img.GetComponent<Button>() != null) return true;
+        
+        if (img == choice1Button?.GetComponent<Image>() || 
+            img == choice2Button?.GetComponent<Image>() ||
+            img == choice3Button?.GetComponent<Image>() ||
+            img == choice4Button?.GetComponent<Image>() ||
+            img == nextButton?.GetComponent<Image>() ||
+            img == closeButton?.GetComponent<Image>())
+        {
+            return true;
+        }
+        
+        if (img.transform == miniQuestPanel.transform) return true;
+        
+        return false;
+    }
+    
+    // Set decorations visibility
+    private void SetDecorationsVisibility(bool visible)
+    {
+        if (decorationObjects != null)
+        {
+            foreach (GameObject decoration in decorationObjects)
+            {
+                if (decoration != null)
+                {
+                    decoration.SetActive(visible);
+                }
+            }
+        }
+        
+        // Note: We don't change alpha here anymore - that's handled by SetDecorationsAlpha
+    }
+    
+    // CRITICAL: Set decorations alpha for synchronized fading
+    private void SetDecorationsAlpha(float alpha)
+    {
+        // Handle SpriteRenderers
+        if (decorationSpriteRenderers != null && originalDecorationSpriteColors != null)
+        {
+            for (int i = 0; i < decorationSpriteRenderers.Length && i < originalDecorationSpriteColors.Length; i++)
+            {
+                if (decorationSpriteRenderers[i] != null)
+                {
+                    Color color = originalDecorationSpriteColors[i];
+                    color.a = alpha;
+                    decorationSpriteRenderers[i].color = color;
+                }
+            }
+        }
+        
+        // Handle Images
+        if (decorationImages != null && originalDecorationImageColors != null)
+        {
+            for (int i = 0; i < decorationImages.Length && i < originalDecorationImageColors.Length; i++)
+            {
+                if (decorationImages[i] != null)
+                {
+                    Color color = originalDecorationImageColors[i];
+                    color.a = alpha;
+                    decorationImages[i].color = color;
+                }
+            }
         }
     }
     
@@ -120,17 +287,7 @@ public class MiniQuestUIController : MonoBehaviour
         Debug.Log("=== MiniQuestUIController Component Validation ===");
         Debug.Log($"Mini Quest Panel: {(miniQuestPanel != null ? "✓" : "✗ MISSING")}");
         Debug.Log($"Panel Canvas Group: {(panelCanvasGroup != null ? "✓" : "✗ MISSING")}");
-        Debug.Log($"Title Text: {(titleText != null ? "✓" : "✗ MISSING")}");
-        Debug.Log($"Instructions Text: {(instructionsText != null ? "✓" : "✗ MISSING")}");
-        Debug.Log($"Progress Text: {(progressText != null ? "✓" : "✗ MISSING")}");
-        Debug.Log($"Question Text: {(questionText != null ? "✓" : "✗ MISSING")}");
-        Debug.Log($"Feedback Text: {(feedbackText != null ? "✓" : "✗ MISSING")}");
-        Debug.Log($"Choice 1 Button: {(choice1Button != null ? "✓" : "✗ MISSING")}");
-        Debug.Log($"Choice 2 Button: {(choice2Button != null ? "✓" : "✗ MISSING")}");
-        Debug.Log($"Choice 3 Button: {(choice3Button != null ? "✓" : "✗ MISSING")}");
-        Debug.Log($"Choice 4 Button: {(choice4Button != null ? "✓" : "✗ MISSING")}");
-        Debug.Log($"Next Button: {(nextButton != null ? "✓" : "✗ MISSING")}");
-        Debug.Log($"Close Button: {(closeButton != null ? "✓" : "✗ MISSING")}");
+        Debug.Log($"Decorations: {decorationObjects?.Length ?? 0} objects, {decorationSpriteRenderers?.Length ?? 0} sprites, {decorationImages?.Length ?? 0} images");
         Debug.Log($"Game UI Canvas Group: {(gameUICanvasGroup != null ? "✓" : "✗ MISSING")}");
         Debug.Log("=================================================");
     }
@@ -172,17 +329,29 @@ public class MiniQuestUIController : MonoBehaviour
         isDisplaying = true;
         
         // Hide game UI
-        HideGameUI();
+        HideGameUICompletely();
         
         // Show panel
         miniQuestPanel.SetActive(true);
+        
+        // CRITICAL: Activate decoration GameObjects
+        if (decorationObjects != null)
+        {
+            foreach (GameObject decoration in decorationObjects)
+            {
+                if (decoration != null)
+                {
+                    decoration.SetActive(true);
+                }
+            }
+        }
         
         // Display title and instructions
         if (titleText != null) titleText.text = currentMiniQuest.miniQuestTitle;
         if (instructionsText != null) instructionsText.text = currentMiniQuest.instructions;
         
-        // Fade in
-        yield return StartCoroutine(FadePanel(0f, 1f, fadeInDuration));
+        // CRITICAL: Fade in panel AND decorations simultaneously
+        yield return StartCoroutine(FadePanelAndDecorations(0f, 1f, fadeInDuration));
         
         // Display first question
         DisplayCurrentQuestion();
@@ -197,33 +366,27 @@ public class MiniQuestUIController : MonoBehaviour
             return;
         }
         
-        // Update progress
         if (progressText != null)
         {
             progressText.text = $"Question {currentQuestionIndex + 1} of {currentMiniQuest.GetTotalQuestions()}";
         }
         
-        // Display question
         if (questionText != null)
         {
             questionText.text = question.questionText;
         }
         
-        // Display choices
         DisplayChoices(question);
         
-        // Clear feedback
         if (feedbackText != null)
         {
             feedbackText.text = "";
             feedbackText.color = hintColor;
         }
         
-        // Hide next button, show close button
         if (nextButton != null) nextButton.gameObject.SetActive(false);
         if (closeButton != null) closeButton.gameObject.SetActive(true);
         
-        // Enable choice buttons
         SetChoiceButtonsInteractable(true);
         ResetChoiceButtonColors();
         
@@ -237,34 +400,29 @@ public class MiniQuestUIController : MonoBehaviour
     
     private void DisplayChoices(QuizQuestion question)
     {
-        // Ensure we have 4 choices
         if (question.choices.Count < 4)
         {
             Debug.LogWarning($"[MiniQuestUI] Question has less than 4 choices ({question.choices.Count})!");
         }
         
-        // Display choice 1
         if (choice1Text != null && question.choices.Count > 0)
         {
             choice1Text.text = question.choices[0].choiceText;
             if (choice1Button != null) choice1Button.gameObject.SetActive(true);
         }
         
-        // Display choice 2
         if (choice2Text != null && question.choices.Count > 1)
         {
             choice2Text.text = question.choices[1].choiceText;
             if (choice2Button != null) choice2Button.gameObject.SetActive(true);
         }
         
-        // Display choice 3
         if (choice3Text != null && question.choices.Count > 2)
         {
             choice3Text.text = question.choices[2].choiceText;
             if (choice3Button != null) choice3Button.gameObject.SetActive(true);
         }
         
-        // Display choice 4
         if (choice4Text != null && question.choices.Count > 3)
         {
             choice4Text.text = question.choices[3].choiceText;
@@ -274,10 +432,7 @@ public class MiniQuestUIController : MonoBehaviour
     
     private void OnChoiceSelected(int choiceIndex)
     {
-        if (waitingForNextQuestion)
-        {
-            return;
-        }
+        if (waitingForNextQuestion) return;
         
         QuizQuestion question = currentMiniQuest.GetQuestion(currentQuestionIndex);
         if (question == null || choiceIndex >= question.choices.Count)
@@ -293,7 +448,6 @@ public class MiniQuestUIController : MonoBehaviour
             Debug.Log($"[MiniQuestUI] Player selected choice {choiceIndex}: {selectedChoice.choiceText} (Correct: {selectedChoice.isCorrect})");
         }
         
-        // Disable choice buttons to prevent multiple clicks
         SetChoiceButtonsInteractable(false);
         
         if (selectedChoice.isCorrect)
@@ -308,10 +462,8 @@ public class MiniQuestUIController : MonoBehaviour
     
     private void OnCorrectAnswer(int choiceIndex, QuizQuestion question)
     {
-        // Highlight correct answer in green
         HighlightChoice(choiceIndex, correctColor);
         
-        // Show positive feedback
         if (feedbackText != null)
         {
             string feedback = "✓ Correct!";
@@ -328,23 +480,19 @@ public class MiniQuestUIController : MonoBehaviour
             Debug.Log($"[MiniQuestUI] ✓ Correct answer selected!");
         }
         
-        // Wait before moving to next question
         StartCoroutine(WaitAndProceedToNext());
     }
     
     private void OnIncorrectAnswer(int choiceIndex, QuizQuestion question)
     {
-        // Highlight incorrect answer in red
         HighlightChoice(choiceIndex, incorrectColor);
         
-        // Also highlight the correct answer in green
         int correctIndex = question.GetCorrectAnswerIndex();
         if (correctIndex >= 0)
         {
             HighlightChoice(correctIndex, correctColor);
         }
         
-        // Show hint
         if (feedbackText != null)
         {
             string hint = "✗ Incorrect.";
@@ -361,7 +509,6 @@ public class MiniQuestUIController : MonoBehaviour
             Debug.Log($"[MiniQuestUI] ✗ Incorrect answer selected. Showing hint.");
         }
         
-        // Re-enable buttons after showing hint
         StartCoroutine(ReenableChoicesAfterDelay());
     }
     
@@ -369,20 +516,16 @@ public class MiniQuestUIController : MonoBehaviour
     {
         waitingForNextQuestion = true;
         
-        // Show next button
         if (nextButton != null)
         {
             nextButton.gameObject.SetActive(true);
             
-            // Change button appearance based on completion
             if (currentQuestionIndex >= currentMiniQuest.GetTotalQuestions() - 1)
             {
-                // Last question - show "Complete" visual (you can change button color/sprite here)
                 if (debugMode) Debug.Log("[MiniQuestUI] Last question - showing Complete button");
             }
             else
             {
-                // Not last question - show "Next Question" visual
                 if (debugMode) Debug.Log("[MiniQuestUI] Showing Next Question button");
             }
         }
@@ -394,11 +537,9 @@ public class MiniQuestUIController : MonoBehaviour
     {
         yield return new WaitForSeconds(feedbackDisplayDuration);
         
-        // Re-enable choice buttons
         SetChoiceButtonsInteractable(true);
         ResetChoiceButtonColors();
         
-        // Clear feedback
         if (feedbackText != null)
         {
             feedbackText.text = "";
@@ -411,12 +552,10 @@ public class MiniQuestUIController : MonoBehaviour
         
         if (currentQuestionIndex >= currentMiniQuest.GetTotalQuestions())
         {
-            // All questions completed!
             CompleteMiniQuest();
         }
         else
         {
-            // Display next question
             DisplayCurrentQuestion();
         }
     }
@@ -443,22 +582,27 @@ public class MiniQuestUIController : MonoBehaviour
     
     private IEnumerator HideMiniQuestCoroutine(bool completedSuccessfully)
     {
-        // Fade out
-        yield return StartCoroutine(FadePanel(1f, 0f, fadeOutDuration));
+        // CRITICAL: Fade out panel AND decorations simultaneously
+        yield return StartCoroutine(FadePanelAndDecorations(1f, 0f, fadeOutDuration));
         
-        // Hide panel
+        // Hide panel and decorations
         miniQuestPanel.SetActive(false);
+        SetDecorationsVisibility(false);
         
         // Restore game UI
-        RestoreGameUI();
+        yield return StartCoroutine(RestoreGameUIGradually());
         
         isDisplaying = false;
         
-        // Invoke completion callback
         onQuestCompleteCallback?.Invoke(completedSuccessfully);
+        
+        if (debugMode)
+        {
+            Debug.Log("[MiniQuestUI] Quiz UI and decorations hidden");
+        }
     }
     
-    private void HideGameUI()
+    private void HideGameUICompletely()
     {
         if (gameUICanvasGroup != null)
         {
@@ -470,43 +614,187 @@ public class MiniQuestUIController : MonoBehaviour
             gameUICanvasGroup.interactable = false;
             gameUICanvasGroup.blocksRaycasts = false;
             
+            StoreOriginalStatesAndHide();
+            
             if (debugMode)
             {
-                Debug.Log("[MiniQuestUI] Game UI hidden");
+                Debug.Log("[MiniQuestUI] Game UI hidden completely");
             }
         }
     }
     
-    private void RestoreGameUI()
+    private void StoreOriginalStatesAndHide()
+    {
+        if (gameUICanvasGroup != null)
+        {
+            allImages = gameUICanvasGroup.GetComponentsInChildren<Image>(true);
+            originalImageColors = new Color[allImages.Length];
+            
+            for (int i = 0; i < allImages.Length; i++)
+            {
+                originalImageColors[i] = allImages[i].color;
+                Color hiddenColor = allImages[i].color;
+                hiddenColor.a = 0f;
+                allImages[i].color = hiddenColor;
+            }
+
+            allTexts = gameUICanvasGroup.GetComponentsInChildren<TextMeshProUGUI>(true);
+            originalTextColors = new Color[allTexts.Length];
+            
+            for (int i = 0; i < allTexts.Length; i++)
+            {
+                originalTextColors[i] = allTexts[i].color;
+                Color hiddenColor = allTexts[i].color;
+                hiddenColor.a = 0f;
+                allTexts[i].color = hiddenColor;
+            }
+
+            allSprites = gameUICanvasGroup.GetComponentsInChildren<SpriteRenderer>(true);
+            originalSpriteColors = new Color[allSprites.Length];
+            
+            for (int i = 0; i < allSprites.Length; i++)
+            {
+                originalSpriteColors[i] = allSprites[i].color;
+                Color hiddenColor = allSprites[i].color;
+                hiddenColor.a = 0f;
+                allSprites[i].color = hiddenColor;
+            }
+
+            Button[] buttons = gameUICanvasGroup.GetComponentsInChildren<Button>(true);
+            foreach (Button button in buttons)
+            {
+                button.interactable = false;
+            }
+
+            Slider[] sliders = gameUICanvasGroup.GetComponentsInChildren<Slider>(true);
+            foreach (Slider slider in sliders)
+            {
+                slider.interactable = false;
+            }
+
+            if (debugMode)
+            {
+                Debug.Log($"[MiniQuestUI] Hidden: {allImages.Length} images, {allTexts.Length} texts, {allSprites.Length} sprites");
+            }
+        }
+    }
+    
+    private IEnumerator RestoreGameUIGradually()
     {
         if (gameUICanvasGroup != null)
         {
             gameUICanvasGroup.alpha = originalGameUIAlpha;
             gameUICanvasGroup.interactable = originalGameUIInteractable;
             gameUICanvasGroup.blocksRaycasts = originalGameUIBlocksRaycasts;
-            
+
+            yield return null;
+
+            RestoreOriginalStates();
+
+            yield return null;
+
+            Canvas.ForceUpdateCanvases();
+
+            yield return null;
+
+            UIController uiController = Object.FindFirstObjectByType<UIController>();
+            if (uiController != null)
+            {
+                uiController.ReinitializeButtons();
+                if (debugMode)
+                {
+                    Debug.Log("[MiniQuestUI] UIController buttons reinitialized");
+                }
+            }
+
             if (debugMode)
             {
-                Debug.Log("[MiniQuestUI] Game UI restored");
+                Debug.Log("[MiniQuestUI] Game UI fully restored");
             }
         }
     }
     
-    private IEnumerator FadePanel(float startAlpha, float endAlpha, float duration)
+    private void RestoreOriginalStates()
+    {
+        if (gameUICanvasGroup != null)
+        {
+            if (allImages != null && originalImageColors != null)
+            {
+                for (int i = 0; i < allImages.Length && i < originalImageColors.Length; i++)
+                {
+                    if (allImages[i] != null)
+                        allImages[i].color = originalImageColors[i];
+                }
+            }
+
+            if (allTexts != null && originalTextColors != null)
+            {
+                for (int i = 0; i < allTexts.Length && i < originalTextColors.Length; i++)
+                {
+                    if (allTexts[i] != null)
+                        allTexts[i].color = originalTextColors[i];
+                }
+            }
+
+            if (allSprites != null && originalSpriteColors != null)
+            {
+                for (int i = 0; i < allSprites.Length && i < originalSpriteColors.Length; i++)
+                {
+                    if (allSprites[i] != null)
+                        allSprites[i].color = originalSpriteColors[i];
+                }
+            }
+
+            Button[] buttons = gameUICanvasGroup.GetComponentsInChildren<Button>(true);
+            foreach (Button button in buttons)
+            {
+                button.interactable = true;
+            }
+
+            Slider[] sliders = gameUICanvasGroup.GetComponentsInChildren<Slider>(true);
+            foreach (Slider slider in sliders)
+            {
+                slider.interactable = true;
+            }
+
+            if (debugMode)
+            {
+                Debug.Log($"[MiniQuestUI] Restored: {allImages?.Length ?? 0} images, {allTexts?.Length ?? 0} texts, {allSprites?.Length ?? 0} sprites");
+            }
+        }
+    }
+    
+    // CRITICAL: Synchronized fade for panel and decorations (matching Quest UI exactly)
+    private IEnumerator FadePanelAndDecorations(float startAlpha, float endAlpha, float duration)
     {
         if (panelCanvasGroup == null) yield break;
         
         float elapsed = 0f;
+        
+        // CRITICAL: Set BOTH panel and decorations to starting alpha BEFORE loop
         panelCanvasGroup.alpha = startAlpha;
+        SetDecorationsAlpha(startAlpha);
         
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            panelCanvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / duration);
+            float currentAlpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / duration);
+            
+            // CRITICAL: Apply SAME alpha to both panel and decorations simultaneously
+            panelCanvasGroup.alpha = currentAlpha;
+            SetDecorationsAlpha(currentAlpha);
+            
             yield return null;
         }
         
+        // CRITICAL: Ensure final alpha values are set
         panelCanvasGroup.alpha = endAlpha;
+        SetDecorationsAlpha(endAlpha);
+        
+        if (debugMode)
+        {
+            Debug.Log($"[MiniQuestUI] Synchronized fade completed: Panel and decorations alpha = {endAlpha}");
+        }
     }
     
     private void HighlightChoice(int choiceIndex, Color color)
