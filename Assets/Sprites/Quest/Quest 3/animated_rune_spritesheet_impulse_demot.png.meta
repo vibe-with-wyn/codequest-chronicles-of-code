@@ -1,0 +1,530 @@
+fileFormatVersion: 2
+guid: eab69a442850e744da4c15146e07f269
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5531771803361934974
+    second: animated_rune_spritesheet_impulse_demot_0
+  - first:
+      213: -1491769151176937377
+    second: animated_rune_spritesheet_impulse_demot_1
+  - first:
+      213: 2700490518354889333
+    second: animated_rune_spritesheet_impulse_demot_2
+  - first:
+      213: 4067926831244068320
+    second: animated_rune_spritesheet_impulse_demot_3
+  - first:
+      213: -1385143332107315540
+    second: animated_rune_spritesheet_impulse_demot_4
+  - first:
+      213: 5200335551001531839
+    second: animated_rune_spritesheet_impulse_demot_5
+  - first:
+      213: 4596100439594682691
+    second: animated_rune_spritesheet_impulse_demot_6
+  - first:
+      213: 1050013544543368788
+    second: animated_rune_spritesheet_impulse_demot_7
+  - first:
+      213: 1226331235042692396
+    second: animated_rune_spritesheet_impulse_demot_8
+  - first:
+      213: 6202250469973623395
+    second: animated_rune_spritesheet_impulse_demot_9
+  - first:
+      213: 753751770582730398
+    second: animated_rune_spritesheet_impulse_demot_10
+  - first:
+      213: -3337427503642854364
+    second: animated_rune_spritesheet_impulse_demot_11
+  - first:
+      213: -8878010416117620183
+    second: animated_rune_spritesheet_impulse_demot_12
+  - first:
+      213: -876675227412474616
+    second: animated_rune_spritesheet_impulse_demot_13
+  - first:
+      213: -4818497566647290358
+    second: animated_rune_spritesheet_impulse_demot_14
+  - first:
+      213: -1322616622554942482
+    second: animated_rune_spritesheet_impulse_demot_15
+  - first:
+      213: 7301950197302386323
+    second: animated_rune_spritesheet_impulse_demot_16
+  - first:
+      213: 7745978872080709959
+    second: animated_rune_spritesheet_impulse_demot_17
+  - first:
+      213: 90700319861427439
+    second: animated_rune_spritesheet_impulse_demot_18
+  - first:
+      213: 9014492422826277047
+    second: animated_rune_spritesheet_impulse_demot_19
+  - first:
+      213: -508569764519830554
+    second: animated_rune_spritesheet_impulse_demot_20
+  - first:
+      213: -5433964655955806897
+    second: animated_rune_spritesheet_impulse_demot_21
+  - first:
+      213: 7509739873389822020
+    second: animated_rune_spritesheet_impulse_demot_22
+  - first:
+      213: 5229778348989775850
+    second: animated_rune_spritesheet_impulse_demot_23
+  - first:
+      213: 8307711204128420812
+    second: animated_rune_spritesheet_impulse_demot_24
+  - first:
+      213: -8700652004770528868
+    second: animated_rune_spritesheet_impulse_demot_25
+  - first:
+      213: 4876092415803116987
+    second: animated_rune_spritesheet_impulse_demot_26
+  - first:
+      213: 7115027547166317334
+    second: animated_rune_spritesheet_impulse_demot_27
+  - first:
+      213: 5572858547156532303
+    second: animated_rune_spritesheet_impulse_demot_28
+  - first:
+      213: -575539527133543113
+    second: animated_rune_spritesheet_impulse_demot_29
+  - first:
+      213: 7133900789108335520
+    second: animated_rune_spritesheet_impulse_demot_30
+  - first:
+      213: -7522926061559741618
+    second: animated_rune_spritesheet_impulse_demot_31
+  - first:
+      213: -5193276150849764072
+    second: animated_rune_spritesheet_impulse_demot_32
+  - first:
+      213: 7519288119360620494
+    second: animated_rune_spritesheet_impulse_demot_33
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: animated_rune_spritesheet_impulse_demot_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 79
+        width: 18
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7ef8e5852dc4cc40800000000000000
+      internalID: 5531771803361934974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_rune_spritesheet_impulse_demot_1
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 80
+        width: 18
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5076395cdb2c4be0800000000000000
+      internalID: -1491769151176937377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_rune_spritesheet_impulse_demot_2
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 81
+        width: 18
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57a8ad191d11a7520800000000000000
+      internalID: 2700490518354889333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_rune_spritesheet_impulse_demot_3
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 82
+        width: 18
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e5459476ed247830800000000000000
+      internalID: 4067926831244068320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_rune_spritesheet_impulse_demot_4
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 82
+        width: 18
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca61ebe6a7bf6cce0800000000000000
+      internalID: -1385143332107315540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_rune_spritesheet_impulse_demot_5
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 81
+        width: 18
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb5184e81ad4b2840800000000000000
+      internalID: 5200335551001531839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_rune_spritesheet_impulse_demot_6
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 80
+        width: 18
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 349ce06aff0a8cf30800000000000000
+      internalID: 4596100439594682691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_rune_spritesheet_impulse_demot_7
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 79
+        width: 18
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4563bdb61c5629e00800000000000000
+      internalID: 1050013544543368788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_rune_spritesheet_impulse_demot_8
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 78
+        width: 18
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2d8fa9c2cdc40110800000000000000
+      internalID: 1226331235042692396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_rune_spritesheet_impulse_demot_9
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 77
+        width: 18
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36207c601f1d21650800000000000000
+      internalID: 6202250469973623395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_rune_spritesheet_impulse_demot_10
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 77
+        width: 18
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e96c766ed3dd57a00800000000000000
+      internalID: 753751770582730398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_rune_spritesheet_impulse_demot_11
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 78
+        width: 18
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42cbfbd2e531fa1d0800000000000000
+      internalID: -3337427503642854364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 566056eef12916141ad21249de5cc58c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      animated_rune_spritesheet_impulse_demot_0: 5531771803361934974
+      animated_rune_spritesheet_impulse_demot_1: -1491769151176937377
+      animated_rune_spritesheet_impulse_demot_10: 753751770582730398
+      animated_rune_spritesheet_impulse_demot_11: -3337427503642854364
+      animated_rune_spritesheet_impulse_demot_12: -8878010416117620183
+      animated_rune_spritesheet_impulse_demot_13: -876675227412474616
+      animated_rune_spritesheet_impulse_demot_14: -4818497566647290358
+      animated_rune_spritesheet_impulse_demot_15: -1322616622554942482
+      animated_rune_spritesheet_impulse_demot_16: 7301950197302386323
+      animated_rune_spritesheet_impulse_demot_17: 7745978872080709959
+      animated_rune_spritesheet_impulse_demot_18: 90700319861427439
+      animated_rune_spritesheet_impulse_demot_19: 9014492422826277047
+      animated_rune_spritesheet_impulse_demot_2: 2700490518354889333
+      animated_rune_spritesheet_impulse_demot_20: -508569764519830554
+      animated_rune_spritesheet_impulse_demot_21: -5433964655955806897
+      animated_rune_spritesheet_impulse_demot_22: 7509739873389822020
+      animated_rune_spritesheet_impulse_demot_23: 5229778348989775850
+      animated_rune_spritesheet_impulse_demot_24: 8307711204128420812
+      animated_rune_spritesheet_impulse_demot_25: -8700652004770528868
+      animated_rune_spritesheet_impulse_demot_26: 4876092415803116987
+      animated_rune_spritesheet_impulse_demot_27: 7115027547166317334
+      animated_rune_spritesheet_impulse_demot_28: 5572858547156532303
+      animated_rune_spritesheet_impulse_demot_29: -575539527133543113
+      animated_rune_spritesheet_impulse_demot_3: 4067926831244068320
+      animated_rune_spritesheet_impulse_demot_30: 7133900789108335520
+      animated_rune_spritesheet_impulse_demot_31: -7522926061559741618
+      animated_rune_spritesheet_impulse_demot_32: -5193276150849764072
+      animated_rune_spritesheet_impulse_demot_33: 7519288119360620494
+      animated_rune_spritesheet_impulse_demot_4: -1385143332107315540
+      animated_rune_spritesheet_impulse_demot_5: 5200335551001531839
+      animated_rune_spritesheet_impulse_demot_6: 4596100439594682691
+      animated_rune_spritesheet_impulse_demot_7: 1050013544543368788
+      animated_rune_spritesheet_impulse_demot_8: 1226331235042692396
+      animated_rune_spritesheet_impulse_demot_9: 6202250469973623395
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

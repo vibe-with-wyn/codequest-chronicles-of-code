@@ -1,0 +1,5498 @@
+fileFormatVersion: 2
+guid: 747098315512aca46bc1b7f366618ee6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2143842753415656013
+    second: 17_felspell_spritesheet_0
+  - first:
+      213: 5983519649686350591
+    second: 17_felspell_spritesheet_1
+  - first:
+      213: -1071122846412420552
+    second: 17_felspell_spritesheet_2
+  - first:
+      213: 7953340840038582777
+    second: 17_felspell_spritesheet_3
+  - first:
+      213: 1800270815800748619
+    second: 17_felspell_spritesheet_4
+  - first:
+      213: -3802975882051835866
+    second: 17_felspell_spritesheet_5
+  - first:
+      213: 7357402541862013963
+    second: 17_felspell_spritesheet_6
+  - first:
+      213: 1854269481483904990
+    second: 17_felspell_spritesheet_7
+  - first:
+      213: 4732780415729525222
+    second: 17_felspell_spritesheet_8
+  - first:
+      213: -69884679266984748
+    second: 17_felspell_spritesheet_9
+  - first:
+      213: 8038524469968807907
+    second: 17_felspell_spritesheet_10
+  - first:
+      213: -5809647670741381239
+    second: 17_felspell_spritesheet_11
+  - first:
+      213: 5135573119427302222
+    second: 17_felspell_spritesheet_12
+  - first:
+      213: -453489486769245279
+    second: 17_felspell_spritesheet_13
+  - first:
+      213: -4544689757191932004
+    second: 17_felspell_spritesheet_14
+  - first:
+      213: -722238822058616825
+    second: 17_felspell_spritesheet_15
+  - first:
+      213: 5051300803609118917
+    second: 17_felspell_spritesheet_16
+  - first:
+      213: 7489235264510661472
+    second: 17_felspell_spritesheet_17
+  - first:
+      213: 6041488671811937022
+    second: 17_felspell_spritesheet_18
+  - first:
+      213: -7355989742213766332
+    second: 17_felspell_spritesheet_19
+  - first:
+      213: 1920481186496114349
+    second: 17_felspell_spritesheet_20
+  - first:
+      213: 45751585360816842
+    second: 17_felspell_spritesheet_21
+  - first:
+      213: -3182328321164620642
+    second: 17_felspell_spritesheet_22
+  - first:
+      213: 8033659889679083793
+    second: 17_felspell_spritesheet_23
+  - first:
+      213: 8525162231776264523
+    second: 17_felspell_spritesheet_24
+  - first:
+      213: -797005708797301960
+    second: 17_felspell_spritesheet_25
+  - first:
+      213: -6364977367246105394
+    second: 17_felspell_spritesheet_26
+  - first:
+      213: -6040008443582953872
+    second: 17_felspell_spritesheet_27
+  - first:
+      213: 1597990194150128372
+    second: 17_felspell_spritesheet_28
+  - first:
+      213: -5340280633644042105
+    second: 17_felspell_spritesheet_29
+  - first:
+      213: 9221201030124301208
+    second: 17_felspell_spritesheet_30
+  - first:
+      213: -6932523819931910059
+    second: 17_felspell_spritesheet_31
+  - first:
+      213: 8691233046994138585
+    second: 17_felspell_spritesheet_32
+  - first:
+      213: -3281449796240468966
+    second: 17_felspell_spritesheet_33
+  - first:
+      213: 2517830584013935228
+    second: 17_felspell_spritesheet_34
+  - first:
+      213: -7849149743211790731
+    second: 17_felspell_spritesheet_35
+  - first:
+      213: -949083484225710147
+    second: 17_felspell_spritesheet_36
+  - first:
+      213: -8469576362266387077
+    second: 17_felspell_spritesheet_37
+  - first:
+      213: 7310738507272724054
+    second: 17_felspell_spritesheet_38
+  - first:
+      213: 1862905232981325112
+    second: 17_felspell_spritesheet_39
+  - first:
+      213: 6310313842354790395
+    second: 17_felspell_spritesheet_40
+  - first:
+      213: -2190137766591205015
+    second: 17_felspell_spritesheet_41
+  - first:
+      213: -5799991660092271012
+    second: 17_felspell_spritesheet_42
+  - first:
+      213: -8873419627113970375
+    second: 17_felspell_spritesheet_43
+  - first:
+      213: -9203742822726096643
+    second: 17_felspell_spritesheet_44
+  - first:
+      213: 6552120691263144207
+    second: 17_felspell_spritesheet_45
+  - first:
+      213: -449770823966143457
+    second: 17_felspell_spritesheet_46
+  - first:
+      213: -1994945077240679366
+    second: 17_felspell_spritesheet_47
+  - first:
+      213: 6447700194735227923
+    second: 17_felspell_spritesheet_48
+  - first:
+      213: 789694354433045121
+    second: 17_felspell_spritesheet_49
+  - first:
+      213: 4380075256452919437
+    second: 17_felspell_spritesheet_50
+  - first:
+      213: -8930633376909123163
+    second: 17_felspell_spritesheet_51
+  - first:
+      213: -3011415047188136130
+    second: 17_felspell_spritesheet_52
+  - first:
+      213: -6793883656914996482
+    second: 17_felspell_spritesheet_53
+  - first:
+      213: 8934248231477086431
+    second: 17_felspell_spritesheet_54
+  - first:
+      213: 4610139514200009619
+    second: 17_felspell_spritesheet_55
+  - first:
+      213: -1574515035858526338
+    second: 17_felspell_spritesheet_56
+  - first:
+      213: 9065593256430425615
+    second: 17_felspell_spritesheet_57
+  - first:
+      213: 2159812841519666407
+    second: 17_felspell_spritesheet_58
+  - first:
+      213: -5422808539901617486
+    second: 17_felspell_spritesheet_59
+  - first:
+      213: 212620193330686278
+    second: 17_felspell_spritesheet_60
+  - first:
+      213: 8557004091354316714
+    second: 17_felspell_spritesheet_61
+  - first:
+      213: 7953760796762896058
+    second: 17_felspell_spritesheet_62
+  - first:
+      213: 1961090062583769854
+    second: 17_felspell_spritesheet_63
+  - first:
+      213: 2001176414457320589
+    second: 17_felspell_spritesheet_64
+  - first:
+      213: -1060350903479017184
+    second: 17_felspell_spritesheet_65
+  - first:
+      213: 5142934003407601993
+    second: 17_felspell_spritesheet_66
+  - first:
+      213: -7508354240715350049
+    second: 17_felspell_spritesheet_67
+  - first:
+      213: 2734951556961692631
+    second: 17_felspell_spritesheet_68
+  - first:
+      213: 4126277441725887380
+    second: 17_felspell_spritesheet_69
+  - first:
+      213: -5718220777989742701
+    second: 17_felspell_spritesheet_70
+  - first:
+      213: -6255353054877532566
+    second: 17_felspell_spritesheet_71
+  - first:
+      213: 8183393898681022494
+    second: 17_felspell_spritesheet_72
+  - first:
+      213: 1042938281969508401
+    second: 17_felspell_spritesheet_73
+  - first:
+      213: -1460669717419925645
+    second: 17_felspell_spritesheet_74
+  - first:
+      213: 4454464293228698910
+    second: 17_felspell_spritesheet_75
+  - first:
+      213: 5954063166694436521
+    second: 17_felspell_spritesheet_76
+  - first:
+      213: -1956843025464482897
+    second: 17_felspell_spritesheet_77
+  - first:
+      213: -8441408755588276592
+    second: 17_felspell_spritesheet_78
+  - first:
+      213: 2683169971357308625
+    second: 17_felspell_spritesheet_79
+  - first:
+      213: -5211592964689349162
+    second: 17_felspell_spritesheet_80
+  - first:
+      213: -2332066800963100776
+    second: 17_felspell_spritesheet_81
+  - first:
+      213: -3312748629742208940
+    second: 17_felspell_spritesheet_82
+  - first:
+      213: -9088890097697331184
+    second: 17_felspell_spritesheet_83
+  - first:
+      213: -5007306131064993274
+    second: 17_felspell_spritesheet_84
+  - first:
+      213: 7990772430536168007
+    second: 17_felspell_spritesheet_85
+  - first:
+      213: -4383319010078355611
+    second: 17_felspell_spritesheet_86
+  - first:
+      213: 4812067186714798575
+    second: 17_felspell_spritesheet_87
+  - first:
+      213: -2996104224013494433
+    second: 17_felspell_spritesheet_88
+  - first:
+      213: 662593613472347440
+    second: 17_felspell_spritesheet_89
+  - first:
+      213: -7909092692737789037
+    second: 17_felspell_spritesheet_90
+  - first:
+      213: -5230475418059081730
+    second: 17_felspell_spritesheet_91
+  - first:
+      213: -6287089974199433164
+    second: 17_felspell_spritesheet_92
+  - first:
+      213: 1556525557745557658
+    second: 17_felspell_spritesheet_93
+  - first:
+      213: 6021071986427451103
+    second: 17_felspell_spritesheet_94
+  - first:
+      213: 1700239046894354994
+    second: 17_felspell_spritesheet_95
+  - first:
+      213: -489894632772080635
+    second: 17_felspell_spritesheet_96
+  - first:
+      213: -7881810173515836223
+    second: 17_felspell_spritesheet_97
+  - first:
+      213: -6578970059657771123
+    second: 17_felspell_spritesheet_98
+  - first:
+      213: -3453154413158398847
+    second: 17_felspell_spritesheet_99
+  - first:
+      213: 8540940573316327849
+    second: 17_felspell_spritesheet_100
+  - first:
+      213: -773083722399575773
+    second: 17_felspell_spritesheet_101
+  - first:
+      213: -8230668964989161395
+    second: 17_felspell_spritesheet_102
+  - first:
+      213: -1745380357494545024
+    second: 17_felspell_spritesheet_103
+  - first:
+      213: 2316582856546679774
+    second: 17_felspell_spritesheet_104
+  - first:
+      213: 7808561664516924037
+    second: 17_felspell_spritesheet_105
+  - first:
+      213: -7635821899816238699
+    second: 17_felspell_spritesheet_106
+  - first:
+      213: 1776248381130814423
+    second: 17_felspell_spritesheet_107
+  - first:
+      213: -3075401846082959998
+    second: 17_felspell_spritesheet_108
+  - first:
+      213: 2609164100956409690
+    second: 17_felspell_spritesheet_109
+  - first:
+      213: 5378209448206267959
+    second: 17_felspell_spritesheet_110
+  - first:
+      213: -1892987229168274855
+    second: 17_felspell_spritesheet_111
+  - first:
+      213: 7339716052983431159
+    second: 17_felspell_spritesheet_112
+  - first:
+      213: -8609594927071160602
+    second: 17_felspell_spritesheet_113
+  - first:
+      213: -4436219461505444354
+    second: 17_felspell_spritesheet_114
+  - first:
+      213: -5294686975308134523
+    second: 17_felspell_spritesheet_115
+  - first:
+      213: 1163776013088577256
+    second: 17_felspell_spritesheet_116
+  - first:
+      213: 3129730073723511913
+    second: 17_felspell_spritesheet_117
+  - first:
+      213: -3072194504051440075
+    second: 17_felspell_spritesheet_118
+  - first:
+      213: 4404319787645885444
+    second: 17_felspell_spritesheet_119
+  - first:
+      213: 5272776163807315401
+    second: 17_felspell_spritesheet_120
+  - first:
+      213: 7687357754400955830
+    second: 17_felspell_spritesheet_121
+  - first:
+      213: -8984840533987476435
+    second: 17_felspell_spritesheet_122
+  - first:
+      213: 3671881688102310353
+    second: 17_felspell_spritesheet_123
+  - first:
+      213: 6469920908362030717
+    second: 17_felspell_spritesheet_124
+  - first:
+      213: 7791347818216962412
+    second: 17_felspell_spritesheet_125
+  - first:
+      213: 5196020736788141217
+    second: 17_felspell_spritesheet_126
+  - first:
+      213: -6328728158764714341
+    second: 17_felspell_spritesheet_127
+  - first:
+      213: 5833480586365895214
+    second: 17_felspell_spritesheet_128
+  - first:
+      213: -1952710847320782614
+    second: 17_felspell_spritesheet_129
+  - first:
+      213: -16379486751743694
+    second: 17_felspell_spritesheet_130
+  - first:
+      213: 5053272054572168102
+    second: 17_felspell_spritesheet_131
+  - first:
+      213: 4817428772992133014
+    second: 17_felspell_spritesheet_132
+  - first:
+      213: 3333102006080809075
+    second: 17_felspell_spritesheet_133
+  - first:
+      213: -1944283295403681088
+    second: 17_felspell_spritesheet_134
+  - first:
+      213: 7351976807045908164
+    second: 17_felspell_spritesheet_135
+  - first:
+      213: -8376366627971099968
+    second: 17_felspell_spritesheet_136
+  - first:
+      213: 5364394176697372310
+    second: 17_felspell_spritesheet_137
+  - first:
+      213: -7002763341778914029
+    second: 17_felspell_spritesheet_138
+  - first:
+      213: -1104436863206334431
+    second: 17_felspell_spritesheet_139
+  - first:
+      213: 8002279119002316514
+    second: 17_felspell_spritesheet_140
+  - first:
+      213: -477642699430916505
+    second: 17_felspell_spritesheet_141
+  - first:
+      213: 6466219119922195069
+    second: 17_felspell_spritesheet_142
+  - first:
+      213: -6629442577254575725
+    second: 17_felspell_spritesheet_143
+  - first:
+      213: -4569037693164848419
+    second: 17_felspell_spritesheet_144
+  - first:
+      213: 1438858827489516848
+    second: 17_felspell_spritesheet_145
+  - first:
+      213: -4309706177939490768
+    second: 17_felspell_spritesheet_146
+  - first:
+      213: -3472777714175805970
+    second: 17_felspell_spritesheet_147
+  - first:
+      213: -5927252584907548286
+    second: 17_felspell_spritesheet_148
+  - first:
+      213: -4757534819625479089
+    second: 17_felspell_spritesheet_149
+  - first:
+      213: 3706850315705711248
+    second: 17_felspell_spritesheet_150
+  - first:
+      213: -5966212298344685421
+    second: 17_felspell_spritesheet_151
+  - first:
+      213: 3508186835741863258
+    second: 17_felspell_spritesheet_152
+  - first:
+      213: 7263527476606281241
+    second: 17_felspell_spritesheet_153
+  - first:
+      213: -7519914861663522732
+    second: 17_felspell_spritesheet_154
+  - first:
+      213: -5481249464439652470
+    second: 17_felspell_spritesheet_155
+  - first:
+      213: -1345862903180586597
+    second: 17_felspell_spritesheet_156
+  - first:
+      213: -7496681859622744358
+    second: 17_felspell_spritesheet_157
+  - first:
+      213: -3581939268175387407
+    second: 17_felspell_spritesheet_158
+  - first:
+      213: -5215730023947753483
+    second: 17_felspell_spritesheet_159
+  - first:
+      213: -438840974956025238
+    second: 17_felspell_spritesheet_160
+  - first:
+      213: -2902701970459331829
+    second: 17_felspell_spritesheet_161
+  - first:
+      213: -8096810848540953090
+    second: 17_felspell_spritesheet_162
+  - first:
+      213: -353604420936572754
+    second: 17_felspell_spritesheet_163
+  - first:
+      213: -2593168882939329361
+    second: 17_felspell_spritesheet_164
+  - first:
+      213: 8916468672330504072
+    second: 17_felspell_spritesheet_165
+  - first:
+      213: 5024264951270944425
+    second: 17_felspell_spritesheet_166
+  - first:
+      213: -4578928147717024324
+    second: 17_felspell_spritesheet_167
+  - first:
+      213: 1119665283847759356
+    second: 17_felspell_spritesheet_168
+  - first:
+      213: -827420932709179666
+    second: 17_felspell_spritesheet_169
+  - first:
+      213: -2625757500045685743
+    second: 17_felspell_spritesheet_170
+  - first:
+      213: 7087609062254049589
+    second: 17_felspell_spritesheet_171
+  - first:
+      213: 5223084507026597258
+    second: 17_felspell_spritesheet_172
+  - first:
+      213: 876657823399491427
+    second: 17_felspell_spritesheet_173
+  - first:
+      213: 6112703588786550990
+    second: 17_felspell_spritesheet_174
+  - first:
+      213: -7060421969806608493
+    second: 17_felspell_spritesheet_175
+  - first:
+      213: 1307397214395181883
+    second: 17_felspell_spritesheet_176
+  - first:
+      213: -7804071662197535176
+    second: 17_felspell_spritesheet_177
+  - first:
+      213: -466619548093905463
+    second: 17_felspell_spritesheet_178
+  - first:
+      213: -341802722849357536
+    second: 17_felspell_spritesheet_179
+  - first:
+      213: 1402752008277771296
+    second: 17_felspell_spritesheet_180
+  - first:
+      213: -1172452120957571245
+    second: 17_felspell_spritesheet_181
+  - first:
+      213: -105710440735301544
+    second: 17_felspell_spritesheet_182
+  - first:
+      213: 1653026155776409667
+    second: 17_felspell_spritesheet_183
+  - first:
+      213: -6102583103850428372
+    second: 17_felspell_spritesheet_184
+  - first:
+      213: 2368243694559264119
+    second: 17_felspell_spritesheet_185
+  - first:
+      213: 5293075448450589178
+    second: 17_felspell_spritesheet_186
+  - first:
+      213: -6994234181186966972
+    second: 17_felspell_spritesheet_187
+  - first:
+      213: -4402494931052595724
+    second: 17_felspell_spritesheet_188
+  - first:
+      213: 6770074733414708604
+    second: 17_felspell_spritesheet_189
+  - first:
+      213: -6175693358167780026
+    second: 17_felspell_spritesheet_190
+  - first:
+      213: 3182902793520455050
+    second: 17_felspell_spritesheet_191
+  - first:
+      213: -8219996163297282015
+    second: 17_felspell_spritesheet_192
+  - first:
+      213: -2033866329245909924
+    second: 17_felspell_spritesheet_193
+  - first:
+      213: -5368178262498766809
+    second: 17_felspell_spritesheet_194
+  - first:
+      213: -3591126455237106817
+    second: 17_felspell_spritesheet_195
+  - first:
+      213: 4023517969107155571
+    second: 17_felspell_spritesheet_196
+  - first:
+      213: -1773826241222620723
+    second: 17_felspell_spritesheet_197
+  - first:
+      213: -732489435207155854
+    second: 17_felspell_spritesheet_198
+  - first:
+      213: -528106551886229264
+    second: 17_felspell_spritesheet_199
+  - first:
+      213: 7487400523044779706
+    second: 17_felspell_spritesheet_200
+  - first:
+      213: 946889214311979490
+    second: 17_felspell_spritesheet_201
+  - first:
+      213: 3985050925402118585
+    second: 17_felspell_spritesheet_202
+  - first:
+      213: 1132976516290117823
+    second: 17_felspell_spritesheet_203
+  - first:
+      213: -5439929039860003775
+    second: 17_felspell_spritesheet_204
+  - first:
+      213: -5269153094107555085
+    second: 17_felspell_spritesheet_205
+  - first:
+      213: -4102404135332026949
+    second: 17_felspell_spritesheet_206
+  - first:
+      213: 6489914343803990059
+    second: 17_felspell_spritesheet_207
+  - first:
+      213: -6936641367601847922
+    second: 17_felspell_spritesheet_208
+  - first:
+      213: 3657994640831052329
+    second: 17_felspell_spritesheet_209
+  - first:
+      213: -3637181043250481012
+    second: 17_felspell_spritesheet_210
+  - first:
+      213: 4276464441233135475
+    second: 17_felspell_spritesheet_211
+  - first:
+      213: -6541924523280902037
+    second: 17_felspell_spritesheet_212
+  - first:
+      213: -2652719968604988760
+    second: 17_felspell_spritesheet_213
+  - first:
+      213: 6434143554195159838
+    second: 17_felspell_spritesheet_214
+  - first:
+      213: 4774515299998737995
+    second: 17_felspell_spritesheet_215
+  - first:
+      213: -12199704211697170
+    second: 17_felspell_spritesheet_216
+  - first:
+      213: -2910357612828086093
+    second: 17_felspell_spritesheet_217
+  - first:
+      213: 1721598453784245170
+    second: 17_felspell_spritesheet_218
+  - first:
+      213: -5517091540672640067
+    second: 17_felspell_spritesheet_219
+  - first:
+      213: 1702571203654524567
+    second: 17_felspell_spritesheet_220
+  - first:
+      213: -369416391664055458
+    second: 17_felspell_spritesheet_221
+  - first:
+      213: 6973685977904629439
+    second: 17_felspell_spritesheet_222
+  - first:
+      213: -1592621192689128162
+    second: 17_felspell_spritesheet_223
+  - first:
+      213: 2910266283097467601
+    second: 17_felspell_spritesheet_224
+  - first:
+      213: -1433754481135540983
+    second: 17_felspell_spritesheet_225
+  - first:
+      213: -2473454108643243864
+    second: 17_felspell_spritesheet_226
+  - first:
+      213: -3014746340010710672
+    second: 17_felspell_spritesheet_227
+  - first:
+      213: 7553484104561483908
+    second: 17_felspell_spritesheet_228
+  - first:
+      213: 3402851761434487269
+    second: 17_felspell_spritesheet_229
+  - first:
+      213: 7964239286646540131
+    second: 17_felspell_spritesheet_230
+  - first:
+      213: -5900390323590225313
+    second: 17_felspell_spritesheet_231
+  - first:
+      213: 3328194633086390831
+    second: 17_felspell_spritesheet_232
+  - first:
+      213: -3944282128531833563
+    second: 17_felspell_spritesheet_233
+  - first:
+      213: -7334431984140791493
+    second: 17_felspell_spritesheet_234
+  - first:
+      213: 1373748287651625456
+    second: 17_felspell_spritesheet_235
+  - first:
+      213: -6948238197023909130
+    second: 17_felspell_spritesheet_236
+  - first:
+      213: -358297540728011883
+    second: 17_felspell_spritesheet_237
+  - first:
+      213: 4092725538200949661
+    second: 17_felspell_spritesheet_238
+  - first:
+      213: 7103922438364345873
+    second: 17_felspell_spritesheet_239
+  - first:
+      213: -8258374506590337147
+    second: 17_felspell_spritesheet_240
+  - first:
+      213: -7835541643876522436
+    second: 17_felspell_spritesheet_241
+  - first:
+      213: -7212871491661627984
+    second: 17_felspell_spritesheet_242
+  - first:
+      213: -3521316363345553652
+    second: 17_felspell_spritesheet_243
+  - first:
+      213: 694176523028820198
+    second: 17_felspell_spritesheet_244
+  - first:
+      213: -1969829965067189008
+    second: 17_felspell_spritesheet_245
+  - first:
+      213: -6784944532441878542
+    second: 17_felspell_spritesheet_246
+  - first:
+      213: -1044376046051940523
+    second: 17_felspell_spritesheet_247
+  - first:
+      213: -1017495544479823886
+    second: 17_felspell_spritesheet_248
+  - first:
+      213: -9094478604679801741
+    second: 17_felspell_spritesheet_249
+  - first:
+      213: 5248231648464070988
+    second: 17_felspell_spritesheet_250
+  - first:
+      213: 4740887647624548575
+    second: 17_felspell_spritesheet_251
+  - first:
+      213: 3316402014856867209
+    second: 17_felspell_spritesheet_252
+  - first:
+      213: -8396126646621321097
+    second: 17_felspell_spritesheet_253
+  - first:
+      213: -4491185622622533357
+    second: 17_felspell_spritesheet_254
+  - first:
+      213: 4176239504483838351
+    second: 17_felspell_spritesheet_255
+  - first:
+      213: -6216531250362057211
+    second: 17_felspell_spritesheet_256
+  - first:
+      213: -5618242261936985438
+    second: 17_felspell_spritesheet_257
+  - first:
+      213: -7643769597851719014
+    second: 17_felspell_spritesheet_258
+  - first:
+      213: -6790433360856204995
+    second: 17_felspell_spritesheet_259
+  - first:
+      213: 4283238134737459465
+    second: 17_felspell_spritesheet_260
+  - first:
+      213: 5633829099899614824
+    second: 17_felspell_spritesheet_261
+  - first:
+      213: -1623188588853176068
+    second: 17_felspell_spritesheet_262
+  - first:
+      213: 6441096137713686655
+    second: 17_felspell_spritesheet_263
+  - first:
+      213: -2181721026226347441
+    second: 17_felspell_spritesheet_264
+  - first:
+      213: -3159218453119835514
+    second: 17_felspell_spritesheet_265
+  - first:
+      213: 2660899301972672157
+    second: 17_felspell_spritesheet_266
+  - first:
+      213: -4184603135890441521
+    second: 17_felspell_spritesheet_267
+  - first:
+      213: 1696690495035191132
+    second: 17_felspell_spritesheet_268
+  - first:
+      213: -5047434197399401199
+    second: 17_felspell_spritesheet_269
+  - first:
+      213: -7824235151085183422
+    second: 17_felspell_spritesheet_270
+  - first:
+      213: 5295776484704182186
+    second: 17_felspell_spritesheet_271
+  - first:
+      213: -1473600359035307849
+    second: 17_felspell_spritesheet_272
+  - first:
+      213: 4619937076249639057
+    second: 17_felspell_spritesheet_273
+  - first:
+      213: -6417979494789118238
+    second: 17_felspell_spritesheet_274
+  - first:
+      213: -1611030934254980393
+    second: 17_felspell_spritesheet_275
+  - first:
+      213: 490680710227569198
+    second: 17_felspell_spritesheet_276
+  - first:
+      213: -2168761604479329945
+    second: 17_felspell_spritesheet_277
+  - first:
+      213: 5206715086632433684
+    second: 17_felspell_spritesheet_278
+  - first:
+      213: 8960701856059101194
+    second: 17_felspell_spritesheet_279
+  - first:
+      213: 4604145041706576200
+    second: 17_felspell_spritesheet_280
+  - first:
+      213: -4267468864121602353
+    second: 17_felspell_spritesheet_281
+  - first:
+      213: -1716933797226816998
+    second: 17_felspell_spritesheet_282
+  - first:
+      213: -7427935789838756573
+    second: 17_felspell_spritesheet_283
+  - first:
+      213: 1816821623443460673
+    second: 17_felspell_spritesheet_284
+  - first:
+      213: -3612475048105699912
+    second: 17_felspell_spritesheet_285
+  - first:
+      213: -3303841957663503937
+    second: 17_felspell_spritesheet_286
+  - first:
+      213: 5336154978454904735
+    second: 17_felspell_spritesheet_287
+  - first:
+      213: 3311903956701941224
+    second: 17_felspell_spritesheet_288
+  - first:
+      213: 5069788704797766877
+    second: 17_felspell_spritesheet_289
+  - first:
+      213: 915824250449120213
+    second: 17_felspell_spritesheet_290
+  - first:
+      213: 4340518484803445098
+    second: 17_felspell_spritesheet_291
+  - first:
+      213: -5493401507556402385
+    second: 17_felspell_spritesheet_292
+  - first:
+      213: -1305962235971321722
+    second: 17_felspell_spritesheet_293
+  - first:
+      213: -7626490354720452224
+    second: 17_felspell_spritesheet_294
+  - first:
+      213: -2173355370021783161
+    second: 17_felspell_spritesheet_295
+  - first:
+      213: 4714607859203024235
+    second: 17_felspell_spritesheet_296
+  - first:
+      213: 4069088284434375853
+    second: 17_felspell_spritesheet_297
+  - first:
+      213: -642323784216252761
+    second: 17_felspell_spritesheet_298
+  - first:
+      213: 2650778101189445384
+    second: 17_felspell_spritesheet_299
+  - first:
+      213: -1834352786006520419
+    second: 17_felspell_spritesheet_300
+  - first:
+      213: 5424565837975333446
+    second: 17_felspell_spritesheet_301
+  - first:
+      213: 602879326356238510
+    second: 17_felspell_spritesheet_302
+  - first:
+      213: 240632537091809774
+    second: 17_felspell_spritesheet_303
+  - first:
+      213: 3718386948050476626
+    second: 17_felspell_spritesheet_304
+  - first:
+      213: -1808133385507684903
+    second: 17_felspell_spritesheet_305
+  - first:
+      213: -7965006201351805769
+    second: 17_felspell_spritesheet_306
+  - first:
+      213: 2949979721055968844
+    second: 17_felspell_spritesheet_307
+  - first:
+      213: -9127594682089467049
+    second: 17_felspell_spritesheet_308
+  - first:
+      213: 7622489722336237193
+    second: 17_felspell_spritesheet_309
+  - first:
+      213: -4381756729899012296
+    second: 17_felspell_spritesheet_310
+  - first:
+      213: -7206921754736077838
+    second: 17_felspell_spritesheet_311
+  - first:
+      213: 912287030697621292
+    second: 17_felspell_spritesheet_312
+  - first:
+      213: 2336362336091758357
+    second: 17_felspell_spritesheet_313
+  - first:
+      213: -7435983077292210343
+    second: 17_felspell_spritesheet_314
+  - first:
+      213: 8312420930966899772
+    second: 17_felspell_spritesheet_315
+  - first:
+      213: 5275628116705443894
+    second: 17_felspell_spritesheet_316
+  - first:
+      213: 59783259315380900
+    second: 17_felspell_spritesheet_317
+  - first:
+      213: 5548240403621666275
+    second: 17_felspell_spritesheet_318
+  - first:
+      213: -7413824179840270566
+    second: 17_felspell_spritesheet_319
+  - first:
+      213: -8319481261418388368
+    second: 17_felspell_spritesheet_320
+  - first:
+      213: 7551784127570230266
+    second: 17_felspell_spritesheet_321
+  - first:
+      213: -3762272789574793621
+    second: 17_felspell_spritesheet_322
+  - first:
+      213: 9082042945567059271
+    second: 17_felspell_spritesheet_323
+  - first:
+      213: -5516992085156503665
+    second: 17_felspell_spritesheet_324
+  - first:
+      213: 6851317926276503307
+    second: 17_felspell_spritesheet_325
+  - first:
+      213: -8601164894001646866
+    second: 17_felspell_spritesheet_326
+  - first:
+      213: 3534570230462599260
+    second: 17_felspell_spritesheet_327
+  - first:
+      213: -6317880000921654987
+    second: 17_felspell_spritesheet_328
+  - first:
+      213: -7476072604327028370
+    second: 17_felspell_spritesheet_329
+  - first:
+      213: -8048263885823610920
+    second: 17_felspell_spritesheet_330
+  - first:
+      213: 3313987311179262890
+    second: 17_felspell_spritesheet_331
+  - first:
+      213: -8345913187319117081
+    second: 17_felspell_spritesheet_332
+  - first:
+      213: -8496554435767555935
+    second: 17_felspell_spritesheet_333
+  - first:
+      213: -3404467823904734754
+    second: 17_felspell_spritesheet_334
+  - first:
+      213: -954776920758015430
+    second: 17_felspell_spritesheet_335
+  - first:
+      213: -6181105326991588977
+    second: 17_felspell_spritesheet_336
+  - first:
+      213: -2704558093952257914
+    second: 17_felspell_spritesheet_337
+  - first:
+      213: -5900233603339910231
+    second: 17_felspell_spritesheet_338
+  - first:
+      213: -5357862955509848902
+    second: 17_felspell_spritesheet_339
+  - first:
+      213: -3603116257595815683
+    second: 17_felspell_spritesheet_340
+  - first:
+      213: -1585654416587855917
+    second: 17_felspell_spritesheet_341
+  - first:
+      213: -3463122544138950568
+    second: 17_felspell_spritesheet_342
+  - first:
+      213: 4821756942118612684
+    second: 17_felspell_spritesheet_343
+  - first:
+      213: 6210853842141434422
+    second: 17_felspell_spritesheet_344
+  - first:
+      213: -5119615479652957653
+    second: 17_felspell_spritesheet_345
+  - first:
+      213: -1960058444282399252
+    second: 17_felspell_spritesheet_346
+  - first:
+      213: -3902069195586782927
+    second: 17_felspell_spritesheet_347
+  - first:
+      213: -9082000536995793993
+    second: 17_felspell_spritesheet_348
+  - first:
+      213: 8967155930584012778
+    second: 17_felspell_spritesheet_349
+  - first:
+      213: -7908446565596631015
+    second: 17_felspell_spritesheet_350
+  - first:
+      213: 5329164469279349384
+    second: 17_felspell_spritesheet_351
+  - first:
+      213: -8661067714540146717
+    second: 17_felspell_spritesheet_352
+  - first:
+      213: -3217548048392412519
+    second: 17_felspell_spritesheet_353
+  - first:
+      213: 7493521283909252495
+    second: 17_felspell_spritesheet_354
+  - first:
+      213: -501024676224669536
+    second: 17_felspell_spritesheet_355
+  - first:
+      213: -8361010163021718750
+    second: 17_felspell_spritesheet_356
+  - first:
+      213: 6000559508442339991
+    second: 17_felspell_spritesheet_357
+  - first:
+      213: 4379715588385842255
+    second: 17_felspell_spritesheet_358
+  - first:
+      213: -1409454141368244929
+    second: 17_felspell_spritesheet_359
+  - first:
+      213: 2834806136042157498
+    second: 17_felspell_spritesheet_360
+  - first:
+      213: 5981293895021321520
+    second: 17_felspell_spritesheet_361
+  - first:
+      213: -1212581945054604034
+    second: 17_felspell_spritesheet_362
+  - first:
+      213: 515160382654315849
+    second: 17_felspell_spritesheet_363
+  - first:
+      213: -311999113230501384
+    second: 17_felspell_spritesheet_364
+  - first:
+      213: 8986917391118049956
+    second: 17_felspell_spritesheet_365
+  - first:
+      213: -8939167382068855039
+    second: 17_felspell_spritesheet_366
+  - first:
+      213: 8344679710203417054
+    second: 17_felspell_spritesheet_367
+  - first:
+      213: 3879071792474623467
+    second: 17_felspell_spritesheet_368
+  - first:
+      213: -6329442865168820111
+    second: 17_felspell_spritesheet_369
+  - first:
+      213: 9128159184264610703
+    second: 17_felspell_spritesheet_370
+  - first:
+      213: -762979133837634763
+    second: 17_felspell_spritesheet_371
+  - first:
+      213: 3730565818920324339
+    second: 17_felspell_spritesheet_372
+  - first:
+      213: 761908443589791130
+    second: 17_felspell_spritesheet_373
+  - first:
+      213: 6479853840450561777
+    second: 17_felspell_spritesheet_374
+  - first:
+      213: -7292300531015381258
+    second: 17_felspell_spritesheet_375
+  - first:
+      213: -8342102833495823947
+    second: 17_felspell_spritesheet_376
+  - first:
+      213: -3311402863975723614
+    second: 17_felspell_spritesheet_377
+  - first:
+      213: 7243036610867348694
+    second: 17_felspell_spritesheet_378
+  - first:
+      213: -1750554542567296953
+    second: 17_felspell_spritesheet_379
+  - first:
+      213: 2423261701729295637
+    second: 17_felspell_spritesheet_380
+  - first:
+      213: -5851362376332037723
+    second: 17_felspell_spritesheet_381
+  - first:
+      213: 425777643157295797
+    second: 17_felspell_spritesheet_382
+  - first:
+      213: -8264180099674004833
+    second: 17_felspell_spritesheet_383
+  - first:
+      213: 4361686046361767177
+    second: 17_felspell_spritesheet_384
+  - first:
+      213: 522069995729390487
+    second: 17_felspell_spritesheet_385
+  - first:
+      213: 5832007405876538579
+    second: 17_felspell_spritesheet_386
+  - first:
+      213: 7435413583850273755
+    second: 17_felspell_spritesheet_387
+  - first:
+      213: -7754673996860121808
+    second: 17_felspell_spritesheet_388
+  - first:
+      213: -980123421530227587
+    second: 17_felspell_spritesheet_389
+  - first:
+      213: 7082467174494654756
+    second: 17_felspell_spritesheet_390
+  - first:
+      213: -1935232219315924872
+    second: 17_felspell_spritesheet_391
+  - first:
+      213: -6790778235880105717
+    second: 17_felspell_spritesheet_392
+  - first:
+      213: 3961286556064886979
+    second: 17_felspell_spritesheet_393
+  - first:
+      213: -225546678422870861
+    second: 17_felspell_spritesheet_394
+  - first:
+      213: -7762488234735850789
+    second: 17_felspell_spritesheet_395
+  - first:
+      213: 6147747613605262082
+    second: 17_felspell_spritesheet_396
+  - first:
+      213: -9207046594781302036
+    second: 17_felspell_spritesheet_397
+  - first:
+      213: -5936703338111253262
+    second: 17_felspell_spritesheet_398
+  - first:
+      213: -1296151246871988045
+    second: 17_felspell_spritesheet_399
+  - first:
+      213: 5777850313285059769
+    second: 17_felspell_spritesheet_400
+  - first:
+      213: -154349555734769955
+    second: 17_felspell_spritesheet_401
+  - first:
+      213: 8756400932835390017
+    second: 17_felspell_spritesheet_402
+  - first:
+      213: 1648073668457598736
+    second: 17_felspell_spritesheet_403
+  - first:
+      213: -385741515191161333
+    second: 17_felspell_spritesheet_404
+  - first:
+      213: -3570917578045054546
+    second: 17_felspell_spritesheet_405
+  - first:
+      213: -6570876850667929260
+    second: 17_felspell_spritesheet_406
+  - first:
+      213: 8957490787360305183
+    second: 17_felspell_spritesheet_407
+  - first:
+      213: 1275368509327581833
+    second: 17_felspell_spritesheet_408
+  - first:
+      213: -6231047668416193637
+    second: 17_felspell_spritesheet_409
+  - first:
+      213: 7763365305383525814
+    second: 17_felspell_spritesheet_410
+  - first:
+      213: -6912290770472697062
+    second: 17_felspell_spritesheet_411
+  - first:
+      213: 284071445340303089
+    second: 17_felspell_spritesheet_412
+  - first:
+      213: -6370742117831050142
+    second: 17_felspell_spritesheet_413
+  - first:
+      213: -3763558495176591404
+    second: 17_felspell_spritesheet_414
+  - first:
+      213: 4608316338092923755
+    second: 17_felspell_spritesheet_415
+  - first:
+      213: 467342228801010792
+    second: 17_felspell_spritesheet_416
+  - first:
+      213: 7065520504425788090
+    second: 17_felspell_spritesheet_417
+  - first:
+      213: 2789705943839791519
+    second: 17_felspell_spritesheet_418
+  - first:
+      213: 5515494969530516628
+    second: 17_felspell_spritesheet_419
+  - first:
+      213: -8484419091356971571
+    second: 17_felspell_spritesheet_420
+  - first:
+      213: 5896094062024054502
+    second: 17_felspell_spritesheet_421
+  - first:
+      213: 3217310192276660065
+    second: 17_felspell_spritesheet_422
+  - first:
+      213: -7189427278273458217
+    second: 17_felspell_spritesheet_423
+  - first:
+      213: -3427251877415241255
+    second: 17_felspell_spritesheet_424
+  - first:
+      213: 1721158204471227340
+    second: 17_felspell_spritesheet_425
+  - first:
+      213: 5472804966493383521
+    second: 17_felspell_spritesheet_426
+  - first:
+      213: 4580072235889590617
+    second: 17_felspell_spritesheet_427
+  - first:
+      213: 4963381613907838932
+    second: 17_felspell_spritesheet_428
+  - first:
+      213: 1994206078313110734
+    second: 17_felspell_spritesheet_429
+  - first:
+      213: 4894370323159675857
+    second: 17_felspell_spritesheet_430
+  - first:
+      213: -5402584394603003594
+    second: 17_felspell_spritesheet_431
+  - first:
+      213: -4768776002319729579
+    second: 17_felspell_spritesheet_432
+  - first:
+      213: 3661401345597550500
+    second: 17_felspell_spritesheet_433
+  - first:
+      213: 5504406289080221747
+    second: 17_felspell_spritesheet_434
+  - first:
+      213: 508477255324906322
+    second: 17_felspell_spritesheet_435
+  - first:
+      213: -4767170389050219707
+    second: 17_felspell_spritesheet_436
+  - first:
+      213: 221311252389990185
+    second: 17_felspell_spritesheet_437
+  - first:
+      213: -1823612064408810390
+    second: 17_felspell_spritesheet_438
+  - first:
+      213: -8596238874169448994
+    second: 17_felspell_spritesheet_439
+  - first:
+      213: 2217952257090159848
+    second: 17_felspell_spritesheet_440
+  - first:
+      213: -5007494734473893831
+    second: 17_felspell_spritesheet_441
+  - first:
+      213: -4775450132962544107
+    second: 17_felspell_spritesheet_442
+  - first:
+      213: 4327038339219729544
+    second: 17_felspell_spritesheet_443
+  - first:
+      213: 3575786043557739766
+    second: 17_felspell_spritesheet_444
+  - first:
+      213: 7952008033327981195
+    second: 17_felspell_spritesheet_445
+  - first:
+      213: -2650811703665716740
+    second: 17_felspell_spritesheet_446
+  - first:
+      213: -7467860123967632194
+    second: 17_felspell_spritesheet_447
+  - first:
+      213: 224062200458907416
+    second: 17_felspell_spritesheet_448
+  - first:
+      213: 3298285302768242357
+    second: 17_felspell_spritesheet_449
+  - first:
+      213: 4762651501886454198
+    second: 17_felspell_spritesheet_450
+  - first:
+      213: -2906405577268669502
+    second: 17_felspell_spritesheet_451
+  - first:
+      213: -1105720445372029672
+    second: 17_felspell_spritesheet_452
+  - first:
+      213: -5786351478540045422
+    second: 17_felspell_spritesheet_453
+  - first:
+      213: -8085024532907884309
+    second: 17_felspell_spritesheet_454
+  - first:
+      213: -6976575415268438818
+    second: 17_felspell_spritesheet_455
+  - first:
+      213: -8824869450687033972
+    second: 17_felspell_spritesheet_456
+  - first:
+      213: -1102928723761267733
+    second: 17_felspell_spritesheet_457
+  - first:
+      213: 2531774282342323002
+    second: 17_felspell_spritesheet_458
+  - first:
+      213: 7325064292548073277
+    second: 17_felspell_spritesheet_459
+  - first:
+      213: 8575949812172215662
+    second: 17_felspell_spritesheet_460
+  - first:
+      213: -7324157104967212307
+    second: 17_felspell_spritesheet_461
+  - first:
+      213: -6247065509901418979
+    second: 17_felspell_spritesheet_462
+  - first:
+      213: 5423591029722096020
+    second: 17_felspell_spritesheet_463
+  - first:
+      213: 7193233400456820438
+    second: 17_felspell_spritesheet_464
+  - first:
+      213: 1790117569895633150
+    second: 17_felspell_spritesheet_465
+  - first:
+      213: -3723763925498874530
+    second: 17_felspell_spritesheet_466
+  - first:
+      213: -5321660309904673448
+    second: 17_felspell_spritesheet_467
+  - first:
+      213: 2102556137683218974
+    second: 17_felspell_spritesheet_468
+  - first:
+      213: 7551049569684334139
+    second: 17_felspell_spritesheet_469
+  - first:
+      213: 3339584456936602429
+    second: 17_felspell_spritesheet_470
+  - first:
+      213: -5736238283516501955
+    second: 17_felspell_spritesheet_471
+  - first:
+      213: 1908231476254481535
+    second: 17_felspell_spritesheet_472
+  - first:
+      213: 1971451677117770582
+    second: 17_felspell_spritesheet_473
+  - first:
+      213: 6018867947646112193
+    second: 17_felspell_spritesheet_474
+  - first:
+      213: 4587048653525540441
+    second: 17_felspell_spritesheet_475
+  - first:
+      213: 2451187855287032872
+    second: 17_felspell_spritesheet_476
+  - first:
+      213: -3344604080712436844
+    second: 17_felspell_spritesheet_477
+  - first:
+      213: -5288632508935167155
+    second: 17_felspell_spritesheet_478
+  - first:
+      213: 674866022405558163
+    second: 17_felspell_spritesheet_479
+  - first:
+      213: 6539584221032314762
+    second: 17_felspell_spritesheet_480
+  - first:
+      213: -2117975579996420847
+    second: 17_felspell_spritesheet_481
+  - first:
+      213: -8625658690750833473
+    second: 17_felspell_spritesheet_482
+  - first:
+      213: -5073978645163561815
+    second: 17_felspell_spritesheet_483
+  - first:
+      213: 7976300125248792873
+    second: 17_felspell_spritesheet_484
+  - first:
+      213: -4957592966586262635
+    second: 17_felspell_spritesheet_485
+  - first:
+      213: -3896712005503065515
+    second: 17_felspell_spritesheet_486
+  - first:
+      213: 2658601639610075343
+    second: 17_felspell_spritesheet_487
+  - first:
+      213: -2783256337593307108
+    second: 17_felspell_spritesheet_488
+  - first:
+      213: -8850299029744274294
+    second: 17_felspell_spritesheet_489
+  - first:
+      213: -8444395869771798889
+    second: 17_felspell_spritesheet_490
+  - first:
+      213: 3316575082707279367
+    second: 17_felspell_spritesheet_491
+  - first:
+      213: -2043524614358726752
+    second: 17_felspell_spritesheet_492
+  - first:
+      213: 4512510771381701677
+    second: 17_felspell_spritesheet_493
+  - first:
+      213: -4954465748950605358
+    second: 17_felspell_spritesheet_494
+  - first:
+      213: -744634386750956438
+    second: 17_felspell_spritesheet_495
+  - first:
+      213: 8502824059605334966
+    second: 17_felspell_spritesheet_496
+  - first:
+      213: -3246141070732234563
+    second: 17_felspell_spritesheet_497
+  - first:
+      213: 8010895190168798813
+    second: 17_felspell_spritesheet_498
+  - first:
+      213: -8036448286907558654
+    second: 17_felspell_spritesheet_499
+  - first:
+      213: 9171090978630229352
+    second: 17_felspell_spritesheet_500
+  - first:
+      213: -895179390288185491
+    second: 17_felspell_spritesheet_501
+  - first:
+      213: 3297380719691267183
+    second: 17_felspell_spritesheet_502
+  - first:
+      213: 4164308902895670782
+    second: 17_felspell_spritesheet_503
+  - first:
+      213: -8818909423786404158
+    second: 17_felspell_spritesheet_504
+  - first:
+      213: -2687507634456812146
+    second: 17_felspell_spritesheet_505
+  - first:
+      213: -2605242445558563941
+    second: 17_felspell_spritesheet_506
+  - first:
+      213: -544011284422916299
+    second: 17_felspell_spritesheet_507
+  - first:
+      213: -756974536359563165
+    second: 17_felspell_spritesheet_508
+  - first:
+      213: 1920531805214314854
+    second: 17_felspell_spritesheet_509
+  - first:
+      213: 2917070978326965314
+    second: 17_felspell_spritesheet_510
+  - first:
+      213: 7628062327850096385
+    second: 17_felspell_spritesheet_511
+  - first:
+      213: -7973474539241191305
+    second: 17_felspell_spritesheet_512
+  - first:
+      213: 2660206591588422364
+    second: 17_felspell_spritesheet_513
+  - first:
+      213: -8415454413636930934
+    second: 17_felspell_spritesheet_514
+  - first:
+      213: -7156507230887828755
+    second: 17_felspell_spritesheet_515
+  - first:
+      213: -6561317560810088558
+    second: 17_felspell_spritesheet_516
+  - first:
+      213: 6983571184306793703
+    second: 17_felspell_spritesheet_517
+  - first:
+      213: -143614246938448907
+    second: 17_felspell_spritesheet_518
+  - first:
+      213: 1140507632138510525
+    second: 17_felspell_spritesheet_519
+  - first:
+      213: 4627444632403377526
+    second: 17_felspell_spritesheet_520
+  - first:
+      213: 422745825619331402
+    second: 17_felspell_spritesheet_521
+  - first:
+      213: 811929043001901868
+    second: 17_felspell_spritesheet_522
+  - first:
+      213: -1909148129212733427
+    second: 17_felspell_spritesheet_523
+  - first:
+      213: -7911159389446833325
+    second: 17_felspell_spritesheet_524
+  - first:
+      213: -1193805116646147557
+    second: 17_felspell_spritesheet_525
+  - first:
+      213: 7061686000239314847
+    second: 17_felspell_spritesheet_526
+  - first:
+      213: -8467294064373197285
+    second: 17_felspell_spritesheet_527
+  - first:
+      213: 659517661117041471
+    second: 17_felspell_spritesheet_528
+  - first:
+      213: 5918213235631938217
+    second: 17_felspell_spritesheet_529
+  - first:
+      213: 2169948308274630576
+    second: 17_felspell_spritesheet_530
+  - first:
+      213: -3218880717089532620
+    second: 17_felspell_spritesheet_531
+  - first:
+      213: -6775484531165894275
+    second: 17_felspell_spritesheet_532
+  - first:
+      213: -3970335832401521130
+    second: 17_felspell_spritesheet_533
+  - first:
+      213: 7018684297897862866
+    second: 17_felspell_spritesheet_534
+  - first:
+      213: 4070364386977641167
+    second: 17_felspell_spritesheet_535
+  - first:
+      213: -7217616543947287008
+    second: 17_felspell_spritesheet_536
+  - first:
+      213: -1336518721689741774
+    second: 17_felspell_spritesheet_537
+  - first:
+      213: -3565529298677858735
+    second: 17_felspell_spritesheet_538
+  - first:
+      213: 4102502569217549123
+    second: 17_felspell_spritesheet_539
+  - first:
+      213: -2787662954433575858
+    second: 17_felspell_spritesheet_540
+  - first:
+      213: 3377175625441918630
+    second: 17_felspell_spritesheet_541
+  - first:
+      213: -3973089844587659724
+    second: 17_felspell_spritesheet_542
+  - first:
+      213: -1816060736134056787
+    second: 17_felspell_spritesheet_543
+  - first:
+      213: 1055173750606109352
+    second: 17_felspell_spritesheet_544
+  - first:
+      213: 1303841871312684217
+    second: 17_felspell_spritesheet_545
+  - first:
+      213: -6373534161314110298
+    second: 17_felspell_spritesheet_546
+  - first:
+      213: 8238910049478460288
+    second: 17_felspell_spritesheet_547
+  - first:
+      213: -7161548102485209528
+    second: 17_felspell_spritesheet_548
+  - first:
+      213: -1118889796038761012
+    second: 17_felspell_spritesheet_549
+  - first:
+      213: 2003228251225388117
+    second: 17_felspell_spritesheet_550
+  - first:
+      213: 953346612809864343
+    second: 17_felspell_spritesheet_551
+  - first:
+      213: 4949148443277693723
+    second: 17_felspell_spritesheet_552
+  - first:
+      213: 7181686693969750330
+    second: 17_felspell_spritesheet_553
+  - first:
+      213: -1292193430776007664
+    second: 17_felspell_spritesheet_554
+  - first:
+      213: 2599503177908054653
+    second: 17_felspell_spritesheet_555
+  - first:
+      213: 1402814468469915690
+    second: 17_felspell_spritesheet_556
+  - first:
+      213: -1060613641855996443
+    second: 17_felspell_spritesheet_557
+  - first:
+      213: 8087901676555708551
+    second: 17_felspell_spritesheet_558
+  - first:
+      213: 2072452459609535090
+    second: 17_felspell_spritesheet_559
+  - first:
+      213: 2872116506228010741
+    second: 17_felspell_spritesheet_560
+  - first:
+      213: 5891166066120964807
+    second: 17_felspell_spritesheet_561
+  - first:
+      213: 5271569440171389542
+    second: 17_felspell_spritesheet_562
+  - first:
+      213: -5519593909746143050
+    second: 17_felspell_spritesheet_563
+  - first:
+      213: 7147703137399376413
+    second: 17_felspell_spritesheet_564
+  - first:
+      213: 7845867882547949333
+    second: 17_felspell_spritesheet_565
+  - first:
+      213: 4453265531256668212
+    second: 17_felspell_spritesheet_566
+  - first:
+      213: 8730256090519035397
+    second: 17_felspell_spritesheet_567
+  - first:
+      213: 4397708382307344909
+    second: 17_felspell_spritesheet_568
+  - first:
+      213: 8695510335808110135
+    second: 17_felspell_spritesheet_569
+  - first:
+      213: 4195286533147131718
+    second: 17_felspell_spritesheet_570
+  - first:
+      213: 8511587185344585770
+    second: 17_felspell_spritesheet_571
+  - first:
+      213: -7898250044265552509
+    second: 17_felspell_spritesheet_572
+  - first:
+      213: -6925294432648899591
+    second: 17_felspell_spritesheet_573
+  - first:
+      213: -6118251459645522272
+    second: 17_felspell_spritesheet_574
+  - first:
+      213: 5316908598175462698
+    second: 17_felspell_spritesheet_575
+  - first:
+      213: 6487026311704777231
+    second: 17_felspell_spritesheet_576
+  - first:
+      213: -1304371345732833073
+    second: 17_felspell_spritesheet_577
+  - first:
+      213: -6328480415434315724
+    second: 17_felspell_spritesheet_578
+  - first:
+      213: 6502592238803002229
+    second: 17_felspell_spritesheet_579
+  - first:
+      213: -779958037891294035
+    second: 17_felspell_spritesheet_580
+  - first:
+      213: 2036670465076935672
+    second: 17_felspell_spritesheet_581
+  - first:
+      213: -6372909706694449997
+    second: 17_felspell_spritesheet_582
+  - first:
+      213: -307698649940828245
+    second: 17_felspell_spritesheet_583
+  - first:
+      213: 4750529624826290543
+    second: 17_felspell_spritesheet_584
+  - first:
+      213: -1678326177679514584
+    second: 17_felspell_spritesheet_585
+  - first:
+      213: -2212064728012738955
+    second: 17_felspell_spritesheet_586
+  - first:
+      213: -6621176822914670896
+    second: 17_felspell_spritesheet_587
+  - first:
+      213: -3721193097831035284
+    second: 17_felspell_spritesheet_588
+  - first:
+      213: 5592906949838544537
+    second: 17_felspell_spritesheet_589
+  - first:
+      213: -5980000998795436092
+    second: 17_felspell_spritesheet_590
+  - first:
+      213: -2252232053495548124
+    second: 17_felspell_spritesheet_591
+  - first:
+      213: 7377086018137579866
+    second: 17_felspell_spritesheet_592
+  - first:
+      213: 6607654901773625917
+    second: 17_felspell_spritesheet_593
+  - first:
+      213: -4854053710654878487
+    second: 17_felspell_spritesheet_594
+  - first:
+      213: 2888972448678251355
+    second: 17_felspell_spritesheet_595
+  - first:
+      213: -8542812215754779126
+    second: 17_felspell_spritesheet_596
+  - first:
+      213: -7040202642169262148
+    second: 17_felspell_spritesheet_597
+  - first:
+      213: -7139641567861603320
+    second: 17_felspell_spritesheet_598
+  - first:
+      213: -5005667909614695172
+    second: 17_felspell_spritesheet_599
+  - first:
+      213: 6113853336661166363
+    second: 17_felspell_spritesheet_600
+  - first:
+      213: -3431295256954034079
+    second: 17_felspell_spritesheet_601
+  - first:
+      213: 2305934848314106658
+    second: 17_felspell_spritesheet_602
+  - first:
+      213: -5642000692486411367
+    second: 17_felspell_spritesheet_603
+  - first:
+      213: 3132763597548201796
+    second: 17_felspell_spritesheet_604
+  - first:
+      213: -8718840270762777409
+    second: 17_felspell_spritesheet_605
+  - first:
+      213: -6692705375754655167
+    second: 17_felspell_spritesheet_606
+  - first:
+      213: 104023345754873267
+    second: 17_felspell_spritesheet_607
+  - first:
+      213: 4313530805585669377
+    second: 17_felspell_spritesheet_608
+  - first:
+      213: 5950011298760005843
+    second: 17_felspell_spritesheet_609
+  - first:
+      213: -3228588809882514237
+    second: 17_felspell_spritesheet_610
+  - first:
+      213: -6899103333416224502
+    second: 17_felspell_spritesheet_611
+  - first:
+      213: -7108337162951628668
+    second: 17_felspell_spritesheet_612
+  - first:
+      213: -393943751171441735
+    second: 17_felspell_spritesheet_613
+  - first:
+      213: -2182659761234677613
+    second: 17_felspell_spritesheet_614
+  - first:
+      213: -3723660797723907096
+    second: 17_felspell_spritesheet_615
+  - first:
+      213: 4937435497605280171
+    second: 17_felspell_spritesheet_616
+  - first:
+      213: -1681160412294508786
+    second: 17_felspell_spritesheet_617
+  - first:
+      213: 1861807611772828784
+    second: 17_felspell_spritesheet_618
+  - first:
+      213: -4167258529111276862
+    second: 17_felspell_spritesheet_619
+  - first:
+      213: -3699566427904101043
+    second: 17_felspell_spritesheet_620
+  - first:
+      213: -79566672872125092
+    second: 17_felspell_spritesheet_621
+  - first:
+      213: 7363232532447953261
+    second: 17_felspell_spritesheet_622
+  - first:
+      213: -5068643611294799290
+    second: 17_felspell_spritesheet_623
+  - first:
+      213: 6623422941480465420
+    second: 17_felspell_spritesheet_624
+  - first:
+      213: -6652683590199260623
+    second: 17_felspell_spritesheet_625
+  - first:
+      213: -4442454204781435592
+    second: 17_felspell_spritesheet_626
+  - first:
+      213: 2905801723325293646
+    second: 17_felspell_spritesheet_627
+  - first:
+      213: -1119600251866207383
+    second: 17_felspell_spritesheet_628
+  - first:
+      213: 3479632443305302305
+    second: 17_felspell_spritesheet_629
+  - first:
+      213: -5600168872330748753
+    second: 17_felspell_spritesheet_630
+  - first:
+      213: 264999023703414778
+    second: 17_felspell_spritesheet_631
+  - first:
+      213: -2218333882682920907
+    second: 17_felspell_spritesheet_632
+  - first:
+      213: 2254964891574709525
+    second: 17_felspell_spritesheet_633
+  - first:
+      213: -738864072600462490
+    second: 17_felspell_spritesheet_634
+  - first:
+      213: 6017112591476396482
+    second: 17_felspell_spritesheet_635
+  - first:
+      213: -905606538728656384
+    second: 17_felspell_spritesheet_636
+  - first:
+      213: -4846266600236525781
+    second: 17_felspell_spritesheet_637
+  - first:
+      213: 2229875201913774093
+    second: 17_felspell_spritesheet_638
+  - first:
+      213: -1531869569730731227
+    second: 17_felspell_spritesheet_639
+  - first:
+      213: 4549857430011524848
+    second: 17_felspell_spritesheet_640
+  - first:
+      213: -4039967118912786861
+    second: 17_felspell_spritesheet_641
+  - first:
+      213: -1410913207113148808
+    second: 17_felspell_spritesheet_642
+  - first:
+      213: 2938588162436698175
+    second: 17_felspell_spritesheet_643
+  - first:
+      213: 6121176860688221035
+    second: 17_felspell_spritesheet_644
+  - first:
+      213: -8083484194567388975
+    second: 17_felspell_spritesheet_645
+  - first:
+      213: 3578976822454152590
+    second: 17_felspell_spritesheet_646
+  - first:
+      213: -40444464793287326
+    second: 17_felspell_spritesheet_647
+  - first:
+      213: 1643820561202659981
+    second: 17_felspell_spritesheet_648
+  - first:
+      213: -369215581034954048
+    second: 17_felspell_spritesheet_649
+  - first:
+      213: -6951592444810027289
+    second: 17_felspell_spritesheet_650
+  - first:
+      213: -3325409180418724776
+    second: 17_felspell_spritesheet_651
+  - first:
+      213: -6699432561683421356
+    second: 17_felspell_spritesheet_652
+  - first:
+      213: 7466423270862616039
+    second: 17_felspell_spritesheet_653
+  - first:
+      213: -8540832069692154411
+    second: 17_felspell_spritesheet_654
+  - first:
+      213: -6668447176578430374
+    second: 17_felspell_spritesheet_655
+  - first:
+      213: 4253956330738961700
+    second: 17_felspell_spritesheet_656
+  - first:
+      213: -1093006165742498897
+    second: 17_felspell_spritesheet_657
+  - first:
+      213: -6639125776219259273
+    second: 17_felspell_spritesheet_658
+  - first:
+      213: -4480047397689661257
+    second: 17_felspell_spritesheet_659
+  - first:
+      213: -384957118259438440
+    second: 17_felspell_spritesheet_660
+  - first:
+      213: -1385776842090186238
+    second: 17_felspell_spritesheet_661
+  - first:
+      213: -4760305737201804956
+    second: 17_felspell_spritesheet_662
+  - first:
+      213: 7178048370894204218
+    second: 17_felspell_spritesheet_663
+  - first:
+      213: 6668961344327200351
+    second: 17_felspell_spritesheet_664
+  - first:
+      213: -7035016414000938218
+    second: 17_felspell_spritesheet_665
+  - first:
+      213: 5226285365744483604
+    second: 17_felspell_spritesheet_666
+  - first:
+      213: 3086530443174390177
+    second: 17_felspell_spritesheet_667
+  - first:
+      213: 1593734610892545185
+    second: 17_felspell_spritesheet_668
+  - first:
+      213: 8087657629553772684
+    second: 17_felspell_spritesheet_669
+  - first:
+      213: -7758664399816781048
+    second: 17_felspell_spritesheet_670
+  - first:
+      213: 824643337544435446
+    second: 17_felspell_spritesheet_671
+  - first:
+      213: -4486214837601670384
+    second: 17_felspell_spritesheet_672
+  - first:
+      213: -4594008685513907278
+    second: 17_felspell_spritesheet_673
+  - first:
+      213: -5286532413070684816
+    second: 17_felspell_spritesheet_674
+  - first:
+      213: 137869806996930871
+    second: 17_felspell_spritesheet_675
+  - first:
+      213: 1082799829143854540
+    second: 17_felspell_spritesheet_676
+  - first:
+      213: 7414672724726839995
+    second: 17_felspell_spritesheet_677
+  - first:
+      213: 6759827740465158097
+    second: 17_felspell_spritesheet_678
+  - first:
+      213: 430736974265231714
+    second: 17_felspell_spritesheet_679
+  - first:
+      213: 8049149068396441067
+    second: 17_felspell_spritesheet_680
+  - first:
+      213: 4686036052643132238
+    second: 17_felspell_spritesheet_681
+  - first:
+      213: -825944771786909509
+    second: 17_felspell_spritesheet_682
+  - first:
+      213: 8667991940033789215
+    second: 17_felspell_spritesheet_683
+  - first:
+      213: 4977612469561276200
+    second: 17_felspell_spritesheet_684
+  - first:
+      213: -950926357172188406
+    second: 17_felspell_spritesheet_685
+  - first:
+      213: 8936467437267710540
+    second: 17_felspell_spritesheet_686
+  - first:
+      213: -5026180514992636337
+    second: 17_felspell_spritesheet_687
+  - first:
+      213: 591328052085757851
+    second: 17_felspell_spritesheet_688
+  - first:
+      213: 8590535856432122717
+    second: 17_felspell_spritesheet_689
+  - first:
+      213: 7787438519770409493
+    second: 17_felspell_spritesheet_690
+  - first:
+      213: 6478203326091075094
+    second: 17_felspell_spritesheet_691
+  - first:
+      213: -6549537145306271568
+    second: 17_felspell_spritesheet_692
+  - first:
+      213: 6334740445954230589
+    second: 17_felspell_spritesheet_693
+  - first:
+      213: 2224858915031987018
+    second: 17_felspell_spritesheet_694
+  - first:
+      213: -6005818005511145093
+    second: 17_felspell_spritesheet_695
+  - first:
+      213: 4486907210284010973
+    second: 17_felspell_spritesheet_696
+  - first:
+      213: -3911564747570716802
+    second: 17_felspell_spritesheet_697
+  - first:
+      213: 5874679879315641877
+    second: 17_felspell_spritesheet_698
+  - first:
+      213: -2448421709039459512
+    second: 17_felspell_spritesheet_699
+  - first:
+      213: 1343768738915299072
+    second: 17_felspell_spritesheet_700
+  - first:
+      213: 7935883037983550898
+    second: 17_felspell_spritesheet_701
+  - first:
+      213: 2902033513537018264
+    second: 17_felspell_spritesheet_702
+  - first:
+      213: -2979483620353021903
+    second: 17_felspell_spritesheet_703
+  - first:
+      213: 2181599844199861576
+    second: 17_felspell_spritesheet_704
+  - first:
+      213: -2694944691859648731
+    second: 17_felspell_spritesheet_705
+  - first:
+      213: -4156360604705760304
+    second: 17_felspell_spritesheet_706
+  - first:
+      213: 2281793736989915289
+    second: 17_felspell_spritesheet_707
+  - first:
+      213: -894289145588427944
+    second: 17_felspell_spritesheet_708
+  - first:
+      213: -6195728404409029721
+    second: 17_felspell_spritesheet_709
+  - first:
+      213: -4304492288587457147
+    second: 17_felspell_spritesheet_710
+  - first:
+      213: 3772208558425964468
+    second: 17_felspell_spritesheet_711
+  - first:
+      213: -8251743984204402257
+    second: 17_felspell_spritesheet_712
+  - first:
+      213: -8515272389754123300
+    second: 17_felspell_spritesheet_713
+  - first:
+      213: 1501510260659574676
+    second: 17_felspell_spritesheet_714
+  - first:
+      213: 1722440410826941662
+    second: 17_felspell_spritesheet_715
+  - first:
+      213: -1337675899778971081
+    second: 17_felspell_spritesheet_716
+  - first:
+      213: 1161359411329114609
+    second: 17_felspell_spritesheet_717
+  - first:
+      213: 959038952018519900
+    second: 17_felspell_spritesheet_718
+  - first:
+      213: 5826826090772241033
+    second: 17_felspell_spritesheet_719
+  - first:
+      213: 5558937083876707408
+    second: 17_felspell_spritesheet_720
+  - first:
+      213: -1027247604447856428
+    second: 17_felspell_spritesheet_721
+  - first:
+      213: -3229566933044983061
+    second: 17_felspell_spritesheet_722
+  - first:
+      213: -3029194481960990136
+    second: 17_felspell_spritesheet_723
+  - first:
+      213: 2612544315144023144
+    second: 17_felspell_spritesheet_724
+  - first:
+      213: 1135439053796736109
+    second: 17_felspell_spritesheet_725
+  - first:
+      213: 4558126704972477949
+    second: 17_felspell_spritesheet_726
+  - first:
+      213: -5951739098400507456
+    second: 17_felspell_spritesheet_727
+  - first:
+      213: 3658916429364118659
+    second: 17_felspell_spritesheet_728
+  - first:
+      213: -5475965742895085671
+    second: 17_felspell_spritesheet_729
+  - first:
+      213: 1465988077170681547
+    second: 17_felspell_spritesheet_730
+  - first:
+      213: 6010385282343358620
+    second: 17_felspell_spritesheet_731
+  - first:
+      213: 8932114128864844105
+    second: 17_felspell_spritesheet_732
+  - first:
+      213: -2540870042393586527
+    second: 17_felspell_spritesheet_733
+  - first:
+      213: 4756571765403335988
+    second: 17_felspell_spritesheet_734
+  - first:
+      213: -1302112763404295963
+    second: 17_felspell_spritesheet_735
+  - first:
+      213: -3130357298630449241
+    second: 17_felspell_spritesheet_736
+  - first:
+      213: 4241894202428433493
+    second: 17_felspell_spritesheet_737
+  - first:
+      213: 1137069047093548157
+    second: 17_felspell_spritesheet_738
+  - first:
+      213: -2934706050949357758
+    second: 17_felspell_spritesheet_739
+  - first:
+      213: -8632557488166683310
+    second: 17_felspell_spritesheet_740
+  - first:
+      213: -74206634093655028
+    second: 17_felspell_spritesheet_741
+  - first:
+      213: 7308740630886077616
+    second: 17_felspell_spritesheet_742
+  - first:
+      213: 8912693465815359107
+    second: 17_felspell_spritesheet_743
+  - first:
+      213: 6999816426230718112
+    second: 17_felspell_spritesheet_744
+  - first:
+      213: -8276444435649464013
+    second: 17_felspell_spritesheet_745
+  - first:
+      213: -7653460037518338540
+    second: 17_felspell_spritesheet_746
+  - first:
+      213: 4987423329202870173
+    second: 17_felspell_spritesheet_747
+  - first:
+      213: -2960439362987703989
+    second: 17_felspell_spritesheet_748
+  - first:
+      213: 2578360135765429337
+    second: 17_felspell_spritesheet_749
+  - first:
+      213: 4699673836914142822
+    second: 17_felspell_spritesheet_750
+  - first:
+      213: 1066633808342994775
+    second: 17_felspell_spritesheet_751
+  - first:
+      213: -4869393130114181566
+    second: 17_felspell_spritesheet_752
+  - first:
+      213: 3470762797438652343
+    second: 17_felspell_spritesheet_753
+  - first:
+      213: -4427741055968242650
+    second: 17_felspell_spritesheet_754
+  - first:
+      213: 6308906459715824823
+    second: 17_felspell_spritesheet_755
+  - first:
+      213: 9210760417865992803
+    second: 17_felspell_spritesheet_756
+  - first:
+      213: -287068024950917902
+    second: 17_felspell_spritesheet_757
+  - first:
+      213: 2339049918585472669
+    second: 17_felspell_spritesheet_758
+  - first:
+      213: -5174588822122984653
+    second: 17_felspell_spritesheet_759
+  - first:
+      213: 6804018042165203519
+    second: 17_felspell_spritesheet_760
+  - first:
+      213: -6968913526625386541
+    second: 17_felspell_spritesheet_761
+  - first:
+      213: -3155404068851871086
+    second: 17_felspell_spritesheet_762
+  - first:
+      213: -6025483392561578014
+    second: 17_felspell_spritesheet_763
+  - first:
+      213: -1450850346685272680
+    second: 17_felspell_spritesheet_764
+  - first:
+      213: -3114144323569663144
+    second: 17_felspell_spritesheet_765
+  - first:
+      213: 3753810852664222045
+    second: 17_felspell_spritesheet_766
+  - first:
+      213: -6079746713966509163
+    second: 17_felspell_spritesheet_767
+  - first:
+      213: 5803385540916154499
+    second: 17_felspell_spritesheet_768
+  - first:
+      213: -5540251406364844934
+    second: 17_felspell_spritesheet_769
+  - first:
+      213: 7613998235574602312
+    second: 17_felspell_spritesheet_770
+  - first:
+      213: -4266575368695695089
+    second: 17_felspell_spritesheet_771
+  - first:
+      213: -6411587713390740506
+    second: 17_felspell_spritesheet_772
+  - first:
+      213: -5208809278351021815
+    second: 17_felspell_spritesheet_773
+  - first:
+      213: -8808567102524877020
+    second: 17_felspell_spritesheet_774
+  - first:
+      213: -2776470859757413294
+    second: 17_felspell_spritesheet_775
+  - first:
+      213: -844001815005032090
+    second: 17_felspell_spritesheet_776
+  - first:
+      213: -2341988855889964968
+    second: 17_felspell_spritesheet_777
+  - first:
+      213: -153282155174942405
+    second: 17_felspell_spritesheet_778
+  - first:
+      213: -1128512552917084871
+    second: 17_felspell_spritesheet_779
+  - first:
+      213: 3151792291411489900
+    second: 17_felspell_spritesheet_780
+  - first:
+      213: 8788251107586309004
+    second: 17_felspell_spritesheet_781
+  - first:
+      213: 6089780028000279500
+    second: 17_felspell_spritesheet_782
+  - first:
+      213: 5849275023928766595
+    second: 17_felspell_spritesheet_783
+  - first:
+      213: -1916059916926004158
+    second: 17_felspell_spritesheet_784
+  - first:
+      213: 4856951369886536180
+    second: 17_felspell_spritesheet_785
+  - first:
+      213: -7008425807324245903
+    second: 17_felspell_spritesheet_786
+  - first:
+      213: 5550575832184938365
+    second: 17_felspell_spritesheet_787
+  - first:
+      213: 3015932840435914534
+    second: 17_felspell_spritesheet_788
+  - first:
+      213: 1972567969141340545
+    second: 17_felspell_spritesheet_789
+  - first:
+      213: 8669984058698082023
+    second: 17_felspell_spritesheet_790
+  - first:
+      213: 5616444443316040554
+    second: 17_felspell_spritesheet_791
+  - first:
+      213: 5297723592039685440
+    second: 17_felspell_spritesheet_792
+  - first:
+      213: 4554510516563976375
+    second: 17_felspell_spritesheet_793
+  - first:
+      213: -6668224651882603254
+    second: 17_felspell_spritesheet_794
+  - first:
+      213: 7400203217396074249
+    second: 17_felspell_spritesheet_795
+  - first:
+      213: -5796962454789088823
+    second: 17_felspell_spritesheet_796
+  - first:
+      213: -7055020147124079346
+    second: 17_felspell_spritesheet_797
+  - first:
+      213: 7279343443837981311
+    second: 17_felspell_spritesheet_798
+  - first:
+      213: 8468040338224913035
+    second: 17_felspell_spritesheet_799
+  - first:
+      213: 8495177589067405783
+    second: 17_felspell_spritesheet_800
+  - first:
+      213: -3774285520912198346
+    second: 17_felspell_spritesheet_801
+  - first:
+      213: -2073001970002845399
+    second: 17_felspell_spritesheet_802
+  - first:
+      213: 6327662874267031359
+    second: 17_felspell_spritesheet_803
+  - first:
+      213: -9107705729282926547
+    second: 17_felspell_spritesheet_804
+  - first:
+      213: -1229396726435055984
+    second: 17_felspell_spritesheet_805
+  - first:
+      213: 4373995217858941215
+    second: 17_felspell_spritesheet_806
+  - first:
+      213: 1512752214388626616
+    second: 17_felspell_spritesheet_807
+  - first:
+      213: -7819360790425172121
+    second: 17_felspell_spritesheet_808
+  - first:
+      213: 5957426417141504250
+    second: 17_felspell_spritesheet_809
+  - first:
+      213: -3908820676210663202
+    second: 17_felspell_spritesheet_810
+  - first:
+      213: 3603958075855090568
+    second: 17_felspell_spritesheet_811
+  - first:
+      213: 7668490042615987565
+    second: 17_felspell_spritesheet_812
+  - first:
+      213: 672285072837719751
+    second: 17_felspell_spritesheet_813
+  - first:
+      213: -8554672869515581657
+    second: 17_felspell_spritesheet_814
+  - first:
+      213: 4392487328744577098
+    second: 17_felspell_spritesheet_815
+  - first:
+      213: 1375475284140354750
+    second: 17_felspell_spritesheet_816
+  - first:
+      213: 1243722557033998559
+    second: 17_felspell_spritesheet_817
+  - first:
+      213: 774259257566571850
+    second: 17_felspell_spritesheet_818
+  - first:
+      213: 7951914802125702746
+    second: 17_felspell_spritesheet_819
+  - first:
+      213: -1337862205964448675
+    second: 17_felspell_spritesheet_820
+  - first:
+      213: 607750108216358595
+    second: 17_felspell_spritesheet_821
+  - first:
+      213: 8098207146824327021
+    second: 17_felspell_spritesheet_822
+  - first:
+      213: 2270909992386662899
+    second: 17_felspell_spritesheet_823
+  - first:
+      213: 1904135521198626790
+    second: 17_felspell_spritesheet_824
+  - first:
+      213: 8228784437567205703
+    second: 17_felspell_spritesheet_825
+  - first:
+      213: 7020086638651288908
+    second: 17_felspell_spritesheet_826
+  - first:
+      213: 7086491253593764451
+    second: 17_felspell_spritesheet_827
+  - first:
+      213: 8468648708022831482
+    second: 17_felspell_spritesheet_828
+  - first:
+      213: -3818939691367211556
+    second: 17_felspell_spritesheet_829
+  - first:
+      213: -6374518705900036507
+    second: 17_felspell_spritesheet_830
+  - first:
+      213: -8525139234811724729
+    second: 17_felspell_spritesheet_831
+  - first:
+      213: -244208066442703962
+    second: 17_felspell_spritesheet_832
+  - first:
+      213: 281663998216757527
+    second: 17_felspell_spritesheet_833
+  - first:
+      213: 4839631775285936103
+    second: 17_felspell_spritesheet_834
+  - first:
+      213: 6367827101584870988
+    second: 17_felspell_spritesheet_835
+  - first:
+      213: 201927776911173483
+    second: 17_felspell_spritesheet_836
+  - first:
+      213: -3249690162158859520
+    second: 17_felspell_spritesheet_837
+  - first:
+      213: -8996216702089696026
+    second: 17_felspell_spritesheet_838
+  - first:
+      213: 4025476108936513168
+    second: 17_felspell_spritesheet_839
+  - first:
+      213: -949892110696179081
+    second: 17_felspell_spritesheet_840
+  - first:
+      213: -1280548007589601037
+    second: 17_felspell_spritesheet_841
+  - first:
+      213: -2221047297855557642
+    second: 17_felspell_spritesheet_842
+  - first:
+      213: -180988586380781150
+    second: 17_felspell_spritesheet_843
+  - first:
+      213: 5970640242440701250
+    second: 17_felspell_spritesheet_844
+  - first:
+      213: 665808033779474087
+    second: 17_felspell_spritesheet_845
+  - first:
+      213: -1474552194761883924
+    second: 17_felspell_spritesheet_846
+  - first:
+      213: 2183174084277436765
+    second: 17_felspell_spritesheet_847
+  - first:
+      213: -8352029405925560877
+    second: 17_felspell_spritesheet_848
+  - first:
+      213: 6563567264691502437
+    second: 17_felspell_spritesheet_849
+  - first:
+      213: -1875557534841995524
+    second: 17_felspell_spritesheet_850
+  - first:
+      213: -5675504265368041072
+    second: 17_felspell_spritesheet_851
+  - first:
+      213: -6458653448248785347
+    second: 17_felspell_spritesheet_852
+  - first:
+      213: -4569674124920653077
+    second: 17_felspell_spritesheet_853
+  - first:
+      213: 4006107189270930153
+    second: 17_felspell_spritesheet_854
+  - first:
+      213: -5372828519011446884
+    second: 17_felspell_spritesheet_855
+  - first:
+      213: 3133398559401884908
+    second: 17_felspell_spritesheet_856
+  - first:
+      213: 3521947600405592930
+    second: 17_felspell_spritesheet_857
+  - first:
+      213: -7446944178758060490
+    second: 17_felspell_spritesheet_858
+  - first:
+      213: -4294626868848417134
+    second: 17_felspell_spritesheet_859
+  - first:
+      213: 7603834630207760006
+    second: 17_felspell_spritesheet_860
+  - first:
+      213: -3134904260167673218
+    second: 17_felspell_spritesheet_861
+  - first:
+      213: 2133795140428039297
+    second: 17_felspell_spritesheet_862
+  - first:
+      213: 5419819998091523307
+    second: 17_felspell_spritesheet_863
+  - first:
+      213: 5606862522087634062
+    second: 17_felspell_spritesheet_864
+  - first:
+      213: -4677736924574340905
+    second: 17_felspell_spritesheet_865
+  - first:
+      213: -9144454563344117384
+    second: 17_felspell_spritesheet_866
+  - first:
+      213: 8939037736073143339
+    second: 17_felspell_spritesheet_867
+  - first:
+      213: 2706803336638988817
+    second: 17_felspell_spritesheet_868
+  - first:
+      213: -2715685717088917837
+    second: 17_felspell_spritesheet_869
+  - first:
+      213: -3908837266974876257
+    second: 17_felspell_spritesheet_870
+  - first:
+      213: -1081311783931940599
+    second: 17_felspell_spritesheet_871
+  - first:
+      213: 8560010842284247617
+    second: 17_felspell_spritesheet_872
+  - first:
+      213: 1401538085488053775
+    second: 17_felspell_spritesheet_873
+  - first:
+      213: 6353637149094049309
+    second: 17_felspell_spritesheet_874
+  - first:
+      213: 8887563083075760625
+    second: 17_felspell_spritesheet_875
+  - first:
+      213: -2349838912617308227
+    second: 17_felspell_spritesheet_876
+  - first:
+      213: 4369892913601274023
+    second: 17_felspell_spritesheet_877
+  - first:
+      213: 1879021185227686126
+    second: 17_felspell_spritesheet_878
+  - first:
+      213: 4812184711998719646
+    second: 17_felspell_spritesheet_879
+  - first:
+      213: -3889751517141293864
+    second: 17_felspell_spritesheet_880
+  - first:
+      213: -3846719426763801441
+    second: 17_felspell_spritesheet_881
+  - first:
+      213: -7138939922700271002
+    second: 17_felspell_spritesheet_882
+  - first:
+      213: -2569225144230474743
+    second: 17_felspell_spritesheet_883
+  - first:
+      213: -7359053620679796271
+    second: 17_felspell_spritesheet_884
+  - first:
+      213: 5804352028975136660
+    second: 17_felspell_spritesheet_885
+  - first:
+      213: 4737929247453766420
+    second: 17_felspell_spritesheet_886
+  - first:
+      213: -9025088464948900927
+    second: 17_felspell_spritesheet_887
+  - first:
+      213: -1792940487826603692
+    second: 17_felspell_spritesheet_888
+  - first:
+      213: 2112765126734214285
+    second: 17_felspell_spritesheet_889
+  - first:
+      213: 5273465467291147986
+    second: 17_felspell_spritesheet_890
+  - first:
+      213: -3986647618684426001
+    second: 17_felspell_spritesheet_891
+  - first:
+      213: -1562248295594991173
+    second: 17_felspell_spritesheet_892
+  - first:
+      213: -6070591370765500311
+    second: 17_felspell_spritesheet_893
+  - first:
+      213: 8174944888531374403
+    second: 17_felspell_spritesheet_894
+  - first:
+      213: -4362145901314055280
+    second: 17_felspell_spritesheet_895
+  - first:
+      213: -2435366697566862203
+    second: 17_felspell_spritesheet_896
+  - first:
+      213: 3119844363958971056
+    second: 17_felspell_spritesheet_897
+  - first:
+      213: 1990185043403620608
+    second: 17_felspell_spritesheet_898
+  - first:
+      213: -8937915366103610211
+    second: 17_felspell_spritesheet_899
+  - first:
+      213: 8610519910904638739
+    second: 17_felspell_spritesheet_900
+  - first:
+      213: 5506352880746452178
+    second: 17_felspell_spritesheet_901
+  - first:
+      213: 76918551489966422
+    second: 17_felspell_spritesheet_902
+  - first:
+      213: -3140527851690925764
+    second: 17_felspell_spritesheet_903
+  - first:
+      213: 8987481238949758762
+    second: 17_felspell_spritesheet_904
+  - first:
+      213: 3090837524906607850
+    second: 17_felspell_spritesheet_905
+  - first:
+      213: 8082554636204361894
+    second: 17_felspell_spritesheet_906
+  - first:
+      213: 1684350920440250846
+    second: 17_felspell_spritesheet_907
+  - first:
+      213: 4502839455469486262
+    second: 17_felspell_spritesheet_908
+  - first:
+      213: -2641379834389411164
+    second: 17_felspell_spritesheet_909
+  - first:
+      213: 6386557151315592436
+    second: 17_felspell_spritesheet_910
+  - first:
+      213: 7909480667882364404
+    second: 17_felspell_spritesheet_911
+  - first:
+      213: -3108159908515053265
+    second: 17_felspell_spritesheet_912
+  - first:
+      213: -518638374079108435
+    second: 17_felspell_spritesheet_913
+  - first:
+      213: -4392105560614682268
+    second: 17_felspell_spritesheet_914
+  - first:
+      213: 2242856552643608698
+    second: 17_felspell_spritesheet_915
+  - first:
+      213: -4670544795679850118
+    second: 17_felspell_spritesheet_916
+  - first:
+      213: -4998222508551762330
+    second: 17_felspell_spritesheet_917
+  - first:
+      213: -2207134819967049701
+    second: 17_felspell_spritesheet_918
+  - first:
+      213: 5368983667030794593
+    second: 17_felspell_spritesheet_919
+  - first:
+      213: 8930553795805744926
+    second: 17_felspell_spritesheet_920
+  - first:
+      213: -8290245529223176326
+    second: 17_felspell_spritesheet_921
+  - first:
+      213: 4442156984992796713
+    second: 17_felspell_spritesheet_922
+  - first:
+      213: 5259771782106303900
+    second: 17_felspell_spritesheet_923
+  - first:
+      213: -2276347167929068434
+    second: 17_felspell_spritesheet_924
+  - first:
+      213: 8203498583676535590
+    second: 17_felspell_spritesheet_925
+  - first:
+      213: 7143582882407178809
+    second: 17_felspell_spritesheet_926
+  - first:
+      213: -2169626229367388636
+    second: 17_felspell_spritesheet_927
+  - first:
+      213: -1298260522495244070
+    second: 17_felspell_spritesheet_928
+  - first:
+      213: 8424278800831995041
+    second: 17_felspell_spritesheet_929
+  - first:
+      213: 1123939616662090101
+    second: 17_felspell_spritesheet_930
+  - first:
+      213: 8624233632580648598
+    second: 17_felspell_spritesheet_931
+  - first:
+      213: -5946636999770713647
+    second: 17_felspell_spritesheet_932
+  - first:
+      213: -2283620110399002005
+    second: 17_felspell_spritesheet_933
+  - first:
+      213: 1767102071173166016
+    second: 17_felspell_spritesheet_934
+  - first:
+      213: 717731733890738312
+    second: 17_felspell_spritesheet_935
+  - first:
+      213: -2230723261370643390
+    second: 17_felspell_spritesheet_936
+  - first:
+      213: -3020457096623290109
+    second: 17_felspell_spritesheet_937
+  - first:
+      213: -3338405301024448436
+    second: 17_felspell_spritesheet_938
+  - first:
+      213: 519430487223400858
+    second: 17_felspell_spritesheet_939
+  - first:
+      213: 3621962679710727687
+    second: 17_felspell_spritesheet_940
+  - first:
+      213: -3928329137176715635
+    second: 17_felspell_spritesheet_941
+  - first:
+      213: -7079801444926530770
+    second: 17_felspell_spritesheet_942
+  - first:
+      213: -1646284041432645058
+    second: 17_felspell_spritesheet_943
+  - first:
+      213: 4126446388916238733
+    second: 17_felspell_spritesheet_944
+  - first:
+      213: -3492644898657229841
+    second: 17_felspell_spritesheet_945
+  - first:
+      213: -6657914794048169459
+    second: 17_felspell_spritesheet_946
+  - first:
+      213: 7831668835785355794
+    second: 17_felspell_spritesheet_947
+  - first:
+      213: 2791924024773038466
+    second: 17_felspell_spritesheet_948
+  - first:
+      213: -3613496610711514233
+    second: 17_felspell_spritesheet_949
+  - first:
+      213: -8207173876111096948
+    second: 17_felspell_spritesheet_950
+  - first:
+      213: -3606266914835607229
+    second: 17_felspell_spritesheet_951
+  - first:
+      213: 3474171290333295789
+    second: 17_felspell_spritesheet_952
+  - first:
+      213: 6648508054638326793
+    second: 17_felspell_spritesheet_953
+  - first:
+      213: -6287603876297134414
+    second: 17_felspell_spritesheet_954
+  - first:
+      213: 8190209391925434504
+    second: 17_felspell_spritesheet_955
+  - first:
+      213: 8586754567935580580
+    second: 17_felspell_spritesheet_956
+  - first:
+      213: 269727097901849463
+    second: 17_felspell_spritesheet_957
+  - first:
+      213: -5361508743672201041
+    second: 17_felspell_spritesheet_958
+  - first:
+      213: -6001773694504193655
+    second: 17_felspell_spritesheet_959
+  - first:
+      213: -87123591554226468
+    second: 17_felspell_spritesheet_960
+  - first:
+      213: 3467633912101219664
+    second: 17_felspell_spritesheet_961
+  - first:
+      213: -2541816285944189875
+    second: 17_felspell_spritesheet_962
+  - first:
+      213: -4045716603656880310
+    second: 17_felspell_spritesheet_963
+  - first:
+      213: -8975151181623446469
+    second: 17_felspell_spritesheet_964
+  - first:
+      213: -470268417697884319
+    second: 17_felspell_spritesheet_965
+  - first:
+      213: 3888959346455811589
+    second: 17_felspell_spritesheet_966
+  - first:
+      213: 558123564623356358
+    second: 17_felspell_spritesheet_967
+  - first:
+      213: 3158270059241056103
+    second: 17_felspell_spritesheet_968
+  - first:
+      213: 1241196757711071766
+    second: 17_felspell_spritesheet_969
+  - first:
+      213: 7376285210780228554
+    second: 17_felspell_spritesheet_970
+  - first:
+      213: -2202276947314671362
+    second: 17_felspell_spritesheet_971
+  - first:
+      213: -899261279687670376
+    second: 17_felspell_spritesheet_972
+  - first:
+      213: 3253437946489530392
+    second: 17_felspell_spritesheet_973
+  - first:
+      213: 774596603337069060
+    second: 17_felspell_spritesheet_974
+  - first:
+      213: -2681250555544107545
+    second: 17_felspell_spritesheet_975
+  - first:
+      213: -7602641933411598558
+    second: 17_felspell_spritesheet_976
+  - first:
+      213: 2153855111382566880
+    second: 17_felspell_spritesheet_977
+  - first:
+      213: -8929658944358371230
+    second: 17_felspell_spritesheet_978
+  - first:
+      213: 3298888787150501242
+    second: 17_felspell_spritesheet_979
+  - first:
+      213: 3001871854209565801
+    second: 17_felspell_spritesheet_980
+  - first:
+      213: -3493196527505204280
+    second: 17_felspell_spritesheet_981
+  - first:
+      213: 7576565006990861347
+    second: 17_felspell_spritesheet_982
+  - first:
+      213: 4553912288512312136
+    second: 17_felspell_spritesheet_983
+  - first:
+      213: -6216214459798530652
+    second: 17_felspell_spritesheet_984
+  - first:
+      213: -2721056313620371324
+    second: 17_felspell_spritesheet_985
+  - first:
+      213: -4936248671036863290
+    second: 17_felspell_spritesheet_986
+  - first:
+      213: -7028159005227613176
+    second: 17_felspell_spritesheet_987
+  - first:
+      213: 6314633125947911150
+    second: 17_felspell_spritesheet_988
+  - first:
+      213: -5048950667780642482
+    second: 17_felspell_spritesheet_989
+  - first:
+      213: -8262767453526231114
+    second: 17_felspell_spritesheet_990
+  - first:
+      213: 5938653927566189240
+    second: 17_felspell_spritesheet_991
+  - first:
+      213: 8251490986448062449
+    second: 17_felspell_spritesheet_992
+  - first:
+      213: 7219927219969391292
+    second: 17_felspell_spritesheet_993
+  - first:
+      213: -7127211264193299401
+    second: 17_felspell_spritesheet_994
+  - first:
+      213: -1830865120542693681
+    second: 17_felspell_spritesheet_995
+  - first:
+      213: 9133857067477867359
+    second: 17_felspell_spritesheet_996
+  - first:
+      213: -5016516924551101334
+    second: 17_felspell_spritesheet_997
+  - first:
+      213: 5147038982251953241
+    second: 17_felspell_spritesheet_998
+  - first:
+      213: 5517002959115896517
+    second: 17_felspell_spritesheet_999
+  - first:
+      213: 7621538029310242508
+    second: 17_felspell_spritesheet_1000
+  - first:
+      213: 1085678932340288666
+    second: 17_felspell_spritesheet_1001
+  - first:
+      213: 8807281728317281610
+    second: 17_felspell_spritesheet_1002
+  - first:
+      213: -3560921491926702039
+    second: 17_felspell_spritesheet_1003
+  - first:
+      213: -8191644716502331230
+    second: 17_felspell_spritesheet_1004
+  - first:
+      213: -5682184703408548432
+    second: 17_felspell_spritesheet_1005
+  - first:
+      213: 4582051437092620925
+    second: 17_felspell_spritesheet_1006
+  - first:
+      213: 381012426351521919
+    second: 17_felspell_spritesheet_1007
+  - first:
+      213: -5102093634057251334
+    second: 17_felspell_spritesheet_1008
+  - first:
+      213: 3075547712816314050
+    second: 17_felspell_spritesheet_1009
+  - first:
+      213: 3347393271191731004
+    second: 17_felspell_spritesheet_1010
+  - first:
+      213: 3987304993914170434
+    second: 17_felspell_spritesheet_1011
+  - first:
+      213: 8815198057911345483
+    second: 17_felspell_spritesheet_1012
+  - first:
+      213: -4327404641445064664
+    second: 17_felspell_spritesheet_1013
+  - first:
+      213: 3284313404416339752
+    second: 17_felspell_spritesheet_1014
+  - first:
+      213: -5102998428376467459
+    second: 17_felspell_spritesheet_1015
+  - first:
+      213: 2811633168585290293
+    second: 17_felspell_spritesheet_1016
+  - first:
+      213: 2835207796534356238
+    second: 17_felspell_spritesheet_1017
+  - first:
+      213: -5987237588061215445
+    second: 17_felspell_spritesheet_1018
+  - first:
+      213: -8987459941242229348
+    second: 17_felspell_spritesheet_1019
+  - first:
+      213: 4560825392408312086
+    second: 17_felspell_spritesheet_1020
+  - first:
+      213: -7861098464398780013
+    second: 17_felspell_spritesheet_1021
+  - first:
+      213: -2631271564173665974
+    second: 17_felspell_spritesheet_1022
+  - first:
+      213: 1602549523622223633
+    second: 17_felspell_spritesheet_1023
+  - first:
+      213: -7635114800703791236
+    second: 17_felspell_spritesheet_1024
+  - first:
+      213: -1594611650186397813
+    second: 17_felspell_spritesheet_1025
+  - first:
+      213: 75444478469967814
+    second: 17_felspell_spritesheet_1026
+  - first:
+      213: 2386818113637581269
+    second: 17_felspell_spritesheet_1027
+  - first:
+      213: 3942490239859902480
+    second: 17_felspell_spritesheet_1028
+  - first:
+      213: 4202647102460555056
+    second: 17_felspell_spritesheet_1029
+  - first:
+      213: -9098892005383011769
+    second: 17_felspell_spritesheet_1030
+  - first:
+      213: -6748051740769378219
+    second: 17_felspell_spritesheet_1031
+  - first:
+      213: 9065561990201855579
+    second: 17_felspell_spritesheet_1032
+  - first:
+      213: -5277274138476159254
+    second: 17_felspell_spritesheet_1033
+  - first:
+      213: -8938424284212946487
+    second: 17_felspell_spritesheet_1034
+  - first:
+      213: -4110471702171625261
+    second: 17_felspell_spritesheet_1035
+  - first:
+      213: 4064865253241408766
+    second: 17_felspell_spritesheet_1036
+  - first:
+      213: -8342305897626914771
+    second: 17_felspell_spritesheet_1037
+  - first:
+      213: 1829771324014102663
+    second: 17_felspell_spritesheet_1038
+  - first:
+      213: 2378375592527651793
+    second: 17_felspell_spritesheet_1039
+  - first:
+      213: -3199628395972660544
+    second: 17_felspell_spritesheet_1040
+  - first:
+      213: 555179283573615679
+    second: 17_felspell_spritesheet_1041
+  - first:
+      213: 2530697276718792670
+    second: 17_felspell_spritesheet_1042
+  - first:
+      213: -4078700785395473759
+    second: 17_felspell_spritesheet_1043
+  - first:
+      213: -5679458629096854569
+    second: 17_felspell_spritesheet_1044
+  - first:
+      213: -31251310061424509
+    second: 17_felspell_spritesheet_1045
+  - first:
+      213: 6486759751245779150
+    second: 17_felspell_spritesheet_1046
+  - first:
+      213: -7902838915871229426
+    second: 17_felspell_spritesheet_1047
+  - first:
+      213: -2893557131280617344
+    second: 17_felspell_spritesheet_1048
+  - first:
+      213: -5770768157730551553
+    second: 17_felspell_spritesheet_1049
+  - first:
+      213: -6853947836312696575
+    second: 17_felspell_spritesheet_1050
+  - first:
+      213: -2711557567128179190
+    second: 17_felspell_spritesheet_1051
+  - first:
+      213: -2041270663493581357
+    second: 17_felspell_spritesheet_1052
+  - first:
+      213: -251450669461734285
+    second: 17_felspell_spritesheet_1053
+  - first:
+      213: -9217269805751540639
+    second: 17_felspell_spritesheet_1054
+  - first:
+      213: -6289373211854707347
+    second: 17_felspell_spritesheet_1055
+  - first:
+      213: 6315844575695147985
+    second: 17_felspell_spritesheet_1056
+  - first:
+      213: 3703237158236749484
+    second: 17_felspell_spritesheet_1057
+  - first:
+      213: 7241313771945702625
+    second: 17_felspell_spritesheet_1058
+  - first:
+      213: -4853326768669326213
+    second: 17_felspell_spritesheet_1059
+  - first:
+      213: 4994837531548167149
+    second: 17_felspell_spritesheet_1060
+  - first:
+      213: -3068224254078108208
+    second: 17_felspell_spritesheet_1061
+  - first:
+      213: 1833735774479438849
+    second: 17_felspell_spritesheet_1062
+  - first:
+      213: 417291972773908632
+    second: 17_felspell_spritesheet_1063
+  - first:
+      213: 6937596174197041969
+    second: 17_felspell_spritesheet_1064
+  - first:
+      213: 4242644495200430451
+    second: 17_felspell_spritesheet_1065
+  - first:
+      213: 6870034640299722769
+    second: 17_felspell_spritesheet_1066
+  - first:
+      213: -7390184846088619300
+    second: 17_felspell_spritesheet_1067
+  - first:
+      213: -3298533072445473596
+    second: 17_felspell_spritesheet_1068
+  - first:
+      213: -6187911332863390588
+    second: 17_felspell_spritesheet_1069
+  - first:
+      213: -4172852293307685088
+    second: 17_felspell_spritesheet_1070
+  - first:
+      213: -3445736783766439804
+    second: 17_felspell_spritesheet_1071
+  - first:
+      213: 5420253115382898195
+    second: 17_felspell_spritesheet_1072
+  - first:
+      213: -1435657606351712994
+    second: 17_felspell_spritesheet_1073
+  - first:
+      213: -8617541750571706800
+    second: 17_felspell_spritesheet_1074
+  - first:
+      213: 8376802909239674153
+    second: 17_felspell_spritesheet_1075
+  - first:
+      213: -5061768514593599590
+    second: 17_felspell_spritesheet_1076
+  - first:
+      213: 2386315331517934143
+    second: 17_felspell_spritesheet_1077
+  - first:
+      213: -7754789946922030406
+    second: 17_felspell_spritesheet_1078
+  - first:
+      213: -5237382141069631013
+    second: 17_felspell_spritesheet_1079
+  - first:
+      213: -4963357323129200702
+    second: 17_felspell_spritesheet_1080
+  - first:
+      213: 5361475490471582763
+    second: 17_felspell_spritesheet_1081
+  - first:
+      213: -7389815290045360473
+    second: 17_felspell_spritesheet_1082
+  - first:
+      213: 7137020957272770850
+    second: 17_felspell_spritesheet_1083
+  - first:
+      213: 7045228302378771979
+    second: 17_felspell_spritesheet_1084
+  - first:
+      213: 1302887339686972521
+    second: 17_felspell_spritesheet_1085
+  - first:
+      213: 5592443895394641105
+    second: 17_felspell_spritesheet_1086
+  - first:
+      213: 5092062039092984075
+    second: 17_felspell_spritesheet_1087
+  - first:
+      213: 7478340679982130251
+    second: 17_felspell_spritesheet_1088
+  - first:
+      213: -6206717999249974108
+    second: 17_felspell_spritesheet_1089
+  - first:
+      213: -6617101225440760321
+    second: 17_felspell_spritesheet_1090
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 80
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 910
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d42b2ab20a570cd10800000000000000
+      internalID: 2143842753415656013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 910
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffaef1a5b6bb90350800000000000000
+      internalID: 5983519649686350591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 910
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83a48cc327b9221f0800000000000000
+      internalID: -1071122846412420552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 910
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f94b1cfa51ff5e60800000000000000
+      internalID: 7953340840038582777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 910
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4a6e4bc4c8dbf810800000000000000
+      internalID: 1800270815800748619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 910
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6282ce4959d193bc0800000000000000
+      internalID: -3802975882051835866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 910
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0ccd3171aeba1660800000000000000
+      internalID: 7357402541862013963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 910
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed722b1e440bbb910800000000000000
+      internalID: 1854269481483904990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 910
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e1eb7776b63ea140800000000000000
+      internalID: 4732780415729525222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 910
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dc9c052148b70ff0800000000000000
+      internalID: -69884679266984748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 810
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e7a6ce5a639e8f60800000000000000
+      internalID: 8038524469968807907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 810
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98fc84b693cff5fa0800000000000000
+      internalID: -5809647670741381239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 810
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e43528dea88354740800000000000000
+      internalID: 5135573119427302222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 810
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a3beb7e6b1e4b9f0800000000000000
+      internalID: -453489486769245279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 810
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c97f730aeb40ee0c0800000000000000
+      internalID: -4544689757191932004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 810
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70813303e971af5f0800000000000000
+      internalID: -722238822058616825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 810
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c844c46153d91640800000000000000
+      internalID: 5051300803609118917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 810
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0639c7c1bcb1fe760800000000000000
+      internalID: 7489235264510661472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 810
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef2a5e510fda7d350800000000000000
+      internalID: 6041488671811937022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 810
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4436eeb9d464ae990800000000000000
+      internalID: -7355989742213766332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 710
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daeebe6c67be6aa10800000000000000
+      internalID: 1920481186496114349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 710
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acaa75113da82a000800000000000000
+      internalID: 45751585360816842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 710
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9c415aa04916d3d0800000000000000
+      internalID: -3182328321164620642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 710
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11920a20b1b4d7f60800000000000000
+      internalID: 8033659889679083793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 710
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b41c99da1e57f4670800000000000000
+      internalID: 8525162231776264523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 710
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83bad23d78770f4f0800000000000000
+      internalID: -797005708797301960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 710
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec415edbece0ba7a0800000000000000
+      internalID: -6364977367246105394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 710
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 076c0e762549d2ca0800000000000000
+      internalID: -6040008443582953872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 710
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fa30e47d933d2610800000000000000
+      internalID: 1597990194150128372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 710
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 788bfb6ce0383e5b0800000000000000
+      internalID: -5340280633644042105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 610
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89b660b1b7948ff70800000000000000
+      internalID: 9221201030124301208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_31
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 610
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 550460cd05abacf90800000000000000
+      internalID: -6932523819931910059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_32
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 610
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d5b83a78667d9870800000000000000
+      internalID: 8691233046994138585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_33
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 610
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a141fc2dbc2f572d0800000000000000
+      internalID: -3281449796240468966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_34
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 610
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c72d3cc739121f220800000000000000
+      internalID: 2517830584013935228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_35
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 610
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57e330725e7321390800000000000000
+      internalID: -7849149743211790731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_36
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 610
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db7598c799d24d2f0800000000000000
+      internalID: -949083484225710147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_37
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 610
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7d11191c25067a80800000000000000
+      internalID: -8469576362266387077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_38
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 610
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65e92cb30f5f47560800000000000000
+      internalID: 7310738507272724054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_39
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 610
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8357116707e5ad910800000000000000
+      internalID: 1862905232981325112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_40
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 510
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bff99c2910db29750800000000000000
+      internalID: 6310313842354790395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_41
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 510
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 961f92d1e411b91e0800000000000000
+      internalID: -2190137766591205015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_42
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 510
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c56d8f7905a428fa0800000000000000
+      internalID: -5799991660092271012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_43
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 510
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93584eeccd74bd480800000000000000
+      internalID: -8873419627113970375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_44
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 510
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df82c5f8aacb54080800000000000000
+      internalID: -9203742822726096643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_45
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 510
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f010a38dd0fcdea50800000000000000
+      internalID: 6552120691263144207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_46
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 510
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1cc92f81d712c9f0800000000000000
+      internalID: -449770823966143457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_47
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 510
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a34b7ac95088054e0800000000000000
+      internalID: -1994945077240679366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_48
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 510
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 314096d6a25da7950800000000000000
+      internalID: 6447700194735227923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_49
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 510
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 182fc15d4de85fa00800000000000000
+      internalID: 789694354433045121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_50
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 410
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d80ba563d3729cc30800000000000000
+      internalID: 4380075256452919437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_51
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 410
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a1a51e9244001480800000000000000
+      internalID: -8930633376909123163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_52
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 410
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3fb51148fd4536d0800000000000000
+      internalID: -3011415047188136130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_53
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 410
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef2ff304fc647b1a0800000000000000
+      internalID: -6793883656914996482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_54
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 410
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd88a5c4e63dcfb70800000000000000
+      internalID: 8934248231477086431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_55
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 410
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39b22ec66718aff30800000000000000
+      internalID: 4610139514200009619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_56
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 410
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7f1422cae2362ae0800000000000000
+      internalID: -1574515035858526338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_57
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 410
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0656bff8057fcd70800000000000000
+      internalID: 9065593256430425615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_58
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 410
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e45b10165239fd10800000000000000
+      internalID: 2159812841519666407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_59
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 410
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ba953e3d505eb4b0800000000000000
+      internalID: -5422808539901617486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_60
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 310
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 649ec8770f063f200800000000000000
+      internalID: 212620193330686278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_61
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 310
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaffcb652e590c670800000000000000
+      internalID: 8557004091354316714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_62
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 310
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab6fa77cd4f616e60800000000000000
+      internalID: 7953760796762896058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_63
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 310
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efaaad88501373b10800000000000000
+      internalID: 1961090062583769854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_64
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 310
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d845e94a85b95cb10800000000000000
+      internalID: 2001176414457320589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_65
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 310
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0216ed4a870e841f0800000000000000
+      internalID: -1060350903479017184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_66
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 310
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94143684a3f5f5740800000000000000
+      internalID: 5142934003407601993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_67
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 310
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdf1d5a5997fcc790800000000000000
+      internalID: -7508354240715350049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_68
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 310
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7db6a9e53ff74f520800000000000000
+      internalID: 2734951556961692631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_69
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 310
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49377c6a87b734930800000000000000
+      internalID: 4126277441725887380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_70
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 210
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39fd9a4bf7cc4a0b0800000000000000
+      internalID: -5718220777989742701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_71
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 210
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6ebe53f9858039a0800000000000000
+      internalID: -6255353054877532566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_72
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 210
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e183bf3b461419170800000000000000
+      internalID: 8183393898681022494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_73
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 210
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 130e27b77d2497e00800000000000000
+      internalID: 1042938281969508401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_74
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 210
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37fd30781a8aabbe0800000000000000
+      internalID: -1460669717419925645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_75
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 210
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1dde868caf61dd30800000000000000
+      internalID: 4454464293228698910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_76
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 210
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ae2f0577e411a250800000000000000
+      internalID: 5954063166694436521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_77
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 210
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa32df9d2a5e7d4e0800000000000000
+      internalID: -1956843025464482897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_78
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 210
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09ed94716771ada80800000000000000
+      internalID: -8441408755588276592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_79
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 210
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d65fb67fd88c3520800000000000000
+      internalID: 2683169971357308625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_80
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 110
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d534c19fc3bca7b0800000000000000
+      internalID: -5211592964689349162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_81
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 110
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89fdc10b995d2afd0800000000000000
+      internalID: -2332066800963100776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_82
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 110
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 458bd064ca0c602d0800000000000000
+      internalID: -3312748629742208940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_83
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 110
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0186f247c96cdd180800000000000000
+      internalID: -9088890097697331184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_84
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 110
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60a4c388a99728ab0800000000000000
+      internalID: -5007306131064993274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_85
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 110
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 742d71b403de4ee60800000000000000
+      internalID: 7990772430536168007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_86
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 110
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56f001b85925b23c0800000000000000
+      internalID: -4383319010078355611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_87
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 110
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe9e2736c95e7c240800000000000000
+      internalID: 4812067186714798575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_88
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 110
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f57d0a11513bb66d0800000000000000
+      internalID: -2996104224013494433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_89
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 110
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03536718161023900800000000000000
+      internalID: 662593613472347440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 17_felspell_spritesheet_90
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 10
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 393f9b1a9124d3290800000000000000
+      internalID: -7909092692737789037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ea5ff2a6475115442a1332ca30ff9566
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":80.0,"y":80.0},"gridSpriteOffset":{"x":10.0,"y":10.0},"gridSpritePadding":{"x":20.0,"y":20.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      17_felspell_spritesheet_0: 2143842753415656013
+      17_felspell_spritesheet_1: 5983519649686350591
+      17_felspell_spritesheet_10: 8038524469968807907
+      17_felspell_spritesheet_11: -5809647670741381239
+      17_felspell_spritesheet_12: 5135573119427302222
+      17_felspell_spritesheet_13: -453489486769245279
+      17_felspell_spritesheet_14: -4544689757191932004
+      17_felspell_spritesheet_15: -722238822058616825
+      17_felspell_spritesheet_16: 5051300803609118917
+      17_felspell_spritesheet_17: 7489235264510661472
+      17_felspell_spritesheet_18: 6041488671811937022
+      17_felspell_spritesheet_19: -7355989742213766332
+      17_felspell_spritesheet_2: -1071122846412420552
+      17_felspell_spritesheet_20: 1920481186496114349
+      17_felspell_spritesheet_21: 45751585360816842
+      17_felspell_spritesheet_22: -3182328321164620642
+      17_felspell_spritesheet_23: 8033659889679083793
+      17_felspell_spritesheet_24: 8525162231776264523
+      17_felspell_spritesheet_25: -797005708797301960
+      17_felspell_spritesheet_26: -6364977367246105394
+      17_felspell_spritesheet_27: -6040008443582953872
+      17_felspell_spritesheet_28: 1597990194150128372
+      17_felspell_spritesheet_29: -5340280633644042105
+      17_felspell_spritesheet_3: 7953340840038582777
+      17_felspell_spritesheet_30: 9221201030124301208
+      17_felspell_spritesheet_31: -6932523819931910059
+      17_felspell_spritesheet_32: 8691233046994138585
+      17_felspell_spritesheet_33: -3281449796240468966
+      17_felspell_spritesheet_34: 2517830584013935228
+      17_felspell_spritesheet_35: -7849149743211790731
+      17_felspell_spritesheet_36: -949083484225710147
+      17_felspell_spritesheet_37: -8469576362266387077
+      17_felspell_spritesheet_38: 7310738507272724054
+      17_felspell_spritesheet_39: 1862905232981325112
+      17_felspell_spritesheet_4: 1800270815800748619
+      17_felspell_spritesheet_40: 6310313842354790395
+      17_felspell_spritesheet_41: -2190137766591205015
+      17_felspell_spritesheet_42: -5799991660092271012
+      17_felspell_spritesheet_43: -8873419627113970375
+      17_felspell_spritesheet_44: -9203742822726096643
+      17_felspell_spritesheet_45: 6552120691263144207
+      17_felspell_spritesheet_46: -449770823966143457
+      17_felspell_spritesheet_47: -1994945077240679366
+      17_felspell_spritesheet_48: 6447700194735227923
+      17_felspell_spritesheet_49: 789694354433045121
+      17_felspell_spritesheet_5: -3802975882051835866
+      17_felspell_spritesheet_50: 4380075256452919437
+      17_felspell_spritesheet_51: -8930633376909123163
+      17_felspell_spritesheet_52: -3011415047188136130
+      17_felspell_spritesheet_53: -6793883656914996482
+      17_felspell_spritesheet_54: 8934248231477086431
+      17_felspell_spritesheet_55: 4610139514200009619
+      17_felspell_spritesheet_56: -1574515035858526338
+      17_felspell_spritesheet_57: 9065593256430425615
+      17_felspell_spritesheet_58: 2159812841519666407
+      17_felspell_spritesheet_59: -5422808539901617486
+      17_felspell_spritesheet_6: 7357402541862013963
+      17_felspell_spritesheet_60: 212620193330686278
+      17_felspell_spritesheet_61: 8557004091354316714
+      17_felspell_spritesheet_62: 7953760796762896058
+      17_felspell_spritesheet_63: 1961090062583769854
+      17_felspell_spritesheet_64: 2001176414457320589
+      17_felspell_spritesheet_65: -1060350903479017184
+      17_felspell_spritesheet_66: 5142934003407601993
+      17_felspell_spritesheet_67: -7508354240715350049
+      17_felspell_spritesheet_68: 2734951556961692631
+      17_felspell_spritesheet_69: 4126277441725887380
+      17_felspell_spritesheet_7: 1854269481483904990
+      17_felspell_spritesheet_70: -5718220777989742701
+      17_felspell_spritesheet_71: -6255353054877532566
+      17_felspell_spritesheet_72: 8183393898681022494
+      17_felspell_spritesheet_73: 1042938281969508401
+      17_felspell_spritesheet_74: -1460669717419925645
+      17_felspell_spritesheet_75: 4454464293228698910
+      17_felspell_spritesheet_76: 5954063166694436521
+      17_felspell_spritesheet_77: -1956843025464482897
+      17_felspell_spritesheet_78: -8441408755588276592
+      17_felspell_spritesheet_79: 2683169971357308625
+      17_felspell_spritesheet_8: 4732780415729525222
+      17_felspell_spritesheet_80: -5211592964689349162
+      17_felspell_spritesheet_81: -2332066800963100776
+      17_felspell_spritesheet_82: -3312748629742208940
+      17_felspell_spritesheet_83: -9088890097697331184
+      17_felspell_spritesheet_84: -5007306131064993274
+      17_felspell_spritesheet_85: 7990772430536168007
+      17_felspell_spritesheet_86: -4383319010078355611
+      17_felspell_spritesheet_87: 4812067186714798575
+      17_felspell_spritesheet_88: -2996104224013494433
+      17_felspell_spritesheet_89: 662593613472347440
+      17_felspell_spritesheet_9: -69884679266984748
+      17_felspell_spritesheet_90: -7909092692737789037
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
