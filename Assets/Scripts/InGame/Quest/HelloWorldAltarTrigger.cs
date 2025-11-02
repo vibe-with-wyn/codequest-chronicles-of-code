@@ -44,6 +44,10 @@ public class HelloWorldAltarTrigger : MonoBehaviour
     [Tooltip("Delay before UI restoration and Quest 3 display (seconds)")]
     [SerializeField] private float quest3DisplayDelay = 1f;
 
+    [Header("Altar Effect Settings")]
+    [Tooltip("Altar Effect GameObject to disable after quiz completion (auto-found if not assigned)")]
+    [SerializeField] private GameObject altarEffectObject;
+
     [Header("Game UI Reference")]
     [Tooltip("Main game Canvas to restore before Quest 3 displays")]
     [SerializeField] private CanvasGroup gameUICanvasGroup;
@@ -84,6 +88,24 @@ public class HelloWorldAltarTrigger : MonoBehaviour
             if (altarAnimator != null && debugMode)
             {
                 Debug.Log($"[HelloWorldAltar] Auto-found Animator component: {altarAnimator.gameObject.name}");
+            }
+        }
+
+        // Auto-find Altar Effect if not assigned
+        if (altarEffectObject == null)
+        {
+            Transform altarEffect = transform.Find("Altar Effect");
+            if (altarEffect != null)
+            {
+                altarEffectObject = altarEffect.gameObject;
+                if (debugMode)
+                {
+                    Debug.Log($"[HelloWorldAltar] Auto-found Altar Effect: {altarEffectObject.name}");
+                }
+            }
+            else if (debugMode)
+            {
+                Debug.LogWarning("[HelloWorldAltar] Altar Effect GameObject not found - animation will not be disabled");
             }
         }
 
@@ -328,10 +350,29 @@ public class HelloWorldAltarTrigger : MonoBehaviour
     {
         isActivating = true;
 
-        // ============= PHASE 1: WAIT 1 SECOND AFTER QUIZ UI CLOSES =============
+        // ============= PHASE 1: DISABLE ALTAR EFFECT & WAIT 1 SECOND AFTER QUIZ UI CLOSES =============
         if (debugMode)
         {
-            Debug.Log($"[HelloWorldAltar] PHASE 1: Quiz UI has closed. Waiting {altarActivationDelay}s before altar activation...");
+            Debug.Log($"[HelloWorldAltar] PHASE 1: Quiz UI has closed. Disabling Altar Effect animation...");
+        }
+
+        // Disable Altar Effect animation
+        if (altarEffectObject != null)
+        {
+            altarEffectObject.SetActive(false);
+            if (debugMode)
+            {
+                Debug.Log("[HelloWorldAltar] ✓ Altar Effect disabled");
+            }
+        }
+        else if (debugMode)
+        {
+            Debug.LogWarning("[HelloWorldAltar] Altar Effect GameObject not assigned - skipping disable");
+        }
+
+        if (debugMode)
+        {
+            Debug.Log($"[HelloWorldAltar] PHASE 1 (continued): Waiting {altarActivationDelay}s before altar activation...");
         }
         
         yield return new WaitForSeconds(altarActivationDelay);
@@ -593,10 +634,11 @@ public class HelloWorldAltarTrigger : MonoBehaviour
         string statusText = hasCompletedQuiz ? "COMPLETED" : (isActivating ? "ACTIVATING..." : "READY");
         string animatorStatus = altarAnimator != null ? "✓" : "✗ MISSING";
         string uiStatus = gameUICanvasGroup != null ? "✓" : "✗ MISSING";
+        string altarEffectStatus = altarEffectObject != null ? "✓" : "✗ MISSING";
         float totalDelay = altarActivationDelay + activationAnimationDuration + quest3DisplayDelay;
         
         UnityEditor.Handles.Label(transform.position + Vector3.up * 1f,
-            $"Hello World Altar [{statusText}]\n{requiredObjectiveTitle}\nAnimator: {animatorStatus} | Game UI: {uiStatus}\nTrigger: '{activationTriggerName}'\n\nSEQUENCE:\n1. Quiz UI Closes (MiniQuestUI)\n2. Wait {altarActivationDelay}s\n3. Altar Animation {activationAnimationDuration}s\n4. Wait {quest3DisplayDelay}s + Restore UI\n5. Quest 3 Displays\n\nTotal Time: {totalDelay}s",
+            $"Hello World Altar [{statusText}]\n{requiredObjectiveTitle}\nAnimator: {animatorStatus} | Game UI: {uiStatus} | Altar Effect: {altarEffectStatus}\nTrigger: '{activationTriggerName}'\n\nSEQUENCE:\n1. Quiz UI Closes (MiniQuestUI)\n2. Disable Altar Effect + Wait {altarActivationDelay}s\n3. Altar Animation {activationAnimationDuration}s\n4. Wait {quest3DisplayDelay}s + Restore UI\n5. Quest 3 Displays\n\nTotal Time: {totalDelay}s",
             new GUIStyle() { normal = new GUIStyleState() { textColor = Color.cyan } });
 #endif
     }
