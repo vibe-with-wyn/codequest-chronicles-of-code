@@ -101,11 +101,19 @@ MonoBehaviour:
       text: "Java is a powerful programming language used to build applications\u2014from
         mobile apps to large enterprise systems."
     - speaker: Arin
+      text: "It's one of the most popular languages in the world. Banks, games, websites\u2014many
+        rely on Java."
+    - speaker: Arin
       text: Every Java program starts with a CLASS. Think of a class as a container
         that holds your code.
     - speaker: Arin
       text: 'The class name should start with a capital letter. For example: HelloWorld,
         MyProgram, or Calculator.'
+    - speaker: Roran
+      text: So every program needs a class?
+    - speaker: Arin
+      text: Exactly! Without a class, Java won't even recognize your code. It's the
+        foundation.
     - speaker: Arin
       text: Inside a class, you need a special method called MAIN. This is where
         your program begins execution.
@@ -123,6 +131,11 @@ MonoBehaviour:
         to pass text arguments when running the program.
     - speaker: Arin
       text: For now, just remember the pattern. Understanding will come with practice.
+    - speaker: Roran
+      text: So I just need to write it exactly like that every time?
+    - speaker: Arin
+      text: Yes! Every standalone Java program needs this exact main method. Think
+        of it as the starting gate.
     - speaker: Arin
       text: 'Next: CURLY BRACES. They group blocks of code together. Every opening
         brace { needs a closing brace }.'
@@ -130,11 +143,22 @@ MonoBehaviour:
       text: Your class starts with { and ends with }. Your main method also starts
         with { and ends with }.
     - speaker: Arin
+      text: "Think of braces like parentheses in math\u2014they show what belongs
+        together."
+    - speaker: Roran
+      text: So braces organize the code into sections?
+    - speaker: Arin
+      text: "Precisely! They define scope\u2014what code belongs to the class, what
+        belongs to the method."
+    - speaker: Arin
       text: "Inside the main method, you write STATEMENTS\u2014instructions for the
         computer to execute."
     - speaker: Arin
       text: Every statement must end with a SEMICOLON ;  Think of it as a period
         ending a sentence.
+    - speaker: Arin
+      text: Without the semicolon, Java won't know where one instruction ends and
+        another begins.
     - speaker: Roran
       text: 'So: class, main method, braces, and semicolons. Got it.'
     - speaker: Arin
@@ -145,18 +169,77 @@ MonoBehaviour:
     - speaker: Arin
       text: 'The text goes inside DOUBLE QUOTES, like this: "Hello, Oak Woods!"'
     - speaker: Arin
+      text: 'Let me show you some examples:'
+    - speaker: Arin
+      text: 'System.out.println("Welcome, traveler!");  prints: Welcome, traveler!'
+    - speaker: Arin
+      text: 'System.out.println("Java is powerful!");  prints: Java is powerful!'
+    - speaker: Arin
+      text: 'System.out.println("Learning to code!");  prints: Learning to code!'
+    - speaker: Roran
+      text: So I can print any message I want?
+    - speaker: Arin
+      text: Exactly! Just put it in quotes, inside the parentheses, and end with
+        a semicolon.
+    - speaker: Arin
       text: 'Remember: System.out.println with parentheses, quotes around text, and
         a semicolon at the end.'
+    - speaker: Arin
+      text: 'Here are more examples to help you understand:'
+    - speaker: Arin
+      text: System.out.println("My name is Roran");
+    - speaker: Arin
+      text: System.out.println("I am learning Java");
+    - speaker: Arin
+      text: System.out.println("This is my first program");
     - speaker: Roran
       text: System.out.println, quotes, semicolon. I understand.
     - speaker: Arin
-      text: 'Perfect. Here''s what a complete program looks like:'
+      text: 'Perfect. Now let me show you what a complete program looks like:'
     - speaker: Arin
       text: class HelloWorld { public static void main(String[] args) { System.out.println("Hello!");
         } }
     - speaker: Arin
+      text: 'Let''s break that down piece by piece:'
+    - speaker: Arin
+      text: "First: class HelloWorld {  \u2014 This starts our class and opens its
+        code block."
+    - speaker: Arin
+      text: "Second: public static void main(String[] args) {  \u2014 This starts
+        our main method."
+    - speaker: Arin
+      text: "Third: System.out.println(\"Hello!\");  \u2014 This prints our message."
+    - speaker: Arin
+      text: "Fourth: }  \u2014 This closes the main method."
+    - speaker: Arin
+      text: "Fifth: }  \u2014 This closes the class."
+    - speaker: Roran
+      text: So every brace that opens must close?
+    - speaker: Arin
+      text: Yes! If you forget to close a brace, your program won't compile. It's
+        a common mistake.
+    - speaker: Arin
+      text: 'Here''s another complete example:'
+    - speaker: Arin
+      text: class Welcome { public static void main(String[] args) { System.out.println("Welcome
+        to Oak Woods!"); } }
+    - speaker: Arin
+      text: 'And one more to make sure you understand:'
+    - speaker: Arin
+      text: class MyFirstProgram { public static void main(String[] args) { System.out.println("I
+        am a programmer!"); } }
+    - speaker: Roran
+      text: I see the pattern now. Class name, main method, print statement, close
+        everything.
+    - speaker: Arin
+      text: Excellent! You're grasping the structure. That's the hardest part for
+        beginners.
+    - speaker: Arin
       text: Now, practice at the Hello World Altar. Fill in the missing parts to
         create your first program.
+    - speaker: Arin
+      text: 'Remember: class name with capital letter, exact main signature, println
+        with quotes and semicolon, and close all braces.'
   - conversationId: Arin_02b_PostHello
     lines:
     - speaker: Arin
@@ -167,65 +250,137 @@ MonoBehaviour:
       text: Symbols give structure; structure gives power. Every character matters
         in programming.
     - speaker: Arin
+      text: 'You''ve learned the foundation: classes, methods, statements, braces,
+        and semicolons.'
+    - speaker: Arin
       text: Next, we'll learn how to store values using variables and data types.
   - conversationId: Arin_03_TypesLecture
     lines:
     - speaker: Arin
-      text: Welcome to the Sacred Grove. This is where we learn about DATA TYPES
-        and VARIABLES.
+      text: "Welcome back to my cabin. Today we learn about DATA TYPES and VARIABLES\u2014the
+        building blocks of programming."
     - speaker: Roran
       text: What are variables?
     - speaker: Arin
-      text: Variables are containers that store information. Each variable has a
-        TYPE and a NAME.
+      text: Variables are containers that store information. Think of them as labeled
+        boxes that hold different kinds of data.
     - speaker: Arin
-      text: The TYPE defines what kind of data the variable can hold. The NAME is
-        how you identify it.
+      text: Each variable has a TYPE and a NAME. The TYPE defines what kind of data
+        it can hold. The NAME is how you identify it.
+    - speaker: Roran
+      text: Why do we need different types?
     - speaker: Arin
-      text: 'Java has several primitive data types. Let me explain the most important
-        ones:'
+      text: Because different data serves different purposes. You wouldn't store
+        a player's name the same way you store their health points.
     - speaker: Arin
-      text: "INT stores whole numbers\u2014positive, negative, or zero. Examples:
-        5, -10, 0, 1000."
+      text: 'Java has several primitive data types. Let me explain the four most
+        important ones in detail:'
     - speaker: Arin
-      text: 'Use int for things like: player health, score, age, quantity.'
+      text: "First: INT. This stores whole numbers\u2014positive, negative, or zero."
     - speaker: Arin
-      text: "DOUBLE stores decimal numbers\u2014numbers with fractional parts. Examples:
-        3.14, -0.5, 2.0."
+      text: 'Examples of int values: 5, -10, 0, 1000, 42, -999'
     - speaker: Arin
-      text: 'Use double for: speed, temperature, money amounts, precise calculations.'
+      text: 'Use int for things like: player health, score, age, quantity, level,
+        lives remaining.'
+    - speaker: Roran
+      text: So int is for counting things?
     - speaker: Arin
-      text: "BOOLEAN stores true or false values\u2014only two possibilities."
+      text: 'Exactly! Anything you can count without fractions: 10 apples, 3 lives,
+        500 gold coins.'
     - speaker: Arin
-      text: "Use boolean for: isAlive, hasKey, gameOver, canJump\u2014any yes/no
-        condition."
+      text: "But remember: int cannot store decimals. 3.5 is NOT a valid int\u2014it
+        would need to be 3 or 4."
     - speaker: Arin
-      text: "STRING stores text\u2014sequences of characters. Examples: \"Hello\",
-        \"Roran\", \"Oak Woods\"."
+      text: "Second: DOUBLE. This stores decimal numbers\u2014numbers with fractional
+        parts."
+    - speaker: Arin
+      text: 'Examples of double values: 3.14, -0.5, 2.0, 99.99, 1.5, 0.001'
+    - speaker: Arin
+      text: 'Use double for: speed, temperature, money amounts, precise calculations,
+        percentages.'
+    - speaker: Roran
+      text: So when I need the exact value with decimals?
+    - speaker: Arin
+      text: Precisely! If a potion restores 2.5 health per second, you need double,
+        not int.
+    - speaker: Arin
+      text: If your character moves at 3.75 units per second, you need double.
+    - speaker: Arin
+      text: "Third: BOOLEAN. This stores true or false values\u2014only two possibilities."
+    - speaker: Arin
+      text: A boolean is like a yes/no question. It can only be true OR false, never
+        anything else.
+    - speaker: Arin
+      text: 'Examples: true, false (those are the ONLY two values a boolean can have)'
+    - speaker: Arin
+      text: "Use boolean for: isAlive, hasKey, gameOver, canJump, isGrounded, isDead\u2014any
+        yes/no condition."
+    - speaker: Roran
+      text: So it's for checking if something is true or not?
+    - speaker: Arin
+      text: Exactly! Is the player alive? true or false. Does the player have the
+        key? true or false.
+    - speaker: Arin
+      text: Boolean values are crucial for making decisions in code, which you'll
+        learn later.
+    - speaker: Arin
+      text: "Fourth: STRING. This stores text\u2014sequences of characters."
+    - speaker: Arin
+      text: 'Examples: "Hello", "Roran", "Oak Woods", "Welcome, traveler!", "Game
+        Over"'
+    - speaker: Arin
+      text: Strings always use DOUBLE QUOTES. Without quotes, Java thinks it's a
+        variable name, not text.
     - speaker: Arin
       text: 'Notice: String is capitalized because it''s technically a class, not
-        a primitive type.'
+        a primitive type. But it works similarly.'
     - speaker: Roran
       text: So int for whole numbers, double for decimals, boolean for true/false,
         and String for text.
     - speaker: Arin
-      text: "Exactly! Now let's see how to DECLARE variables\u2014that means creating
-        them."
+      text: "Perfect summary! Now let's see how to DECLARE variables\u2014that means
+        creating them."
     - speaker: Arin
       text: 'The syntax is: TYPE variableName = value;'
     - speaker: Arin
-      text: 'For example: int lives = 3;'
+      text: 'Let me show you examples for each type:'
     - speaker: Arin
-      text: This creates a variable named 'lives' of type int, and assigns it the
-        value 3.
+      text: "int lives = 3;  \u2014 Creates a variable named 'lives' of type int,
+        and assigns it the value 3."
     - speaker: Arin
-      text: 'More examples:'
+      text: "int score = 1000;  \u2014 Creates 'score' as an int with value 1000."
     - speaker: Arin
-      text: double speed = 2.5;
+      text: "int health = 100;  \u2014 Creates 'health' as an int with value 100."
+    - speaker: Roran
+      text: So I write the type first, then the name, then equals, then the value?
     - speaker: Arin
-      text: boolean isMage = false;
+      text: 'Exactly! And always end with a semicolon. Let''s see double examples:'
     - speaker: Arin
-      text: String name = "Roran";
+      text: "double speed = 2.5;  \u2014 Creates a variable named 'speed' with value
+        2.5."
+    - speaker: Arin
+      text: "double temperature = 98.6;  \u2014 Creates 'temperature' with value
+        98.6."
+    - speaker: Arin
+      text: "double price = 19.99;  \u2014 Creates 'price' with value 19.99."
+    - speaker: Arin
+      text: 'Now boolean examples:'
+    - speaker: Arin
+      text: "boolean isMage = false;  \u2014 Creates 'isMage' and sets it to false."
+    - speaker: Arin
+      text: "boolean isAlive = true;  \u2014 Creates 'isAlive' and sets it to true."
+    - speaker: Arin
+      text: "boolean hasKey = false;  \u2014 Creates 'hasKey' and sets it to false."
+    - speaker: Arin
+      text: 'Finally, String examples:'
+    - speaker: Arin
+      text: "String name = \"Roran\";  \u2014 Creates 'name' and assigns it the text
+        \"Roran\"."
+    - speaker: Arin
+      text: "String greeting = \"Hello, traveler!\";  \u2014 Creates 'greeting' with
+        a message."
+    - speaker: Arin
+      text: "String title = \"Codebreaker\";  \u2014 Creates 'title' with value \"Codebreaker\"."
     - speaker: Arin
       text: 'Notice: Strings need DOUBLE QUOTES around the text. Numbers and boolean
         values do NOT use quotes.'
@@ -235,8 +390,11 @@ MonoBehaviour:
       text: Always required! Every declaration is a statement, and every statement
         ends with a semicolon.
     - speaker: Arin
-      text: 'Variable names are case-sensitive: ''name'' and ''Name'' are different
-        variables.'
+      text: Forget the semicolon, and your program won't compile. It's one of the
+        most common beginner mistakes.
+    - speaker: Arin
+      text: 'Now, about variable NAMES: they are case-sensitive. ''name'' and ''Name''
+        are different variables.'
     - speaker: Arin
       text: 'Use descriptive names: playerHealth is better than x. maxSpeed is better
         than y.'
@@ -244,7 +402,9 @@ MonoBehaviour:
       text: Names should start with a lowercase letter and use camelCase for multiple
         words.
     - speaker: Arin
-      text: 'Examples: playerScore, isGameOver, maxAttempts, userName.'
+      text: 'Good examples: playerScore, isGameOver, maxAttempts, userName, currentLevel.'
+    - speaker: Arin
+      text: 'Bad examples: x, y, var1, temp, a, b (not descriptive enough).'
     - speaker: Roran
       text: I can also assign values later, right?
     - speaker: Arin
@@ -252,18 +412,50 @@ MonoBehaviour:
     - speaker: Arin
       text: 'But it''s cleaner to do both at once when possible: int count = 10;'
     - speaker: Arin
-      text: 'Remember: You MUST declare a variable with its type before using it.'
+      text: 'Remember: You MUST declare a variable with its type before using it.
+        Java needs to know what type it is.'
     - speaker: Arin
-      text: 'Now, the grove''s wards are unstable. Collect three Type Runes: int,
-        boolean, and String.'
+      text: 'Let me give you a complete program example using all four types:'
     - speaker: Arin
-      text: Then use them at the Declarations Tablet to restore balance.
+      text: class PlayerStats { public static void main(String[] args) { int health
+        = 100; double speed = 2.5; boolean isAlive = true; String name = "Roran";
+        } }
+    - speaker: Roran
+      text: I see! Different types for different kinds of information.
+    - speaker: Arin
+      text: 'Perfect! One more important thing: you can change a variable''s value
+        after creating it.'
+    - speaker: Arin
+      text: "For example: int lives = 3;  lives = 2;  lives = 1;  \u2014 The value
+        changes, but the type stays int."
+    - speaker: Arin
+      text: "But you CANNOT change the type: int lives = 3;  lives = \"text\";  \u2014
+        This is an error!"
+    - speaker: Arin
+      text: Once a variable is declared as int, it can only hold int values. Same
+        for all types.
+    - speaker: Arin
+      text: Now, I have a challenge for you. The sacred grove's wards are weakening.
+    - speaker: Arin
+      text: 'To restore them, you must collect four Type Runes: int, double, boolean,
+        and String.'
+    - speaker: Arin
+      text: But these runes are guarded by ancient knowledge. To collect each rune,
+        you must answer a question about that type.
+    - speaker: Arin
+      text: This will test your understanding. Go forth and prove you've mastered
+        the types!
   - conversationId: Arin_03_PostTypes
     lines:
     - speaker: Arin
       text: The wards are stable again. You've mastered the fundamental types!
     - speaker: Roran
-      text: One missing semicolon nearly broke everything.
+      text: The questions really made me think about each type carefully.
+    - speaker: Arin
+      text: That's the point! Understanding when to use each type is as important
+        as knowing they exist.
+    - speaker: Arin
+      text: One missing semicolon, one wrong type, and everything breaks.
     - speaker: Arin
       text: "That's the nature of syntax\u2014every symbol matters. Even one mistake
         can prevent your program from running."
@@ -275,7 +467,7 @@ MonoBehaviour:
   - conversationId: Arin_04_StringsLecture
     lines:
     - speaker: Arin
-      text: Welcome to the Echo Chamber. Here, we master the art of STRINGS and PRINTING.
+      text: Welcome back. Today we master the art of STRINGS and PRINTING.
     - speaker: Roran
       text: I know strings are text, but what else should I learn?
     - speaker: Arin
@@ -358,12 +550,11 @@ MonoBehaviour:
       text: Exactly! Strings and escape sequences let you control exactly how your
         text appears.
     - speaker: Arin
-      text: Now, fix the broken print statements at the Echo Chamber, then activate
-        the Echo Stone to verify your work.
+      text: Now, let's practice these concepts with some exercises.
   - conversationId: Arin_04_PostStrings
     lines:
     - speaker: Arin
-      text: Perfect! The Echo Stone resonates with your corrected output.
+      text: Perfect! You've mastered string manipulation.
     - speaker: Roran
       text: I can shape messages exactly how I want them now.
     - speaker: Arin
@@ -377,8 +568,7 @@ MonoBehaviour:
   - conversationId: Arin_05_SyntaxRecap
     lines:
     - speaker: Arin
-      text: Stand before the Trial Monument, Roran. This is your final test in Oak
-        Woods.
+      text: Welcome back, Roran. This is your final test in Oak Woods.
     - speaker: Roran
       text: I'm ready.
     - speaker: Arin
@@ -451,11 +641,10 @@ MonoBehaviour:
     - speaker: Roran
       text: I remember all of it. Class, main, types, strings, syntax rules.
     - speaker: Arin
-      text: Excellent. Now prove it. At the Syntax Trial Tablet, you must write a
-        complete Java program.
+      text: Excellent. Now prove it. Complete the Syntax Trial.
     - speaker: Arin
-      text: 'Include: a class, the main method, variable declarations, string concatenation,
-        and println statements.'
+      text: 'Write a complete Java program with: a class, the main method, variable
+        declarations, string concatenation, and println statements.'
     - speaker: Arin
       text: Every brace must match. Every statement must end with a semicolon. All
         syntax must be perfect.

@@ -80,8 +80,8 @@ MonoBehaviour:
     isCompleted: 0
     isActive: 0
     objectives:
-    - objectiveTitle: Meet Arin at the Sacred Grove
-      objectiveDescription: Travel to the Sacred Grove to begin your types lesson.
+    - objectiveTitle: Return to Arin's Cabin
+      objectiveDescription: Go back to Arin's cabin to learn about data types.
       isCompleted: 0
       isActive: 0
       isOptional: 0
@@ -95,20 +95,13 @@ MonoBehaviour:
       isOptional: 0
       targetCount: 1
       currentCount: 0
-    - objectiveTitle: Collect the Type Runes (3)
-      objectiveDescription: Gather runes labeled int, boolean, and String.
+    - objectiveTitle: Collect the Type Runes (4)
+      objectiveDescription: 'Answer questions to collect runes: int, double, boolean,
+        and String.'
       isCompleted: 0
       isActive: 0
       isOptional: 0
-      targetCount: 3
-      currentCount: 0
-    - objectiveTitle: Fix the Declarations Tablet
-      objectiveDescription: Write valid variable declarations with correct types,
-        names, and semicolons.
-      isCompleted: 0
-      isActive: 0
-      isOptional: 0
-      targetCount: 1
+      targetCount: 4
       currentCount: 0
     nextQuestId: Q4_StringsPrinting
   - questId: Q4_StringsPrinting
@@ -119,8 +112,8 @@ MonoBehaviour:
     isCompleted: 0
     isActive: 0
     objectives:
-    - objectiveTitle: Find Arin at the Echo Chamber
-      objectiveDescription: Locate Arin at the mystical Echo Chamber.
+    - objectiveTitle: Return to Arin's Cabin
+      objectiveDescription: Go back to Arin's cabin to learn about strings and printing.
       isCompleted: 0
       isActive: 0
       isOptional: 0
@@ -134,16 +127,9 @@ MonoBehaviour:
       isOptional: 0
       targetCount: 1
       currentCount: 0
-    - objectiveTitle: Fix the Print Lines
-      objectiveDescription: Fill in println calls that concatenate text and show
-        escape sequences.
-      isCompleted: 0
-      isActive: 0
-      isOptional: 0
-      targetCount: 1
-      currentCount: 0
-    - objectiveTitle: Activate the Echo Stone
-      objectiveDescription: Use the Echo Stone to verify your printed lines are correct.
+    - objectiveTitle: Complete the String Exercises
+      objectiveDescription: Practice string manipulation with escape sequences and
+        concatenation.
       isCompleted: 0
       isActive: 0
       isOptional: 0
@@ -158,9 +144,9 @@ MonoBehaviour:
     isCompleted: 0
     isActive: 0
     objectives:
-    - objectiveTitle: Approach the Trial Monument
-      objectiveDescription: Stand before the ancient Trial Monument at the forest
-        edge.
+    - objectiveTitle: Return to Arin's Cabin
+      objectiveDescription: Go back to Arin's cabin for a final review of all Java
+        syntax concepts.
       isCompleted: 0
       isActive: 0
       isOptional: 0
@@ -174,17 +160,9 @@ MonoBehaviour:
       isOptional: 0
       targetCount: 1
       currentCount: 0
-    - objectiveTitle: Complete the Syntax Trial Tablet
+    - objectiveTitle: Complete the Syntax Trial
       objectiveDescription: Write a complete Java program with declarations, string
-        concatenation, and println (with proper syntax).
-      isCompleted: 0
-      isActive: 0
-      isOptional: 0
-      targetCount: 1
-      currentCount: 0
-    - objectiveTitle: Receive Arin's Blessing
-      objectiveDescription: Conclude the Oak Woods chapter and earn the title of
-        Codebreaker.
+        concatenation, and println statements.
       isCompleted: 0
       isActive: 0
       isOptional: 0
