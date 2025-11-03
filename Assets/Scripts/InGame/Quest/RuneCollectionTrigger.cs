@@ -18,8 +18,8 @@ public class RuneCollectionTrigger : MonoBehaviour
     [SerializeField] private string runeId = "Q3_Obj3_RuneFire";
     
     [Header("Quest Settings")]
-    [SerializeField] private string requiredQuestId = "Q3_ElementalRunes";
-    [SerializeField] private string requiredObjectiveTitle = "Collect all four elemental runes";
+    [SerializeField] private string requiredQuestId = "Q3_Types";
+    [SerializeField] private string requiredObjectiveTitle = "Collect the Type Runes (4)";
 
     [Header("Mini Quest Data")]
     [Tooltip("Quiz data for this specific rune (contains 1 question)")]
