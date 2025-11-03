@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e9c5a5dc0362d48ad62c982b85df84, type: 3}
+  m_Name: MiniQuestData_CollectingRunes_Air
+  m_EditorClassIdentifier: Assembly-CSharp::MiniQuestData
+  miniQuestId: Q3_Obj3_RuneAir
+  miniQuestTitle: Trial of the Air Rune
+  instructions: Answer this question about the double data type to claim the Rune
+    of Air!
+  questions:
+  - questionText: If you need to store a character's movement speed as 2.5 units
+      per second, which data type should you use?
+    choices:
+    - choiceText: int
+      isCorrect: 0
+    - choiceText: double
+      isCorrect: 1
+    - choiceText: boolean
+      isCorrect: 0
+    - choiceText: String
+      isCorrect: 0
+    hintOnWrongAnswer: Think about which type can store decimal values. int only
+      stores whole numbers, boolean stores true/false, and String stores text.
+    explanationOnCorrect: Perfect! double is used for decimal numbers like 2.5, 3.14,
+      or 99.99. Use double when you need precise calculations with fractional parts.
+  objectiveTitleToComplete: Collect the Type Runes (4)

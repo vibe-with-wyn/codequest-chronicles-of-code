@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e9c5a5dc0362d48ad62c982b85df84, type: 3}
+  m_Name: MiniQuestData_CollectingRunes_Fire
+  m_EditorClassIdentifier: Assembly-CSharp::MiniQuestData
+  miniQuestId: Q3_Obj3_RuneFire
+  miniQuestTitle: Trial of the Fire Rune
+  instructions: Answer this question about the int data type to claim the Rune of
+    Fire!
+  questions:
+  - questionText: Which of the following is a valid value for an int variable in
+      Java?
+    choices:
+    - choiceText: 3.14
+      isCorrect: 0
+    - choiceText: '"42"'
+      isCorrect: 0
+    - choiceText: true
+      isCorrect: 0
+    - choiceText: 100
+      isCorrect: 1
+    hintOnWrongAnswer: 'Remember: int stores whole numbers without decimals. It cannot
+      store text (strings need quotes) or decimal values like 3.14.'
+    explanationOnCorrect: Exactly! int stores whole numbers like 100, -10, 0, or
+      1000. It cannot store decimals, text, or boolean values.
+  objectiveTitleToComplete: Collect the Type Runes (4)

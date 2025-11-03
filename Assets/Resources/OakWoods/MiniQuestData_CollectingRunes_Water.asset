@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e9c5a5dc0362d48ad62c982b85df84, type: 3}
+  m_Name: MiniQuestData_CollectingRunes_Water
+  m_EditorClassIdentifier: Assembly-CSharp::MiniQuestData
+  miniQuestId: Q3_Obj3_RuneWater
+  miniQuestTitle: Trial of the Water Rune
+  instructions: Answer this question about the String data type to claim the Rune
+    of Water!
+  questions:
+  - questionText: Which declaration correctly creates a String variable to store
+      a player's name?
+    choices:
+    - choiceText: String name = Roran;
+      isCorrect: 0
+    - choiceText: String name = "Roran";
+      isCorrect: 1
+    - choiceText: string name = "Roran";
+      isCorrect: 0
+    - choiceText: String name = 'Roran';
+      isCorrect: 0
+    hintOnWrongAnswer: Strings must use DOUBLE QUOTES around text, not single quotes.
+      Also, String is capitalized, and text without quotes is treated as a variable
+      name.
+    explanationOnCorrect: 'Perfect! String variables store text in DOUBLE QUOTES:
+      "Roran". Without quotes, Java thinks Roran is a variable. String is capitalized
+      because it''s a class.'
+  objectiveTitleToComplete: Collect the Type Runes (4)
