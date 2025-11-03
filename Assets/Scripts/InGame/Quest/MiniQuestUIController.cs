@@ -57,7 +57,11 @@ public class MiniQuestUIController : MonoBehaviour
     [SerializeField]
     private string[] skipUIRestorationForQuests = new string[]
     {
-        "Q2_Obj3_HelloWorld" // Hello World Altar - UI restored by Quest 3 display
+        "Q2_Obj3_HelloWorld",   // Hello World Altar - UI restored by Quest 3 display
+        "Q3_Obj3_RuneFire",     // Rune of Fire - UI restored after rune disabled
+        "Q3_Obj3_RuneAir",      // Rune of Air - UI restored after rune disabled
+        "Q3_Obj3_RuneIce",      // Rune of Ice - UI restored after rune disabled
+        "Q3_Obj3_RuneWater"     // Rune of Water - UI restored after rune disabled
     };
 
     [Header("Display Settings")]
