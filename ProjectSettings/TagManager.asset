@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - CaveBoss
   - NPC
+  - EvilWizard
   layers:
   - Default
   - TransparentFX
