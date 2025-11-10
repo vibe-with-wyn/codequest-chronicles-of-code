@@ -79,7 +79,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1923592003837382580, guid: bf3684174f1da9c499209cb9681b2199, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -198,7 +198,7 @@ MonoBehaviour:
   requiredQuestId: Q4_StringsPrinting
   requiredObjectiveTitle: Complete the String Exercises
   collectionButtonPrefab: {fileID: 451972660627812107, guid: bc8869f61f70df5439297b39b3342b9e, type: 3}
-  buttonOffset: {x: 0, y: 1, z: 0}
+  buttonOffset: {x: 0, y: 2.5, z: 0}
   buttonFadeSpeed: 5
   collectionDuration: 0.8
   collectionArcHeight: 2
