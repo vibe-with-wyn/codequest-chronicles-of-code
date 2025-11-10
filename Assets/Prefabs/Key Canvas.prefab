@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5092965097622998719}
   - component: {fileID: 3392982085439336917}
   m_Layer: 0
-  m_Name: Runes Canvas
+  m_Name: Key Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 1905020338014371873}
   - component: {fileID: 3590269793080435333}
   m_Layer: 7
-  m_Name: Rune Type
+  m_Name: Collect Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Collect Rune
+  m_text: Collect the key
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 48f1badd9cb1d30479bc6c12f34540d7, type: 2}
   m_sharedMaterial: {fileID: 2738143216030453055, guid: 48f1badd9cb1d30479bc6c12f34540d7, type: 2}
