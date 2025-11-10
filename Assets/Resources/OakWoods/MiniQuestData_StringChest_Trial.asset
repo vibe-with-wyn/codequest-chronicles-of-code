@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e9c5a5dc0362d48ad62c982b85df84, type: 3}
+  m_Name: MiniQuestData_StringChest_Trial
+  m_EditorClassIdentifier: Assembly-CSharp::MiniQuestData
+  miniQuestId: Q4_StringsPrinting
+  miniQuestTitle: Strings and Printing
+  instructions: Answer all 7 questions correctly to unlock the Eternal Chest!
+  questions:
+  - questionText: Which of the following correctly declares a String variable in
+      Java?
+    choices:
+    - choiceText: string message = "Hello World";
+      isCorrect: 0
+    - choiceText: char message = "Hello World";
+      isCorrect: 0
+    - choiceText: String message = "Hello World";
+      isCorrect: 1
+    - choiceText: text message = "Hello World";
+      isCorrect: 0
+    hintOnWrongAnswer: Remember that in Java, the String class starts with a capital
+      'S', and text must be enclosed in double quotes.
+    explanationOnCorrect: That's right! Strings are declared using the String class
+      (capital S) followed by the variable name and the text in double quotes.
+  - questionText: 'What is the output of: System.out.println("Code" + "Quest");'
+    choices:
+    - choiceText: CodeQuest
+      isCorrect: 1
+    - choiceText: Code Quest
+      isCorrect: 0
+    - choiceText: Code+Quest
+      isCorrect: 0
+    - choiceText: Error
+      isCorrect: 0
+    hintOnWrongAnswer: The + operator joins strings directly without adding spaces.
+      Think about what happens when you add two pieces of text together.
+    explanationOnCorrect: Correct! The + operator concatenates (joins) two strings
+      together without any space between them.
+  - questionText: What does \n represent in a string?
+    choices:
+    - choiceText: The letter 'n'
+      isCorrect: 0
+    - choiceText: A tab space
+      isCorrect: 0
+    - choiceText: A backslash
+      isCorrect: 0
+    - choiceText: A newline (line break)
+      isCorrect: 1
+    hintOnWrongAnswer: Escape sequences start with a backslash (\) and represent
+      special characters. The letter 'n' in \n stands for 'newline'.
+    explanationOnCorrect: Excellent! \n is an escape sequence that creates a new
+      line, moving the cursor to the next line.
+  - questionText: What is the difference between System.out.print() and System.out.println()?
+    choices:
+    - choiceText: println() adds a newline after printing, print() does not
+      isCorrect: 1
+    - choiceText: print() adds a newline after printing, println() does not
+      isCorrect: 0
+    - choiceText: They are exactly the same
+      isCorrect: 0
+    - choiceText: println() prints numbers, print() prints text
+      isCorrect: 0
+    hintOnWrongAnswer: Think about what 'ln' might stand for in println(). It's short
+      for 'line'!
+    explanationOnCorrect: Perfect! println() automatically adds a line break after
+      printing, while print() keeps the cursor on the same line.
+  - questionText: Which method returns the number of characters in a string?
+    choices:
+    - choiceText: .size()
+      isCorrect: 0
+    - choiceText: '.length() '
+      isCorrect: 1
+    - choiceText: .count()
+      isCorrect: 0
+    - choiceText: .characters()
+      isCorrect: 0
+    hintOnWrongAnswer: In Java, Strings use .length() to count characters. This is
+      different from arrays which use .length (without parentheses).
+    explanationOnCorrect: That's right! The .length() method returns the total number
+      of characters in a string, including spaces.
+  - questionText: What does \t represent in Java?
+    choices:
+    - choiceText: The letter 't'
+      isCorrect: 0
+    - choiceText: A newline
+      isCorrect: 0
+    - choiceText: A tab space
+      isCorrect: 1
+    - choiceText: Time
+      isCorrect: 0
+    hintOnWrongAnswer: The 't' in \t stands for 'tab'. It creates horizontal spacing
+      in your output.
+    explanationOnCorrect: Correct! \t inserts a tab space (usually 4-8 spaces) in
+      your output, useful for formatting text.
+  - questionText: 'What is the output of: System.out.println("Score: " + 100 + 50);'
+    choices:
+    - choiceText: 'Score: 100 + 50'
+      isCorrect: 0
+    - choiceText: 'Score: 150'
+      isCorrect: 0
+    - choiceText: 'Score: 10050'
+      isCorrect: 1
+    - choiceText: Error
+      isCorrect: 0
+    hintOnWrongAnswer: The + operator works left to right. Once it encounters a string,
+      everything after becomes string concatenation, not arithmetic!
+    explanationOnCorrect: 'Excellent! When a string is concatenated with numbers
+      using +, Java converts the numbers to text and joins them left to right: "Score:
+      " + "100" + "50" = "Score: 10050".'
+  objectiveTitleToComplete: Complete the String Exercises
