@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e9c5a5dc0362d48ad62c982b85df84, type: 3}
+  m_Name: MiniQuestData_SyntaxTrial
+  m_EditorClassIdentifier: Assembly-CSharp::MiniQuestData
+  miniQuestId: Q5_SyntaxTrial
+  miniQuestTitle: The Syntax Trial
+  instructions: Answer all questions correctly to complete this quest objective.
+  questions:
+  - questionText: What is Java?
+    choices:
+    - choiceText: A type of coffee
+      isCorrect: 0
+    - choiceText: A high-level, object-oriented programming language
+      isCorrect: 1
+    - choiceText: A database management system
+      isCorrect: 0
+    - choiceText: A web browser
+      isCorrect: 0
+    hintOnWrongAnswer: Think about what type of language Java is. Is it a low-level
+      language like Assembly, or something higher?
+    explanationOnCorrect: Correct! Java is a high-level, object-oriented programming
+      language used for building applications.
+  - questionText: Which symbol is used to end a statement in Java?
+    choices:
+    - choiceText: Period (.)
+      isCorrect: 0
+    - choiceText: Comma (,)
+      isCorrect: 0
+    - choiceText: Semicolon (;)
+      isCorrect: 1
+    - choiceText: Colon (:)
+      isCorrect: 0
+    hintOnWrongAnswer: Remember that Java statements must end with a specific punctuation
+      mark. Look at the end of your code lines!
+    explanationOnCorrect: Correct! The semicolon (;) is used to terminate statements
+      in Java.
+  - questionText: What is the purpose of the main method in Java?
+    choices:
+    - choiceText: To declare variables
+      isCorrect: 0
+    - choiceText: To serve as the entry point of a Java program
+      isCorrect: 1
+    - choiceText: To import libraries
+      isCorrect: 0
+    - choiceText: To create objects
+      isCorrect: 0
+    hintOnWrongAnswer: Think about where your Java program starts running. What method
+      does the JVM look for first?
+    explanationOnCorrect: Correct! The main method is the entry point where the JVM
+      starts executing your program.
+  - questionText: Which data type is used to store whole numbers in Java?
+    choices:
+    - choiceText: float
+      isCorrect: 0
+    - choiceText: double
+      isCorrect: 1
+    - choiceText: String
+      isCorrect: 0
+    - choiceText: int
+      isCorrect: 1
+    hintOnWrongAnswer: You need a data type for whole numbers, not decimals. Float
+      and double are for decimals!
+    explanationOnCorrect: Correct! The 'int' data type stores whole numbers (integers)
+      without decimals.
+  - questionText: What is the correct way to declare a boolean variable in Java?
+    choices:
+    - choiceText: boolean isActive = true;
+      isCorrect: 1
+    - choiceText: bool isActive = true;
+      isCorrect: 0
+    - choiceText: Boolean isActive = 1;
+      isCorrect: 0
+    - choiceText: boolean isActive = "true";
+      isCorrect: 0
+    hintOnWrongAnswer: In Java, boolean is lowercase, not 'bool' or 'Boolean'. The
+      value must be true or false (not a string or number)!
+    explanationOnCorrect: Correct! Boolean variables in Java are declared with 'boolean'
+      (lowercase) and can be true or false.
+  - questionText: Which data type would you use to store the value 3.14159?
+    choices:
+    - choiceText: int
+      isCorrect: 0
+    - choiceText: char
+      isCorrect: 0
+    - choiceText: double
+      isCorrect: 1
+    - choiceText: boolean
+      isCorrect: 0
+    hintOnWrongAnswer: This is a decimal number (floating-point). You need a data
+      type that can store fractional values!
+    explanationOnCorrect: Correct! The 'double' data type is used for decimal numbers
+      with high precision.
+  - questionText: What is the size of a char data type in Java?
+    choices:
+    - choiceText: 8 bits
+      isCorrect: 0
+    - choiceText: 16 bits
+      isCorrect: 1
+    - choiceText: 32 bits
+      isCorrect: 0
+    - choiceText: 64 bits
+      isCorrect: 0
+    hintOnWrongAnswer: Java uses Unicode for characters. Think about how many bits
+      are needed to store thousands of characters!
+    explanationOnCorrect: Correct! In Java, a char is 16 bits (2 bytes) and uses
+      Unicode encoding.
+  - questionText: Which method is used to print output to the console in Java?
+    choices:
+    - choiceText: System.out.println()
+      isCorrect: 1
+    - choiceText: System.out.write()
+      isCorrect: 0
+    - choiceText: console.log()
+      isCorrect: 0
+    - choiceText: print()
+      isCorrect: 0
+    hintOnWrongAnswer: Remember the Strings & Printing lesson! You used this method
+      to print 'Hello World' to the console.
+    explanationOnCorrect: Correct! System.out.println() prints text to the console
+      and moves to a new line.
+  - questionText: How do you concatenate two strings in Java?
+    choices:
+    - choiceText: Using the + operator
+      isCorrect: 1
+    - choiceText: Using the * operator
+      isCorrect: 0
+    - choiceText: Using the & operator
+      isCorrect: 0
+    - choiceText: Using the concat() method only
+      isCorrect: 0
+    hintOnWrongAnswer: You can join strings using a simple arithmetic-like operator.
+      What operator 'adds' things together?
+    explanationOnCorrect: Correct! The + operator is the most common way to join
+      (concatenate) strings in Java.
+  - questionText: What will be the output of the following code? String greeting
+      = "Hello"; String name = "World"; System.out.println(greeting + " " + name
+      + "!");
+    choices:
+    - choiceText: Hello World
+      isCorrect: 0
+    - choiceText: HelloWorld!
+      isCorrect: 0
+    - choiceText: greeting name!
+      isCorrect: 0
+    - choiceText: Hello World!
+      isCorrect: 1
+    hintOnWrongAnswer: The + operator joins strings together. Count the spaces and
+      characters carefully!
+    explanationOnCorrect: Correct! String concatenation joins 'Hello', a space, 'World',
+      and '!' to produce 'Hello World!'
+  objectiveTitleToComplete: Complete the Syntax Trial
