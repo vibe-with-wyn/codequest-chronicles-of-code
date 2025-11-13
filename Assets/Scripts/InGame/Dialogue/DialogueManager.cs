@@ -18,12 +18,26 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bodyText;
     [SerializeField] private Button nextButton;
 
+    [Header("Decoration Settings")]
+    [Tooltip("Parent GameObject containing decoration child objects (optional)")]
+    [SerializeField] private GameObject decorationsParent;
+
+    [Tooltip("SpriteRenderers for decorations (auto-found if empty)")]
+    [SerializeField] private SpriteRenderer[] decorationSpriteRenderers;
+
+    [Header("Display Settings")]
+    [SerializeField] private float fadeInDuration = 0.5f;
+    [SerializeField] private float fadeOutDuration = 0.3f;
+
     public event Action<string> OnConversationStarted;
     public event Action<string> OnConversationCompleted;
 
     private Conversation current;
     private int index = -1;
     private bool uiBuiltAtRuntime = false;
+
+    // Store original decoration colors for proper restoration
+    private Color[] originalDecorationColors;
 
     void Awake()
     {
@@ -35,13 +49,81 @@ public class DialogueManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // NEW: Ensure database is loaded
+        // Ensure database is loaded
         EnsureDialogueDatabase();
         EnsureUI();
+        InitializeDecorations();
         Hide();
     }
 
-    // NEW: Auto-load or create fallback dialogue database
+    // NEW: Initialize decorations (matching Quest UI pattern)
+    private void InitializeDecorations()
+    {
+        // Auto-find decorations if not assigned
+        if ((decorationSpriteRenderers == null || decorationSpriteRenderers.Length == 0) && decorationsParent != null)
+        {
+            decorationSpriteRenderers = decorationsParent.GetComponentsInChildren<SpriteRenderer>(true);
+            Debug.Log($"[DialogueManager] Auto-found {decorationSpriteRenderers.Length} SpriteRenderer decorations");
+        }
+
+        // Store original colors for SpriteRenderers
+        if (decorationSpriteRenderers != null && decorationSpriteRenderers.Length > 0)
+        {
+            originalDecorationColors = new Color[decorationSpriteRenderers.Length];
+            for (int i = 0; i < decorationSpriteRenderers.Length; i++)
+            {
+                if (decorationSpriteRenderers[i] != null)
+                {
+                    originalDecorationColors[i] = decorationSpriteRenderers[i].color;
+                }
+            }
+        }
+
+        // Initially hide all decorations with alpha = 0
+        SetDecorationsAlpha(0f);
+        SetDecorationsVisibility(false);
+
+        Debug.Log($"[DialogueManager] Initialized decorations: {decorationSpriteRenderers?.Length ?? 0} sprites");
+    }
+
+    // Set decorations visibility
+    private void SetDecorationsVisibility(bool visible)
+    {
+        if (decorationsParent != null)
+        {
+            decorationsParent.SetActive(visible);
+        }
+
+        if (decorationSpriteRenderers != null)
+        {
+            foreach (SpriteRenderer spriteRenderer in decorationSpriteRenderers)
+            {
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.gameObject.SetActive(visible);
+                }
+            }
+        }
+    }
+
+    // Set decorations alpha for synchronized fading
+    private void SetDecorationsAlpha(float alpha)
+    {
+        if (decorationSpriteRenderers != null && originalDecorationColors != null)
+        {
+            for (int i = 0; i < decorationSpriteRenderers.Length && i < originalDecorationColors.Length; i++)
+            {
+                if (decorationSpriteRenderers[i] != null)
+                {
+                    Color color = originalDecorationColors[i];
+                    color.a = alpha;
+                    decorationSpriteRenderers[i].color = color;
+                }
+            }
+        }
+    }
+
+    // Auto-load or create fallback dialogue database
     private void EnsureDialogueDatabase()
     {
         if (dialogueDatabase == null)
@@ -61,7 +143,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // NEW: Create fallback conversations if database is missing
+    // Create fallback conversations if database is missing
     private void CreateFallbackDatabase()
     {
         // Create a temporary instance just for this session
@@ -166,7 +248,11 @@ public class DialogueManager : MonoBehaviour
     private void EnsureUI()
     {
         if (panel != null && speakerText != null && bodyText != null && nextButton != null)
+        {
+            // UI already assigned - just ensure button listener is set up
+            SetupNextButtonListener();
             return;
+        }
 
         uiBuiltAtRuntime = true;
 
@@ -233,21 +319,90 @@ public class DialogueManager : MonoBehaviour
         blrt.anchorMax = new Vector2(1, 1);
         blrt.offsetMin = blrt.offsetMax = Vector2.zero;
 
-        nextButton.onClick.AddListener(Next);
+        SetupNextButtonListener();
     }
 
+    // CRITICAL: Properly setup Next button listener
+    private void SetupNextButtonListener()
+    {
+        if (nextButton != null)
+        {
+            // Remove any existing listeners first
+            nextButton.onClick.RemoveAllListeners();
+            // Add the Next method
+            nextButton.onClick.AddListener(Next);
+            Debug.Log("[DialogueManager] Next button listener configured");
+        }
+    }
+
+    // UPDATED: Show with synchronized fade for panel and decorations
     private void Show()
     {
-        if (panel != null) panel.alpha = 1f;
-        if (panel != null) panel.interactable = true;
-        if (panel != null) panel.blocksRaycasts = true;
+        StartCoroutine(ShowDialogueCoroutine());
     }
 
+    private IEnumerator ShowDialogueCoroutine()
+    {
+        if (panel != null) panel.gameObject.SetActive(true);
+
+        // Activate decorations
+        SetDecorationsVisibility(true);
+
+        // Fade in panel and decorations simultaneously
+        yield return StartCoroutine(FadePanelAndDecorations(0f, 1f, fadeInDuration));
+    }
+
+    // UPDATED: Hide with synchronized fade
     private void Hide()
     {
-        if (panel != null) panel.alpha = 0f;
-        if (panel != null) panel.interactable = false;
-        if (panel != null) panel.blocksRaycasts = false;
+        StartCoroutine(HideDialogueCoroutine());
+    }
+
+    private IEnumerator HideDialogueCoroutine()
+    {
+        // Fade out panel and decorations simultaneously
+        yield return StartCoroutine(FadePanelAndDecorations(1f, 0f, fadeOutDuration));
+
+        if (panel != null) panel.gameObject.SetActive(false);
+
+        // Hide decorations
+        SetDecorationsVisibility(false);
+    }
+
+    // NEW: Synchronized fade for panel and decorations (matching Quest UI pattern)
+    private IEnumerator FadePanelAndDecorations(float startAlpha, float endAlpha, float duration)
+    {
+        if (panel == null) yield break;
+
+        float elapsed = 0f;
+
+        // Set BOTH panel and decorations to starting alpha BEFORE loop
+        panel.alpha = startAlpha;
+        SetDecorationsAlpha(startAlpha);
+
+        panel.interactable = (endAlpha > 0.5f);
+        panel.blocksRaycasts = (endAlpha > 0.5f);
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float currentAlpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / duration);
+
+            // Apply SAME alpha to both panel and decorations simultaneously
+            panel.alpha = currentAlpha;
+            SetDecorationsAlpha(currentAlpha);
+
+            yield return null;
+        }
+
+        // Ensure final alpha values are set
+        panel.alpha = endAlpha;
+        SetDecorationsAlpha(endAlpha);
+
+        panel.interactable = (endAlpha > 0.5f);
+        panel.blocksRaycasts = (endAlpha > 0.5f);
+
+        Debug.Log($"[DialogueManager] Synchronized fade completed: Panel and decorations alpha = {endAlpha}");
     }
 
     public void StartConversation(string conversationId)
@@ -273,7 +428,11 @@ public class DialogueManager : MonoBehaviour
 
     public void Next()
     {
-        if (current == null) { Hide(); return; }
+        if (current == null)
+        {
+            Hide();
+            return;
+        }
 
         index++;
         if (index >= current.lines.Count)
@@ -289,5 +448,12 @@ public class DialogueManager : MonoBehaviour
         if (speakerText != null) speakerText.text = line.speaker;
         if (bodyText != null) bodyText.text = line.text;
         Debug.Log($"[{line.speaker}] {line.text}");
+    }
+
+    // NEW: Public method to manually reinitialize button (if needed)
+    public void ReinitializeNextButton()
+    {
+        SetupNextButtonListener();
+        Debug.Log("[DialogueManager] Next button reinitialized");
     }
 }
