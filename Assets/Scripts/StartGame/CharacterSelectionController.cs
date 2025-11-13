@@ -53,6 +53,13 @@ public class CharacterSelectionController : MonoBehaviour
 
         Debug.Log($"Received character parameter: '{character}'");
 
+        // Check if character is implemented (only Swordsman for now)
+        if (!IsCharacterImplemented(character))
+        {
+            Debug.Log($"Character '{character}' is not yet implemented. Only sound effect played.");
+            yield break; // Exit without proceeding to game
+        }
+
         if (isDataManagerReady && GameDataManager.Instance != null && !string.IsNullOrEmpty(character))
         {
             GameDataManager.Instance.SetCharacter(character);
@@ -91,6 +98,21 @@ public class CharacterSelectionController : MonoBehaviour
             default:
                 Debug.LogWarning($"No sound defined for character: {character}");
                 return null;
+        }
+    }
+
+    // NEW: Check if character is implemented and playable
+    private bool IsCharacterImplemented(string character)
+    {
+        switch (character.ToLower())
+        {
+            case "swordsman":
+                return true; // Only Swordsman is implemented
+            case "mage":
+            case "archer":
+                return false; // Not yet implemented
+            default:
+                return false;
         }
     }
 

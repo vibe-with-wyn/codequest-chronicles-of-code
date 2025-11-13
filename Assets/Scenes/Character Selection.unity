@@ -809,7 +809,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -168, y: 389}
+  m_AnchoredPosition: {x: -168, y: 300}
   m_SizeDelta: {x: 900, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &624285857
@@ -996,7 +996,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 499557891}
-        m_TargetAssemblyTypeName: CharacterSelectionController, Assembly-CSharp
+        m_TargetAssemblyTypeName: CharacterSelectionController, CodeQuest.StartGame
         m_MethodName: SelectCharacter
         m_Mode: 5
         m_Arguments:
@@ -1429,7 +1429,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 499557891}
-        m_TargetAssemblyTypeName: CharacterSelectionController, Assembly-CSharp
+        m_TargetAssemblyTypeName: CharacterSelectionController, CodeQuest.StartGame
         m_MethodName: SelectCharacter
         m_Mode: 5
         m_Arguments:
