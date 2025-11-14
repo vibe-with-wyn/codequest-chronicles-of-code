@@ -1,25 +1,33 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Fireball projectile that damages enemies
+/// Fireball projectile that damages enemies with range limit and explosion animation
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CircleCollider2D))]
 public class FireballProjectile : MonoBehaviour
 {
     [Header("Projectile Settings")]
-    [SerializeField] private float speed = 15f;
-    [SerializeField] private float lifetime = 5f;
+    [SerializeField] private float speed = 20f;
+    [SerializeField] private float maxRange = 10f; // Maximum travel distance before exploding
     
     [Header("Visual Settings")]
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
+    
+    [Header("Explosion Settings")]
+    [Tooltip("Duration of explosion animation before destruction")]
+    [SerializeField] private float explosionDuration = 0.5f;
     
     private int damage;
     private Vector2 direction;
     private Rigidbody2D rb;
     private CircleCollider2D fireballCollider;
     private bool hasHit = false;
+    private bool isExploding = false;
     private float facingDirection;
+    private Vector3 startPosition;
+    private float distanceTraveled = 0f;
 
     void Awake()
     {
@@ -29,12 +37,31 @@ public class FireballProjectile : MonoBehaviour
         if (spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
         
+        if (animator == null)
+            animator = GetComponent<Animator>();
+        
         // Configure rigidbody
         rb.gravityScale = 0f;
         rb.bodyType = RigidbodyType2D.Kinematic;
         
         // Ensure collider is trigger
         fireballCollider.isTrigger = true;
+    }
+
+    void Update()
+    {
+        // Track distance traveled and explode if max range exceeded
+        if (!isExploding && !hasHit)
+        {
+            float frameDistance = rb.linearVelocity.magnitude * Time.deltaTime;
+            distanceTraveled += frameDistance;
+            
+            if (distanceTraveled >= maxRange)
+            {
+                Debug.Log($"Fireball reached max range ({maxRange}m) - exploding");
+                TriggerExplosion();
+            }
+        }
     }
 
     /// <summary>
@@ -45,29 +72,42 @@ public class FireballProjectile : MonoBehaviour
         damage = damageValue;
         direction = moveDirection.normalized;
         facingDirection = playerFacingDirection;
+        startPosition = transform.position;
         
-        // Flip sprite based on direction
+        // FIXED: Flip sprite based on direction (respects player facing)
         if (spriteRenderer != null)
         {
             spriteRenderer.flipX = facingDirection < 0;
         }
         
+        // FIXED: Flip entire transform to ensure animations work correctly
+        if (facingDirection < 0)
+        {
+            Vector3 scale = transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * -1; // Ensure negative
+            transform.localScale = scale;
+        }
+        else
+        {
+            Vector3 scale = transform.localScale;
+            scale.x = Mathf.Abs(scale.x); // Ensure positive
+            transform.localScale = scale;
+        }
+        
         // Set velocity
         rb.linearVelocity = direction * speed;
         
-        // Destroy after lifetime
-        Destroy(gameObject, lifetime);
-        
-        Debug.Log($"Fireball initialized: Damage={damage}, Direction={direction}, Speed={speed}, FacingDirection={facingDirection}");
+        Debug.Log($"Fireball initialized: Damage={damage}, Direction={direction}, Speed={speed}, " +
+                 $"FacingDirection={facingDirection}, FlipX={spriteRenderer?.flipX}, Scale={transform.localScale.x}");
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (hasHit) return;
+        if (hasHit || isExploding) return;
 
         Debug.Log($"Fireball hit: {other.name} with tag: {other.tag}");
 
-        // NEW: Check for Evil Wizard
+        // Check for Evil Wizard
         if (other.CompareTag("EvilWizard") || other.name.Contains("Evil Wizard"))
         {
             if (IsValidWizardBodyHit(other))
@@ -78,7 +118,7 @@ public class FireballProjectile : MonoBehaviour
                     wizardAI.TakeDamage(damage);
                     hasHit = true;
                     Debug.Log($"Fireball dealt {damage} damage to Evil Wizard {other.name}");
-                    DestroyFireball();
+                    TriggerExplosion();
                     return;
                 }
             }
@@ -98,7 +138,7 @@ public class FireballProjectile : MonoBehaviour
                     bossAI.TakeDamage(damage);
                     hasHit = true;
                     Debug.Log($"Fireball dealt {damage} damage to Cave Boss");
-                    DestroyFireball();
+                    TriggerExplosion();
                     return;
                 }
             }
@@ -114,21 +154,20 @@ public class FireballProjectile : MonoBehaviour
                     enemyAI.TakeDamage(damage);
                     hasHit = true;
                     Debug.Log($"Fireball dealt {damage} damage to enemy {other.name}");
-                    DestroyFireball();
+                    TriggerExplosion();
                     return;
                 }
             }
         }
-        // Hit ground/walls - destroy fireball
-        else if (other.CompareTag("Ground") || other.CompareTag("Wall"))
+        // CLEANED: Only check for Ground tag (removed Wall check as per requirements)
+        else if (other.CompareTag("Ground"))
         {
-            Debug.Log($"Fireball hit {other.tag} - destroying");
+            Debug.Log($"Fireball hit ground - exploding");
             hasHit = true;
-            DestroyFireball();
+            TriggerExplosion();
         }
     }
 
-    // NEW: Validate Evil Wizard body hit
     private bool IsValidWizardBodyHit(Collider2D hitCollider)
     {
         EvilWizardAI wizardAI = hitCollider.GetComponent<EvilWizardAI>();
@@ -180,9 +219,57 @@ public class FireballProjectile : MonoBehaviour
         return hitCollider is CapsuleCollider2D;
     }
 
-    private void DestroyFireball()
+    /// <summary>
+    /// FIXED: Trigger explosion animation and schedule destruction
+    /// </summary>
+    private void TriggerExplosion()
     {
-        // Optional: Add explosion effect here
-        Destroy(gameObject);
+        if (isExploding) return;
+        
+        isExploding = true;
+        
+        // Stop movement
+        rb.linearVelocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        
+        // Disable collider to prevent multiple hits
+        if (fireballCollider != null)
+            fireballCollider.enabled = false;
+        
+        // Trigger explosion animation if animator exists
+        if (animator != null && HasAnimatorParameter("Explode", AnimatorControllerParameterType.Trigger))
+        {
+            animator.SetTrigger("Explode");
+            Debug.Log("Fireball explosion animation triggered");
+        }
+        else if (animator != null && HasAnimatorParameter("Hit", AnimatorControllerParameterType.Trigger))
+        {
+            animator.SetTrigger("Hit");
+            Debug.Log("Fireball hit animation triggered");
+        }
+        else
+        {
+            Debug.LogWarning("Fireball animator doesn't have 'Explode' or 'Hit' trigger - destroying immediately");
+        }
+        
+        // Destroy after explosion animation completes
+        Destroy(gameObject, explosionDuration);
+        
+        Debug.Log($"Fireball exploding at position {transform.position} after traveling {distanceTraveled:F2}m");
+    }
+
+    /// <summary>
+    /// Check if animator has a specific parameter
+    /// </summary>
+    private bool HasAnimatorParameter(string paramName, AnimatorControllerParameterType paramType)
+    {
+        if (animator == null || animator.runtimeAnimatorController == null) return false;
+
+        foreach (AnimatorControllerParameter param in animator.parameters)
+        {
+            if (param.name == paramName && param.type == paramType)
+                return true;
+        }
+        return false;
     }
 }
