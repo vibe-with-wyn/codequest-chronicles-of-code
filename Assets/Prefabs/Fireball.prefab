@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.211, y: -0.01, z: 30}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 200, y: 200, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5060872588983949153}
@@ -110,12 +110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cccc75de1fca144685761d88cd08086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireballProjectile
-  speed: 18
-  maxDistance: 9.5
-  lifeTime: 3
-  explosionAnimationDuration: 0.4
-  useScaleFlipping: 1
-  enableDebugLogs: 1
+  speed: 20
+  maxRange: 10
+  spriteRenderer: {fileID: 7340758710934001903}
+  animator: {fileID: 798953421728018619}
+  explosionDuration: 0.5
 --- !u!1 &3463342269307220864
 GameObject:
   m_ObjectHideFlags: 0

@@ -74,23 +74,19 @@ public class FireballProjectile : MonoBehaviour
         facingDirection = playerFacingDirection;
         startPosition = transform.position;
         
-        // FIXED: Flip sprite based on direction (respects player facing)
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.flipX = facingDirection < 0;
-        }
-        
-        // FIXED: Flip entire transform to ensure animations work correctly
+        // FIXED: Use ONLY transform.localScale for flipping (remove spriteRenderer.flipX to avoid conflicts)
         if (facingDirection < 0)
         {
+            // Facing left - flip to negative scale
             Vector3 scale = transform.localScale;
-            scale.x = Mathf.Abs(scale.x) * -1; // Ensure negative
+            scale.x = -Mathf.Abs(scale.x); // Force negative
             transform.localScale = scale;
         }
         else
         {
+            // Facing right - keep positive scale
             Vector3 scale = transform.localScale;
-            scale.x = Mathf.Abs(scale.x); // Ensure positive
+            scale.x = Mathf.Abs(scale.x); // Force positive
             transform.localScale = scale;
         }
         
@@ -98,7 +94,7 @@ public class FireballProjectile : MonoBehaviour
         rb.linearVelocity = direction * speed;
         
         Debug.Log($"Fireball initialized: Damage={damage}, Direction={direction}, Speed={speed}, " +
-                 $"FacingDirection={facingDirection}, FlipX={spriteRenderer?.flipX}, Scale={transform.localScale.x}");
+                 $"FacingDirection={facingDirection}, Scale={transform.localScale.x}");
     }
 
     void OnTriggerEnter2D(Collider2D other)
