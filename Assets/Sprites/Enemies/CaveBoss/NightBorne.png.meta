@@ -617,9 +617,9 @@ TextureImporter:
       name: NightBorne_15
       rect:
         serializedVersion: 2
-        x: 18
-        y: 175
-        width: 60
+        x: 9
+        y: 169
+        width: 70
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -639,9 +639,9 @@ TextureImporter:
       name: NightBorne_16
       rect:
         serializedVersion: 2
-        x: 100
-        y: 175
-        width: 60
+        x: 87
+        y: 169
+        width: 70
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -661,9 +661,9 @@ TextureImporter:
       name: NightBorne_17
       rect:
         serializedVersion: 2
-        x: 187
-        y: 175
-        width: 60
+        x: 165
+        y: 169
+        width: 70
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -683,9 +683,9 @@ TextureImporter:
       name: NightBorne_18
       rect:
         serializedVersion: 2
-        x: 267
-        y: 175
-        width: 60
+        x: 244
+        y: 169
+        width: 70
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -705,9 +705,9 @@ TextureImporter:
       name: NightBorne_20
       rect:
         serializedVersion: 2
-        x: 344
-        y: 175
-        width: 60
+        x: 323
+        y: 169
+        width: 70
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -727,9 +727,9 @@ TextureImporter:
       name: NightBorne_21
       rect:
         serializedVersion: 2
-        x: 423
-        y: 175
-        width: 60
+        x: 403
+        y: 169
+        width: 70
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -749,9 +749,9 @@ TextureImporter:
       name: NightBorne_22
       rect:
         serializedVersion: 2
-        x: 503
-        y: 175
-        width: 60
+        x: 485
+        y: 169
+        width: 70
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -771,9 +771,9 @@ TextureImporter:
       name: NightBorne_23
       rect:
         serializedVersion: 2
-        x: 583
-        y: 175
-        width: 60
+        x: 563
+        y: 169
+        width: 70
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -793,9 +793,9 @@ TextureImporter:
       name: NightBorne_24
       rect:
         serializedVersion: 2
-        x: 663
-        y: 175
-        width: 60
+        x: 645
+        y: 169
+        width: 70
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -815,9 +815,9 @@ TextureImporter:
       name: NightBorne_25
       rect:
         serializedVersion: 2
-        x: 744
+        x: 730
         y: 169
-        width: 60
+        width: 70
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -837,9 +837,9 @@ TextureImporter:
       name: NightBorne_26
       rect:
         serializedVersion: 2
-        x: 822
-        y: 172
-        width: 60
+        x: 809
+        y: 169
+        width: 70
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -859,9 +859,9 @@ TextureImporter:
       name: NightBorne_27
       rect:
         serializedVersion: 2
-        x: 900
-        y: 175
-        width: 60
+        x: 890
+        y: 169
+        width: 70
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
