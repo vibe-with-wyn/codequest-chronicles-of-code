@@ -123,6 +123,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -130,12 +143,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Attack1_0
       rect:
         serializedVersion: 2
-        x: 33
+        x: 3
         y: 0
-        width: 36
-        height: 47
+        width: 85
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -152,12 +165,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Attack1_1
       rect:
         serializedVersion: 2
-        x: 127
+        x: 99
         y: 0
-        width: 24
-        height: 48
+        width: 85
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -174,12 +187,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Attack1_2
       rect:
         serializedVersion: 2
-        x: 212
+        x: 194
         y: 0
-        width: 35
-        height: 46
+        width: 85
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -196,12 +209,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Attack1_3
       rect:
         serializedVersion: 2
-        x: 303
+        x: 289
         y: 0
-        width: 40
-        height: 45
+        width: 85
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -218,12 +231,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Attack1_4
       rect:
         serializedVersion: 2
-        x: 399
+        x: 385
         y: 0
-        width: 40
-        height: 44
+        width: 85
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -240,12 +253,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Attack1_5
       rect:
         serializedVersion: 2
-        x: 509
+        x: 492
         y: 0
-        width: 67
-        height: 47
+        width: 85
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -262,12 +275,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Attack1_6
       rect:
         serializedVersion: 2
-        x: 608
+        x: 587
         y: 0
-        width: 63
-        height: 49
+        width: 85
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -284,12 +297,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Attack1_7
       rect:
         serializedVersion: 2
-        x: 702
+        x: 681
         y: 0
-        width: 60
-        height: 48
+        width: 85
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -306,12 +319,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Attack1_8
       rect:
         serializedVersion: 2
-        x: 799
+        x: 774
         y: 0
-        width: 46
-        height: 48
+        width: 85
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -328,12 +341,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Attack1_9
       rect:
         serializedVersion: 2
-        x: 897
+        x: 868
         y: 0
-        width: 36
-        height: 47
+        width: 85
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -350,7 +363,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f47a3d16d12f59841830cc28df7340c3
     internalID: 0
     vertices: []
     indices: 
