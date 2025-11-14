@@ -6,28 +6,28 @@ public class PlayerAttackData
 {
     [Header("Attack Settings")]
     public int damage = 10;
-    
+
     [Header("Attack Timing")]
     [Tooltip("Delay before damage collider activates (sync with animation)")]
     [SerializeField] private float damageDelay = 0.2f;
-    
+
     [Tooltip("How long the damage collider stays active")]
     [SerializeField] private float damageActiveDuration = 0.3f;
-    
+
     [Tooltip("Total animation duration")]
     public float animationDuration = 0.5f;
-    
+
     [Header("Fireball Specific Timing")]
     [Tooltip("For Attack 4 (Fireball): Delay before fireball spawns after cast animation starts. Set to 0.6s for 6-frame animation at 60fps.")]
     [SerializeField] private float fireballSpawnDelay = 0.6f;
-    
+
     [Header("Attack Collider Settings")]
     [Tooltip("Offset from player position (will flip with facing direction)")]
     [SerializeField] private Vector2 attackColliderOffset = new Vector2(1.0f, 0f);
-    
+
     [Tooltip("Radius of the attack collider")]
     [SerializeField] private float colliderRadius = 0.5f;
-    
+
     // Public accessors
     public float DamageDelay => damageDelay;
     public float DamageActiveDuration => damageActiveDuration;
@@ -42,14 +42,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 8f;
     [SerializeField] private float jumpForce = 16f;
     [SerializeField] private float walkSpeed = 3f;
-    
+
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private CircleCollider2D attackCollider;
-    
+
     [Header("Attack Configuration")]
     [SerializeField] private PlayerAttackData[] attackData = new PlayerAttackData[5];
-    
+
     [Header("Fireball Configuration")]
     [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private Transform fireballSpawnPoint;
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector3 fireballScale = Vector3.one;
     [SerializeField] private bool useSpawnPointOffset = true;
     [SerializeField] private Vector3 spawnPointOffset = new Vector3(0.5f, 0, 0);
-    
+
     // Core Components
     private Rigidbody2D rb;
     private CapsuleCollider2D capsuleCollider;
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
     private UIController uiController;
     private PlayerHealth playerHealth;
     private PlayerAttackCollider playerAttackCollider;
-    
+
     // State Variables
     private bool isGrounded;
     private bool isJumping;
@@ -76,12 +76,12 @@ public class PlayerMovement : MonoBehaviour
     private bool isHurt;
     private bool isRespawning;
     private float facingDirection = 1f;
-    
+
     // Attack state tracking
     private bool isAttackColliderPending = false;
     private bool isFireballAttackPending = false;
     private PlayerAttackData currentAttackData;
-    
+
     // Store original physics values
     private float originalGravityScale;
     private RigidbodyType2D originalBodyType;
@@ -92,16 +92,16 @@ public class PlayerMovement : MonoBehaviour
         ValidateAttackData();
         ValidateFireballSetup();
         StoreOriginalPhysicsValues();
-        
+
         Debug.Log($"PlayerMovement initialized on {gameObject.name}");
     }
 
     void Update()
     {
         CheckDeathState();
-        
+
         // Block ALL actions when dead or respawning
-        if (isDead || isRespawning) 
+        if (isDead || isRespawning)
         {
             HandleDeadState();
             return;
@@ -126,13 +126,13 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         uiController = Object.FindFirstObjectByType<UIController>();
         playerHealth = GetComponent<PlayerHealth>();
-        
+
         if (attackCollider != null)
         {
             playerAttackCollider = attackCollider.GetComponent<PlayerAttackCollider>();
             if (playerAttackCollider == null)
                 playerAttackCollider = attackCollider.gameObject.AddComponent<PlayerAttackCollider>();
-            
+
             attackCollider.gameObject.SetActive(false);
             Debug.Log("Attack collider properly initialized");
         }
@@ -176,20 +176,20 @@ public class PlayerMovement : MonoBehaviour
                 new PlayerAttackData { damage = 25, animationDuration = 0.6f }
             };
         }
-        
+
         // Log attack configurations including fireball spawn delay for Attack 4
         for (int i = 0; i < attackData.Length; i++)
         {
             string logMessage = $"Attack {i + 1}: Damage={attackData[i].damage}, Delay={attackData[i].DamageDelay}s, " +
                                $"Active={attackData[i].DamageActiveDuration}s, Offset={attackData[i].AttackColliderOffset}, " +
                                $"Radius={attackData[i].ColliderRadius}";
-            
+
             // Add fireball spawn delay info for Attack 4
             if (i == 3) // Attack 4 (index 3)
             {
                 logMessage += $", FireballSpawnDelay={attackData[i].FireballSpawnDelay}s";
             }
-            
+
             Debug.Log(logMessage);
         }
     }
@@ -240,15 +240,15 @@ public class PlayerMovement : MonoBehaviour
         FireballProjectile fireballScript = fireballPrefab.GetComponent<FireballProjectile>();
         if (fireballScript == null)
             Debug.LogError("Fireball prefab must have FireballProjectile script!");
-        
+
         Rigidbody2D fireballRb = fireballPrefab.GetComponent<Rigidbody2D>();
         if (fireballRb == null)
             Debug.LogError("Fireball prefab must have Rigidbody2D component!");
-        
+
         CircleCollider2D fireballCollider = fireballPrefab.GetComponent<CircleCollider2D>();
         if (fireballCollider == null)
             Debug.LogError("Fireball prefab must have CircleCollider2D component!");
-        
+
         Debug.Log("Fireball setup validated successfully");
     }
     #endregion
@@ -260,30 +260,30 @@ public class PlayerMovement : MonoBehaviour
 
         bool wasAlive = !isDead && !isRespawning;
         bool isCurrentlyAlive = playerHealth.IsAlive();
-        
+
         if (wasAlive && !isCurrentlyAlive)
             OnPlayerDeath();
         else if (!wasAlive && isCurrentlyAlive && !playerHealth.IsRespawning())
             OnPlayerRespawn();
-        
+
         isDead = !isCurrentlyAlive;
     }
 
     private void OnPlayerDeath()
     {
         Debug.Log("Player movement COMPLETELY disabled due to death");
-        
+
         isDead = true;
         isRespawning = true;
-        
+
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0f;
-        
+
         SetCollidersEnabled(false);
         DisableAllAttackEffects();
         ResetAllStates();
-        
+
         if (animator != null)
         {
             ResetAnimatorToDefaultState();
@@ -294,12 +294,12 @@ public class PlayerMovement : MonoBehaviour
     private void OnPlayerRespawn()
     {
         Debug.Log("Player movement RE-ENABLED after respawn");
-        
+
         isDead = false;
         isRespawning = false;
-        
+
         PerformCompleteRespawnReset();
-        
+
         if (animator != null)
             ResetAnimatorToDefaultState();
     }
@@ -307,9 +307,9 @@ public class PlayerMovement : MonoBehaviour
     private void PerformCompleteRespawnReset()
     {
         Debug.Log("Performing complete respawn reset...");
-        
+
         ResetAllStates();
-        
+
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
@@ -318,19 +318,19 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = originalGravityScale;
             rb.totalForce = Vector2.zero;
             rb.totalTorque = 0f;
-            
+
             Debug.Log($"Physics reset: BodyType={rb.bodyType}, GravityScale={rb.gravityScale}, Velocity={rb.linearVelocity}");
         }
-        
+
         ForceGroundingCheck();
         SetCollidersEnabled(true);
-        
+
         facingDirection = 1f;
         if (spriteRenderer != null)
             spriteRenderer.flipX = false;
-        
+
         CancelAllInvokes();
-        
+
         Debug.Log("Complete respawn reset finished");
     }
 
@@ -338,13 +338,13 @@ public class PlayerMovement : MonoBehaviour
     {
         isJumping = false;
         isGrounded = false;
-        
+
         Collider2D[] groundColliders = Physics2D.OverlapBoxAll(
-            transform.position + Vector3.down * 0.1f, 
-            new Vector2(0.8f, 0.1f), 
+            transform.position + Vector3.down * 0.1f,
+            new Vector2(0.8f, 0.1f),
             0f
         );
-        
+
         foreach (Collider2D col in groundColliders)
         {
             if (col.CompareTag("Ground"))
@@ -381,7 +381,7 @@ public class PlayerMovement : MonoBehaviour
         isJumping = false;
         isAttackColliderPending = false;
         isFireballAttackPending = false;
-        
+
         Debug.Log("All player states reset");
     }
 
@@ -390,9 +390,9 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0f;
-        
+
         DisableAllAttackEffects();
-        
+
         SetAnimatorBool("isRunning", false);
         SetAnimatorBool("isWalking", false);
         SetAnimatorBool("isJumping", false);
@@ -405,10 +405,10 @@ public class PlayerMovement : MonoBehaviour
         CancelInvoke(nameof(DisableAttackCollider));
         CancelInvoke(nameof(ResetAttackState));
         CancelInvoke(nameof(ExecuteFireballSpawn));
-        
+
         if (attackCollider != null)
             attackCollider.gameObject.SetActive(false);
-        
+
         isAttacking = false;
         isAttackColliderPending = false;
         isFireballAttackPending = false;
@@ -417,7 +417,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnRespawnComplete()
     {
         Debug.Log("PlayerMovement: Respawn completion notification received");
-        
+
         isRespawning = false;
         PerformCompleteRespawnReset();
         StartCoroutine(VerifyRespawnState());
@@ -426,12 +426,12 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator VerifyRespawnState()
     {
         yield return new WaitForEndOfFrame();
-        
+
         if (rb != null)
         {
             Debug.Log($"Post-respawn verification: Velocity={rb.linearVelocity}, BodyType={rb.bodyType}, " +
                      $"GravityScale={rb.gravityScale}, Grounded={isGrounded}, Jumping={isJumping}");
-            
+
             if (Mathf.Abs(rb.linearVelocity.x) > 0.1f || Mathf.Abs(rb.linearVelocity.y) > 0.1f)
             {
                 Debug.LogWarning("Detected residual velocity after respawn - forcing zero");
@@ -460,7 +460,7 @@ public class PlayerMovement : MonoBehaviour
     private void ProcessMovementInput()
     {
         if (isDead || isRespawning || isAttacking) return;
-        
+
         float moveInput = 0f;
         if (uiController != null)
         {
@@ -471,7 +471,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isAttacking)
         {
             rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
-            
+
             if (moveInput != 0 && !isHurt)
             {
                 facingDirection = moveInput > 0 ? 1f : -1f;
@@ -490,15 +490,15 @@ public class PlayerMovement : MonoBehaviour
     private void HandleJump()
     {
         if (isDead || isRespawning || isAttacking) return;
-        
+
         if (uiController != null && uiController.IsJumping && isGrounded && !isHurt && !isJumping)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             isJumping = true;
-            
+
             SetAnimatorBool("isJumping", true);
             uiController.ResetJump();
-            
+
             Debug.Log($"Jump executed: JumpForce={jumpForce}, NewVelocity={rb.linearVelocity}");
         }
     }
@@ -506,7 +506,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleAnimations()
     {
         if (isDead || isRespawning) return;
-        
+
         SetAnimatorBool("isRunning", isRunning && !isAttacking);
         SetAnimatorBool("isWalking", false);
 
@@ -519,17 +519,17 @@ public class PlayerMovement : MonoBehaviour
     private void HandleIntroWalking()
     {
         if (isDead || isRespawning) return;
-        
+
         spriteRenderer.flipX = false;
         facingDirection = 1f;
-        
+
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        
+
         if (!stateInfo.IsName("Walk") && !stateInfo.IsName("RoranWalk"))
         {
             SetAnimatorBool("isWalking", true);
         }
-        
+
         SetAnimatorBool("isRunning", false);
         SetAnimatorBool("isWalking", true);
     }
@@ -538,9 +538,9 @@ public class PlayerMovement : MonoBehaviour
     #region Attack System
     public void TriggerAttack(int attackIndex)
     {
-        if (isIntroWalking || isAttacking || isDead || isHurt || isRespawning) 
+        if (isIntroWalking || isAttacking || isDead || isHurt || isRespawning)
         {
-            if (isDead || isRespawning) 
+            if (isDead || isRespawning)
                 Debug.Log("Attack BLOCKED - Player is dead or respawning");
             else if (isAttacking)
                 Debug.Log("Attack BLOCKED - Already attacking");
@@ -550,16 +550,16 @@ public class PlayerMovement : MonoBehaviour
         if (!IsValidAttackIndex(attackIndex)) return;
 
         string attackTrigger = $"Attack{attackIndex}";
-        
+
         if (HasAnimatorParameter(attackTrigger, AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger(attackTrigger);
             isAttacking = true;
-            
+
             currentAttackData = attackData[attackIndex - 1];
-            
+
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-            
+
             if (attackIndex == 4)
             {
                 ScheduleFireballAttack();
@@ -568,10 +568,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 ScheduleDelayedAttackCollider(currentAttackData);
             }
-            
+
             float duration = GetAttackAnimationDuration(attackIndex);
             Invoke(nameof(ResetAttackState), duration);
-            
+
             Debug.Log($"Attack {attackIndex} initiated - Movement BLOCKED for {duration}s");
         }
         else
@@ -605,7 +605,7 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Attack collider activation CANCELLED - Player is dead or respawning");
             else if (!isAttackColliderPending)
                 Debug.Log("Attack collider activation CANCELLED - Attack was cancelled");
-                
+
             isAttackColliderPending = false;
             return;
         }
@@ -625,7 +625,7 @@ public class PlayerMovement : MonoBehaviour
                 currentAttackData.AttackColliderOffset.y,
                 0
             );
-            
+
             attackCollider.transform.position = transform.position + offset;
         }
     }
@@ -641,16 +641,16 @@ public class PlayerMovement : MonoBehaviour
 
         attackCollider.gameObject.SetActive(true);
         playerAttackCollider.SetDamage(attack.damage);
-        
+
         Vector3 offset = new Vector3(
             attack.AttackColliderOffset.x * facingDirection,
             attack.AttackColliderOffset.y,
             0
         );
         attackCollider.transform.position = transform.position + offset;
-        
+
         attackCollider.radius = attack.ColliderRadius;
-        
+
         Debug.Log($"Attack collider activated: Position={attackCollider.transform.position}, " +
                  $"Offset={offset}, Radius={attack.ColliderRadius}, Damage={attack.damage}, FacingDir={facingDirection}");
     }
@@ -664,11 +664,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         isFireballAttackPending = true;
-        
+
         // UPDATED: Use the dedicated fireball spawn delay from Attack 4 data
         float fireballDelay = currentAttackData != null ? currentAttackData.FireballSpawnDelay : 0.6f;
         Invoke(nameof(ExecuteFireballSpawn), fireballDelay);
-        
+
         Debug.Log($"Fireball attack scheduled to spawn after {fireballDelay}s (synced with cast animation)");
     }
 
@@ -682,7 +682,7 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Fireball spawn BLOCKED - Attack was cancelled");
             else
                 Debug.LogError("Fireball spawn BLOCKED - Fireball prefab is null!");
-            
+
             isFireballAttackPending = false;
             return;
         }
@@ -701,7 +701,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log($"Executing fireball spawn at position: {spawnPosition} with direction: {fireballDirection}");
 
         GameObject fireball = Instantiate(fireballPrefab, spawnPosition, Quaternion.identity);
-        
+
         if (fireball == null)
         {
             Debug.LogError("Failed to instantiate fireball!");
@@ -724,7 +724,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.LogError("FireballProjectile script not found on instantiated fireball!");
             Destroy(fireball);
         }
-        
+
         isFireballAttackPending = false;
     }
 
@@ -758,7 +758,7 @@ public class PlayerMovement : MonoBehaviour
             attackCollider.gameObject.SetActive(false);
             Debug.Log("Attack collider disabled");
         }
-        
+
         isAttackColliderPending = false;
     }
 
@@ -767,7 +767,7 @@ public class PlayerMovement : MonoBehaviour
         isAttacking = false;
         DisableAttackCollider();
         currentAttackData = null;
-        
+
         Debug.Log("Attack state reset - Movement ENABLED");
     }
 
@@ -786,7 +786,7 @@ public class PlayerMovement : MonoBehaviour
     {
         var attack = GetAttackData(attackIndex);
         if (attack == null) return 0.5f;
-        
+
         return attack.animationDuration / (uiController?.CharacterSpeedMultiplier ?? 1f);
     }
     #endregion
@@ -795,7 +795,7 @@ public class PlayerMovement : MonoBehaviour
     private bool HasAnimatorParameter(string paramName, AnimatorControllerParameterType paramType)
     {
         if (animator == null || animator.runtimeAnimatorController == null) return false;
-        
+
         foreach (AnimatorControllerParameter param in animator.parameters)
         {
             if (param.name == paramName && param.type == paramType)
@@ -818,23 +818,23 @@ public class PlayerMovement : MonoBehaviour
         SetAnimatorBool("isWalking", false);
         SetAnimatorBool("isJumping", false);
         SetAnimatorBool("isFalling", false);
-        
-        string[] triggers = {"Attack1", "Attack2", "Attack3", "Attack4", "Attack5", "Hurt", "Die"};
+
+        string[] triggers = { "Attack1", "Attack2", "Attack3", "Attack4", "Attack5", "Hurt", "Die" };
         foreach (string trigger in triggers)
         {
             if (HasAnimatorParameter(trigger, AnimatorControllerParameterType.Trigger))
                 animator.ResetTrigger(trigger);
         }
-        
+
         animator.Update(0f);
-        
+
         Debug.Log("Animator reset to default state");
     }
 
     private IEnumerator TriggerDeathAnimation()
     {
         yield return null;
-        
+
         if (HasAnimatorParameter("Die", AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger("Die");
@@ -847,7 +847,7 @@ public class PlayerMovement : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (isDead || isRespawning) return;
-        
+
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
@@ -857,7 +857,7 @@ public class PlayerMovement : MonoBehaviour
                 SetAnimatorBool("isJumping", false);
                 SetAnimatorBool("isFalling", false);
             }
-            
+
             Debug.Log($"Player grounded: isGrounded={isGrounded}, isJumping={isJumping}");
         }
     }
@@ -865,7 +865,7 @@ public class PlayerMovement : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         if (isDead || isRespawning) return;
-        
+
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
@@ -878,16 +878,16 @@ public class PlayerMovement : MonoBehaviour
     public void TriggerHurt()
     {
         if (isDead || isRespawning) return;
-        
+
         isHurt = true;
-        
+
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-        
+
         if (HasAnimatorParameter("Hurt", AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger("Hurt");
         }
-        
+
         Invoke(nameof(ResetHurtState), 0.5f);
     }
 
@@ -899,20 +899,20 @@ public class PlayerMovement : MonoBehaviour
     public void TriggerDeath()
     {
         if (isDead) return;
-        
+
         isDead = true;
         isRespawning = true;
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0f;
-        
+
         DisableAllAttackEffects();
         ResetAllStates();
-        
+
         if (animator != null)
         {
             ResetAnimatorToDefaultState();
-            
+
             if (HasAnimatorParameter("Die", AnimatorControllerParameterType.Trigger))
             {
                 animator.SetTrigger("Die");
@@ -923,9 +923,9 @@ public class PlayerMovement : MonoBehaviour
     public void SetIntroWalking(bool walking)
     {
         if (isDead || isRespawning) return;
-        
+
         isIntroWalking = walking;
-        
+
         if (walking)
         {
             rb.bodyType = RigidbodyType2D.Kinematic;
