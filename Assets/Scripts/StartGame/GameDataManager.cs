@@ -9,7 +9,7 @@ public class GameDataManager : MonoBehaviour
     private const string INTRO_PLAYED_KEY = "HasPlayedIntro"; // Add this
 
     // Properties for accessing data
-    public string SelectedLanguage => playerData?.SelectedLanguage ?? "Python";
+    public string SelectedLanguage => playerData?.SelectedLanguage ?? "Java";
     public string SelectedCharacter => playerData?.SelectedCharacter ?? "Swordsman";
     public int progressLevel => playerData?.ProgressLevel ?? 1;
     
