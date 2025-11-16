@@ -7,7 +7,7 @@ public class GameWorldContextController : MonoBehaviour
 {
     [SerializeField] private AudioSource narrationAudio;
     [SerializeField] private Button skipButton;
-    [SerializeField] private Canvas gameWorldCanvas; // Add reference to the canvas
+    [SerializeField] private Canvas gameWorldCanvas;
 
     private bool isSkipping = false;
 
@@ -25,18 +25,10 @@ public class GameWorldContextController : MonoBehaviour
             Debug.Log("Narration audio started");
             StartCoroutine(CheckNarrationCompletion());
         }
-        else
-        {
-            Debug.LogWarning("Narration audio not assigned!");
-        }
 
         if (skipButton != null)
         {
             skipButton.onClick.AddListener(OnSkipButton);
-        }
-        else
-        {
-            Debug.LogWarning("Skip button not assigned!");
         }
     }
 
@@ -60,7 +52,6 @@ public class GameWorldContextController : MonoBehaviour
         if (narrationAudio != null && narrationAudio.isPlaying)
         {
             narrationAudio.Stop();
-            Debug.Log("Narration skipped by player");
         }
         LoadNextScene();
     }
@@ -71,20 +62,17 @@ public class GameWorldContextController : MonoBehaviour
         if (gameWorldCanvas != null)
         {
             gameWorldCanvas.enabled = false;
-            Debug.Log("GameWorldContext UI hidden before scene transition");
         }
 
         if (LoadingScreenController.Instance != null)
         {
             LoadingScreenController.Instance.LoadScene("Oak Woods Of Syntax");
-            Debug.Log("Directly using existing Loading Screen Controller to load Oak Woods Of Syntax");
         }
         else
         {
             // fallback if somehow missing
             LoadingScreenController.TargetSceneName = "Oak Woods Of Syntax";
             SceneManager.LoadScene("Loading Screen");
-            Debug.Log("Transitioning to Loading Screen for OakWoods Of Syntax");
         }
     }
 

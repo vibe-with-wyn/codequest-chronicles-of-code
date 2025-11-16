@@ -17,10 +17,9 @@ public class LanguageSelectionController : MonoBehaviour
     {
         while (GameDataManager.Instance == null)
         {
-            yield return null; // Wait one frame
+            yield return null;
         }
         isDataManagerReady = true;
-        Debug.Log("GameDataManager is ready in LanguageSelection");
     }
 
     public void SelectLanguage(string language)
@@ -33,7 +32,7 @@ public class LanguageSelectionController : MonoBehaviour
         if (languageSound != null)
         {
             languageSound.Play();
-            yield return new WaitForSeconds(languageSound.clip.length); // Wait for sound
+            yield return new WaitForSeconds(languageSound.clip.length);
             Debug.Log($"Sound played for {languageSound.clip.length} seconds");
         }
 
@@ -42,10 +41,6 @@ public class LanguageSelectionController : MonoBehaviour
             GameDataManager.Instance.SetLanguage(language);
 
             StartCoroutine(LoadSceneAsync("Character Selection"));
-        }
-        else
-        {
-            Debug.LogError("GameDataManager not found, not ready, or invalid language selected");
         }
     }
 
