@@ -30,7 +30,6 @@ public class CharacterSelectionController : MonoBehaviour
 
         isDataManagerReady = true;
 
-        Debug.Log("GameDataManager is ready in CharacterSelection");
     }
 
     public void SelectCharacter(string character)
@@ -46,18 +45,15 @@ public class CharacterSelectionController : MonoBehaviour
         {
             clickSound.Play();
 
-            yield return new WaitForSeconds(clickSound.clip.length); // Wait for sound
+            yield return new WaitForSeconds(clickSound.clip.length);
 
-            Debug.Log($"Sound played for {clickSound.clip.length} seconds for {character}");
         }
 
         Debug.Log($"Received character parameter: '{character}'");
 
-        // Check if character is implemented (only Swordsman for now)
         if (!IsCharacterImplemented(character))
         {
-            Debug.Log($"Character '{character}' is not yet implemented. Only sound effect played.");
-            yield break; // Exit without proceeding to game
+            yield break;
         }
 
         if (isDataManagerReady && GameDataManager.Instance != null && !string.IsNullOrEmpty(character))
@@ -67,21 +63,8 @@ public class CharacterSelectionController : MonoBehaviour
 
             if (GameDataManager.Instance.SelectedLanguage != null && GameDataManager.Instance.SelectedCharacter != null)
             {
-                Debug.Log($"Player selected: {GameDataManager.Instance.SelectedLanguage}, " +
-                    $"{GameDataManager.Instance.SelectedCharacter}, Progress: {GameDataManager.Instance.progressLevel}");
-
-                Debug.Log("Proceeding to load LoadingScreen and then GameWorldContext");
-
                 StartCoroutine(LoadLoadingScreenAndProceed("Game World Context"));
             }
-            else
-            {
-                Debug.LogWarning("Language or character not fully set before proceeding");
-            }
-        }
-        else
-        {
-            Debug.LogError("GameDataManager not found, not ready, or invalid character selected");
         }
     }
 
@@ -96,7 +79,6 @@ public class CharacterSelectionController : MonoBehaviour
             case "archer":
                 return archerSound;
             default:
-                Debug.LogWarning($"No sound defined for character: {character}");
                 return null;
         }
     }
@@ -107,10 +89,10 @@ public class CharacterSelectionController : MonoBehaviour
         switch (character.ToLower())
         {
             case "swordsman":
-                return true; // Only Swordsman is implemented
+                return true;
             case "mage":
             case "archer":
-                return false; // Not yet implemented
+                return false;
             default:
                 return false;
         }
@@ -119,10 +101,10 @@ public class CharacterSelectionController : MonoBehaviour
     private IEnumerator LoadLoadingScreenAndProceed(string targetScene)
     {
         Debug.Log("Loading LoadingScreen scene");
-        LoadingScreenController.TargetSceneName = targetScene; // Set the target scene
+        LoadingScreenController.TargetSceneName = targetScene;
 
         AsyncOperation loadOp = SceneManager.LoadSceneAsync("Loading Screen");
-        // No need to delay activation, just let LoadingScreenController handle the rest
+
         yield return null;
     }
 }
