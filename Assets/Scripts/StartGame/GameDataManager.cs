@@ -24,7 +24,7 @@ public class GameDataManager : MonoBehaviour
     
     // === PLAYER PROGRESS ===
     public int ProgressLevel => playerData?.ProgressLevel ?? 1;
-    public string LastScene => playerData?.LastScene ?? "OakWoods";
+    public string LastScene => playerData?.LastScene ?? "Oak Woods Of Syntax";
     
     // === SPAWN/CHECKPOINT SYSTEM ===
     /// <summary>
@@ -168,7 +168,7 @@ public class GameDataManager : MonoBehaviour
     public void ResetPlayerData()
     {
         Vector3 startPos = GetStartingPosition();
-        playerData = new PlayerData("Java", "Roran", 1, "OakWoods", startPos);
+        playerData = new PlayerData("Java", "Roran", 1, "Oak Woods Of Syntax", startPos);
         HasPlayedIntro = false;
         
         // Clear PlayerPrefs checkpoint backup
@@ -231,7 +231,7 @@ public class GameDataManager : MonoBehaviour
         {
             // No existing data - create new with starting position
             Vector3 startPos = GetStartingPosition();
-            playerData = new PlayerData("Java", "Roran", 1, "OakWoods", startPos);
+            playerData = new PlayerData("Java", "Roran", 1, "Oak Woods Of Syntax", startPos);
             SavePlayerData();
             
             Debug.Log($"[GameDataManager] Created new player data with starting position: {startPos}");
