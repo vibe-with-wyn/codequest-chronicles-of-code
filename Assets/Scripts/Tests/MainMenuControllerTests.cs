@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,11 +7,17 @@ using UnityEngine.TestTools;
 public class MainMenuControllerTests
 {
     private GameObject testGameObject;
+    private GameObject dataManagerObject;
     private MainMenuController controller;
+    private GameDataManager dataManager;
 
     [SetUp]
     public void Setup()
     {
+        // Create GameDataManager first (required dependency for MainMenuController)
+        dataManagerObject = new GameObject("GameDataManager");
+        dataManager = dataManagerObject.AddComponent<GameDataManager>();
+        
         // Create a test GameObject with the controller
         testGameObject = new GameObject("MainMenuTest");
         controller = testGameObject.AddComponent<MainMenuController>();
@@ -25,6 +31,14 @@ public class MainMenuControllerTests
         {
             Object.Destroy(testGameObject);
         }
+        
+        if (dataManagerObject != null)
+        {
+            Object.Destroy(dataManagerObject);
+        }
+        
+        // Clear PlayerPrefs to ensure clean state for next test
+        PlayerPrefs.DeleteAll();
     }
 
     [Test]
