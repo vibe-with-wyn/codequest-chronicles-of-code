@@ -53,7 +53,29 @@ public class DialogueManager : MonoBehaviour
         EnsureDialogueDatabase();
         EnsureUI();
         InitializeDecorations();
-        Hide();
+        
+        // FIXED: Hide immediately without fade animation on initialization
+        HideImmediatelyOnStart();
+    }
+
+    // NEW: Instantly hide UI on game start (no coroutine, no fade)
+    private void HideImmediatelyOnStart()
+    {
+        if (panel == null) return;
+
+        // Instantly deactivate the panel GameObject
+        panel.gameObject.SetActive(false);
+
+        // Set panel to fully transparent
+        panel.alpha = 0f;
+        panel.interactable = false;
+        panel.blocksRaycasts = false;
+
+        // Instantly hide decorations
+        SetDecorationsAlpha(0f);
+        SetDecorationsVisibility(false);
+
+        Debug.Log("[DialogueManager] UI hidden instantly on initialization (no fade)");
     }
 
     // NEW: Initialize decorations (matching Quest UI pattern)
