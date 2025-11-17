@@ -4,6 +4,7 @@ using System.Collections;
 
 public class CharacterSelectionController : MonoBehaviour
 {
+    [Header("Audio")]
     [SerializeField] private AudioSource backgroundMusic;
     [SerializeField] private AudioSource swordsmanSound;
     [SerializeField] private AudioSource mageSound;
@@ -29,7 +30,7 @@ public class CharacterSelectionController : MonoBehaviour
         }
 
         isDataManagerReady = true;
-
+        Debug.Log("[CharacterSelection] GameDataManager is ready");
     }
 
     public void SelectCharacter(string character)
@@ -44,24 +45,29 @@ public class CharacterSelectionController : MonoBehaviour
         if (clickSound != null)
         {
             clickSound.Play();
-
             yield return new WaitForSeconds(clickSound.clip.length);
-
         }
 
-        Debug.Log($"Received character parameter: '{character}'");
+        Debug.Log($"[CharacterSelection] Received character parameter: '{character}'");
 
         if (!IsCharacterImplemented(character))
         {
             yield break;
         }
 
-        if (isDataManagerReady && GameDataManager.Instance != null && !string.IsNullOrEmpty(character))
+        if (!isDataManagerReady)
         {
-            GameDataManager.Instance.SetCharacter(character);
+            yield return CheckDataManager();
+        }
+
+        if (GameDataManager.Instance != null)
+        {
+            Debug.Log($"[CharacterSelection] Character confirmed as: {GameDataManager.Instance.SelectedCharacter}");
+            
             GameDataManager.Instance.UpdateProgress(1);
 
-            if (GameDataManager.Instance.SelectedLanguage != null && GameDataManager.Instance.SelectedCharacter != null)
+            if (!string.IsNullOrEmpty(GameDataManager.Instance.SelectedLanguage) && 
+                !string.IsNullOrEmpty(GameDataManager.Instance.SelectedCharacter))
             {
                 StartCoroutine(LoadLoadingScreenAndProceed("Game World Context"));
             }
@@ -73,6 +79,7 @@ public class CharacterSelectionController : MonoBehaviour
         switch (character.ToLower())
         {
             case "swordsman":
+            case "roran":
                 return swordsmanSound;
             case "mage":
                 return mageSound;
@@ -83,12 +90,12 @@ public class CharacterSelectionController : MonoBehaviour
         }
     }
 
-    // NEW: Check if character is implemented and playable
     private bool IsCharacterImplemented(string character)
     {
         switch (character.ToLower())
         {
             case "swordsman":
+            case "roran":
                 return true;
             case "mage":
             case "archer":
@@ -100,11 +107,14 @@ public class CharacterSelectionController : MonoBehaviour
 
     private IEnumerator LoadLoadingScreenAndProceed(string targetScene)
     {
-        Debug.Log("Loading LoadingScreen scene");
+        Debug.Log($"[CharacterSelection] Loading scene: Loading Screen -> {targetScene}");
         LoadingScreenController.TargetSceneName = targetScene;
 
         AsyncOperation loadOp = SceneManager.LoadSceneAsync("Loading Screen");
 
-        yield return null;
+        while (!loadOp.isDone)
+        {
+            yield return null;
+        }
     }
 }
