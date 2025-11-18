@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class GameWorldContextController : MonoBehaviour
 {
+#if UNITY_INCLUDE_TESTS
+    // When true, scene loading is bypassed so tests won't destroy objects
+    public static bool DisableSceneLoadingForTests = false;
+#endif
+
     [SerializeField] private AudioSource narrationAudio;
     [SerializeField] private Button skipButton;
     [SerializeField] private Canvas gameWorldCanvas;
@@ -19,10 +24,28 @@ public class GameWorldContextController : MonoBehaviour
             gameWorldCanvas = GetComponentInChildren<Canvas>();
         }
 
+#if UNITY_INCLUDE_TESTS
+        // Prevent scene loading during PlayMode tests
+        if (DisableSceneLoadingForTests)
+        {
+            // Only start narration and button binding — no scene transitions
+            if (narrationAudio != null)
+            {
+                narrationAudio.Play();
+            }
+
+            if (skipButton != null)
+            {
+                skipButton.onClick.AddListener(OnSkipButton);
+            }
+
+            return; // Skip all scene-loading logic
+        }
+#endif
+
         if (narrationAudio != null)
         {
             narrationAudio.Play();
-            Debug.Log("Narration audio started");
             StartCoroutine(CheckNarrationCompletion());
         }
 
@@ -41,6 +64,9 @@ public class GameWorldContextController : MonoBehaviour
 
         if (!isSkipping)
         {
+#if UNITY_INCLUDE_TESTS
+            if (DisableSceneLoadingForTests) yield break;
+#endif
             yield return new WaitForSeconds(0.7f);
             LoadNextScene();
         }
@@ -49,10 +75,23 @@ public class GameWorldContextController : MonoBehaviour
     public void OnSkipButton()
     {
         isSkipping = true;
+
         if (narrationAudio != null && narrationAudio.isPlaying)
         {
             narrationAudio.Stop();
         }
+
+#if UNITY_INCLUDE_TESTS
+        if (DisableSceneLoadingForTests)
+        {
+            // Still disable canvas during tests
+            if (gameWorldCanvas != null)
+                gameWorldCanvas.enabled = false;
+
+            return; // Do not load scenes during tests
+        }
+#endif
+
         LoadNextScene();
     }
 
@@ -64,16 +103,19 @@ public class GameWorldContextController : MonoBehaviour
             gameWorldCanvas.enabled = false;
         }
 
+#if UNITY_INCLUDE_TESTS
+        if (DisableSceneLoadingForTests)
+            return;
+#endif
+
         if (LoadingScreenController.Instance != null)
         {
             LoadingScreenController.Instance.LoadScene("Oak Woods Of Syntax");
         }
         else
         {
-            // fallback if somehow missing
             LoadingScreenController.TargetSceneName = "Oak Woods Of Syntax";
             SceneManager.LoadScene("Loading Screen");
         }
     }
-
 }
