@@ -12,7 +12,7 @@ public class HelloWorldAltarTrigger : MonoBehaviour
 {
     [Header("Quest Settings")]
     [SerializeField] private string requiredQuestId = "Q2_HelloJava";
-    [SerializeField] private string requiredObjectiveTitle = "Complete the Hello World Altar Quiz";
+    [SerializeField] private string requiredObjectiveTitle = "Activate the Hello World Altar";
 
     [Header("Mini Quest Data")]
     [SerializeField] private MiniQuestData miniQuestData;
