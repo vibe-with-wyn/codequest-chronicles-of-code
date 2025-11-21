@@ -386,7 +386,7 @@ public class MiniQuestUIController : MonoBehaviour
 
         if (questionText != null)
         {
-            questionText.text = question.questionText;
+            questionText.text = EscapeSpecialCharacters(question.questionText);
         }
 
         DisplayChoices(question);
@@ -421,27 +421,42 @@ public class MiniQuestUIController : MonoBehaviour
 
         if (choice1Text != null && question.choices.Count > 0)
         {
-            choice1Text.text = question.choices[0].choiceText;
+            choice1Text.text = EscapeSpecialCharacters(question.choices[0].choiceText);
             if (choice1Button != null) choice1Button.gameObject.SetActive(true);
         }
 
         if (choice2Text != null && question.choices.Count > 1)
         {
-            choice2Text.text = question.choices[1].choiceText;
+            choice2Text.text = EscapeSpecialCharacters(question.choices[1].choiceText);
             if (choice2Button != null) choice2Button.gameObject.SetActive(true);
         }
 
         if (choice3Text != null && question.choices.Count > 2)
         {
-            choice3Text.text = question.choices[2].choiceText;
+            choice3Text.text = EscapeSpecialCharacters(question.choices[2].choiceText);
             if (choice3Button != null) choice3Button.gameObject.SetActive(true);
         }
 
         if (choice4Text != null && question.choices.Count > 3)
         {
-            choice4Text.text = question.choices[3].choiceText;
+            choice4Text.text = EscapeSpecialCharacters(question.choices[3].choiceText);
             if (choice4Button != null) choice4Button.gameObject.SetActive(true);
         }
+    }
+
+    /// <summary>
+    /// Converts escape sequences to their visible representations for display.
+    /// For example: \n becomes \\n and \t becomes \\t in the UI
+    /// </summary>
+    private string EscapeSpecialCharacters(string text)
+    {
+        if (string.IsNullOrEmpty(text)) return text;
+
+        return text
+            .Replace("\\n", "\\n")  // Display literal \n
+            .Replace("\\t", "\\t")  // Display literal \t
+            .Replace("\\\"", "\\\"")  // Display literal \"
+            .Replace("\\\\", "\\\\");  // Display literal \\
     }
 
     private void OnChoiceSelected(int choiceIndex)
@@ -480,7 +495,7 @@ public class MiniQuestUIController : MonoBehaviour
 
         if (feedbackText != null)
         {
-            string feedback = "✓ Correct!";
+            string feedback = "Correct!";
             if (!string.IsNullOrEmpty(question.explanationOnCorrect))
             {
                 feedback += " " + question.explanationOnCorrect;
@@ -509,7 +524,7 @@ public class MiniQuestUIController : MonoBehaviour
 
         if (feedbackText != null)
         {
-            string hint = "✗ Incorrect.";
+            string hint = "Incorrect.";
             if (!string.IsNullOrEmpty(question.hintOnWrongAnswer))
             {
                 hint += " Hint: " + question.hintOnWrongAnswer;
