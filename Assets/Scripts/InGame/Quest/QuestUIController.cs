@@ -36,7 +36,7 @@ public class QuestUIController : MonoBehaviour
     
     [Header("Progress Display")]
     [SerializeField] private Slider questProgressBar;
-    [SerializeField] private TextMeshProUGUI progressText; // "2/3 completed"
+    [SerializeField] private TextMeshProUGUI progressText;
     
     [Header("Decoration Settings")]
     [SerializeField] private GameObject[] decorationObjects;
@@ -59,6 +59,27 @@ public class QuestUIController : MonoBehaviour
     // Store original decoration colors for proper restoration
     private Color[] originalDecorationSpriteColors;
     private Color[] originalDecorationImageColors;
+
+    // UPDATED: TimeScale pause support - now only pauses for MANUAL display
+    private float originalTimeScale = 1f;
+    private bool hasPausedGame = false;
+    
+    // NEW: Static reference to allow UIController to check display state
+    public static QuestUIController Instance { get; private set; }
+    
+    void Awake()
+    {
+        // Set singleton instance
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("[QuestUIController] Multiple instances detected - destroying duplicate");
+            Destroy(gameObject);
+        }
+    }
     
     void Start()
     {
@@ -69,7 +90,24 @@ public class QuestUIController : MonoBehaviour
     void OnDestroy()
     {
         UnsubscribeFromQuestEvents();
+
+        // Clear singleton reference
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+
+        // Ensure we restore timeScale if this object is destroyed while paused
+        if (hasPausedGame)
+        {
+            Time.timeScale = originalTimeScale;
+            hasPausedGame = false;
+            Debug.Log("[QuestUIController] TimeScale restored in OnDestroy");
+        }
     }
+    
+    // NEW: Public property to check if UI is displaying
+    public bool IsDisplaying => isDisplaying;
     
     private void InitializeQuestUI()
     {
@@ -109,7 +147,7 @@ public class QuestUIController : MonoBehaviour
         // Initialize objective text fields
         InitializeObjectiveTextFields();
         
-        Debug.Log("QuestUIController initialized with customizable objective styling");
+        Debug.Log("QuestUIController initialized with conditional pause (manual display only)");
     }
     
     private void InitializeObjectiveTextFields()
@@ -361,11 +399,9 @@ public class QuestUIController : MonoBehaviour
     private void OnObjectiveCompleted(QuestObjective objective, QuestData quest)
     {
         Debug.Log($"Objective completed: {objective.objectiveTitle}");
-        // Refresh display if showing
-        if (isDisplaying)
-        {
-            UpdateObjectiveDisplay(quest);
-        }
+        
+        // Display quest UI for a few seconds when objective is completed
+        ShowQuestDisplay(quest, autoHide: true);
     }
     
     // Show quest display (called by quest log button or automatically)
@@ -379,6 +415,9 @@ public class QuestUIController : MonoBehaviour
     private IEnumerator ShowQuestCoroutine(QuestData quest, bool autoHide)
     {
         isDisplaying = true;
+        
+        // NEW: Notify UIController to disable quest button
+        NotifyUIController(false);
         
         // Update quest content
         UpdateQuestDisplay(quest);
@@ -408,7 +447,20 @@ public class QuestUIController : MonoBehaviour
         // Fade in both panel and decorations simultaneously
         yield return StartCoroutine(FadeQuestDisplayAndDecorations(0f, 1f, fadeInDuration));
         
-        // Auto-hide after duration if requested
+        // UPDATED: Only pause for MANUAL display (Quest Log button), NOT auto-display
+        if (!autoHide && !hasPausedGame)
+        {
+            originalTimeScale = Time.timeScale;
+            Time.timeScale = 0f;
+            hasPausedGame = true;
+            Debug.Log("[QuestUIController] Game paused (MANUAL Quest Log access only)");
+        }
+        else if (autoHide)
+        {
+            Debug.Log("[QuestUIController] Auto-display - game NOT paused (allowing gameplay to continue)");
+        }
+        
+        // Auto-hide after duration if requested (use real-time so it works while timeScale == 0)
         if (autoHide)
         {
             autoHideCoroutine = StartCoroutine(AutoHideAfterDelay());
@@ -547,7 +599,8 @@ public class QuestUIController : MonoBehaviour
     
     private IEnumerator AutoHideAfterDelay()
     {
-        yield return new WaitForSeconds(autoDisplayDuration);
+        // Use real-time so auto-hide occurs while game is paused (Time.timeScale = 0)
+        yield return new WaitForSecondsRealtime(autoDisplayDuration);
         
         if (isDisplaying)
         {
@@ -564,6 +617,14 @@ public class QuestUIController : MonoBehaviour
     
     private IEnumerator HideQuestCoroutine()
     {
+        // UPDATED: Only restore timeScale if THIS controller paused it (manual display)
+        if (hasPausedGame)
+        {
+            Time.timeScale = originalTimeScale;
+            hasPausedGame = false;
+            Debug.Log("[QuestUIController] Game unpaused (manual Quest Log closed)");
+        }
+
         // Stop auto-hide coroutine if running
         if (autoHideCoroutine != null)
         {
@@ -581,7 +642,21 @@ public class QuestUIController : MonoBehaviour
         ClearAllObjectiveTexts();
         isDisplaying = false;
         
+        // NEW: Notify UIController to enable quest button
+        NotifyUIController(true);
+        
         Debug.Log("Quest display and decorations hidden");
+    }
+    
+    // NEW: Helper method to enable/disable quest button in UIController
+    private void NotifyUIController(bool enableButton)
+    {
+        UIController uiController = Object.FindFirstObjectByType<UIController>();
+        if (uiController != null)
+        {
+            uiController.SetQuestButtonInteractable(enableButton);
+            Debug.Log($"[QuestUIController] Quest button {(enableButton ? "ENABLED" : "DISABLED")}");
+        }
     }
     
     // Combined fade method for panel and decorations
