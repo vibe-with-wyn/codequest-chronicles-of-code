@@ -113,7 +113,7 @@ public class CaveBossAI : MonoBehaviour
         SetupDetectionColliders();
         ValidateBodyCollider();
         SetupPassthroughCollision();
-        
+
         Debug.Log("NightBorne Boss AI initialized - continuous chase with passthrough collision");
     }
 
@@ -646,7 +646,7 @@ public class CaveBossAI : MonoBehaviour
             {
                 Vector2 directionToTarget = (nearestTarget.position - transform.position).normalized;
                 UpdateFacingDirection(directionToTarget.x);
-                
+
                 string targetName = nearestTarget == playerTransform ? "PLAYER ★" : "NPC Arin";
                 Debug.Log($"NightBorne now targeting: {targetName} (Distance: {(nearestTarget == playerTransform ? playerDistance : npcDistance):F2})");
             }
