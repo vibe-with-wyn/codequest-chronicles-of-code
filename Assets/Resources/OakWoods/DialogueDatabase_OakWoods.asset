@@ -235,25 +235,41 @@ MonoBehaviour:
       text: Excellent! You're grasping the structure. That's the hardest part for
         beginners.
     - speaker: Arin
-      text: Now, practice at the Hello World Altar. Fill in the missing parts to
-        create your first program.
+      text: Now, test your understanding at the Hello World Altar. You'll answer
+        questions about Java basics.
     - speaker: Arin
-      text: 'Remember: class name with capital letter, exact main signature, println
-        with quotes and semicolon, and close all braces.'
+      text: 'Remember everything: class structure, the exact main signature, println
+        syntax, and brace matching.'
   - conversationId: Arin_02b_PostHello
     lines:
     - speaker: Arin
-      text: Excellent work! Your first program prints a message.
+      text: You returned from the altar! I see the light of success in your eyes,
+        Roran.
     - speaker: Roran
-      text: So many symbols for just one sentence.
+      text: Your lessons were clear. The questions tested everything you taught me.
     - speaker: Arin
-      text: Symbols give structure; structure gives power. Every character matters
-        in programming.
+      text: Excellent work! You've passed the first true test. Your first program
+        runs correctly.
+    - speaker: Arin
+      text: So many symbols for just one sentence, you said. But now you understand
+        why they matter.
+    - speaker: Roran
+      text: Symbols give structure; structure gives power. You were right.
+    - speaker: Arin
+      text: Every character serves a purpose. Missing one breaks everything. That's
+        the nature of code.
     - speaker: Arin
       text: 'You''ve learned the foundation: classes, methods, statements, braces,
         and semicolons.'
     - speaker: Arin
-      text: Next, we'll learn how to store values using variables and data types.
+      text: Now comes the challenge. Most programmers stop here. But you'll go deeper.
+    - speaker: Roran
+      text: What's next?
+    - speaker: Arin
+      text: Data. Next, we'll learn how to store values using variables and data
+        types.
+    - speaker: Arin
+      text: "Good. We'll continue right away \u2014 gather the Type Runes next."
   - conversationId: Arin_03_TypesLecture
     lines:
     - speaker: Arin
@@ -448,26 +464,34 @@ MonoBehaviour:
   - conversationId: Arin_03_PostTypes
     lines:
     - speaker: Arin
-      text: The wards are stable again. You've mastered the fundamental types!
+      text: Roran! You've returned with all four runes! The wards are stable again.
     - speaker: Roran
-      text: The questions really made me think about each type carefully.
+      text: The rune quests forced me to think deeply about when to use each type.
     - speaker: Arin
-      text: That's the point! Understanding when to use each type is as important
+      text: That's exactly the point! Understanding when to use each type is as important
         as knowing they exist.
     - speaker: Arin
-      text: One missing semicolon, one wrong type, and everything breaks.
+      text: You answered each question correctly. Your understanding of types is
+        solid.
     - speaker: Arin
-      text: "That's the nature of syntax\u2014every symbol matters. Even one mistake
-        can prevent your program from running."
+      text: One missing semicolon, one wrong type, and everything breaks. That's
+        the nature of syntax.
     - speaker: Arin
-      text: But don't be discouraged. Every programmer makes syntax errors. You'll
-        get better with practice.
+      text: But you didn't make those mistakes. Your mind is adapting to the way
+        programmers think.
+    - speaker: Roran
+      text: Every question made me reconsider what I thought I knew.
     - speaker: Arin
-      text: Next, we'll dive deeper into Strings and learn advanced printing techniques.
+      text: Good! Doubt and questioning lead to deeper understanding.
+    - speaker: Arin
+      text: "You've proven yourself again, Codebreaker. Well done \u2014 we'll move
+        straight into strings and printing."
+    - speaker: Arin
+      text: Next, we dive deeper into Strings and learn advanced printing techniques.
   - conversationId: Arin_04_StringsLecture
     lines:
     - speaker: Arin
-      text: Welcome back. Today we master the art of STRINGS and PRINTING.
+      text: Welcome back, Roran. Today we master the art of STRINGS and PRINTING.
     - speaker: Roran
       text: I know strings are text, but what else should I learn?
     - speaker: Arin
@@ -481,27 +505,29 @@ MonoBehaviour:
     - speaker: Arin
       text: That's where ESCAPE SEQUENCES come in. They start with a backslash \
     - speaker: Arin
-      text: "\\n creates a NEW LINE\u2014moves to the next line."
+      text: "\n creates a NEW LINE\u2014moves to the next line."
     - speaker: Arin
-      text: 'Example: System.out.println("First line\nSecond line");'
+      text: 'Example: System.out.println("First line
+
+        Second line");'
     - speaker: Arin
       text: 'This prints: First line (then goes to new line) Second line.'
     - speaker: Arin
-      text: "\\t creates a TAB\u2014adds horizontal spacing."
+      text: "\t creates a TAB\u2014adds horizontal spacing."
     - speaker: Arin
-      text: 'Example: System.out.println("Name:\tRoran");'
+      text: "Example: System.out.println(\"Name:\tRoran\");"
     - speaker: Arin
       text: 'This adds tab space between Name: and Roran.'
     - speaker: Arin
-      text: \" allows you to include DOUBLE QUOTES inside a string.
+      text: '" allows you to include DOUBLE QUOTES inside a string.'
     - speaker: Arin
       text: 'Example: System.out.println("She said, \"Hello!\" ");'
     - speaker: Arin
       text: 'This prints: She said, "Hello!"'
     - speaker: Arin
-      text: \\ allows you to print an actual BACKSLASH.
+      text: \ allows you to print an actual BACKSLASH.
     - speaker: Arin
-      text: 'Example: System.out.println("Path: C:\\Users\\Roran");'
+      text: 'Example: System.out.println("Path: C:\Users\Roran");'
     - speaker: Arin
       text: 'This prints: Path: C:\Users\Roran'
     - speaker: Roran
@@ -550,29 +576,48 @@ MonoBehaviour:
       text: Exactly! Strings and escape sequences let you control exactly how your
         text appears.
     - speaker: Arin
-      text: Now, let's practice these concepts with some exercises.
+      text: Now, test your understanding. Answer questions about strings and obtain
+        the Path Barrier Key.
   - conversationId: Arin_04_PostStrings
     lines:
     - speaker: Arin
-      text: Perfect! You've mastered string manipulation.
+      text: You've returned with the Path Barrier Key! Excellent, Roran.
+    - speaker: Roran
+      text: The string questions were challenging. I had to think about escape sequences
+        carefully.
+    - speaker: Arin
+      text: String manipulation is one of the most practical skills a programmer
+        has.
     - speaker: Roran
       text: I can shape messages exactly how I want them now.
     - speaker: Arin
-      text: String manipulation is essential. Nearly every program displays text
-        to users.
+      text: You've mastered string literals, escape sequences, and concatenation.
+        Well done!
     - speaker: Arin
-      text: You've learned literals, escape sequences, and concatenation. Well done!
+      text: Nearly every program displays text to users. You now know how to do it
+        correctly.
     - speaker: Arin
-      text: 'One final trial remains: the Syntax Trial, where you''ll combine everything
-        you''ve learned.'
+      text: 'You''ve learned four fundamental concepts: classes, types, variables,
+        and strings.'
+    - speaker: Arin
+      text: But there is one final trial remaining. The greatest challenge of all.
+    - speaker: Roran
+      text: What is it?
+    - speaker: Arin
+      text: The Syntax Trial. You will combine everything you've learned and prove
+        your mastery.
+    - speaker: Arin
+      text: Ten questions covering all topics. This is your path to becoming a true
+        Codebreaker.
   - conversationId: Arin_05_SyntaxRecap
     lines:
     - speaker: Arin
-      text: Welcome back, Roran. This is your final test in Oak Woods.
+      text: Welcome back for the final time, Roran. This is your greatest test in
+        Oak Woods.
     - speaker: Roran
-      text: I'm ready.
+      text: I'm ready to prove I've learned everything.
     - speaker: Arin
-      text: 'Let''s review everything you''ve learned. First: THE CLASS.'
+      text: 'Let''s review everything you''ve mastered. First: THE CLASS.'
     - speaker: Arin
       text: A class is the container for your code. Every Java program needs at least
         one class.
@@ -587,7 +632,8 @@ MonoBehaviour:
     - speaker: Arin
       text: 'Signature: public static void main(String[] args) { ... }'
     - speaker: Arin
-      text: Memorize this exact format. Every standalone Java program needs it.
+      text: You've written this a hundred times now. It's part of your programming
+        DNA.
     - speaker: Arin
       text: 'Next: STATEMENTS.'
     - speaker: Arin
@@ -641,40 +687,61 @@ MonoBehaviour:
     - speaker: Roran
       text: I remember all of it. Class, main, types, strings, syntax rules.
     - speaker: Arin
-      text: Excellent. Now prove it. Complete the Syntax Trial.
+      text: Excellent. But remembering and applying are two different things.
     - speaker: Arin
-      text: 'Write a complete Java program with: a class, the main method, variable
-        declarations, string concatenation, and println statements.'
+      text: "You will now face ten questions. They will test everything\u2014your
+        knowledge, your attention to detail, your understanding."
     - speaker: Arin
-      text: Every brace must match. Every statement must end with a semicolon. All
-        syntax must be perfect.
+      text: Every symbol matters. Every rule matters. One mistake, and you fail.
     - speaker: Arin
-      text: This is your test, Codebreaker. Show me what you've learned.
+      text: But I believe in you, Roran. You've proven yourself four times already.
+    - speaker: Roran
+      text: I won't disappoint you.
+    - speaker: Arin
+      text: I know you won't. Go now. Face the Syntax Trial and show Oak Woods the
+        true measure of your skill.
+    - speaker: Arin
+      text: Answer all ten questions correctly, and you will earn the right to deactivate
+        the path barrier.
+    - speaker: Arin
+      text: "You will become a Codebreaker\u2014one who can read and write the ancient
+        syntax of creation itself."
   - conversationId: Arin_05_Epilogue
     lines:
     - speaker: Arin
-      text: Remarkable! Your program compiled perfectly. You've mastered the basics
-        of Java syntax.
+      text: Roran... you answered all ten questions perfectly. Your mastery is complete.
+    - speaker: Roran
+      text: "I proved I could do it. I understand Java now\u2014truly understand
+        it."
+    - speaker: Arin
+      text: You've done more than understand. You've mastered the fundamentals.
+    - speaker: Arin
+      text: You understand classes, methods, data types, variables, strings, and
+        syntax rules.
     - speaker: Roran
       text: "I can finally read the forest's words\u2014the language of code."
     - speaker: Arin
-      text: You've come far in a short time. You understand classes, methods, types,
-        strings, and syntax rules.
-    - speaker: Arin
-      text: These fundamentals are your foundation. Everything else in Java builds
-        upon them.
+      text: You've come far in a short time. What once seemed impossible is now second
+        nature.
     - speaker: Roran
       text: What comes next?
     - speaker: Arin
-      text: "Beyond Oak Woods, you'll learn control flow\u2014making decisions with
-        if statements, repeating actions with loops."
+      text: Beyond Oak Woods, the world is vast and waiting for you.
+    - speaker: Arin
+      text: "You'll learn control flow\u2014making decisions with if statements,
+        repeating actions with loops."
     - speaker: Arin
       text: You'll master methods, arrays, objects, and more. But you've proven you
         can handle it.
     - speaker: Arin
       text: Oak Woods recognizes you now, Roran. You are officially a Codebreaker.
+    - speaker: Arin
+      text: The path barrier will fall. Other places will call to you. Other languages
+        will tempt you.
     - speaker: Roran
-      text: Thank you, Arin. I couldn't have done this without your guidance.
+      text: But I won't forget Oak Woods. Or you.
+    - speaker: Arin
+      text: I know. And if you ever return, I'll be here, mentor to mentor.
     - speaker: Arin
       text: Syntax is your compass. Keep practicing, keep coding, and never stop
         learning.
@@ -682,7 +749,10 @@ MonoBehaviour:
       text: The world of programming is vast. You've taken your first steps. Walk
         forward with confidence.
     - speaker: Roran
-      text: I will. Thank you, mentor.
+      text: Thank you, Arin. For everything.
     - speaker: Arin
-      text: If fate brings you back to Oak Woods, I'll be here. For now, go forth
-        and code, Codebreaker.
+      text: Thank you, Roran. For reminding me why I love teaching.
+    - speaker: Arin
+      text: Farewell, Roran. Walk through the portal with pride.
+    - speaker: Roran
+      text: Goodbye, mentor.

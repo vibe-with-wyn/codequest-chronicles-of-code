@@ -46,26 +46,31 @@ MonoBehaviour:
   - questId: Q2_HelloJava
     questTitle: Hello, Java!
     questDescription: Learn what Java is, how programs start, and print a message.
+      Answer comprehension questions about Java basics.
     questImage: {fileID: 0}
     isCompleted: 0
     isActive: 0
     objectives:
     - objectiveTitle: Follow Arin to Her Cabin
-      objectiveDescription: Go to Arin's cottage to begin your first lesson.
+      objectiveDescription: Go to Arin's cottage to begin your first lesson on Java
+        fundamentals.
       isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
       currentCount: 0
     - objectiveTitle: 'Listen to Arin''s Lesson: Java Basics'
-      objectiveDescription: Learn class, main method, braces, semicolons, and System.out.println.
+      objectiveDescription: "Learn how classes work, the main method, braces, semicolons,
+        and System.out.println. Pay close attention\u2014you'll be tested!"
       isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
       currentCount: 0
-    - objectiveTitle: Complete the Hello World Altar
-      objectiveDescription: Fill in class, main signature, and a println statement.
+    - objectiveTitle: Activate the Hello World Altar
+      objectiveDescription: 'Answer questions about Java basics: class structure,
+        the main method, proper syntax. Fill in code to create your first working
+        program.'
       isCompleted: 0
       isActive: 0
       isOptional: 0
@@ -74,30 +79,32 @@ MonoBehaviour:
     nextQuestId: Q3_Types
   - questId: Q3_Types
     questTitle: The Language of Types
-    questDescription: Learn basic data types and variable declarations to restore
-      the grove's wards.
+    questDescription: Learn basic data types and variable declarations. Collect the
+      four Type Runes by answering questions about int, double, boolean, and String.
     questImage: {fileID: 0}
     isCompleted: 0
     isActive: 0
     objectives:
     - objectiveTitle: Return to Arin's Cabin
-      objectiveDescription: Go back to Arin's cabin to learn about data types.
+      objectiveDescription: Go back to Arin's cabin to learn about primitive data
+        types in Java.
       isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
       currentCount: 0
     - objectiveTitle: 'Listen to Arin''s Lesson: Data Types'
-      objectiveDescription: Learn about int, double, boolean, String, and variable
-        declarations.
+      objectiveDescription: Learn about int (whole numbers), double (decimals), boolean
+        (true/false), and String (text). Understand when to use each type.
       isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
       currentCount: 0
     - objectiveTitle: Collect the Type Runes (4)
-      objectiveDescription: 'Answer questions to collect runes: int, double, boolean,
-        and String.'
+      objectiveDescription: 'Find and answer questions for each rune: int rune, double
+        rune, boolean rune, and String rune. Each question tests your understanding
+        of that data type.'
       isCompleted: 0
       isActive: 0
       isOptional: 0
@@ -107,29 +114,32 @@ MonoBehaviour:
   - questId: Q4_StringsPrinting
     questTitle: Strings and Printing
     questDescription: 'Master text manipulation: string literals, escape sequences,
-      and concatenation.'
+      concatenation, and formatted output.'
     questImage: {fileID: 0}
     isCompleted: 0
     isActive: 0
     objectives:
     - objectiveTitle: Return to Arin's Cabin
-      objectiveDescription: Go back to Arin's cabin to learn about strings and printing.
+      objectiveDescription: Go back to Arin's cabin to learn about strings and advanced
+        printing techniques.
       isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
       currentCount: 0
     - objectiveTitle: 'Listen to Arin''s Lesson: Strings and Printing'
-      objectiveDescription: Learn string literals, escape sequences (\n, \t, \",
-        \\), and concatenation with +.
+      objectiveDescription: Learn string literals in double quotes, escape sequences
+        (\n, \t, \", \\), concatenation with +, and the difference between print
+        and println.
       isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
       currentCount: 0
-    - objectiveTitle: Complete the String Exercises
-      objectiveDescription: Practice string manipulation with escape sequences and
-        concatenation.
+    - objectiveTitle: Obtain the Path Barrier Key
+      objectiveDescription: Answer questions about strings and printing. Demonstrate
+        understanding of escape sequences and string concatenation to unlock the
+        key.
       isCompleted: 0
       isActive: 0
       isOptional: 0
@@ -138,31 +148,34 @@ MonoBehaviour:
     nextQuestId: Q5_SyntaxTrial
   - questId: Q5_SyntaxTrial
     questTitle: The Syntax Trial
-    questDescription: Prove your mastery by assembling a complete Java class with
-      all learned concepts.
+    questDescription: 'Prove your mastery by answering 10 comprehensive questions
+      covering all Java concepts learned: classes, methods, types, strings, and syntax
+      rules.'
     questImage: {fileID: 0}
     isCompleted: 0
     isActive: 0
     objectives:
     - objectiveTitle: Return to Arin's Cabin
       objectiveDescription: Go back to Arin's cabin for a final review of all Java
-        syntax concepts.
+        syntax concepts you've learned.
       isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
       currentCount: 0
     - objectiveTitle: Listen to Arin's Final Recap
-      objectiveDescription: 'Review all Java syntax concepts: class structure, main
-        method, types, strings, and statements.'
+      objectiveDescription: 'Review all Java syntax: class structure, main method,
+        data types (int, double, boolean, String), variable declarations, strings,
+        escape sequences, concatenation, and println.'
       isCompleted: 0
       isActive: 0
       isOptional: 0
       targetCount: 1
       currentCount: 0
     - objectiveTitle: Complete the Syntax Trial
-      objectiveDescription: Write a complete Java program with declarations, string
-        concatenation, and println statements.
+      objectiveDescription: Answer 10 comprehensive questions covering all Java topics.
+        This is your final test before becoming a true Codebreaker. Answer all questions
+        correctly to deactivate the path barrier.
       isCompleted: 0
       isActive: 0
       isOptional: 0
