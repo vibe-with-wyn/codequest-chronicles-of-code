@@ -406,5 +406,14 @@ public class UIController : MonoBehaviour
             Debug.Log("UIController: Player respawned - inputs RE-ENABLED");
         }
     }
+
+    // Add this method to UIController.cs
+    public void SetQuestButtonInteractable(bool interactable)
+    {
+        if (questLogButton != null)
+        {
+            questLogButton.interactable = interactable;
+        }
+    }
     #endregion
 }
