@@ -220,6 +220,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -227,9 +240,9 @@ TextureImporter:
       name: Attack1_0
       rect:
         serializedVersion: 2
-        x: 74
+        x: 21
         y: 83
-        width: 130
+        width: 188
         height: 141
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -249,9 +262,9 @@ TextureImporter:
       name: Attack1_1
       rect:
         serializedVersion: 2
-        x: 328
+        x: 274
         y: 83
-        width: 130
+        width: 188
         height: 141
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -271,9 +284,9 @@ TextureImporter:
       name: Attack1_2
       rect:
         serializedVersion: 2
-        x: 584
+        x: 529
         y: 83
-        width: 130
+        width: 188
         height: 141
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -293,9 +306,9 @@ TextureImporter:
       name: Attack1_3
       rect:
         serializedVersion: 2
-        x: 858
+        x: 800
         y: 83
-        width: 130
+        width: 188
         height: 141
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -315,9 +328,9 @@ TextureImporter:
       name: Attack1_4
       rect:
         serializedVersion: 2
-        x: 1109
+        x: 1050
         y: 83
-        width: 130
+        width: 188
         height: 141
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -337,9 +350,9 @@ TextureImporter:
       name: Attack1_5
       rect:
         serializedVersion: 2
-        x: 1358
+        x: 1300
         y: 83
-        width: 130
+        width: 188
         height: 141
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -359,9 +372,9 @@ TextureImporter:
       name: Attack1_6
       rect:
         serializedVersion: 2
-        x: 1608
+        x: 1550
         y: 83
-        width: 130
+        width: 188
         height: 141
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -381,9 +394,9 @@ TextureImporter:
       name: Attack1_7
       rect:
         serializedVersion: 2
-        x: 1858
+        x: 1800
         y: 83
-        width: 130
+        width: 188
         height: 141
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
