@@ -14,7 +14,7 @@ public class KeyCollectionTrigger : MonoBehaviour
 {
     [Header("Quest Settings")]
     [SerializeField] private string requiredQuestId = "Q4_StringsPrinting";
-    [SerializeField] private string requiredObjectiveTitle = "Complete the String Exercises";
+    [SerializeField] private string requiredObjectiveTitle = "Obtain the Path Barrier Key";
 
     [Header("Collection Button Prefab")]
     [SerializeField] private GameObject collectionButtonPrefab;
