@@ -6,6 +6,7 @@ using System.Collections;
 /// <summary>
 /// Manages the Mini Quest UI for displaying questions, choices, hints, and feedback
 /// UPDATED: Conditionally restores UI - skips restoration for Hello World Altar quiz (restored by Quest 3 display)
+/// UPDATED: Next button now appears on incorrect answers for immediate retry - no timed delay
 /// </summary>
 public class MiniQuestUIController : MonoBehaviour
 {
@@ -83,6 +84,7 @@ public class MiniQuestUIController : MonoBehaviour
     private int currentQuestionIndex = 0;
     private bool isDisplaying = false;
     private bool waitingForNextQuestion = false;
+    private bool isAwaitingRetry = false;
     private System.Action<bool> onQuestCompleteCallback;
 
     // Game UI state storage
@@ -402,6 +404,7 @@ public class MiniQuestUIController : MonoBehaviour
         ResetChoiceButtonColors();
 
         waitingForNextQuestion = false;
+        isAwaitingRetry = false;
 
         if (debugMode)
         {
@@ -443,7 +446,7 @@ public class MiniQuestUIController : MonoBehaviour
 
     private void OnChoiceSelected(int choiceIndex)
     {
-        if (waitingForNextQuestion) return;
+        if (waitingForNextQuestion || isAwaitingRetry) return;
 
         QuizQuestion question = currentMiniQuest.GetQuestion(currentQuestionIndex);
         if (question == null || choiceIndex >= question.choices.Count)
@@ -517,10 +520,16 @@ public class MiniQuestUIController : MonoBehaviour
 
         if (debugMode)
         {
-            Debug.Log($"[MiniQuestUI] ✗ Incorrect answer selected. Showing hint.");
+            Debug.Log($"[MiniQuestUI] ✗ Incorrect answer selected. Showing Next button for retry.");
         }
 
-        StartCoroutine(ReenableChoicesAfterDelay());
+        // NEW: Show Next button immediately for retry (no delay)
+        isAwaitingRetry = true;
+        if (nextButton != null)
+        {
+            nextButton.gameObject.SetActive(true);
+            if (debugMode) Debug.Log("[MiniQuestUI] Retry button shown - player can attempt again when ready");
+        }
     }
 
     private IEnumerator WaitAndProceedToNext()
@@ -544,21 +553,32 @@ public class MiniQuestUIController : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator ReenableChoicesAfterDelay()
-    {
-        yield return new WaitForSeconds(feedbackDisplayDuration);
-
-        SetChoiceButtonsInteractable(true);
-        ResetChoiceButtonColors();
-
-        if (feedbackText != null)
-        {
-            feedbackText.text = "";
-        }
-    }
-
     private void OnNextButtonClicked()
     {
+        // Check if this is a retry (player failed and wants to try again)
+        if (isAwaitingRetry)
+        {
+            if (debugMode)
+            {
+                Debug.Log("[MiniQuestUI] Player clicked retry - resetting current question for another attempt");
+            }
+
+            // Reset the current question for retry
+            isAwaitingRetry = false;
+            if (nextButton != null) nextButton.gameObject.SetActive(false);
+            
+            SetChoiceButtonsInteractable(true);
+            ResetChoiceButtonColors();
+            
+            if (feedbackText != null)
+            {
+                feedbackText.text = "";
+            }
+
+            return; // Don't move to next question - just retry current one
+        }
+
+        // Standard next button behavior - move to next question
         currentQuestionIndex++;
 
         if (currentQuestionIndex >= currentMiniQuest.GetTotalQuestions())
