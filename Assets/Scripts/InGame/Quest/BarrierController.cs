@@ -21,7 +21,7 @@ public class BarrierController : MonoBehaviour
     [Tooltip("Quest 4 must be completed to have the key")]
     [SerializeField] private string keyQuestId = "Q4_StringsPrinting";
     [Tooltip("Quest 4 objective that proves player has the key")]
-    [SerializeField] private string keyObjectiveTitle = "Complete the String Exercises";
+    [SerializeField] private string keyObjectiveTitle = "Obtain the Path Barrier Key";
 
     [Header("Final Evaluation Quiz")]
     [Tooltip("10-question comprehensive quiz covering all topics")]
@@ -553,10 +553,12 @@ public class BarrierController : MonoBehaviour
 
         Vector3 startPos = transform.position + keyInsertionStartOffset;
 
-        spawnedKey = Instantiate(keyPrefab, startPos, Quaternion.identity);
+        // UPDATED: Spawn key with specific rotation for proper keyhole alignment
+        Quaternion keyRotation = Quaternion.Euler(1.182f, 86.621f, 45.495f);
+        spawnedKey = Instantiate(keyPrefab, startPos, keyRotation);
 
         if (debugMode)
-            Debug.Log($"[Barrier] Key spawned at: {startPos}");
+            Debug.Log($"[Barrier] Key spawned at: {startPos} with rotation: {keyRotation.eulerAngles}");
 
         yield return null;
     }
