@@ -61,55 +61,55 @@ public static class OakWoodsContentInstaller
         {
             var quest = AddQuest(questsProp);
             SetQuestCore(quest, "Q2_HelloJava", "Hello, Java!",
-                "Learn what Java is, how programs start, and print a message.", "Q3_Types");
+                "Learn what Java is, how programs start, and print a message. Answer comprehension questions about Java basics.", "Q3_Types");
 
             var objectives = quest.FindPropertyRelative("objectives");
             objectives.arraySize = 3;
-            SetObjective(objectives.GetArrayElementAtIndex(0), "Follow Arin to Her Cabin", "Go to Arin's cottage to begin your first lesson.");
-            SetObjective(objectives.GetArrayElementAtIndex(1), "Listen to Arin's Lesson: Java Basics", "Learn class, main method, braces, semicolons, and System.out.println.");
-            SetObjective(objectives.GetArrayElementAtIndex(2), "Complete the Hello World Altar", "Fill in class, main signature, and a println statement.");
+            SetObjective(objectives.GetArrayElementAtIndex(0), "Follow Arin to Her Cabin", "Go to Arin's cottage to begin your first lesson on Java fundamentals.");
+            SetObjective(objectives.GetArrayElementAtIndex(1), "Listen to Arin's Lesson: Java Basics", "Learn how classes work, the main method, braces, semicolons, and System.out.println. Pay close attention—you'll be tested!");
+            SetObjective(objectives.GetArrayElementAtIndex(2), "Activate the Hello World Altar", "Answer questions about Java basics: class structure, the main method, proper syntax. Fill in code to create your first working program.");
         }
 
-        // Q3 - UPDATED: Only 3 objectives (Return to cabin -> Lecture -> Collect runes)
+        // Q3
         {
             var quest = AddQuest(questsProp);
             SetQuestCore(quest, "Q3_Types", "The Language of Types",
-                "Learn basic data types and variable declarations to restore the grove's wards.", "Q4_StringsPrinting");
+                "Learn basic data types and variable declarations. Collect the four Type Runes by answering questions about int, double, boolean, and String.", "Q4_StringsPrinting");
 
             var objectives = quest.FindPropertyRelative("objectives");
             objectives.arraySize = 3;
-            SetObjective(objectives.GetArrayElementAtIndex(0), "Return to Arin's Cabin", "Go back to Arin's cabin to learn about data types.");
-            SetObjective(objectives.GetArrayElementAtIndex(1), "Listen to Arin's Lesson: Data Types", "Learn about int, double, boolean, String, and variable declarations.");
-            
+            SetObjective(objectives.GetArrayElementAtIndex(0), "Return to Arin's Cabin", "Go back to Arin's cabin to learn about primitive data types in Java.");
+            SetObjective(objectives.GetArrayElementAtIndex(1), "Listen to Arin's Lesson: Data Types", "Learn about int (whole numbers), double (decimals), boolean (true/false), and String (text). Understand when to use each type.");
+
             var obj2 = objectives.GetArrayElementAtIndex(2);
-            SetObjective(obj2, "Collect the Type Runes (4)", "Answer questions to collect runes: int, double, boolean, and String.");
+            SetObjective(obj2, "Collect the Type Runes (4)", "Find and answer questions for each rune: int rune, double rune, boolean rune, and String rune. Each question tests your understanding of that data type.");
             obj2.FindPropertyRelative("targetCount").intValue = 4;
         }
 
-        // Q4 - UPDATED: Only 3 objectives (Return to cabin -> Lecture -> Activity)
+        // Q4
         {
             var quest = AddQuest(questsProp);
             SetQuestCore(quest, "Q4_StringsPrinting", "Strings and Printing",
-                "Master text manipulation: string literals, escape sequences, and concatenation.", "Q5_SyntaxTrial");
+                "Master text manipulation: string literals, escape sequences, concatenation, and formatted output.", "Q5_SyntaxTrial");
 
             var objectives = quest.FindPropertyRelative("objectives");
             objectives.arraySize = 3;
-            SetObjective(objectives.GetArrayElementAtIndex(0), "Return to Arin's Cabin", "Go back to Arin's cabin to learn about strings and printing.");
-            SetObjective(objectives.GetArrayElementAtIndex(1), "Listen to Arin's Lesson: Strings and Printing", "Learn string literals, escape sequences (\\n, \\t, \\\", \\\\), and concatenation with +.");
-            SetObjective(objectives.GetArrayElementAtIndex(2), "Complete the String Exercises", "Practice string manipulation with escape sequences and concatenation.");
+            SetObjective(objectives.GetArrayElementAtIndex(0), "Return to Arin's Cabin", "Go back to Arin's cabin to learn about strings and advanced printing techniques.");
+            SetObjective(objectives.GetArrayElementAtIndex(1), "Listen to Arin's Lesson: Strings and Printing", "Learn string literals in double quotes, escape sequences (\\n, \\t, \\\", \\\\), concatenation with +, and the difference between print and println.");
+            SetObjective(objectives.GetArrayElementAtIndex(2), "Obtain the Path Barrier Key", "Answer questions about strings and printing. Demonstrate understanding of escape sequences and string concatenation to unlock the key.");
         }
 
-        // Q5 - UPDATED: Only 3 objectives (Return to cabin -> Lecture -> Final trial)
+        // Q5
         {
             var quest = AddQuest(questsProp);
             SetQuestCore(quest, "Q5_SyntaxTrial", "The Syntax Trial",
-                "Prove your mastery by assembling a complete Java class with all learned concepts.", "");
+                "Prove your mastery by answering 10 comprehensive questions covering all Java concepts learned: classes, methods, types, strings, and syntax rules.", "");
 
             var objectives = quest.FindPropertyRelative("objectives");
             objectives.arraySize = 3;
-            SetObjective(objectives.GetArrayElementAtIndex(0), "Return to Arin's Cabin", "Go back to Arin's cabin for a final review of all Java syntax concepts.");
-            SetObjective(objectives.GetArrayElementAtIndex(1), "Listen to Arin's Final Recap", "Review all Java syntax concepts: class structure, main method, types, strings, and statements.");
-            SetObjective(objectives.GetArrayElementAtIndex(2), "Complete the Syntax Trial", "Write a complete Java program with declarations, string concatenation, and println statements.");
+            SetObjective(objectives.GetArrayElementAtIndex(0), "Return to Arin's Cabin", "Go back to Arin's cabin for a final review of all Java syntax concepts you've learned.");
+            SetObjective(objectives.GetArrayElementAtIndex(1), "Listen to Arin's Final Recap", "Review all Java syntax: class structure, main method, data types (int, double, boolean, String), variable declarations, strings, escape sequences, concatenation, and println.");
+            SetObjective(objectives.GetArrayElementAtIndex(2), "Complete the Syntax Trial", "Answer 10 comprehensive questions covering all Java topics. This is your final test before becoming a true Codebreaker. Answer all questions correctly to deactivate the path barrier.");
         }
 
         so.ApplyModifiedProperties();
@@ -151,7 +151,7 @@ public static class OakWoodsContentInstaller
     {
         var list = new List<Conversation>();
 
-        // ==================== QUEST 1 ====================
+        // ==================== QUEST 1: Into the Skull Cave ====================
         list.Add(Convo("Arin_01_PostBoss",
             L("Arin", "You fought bravely. Not many step into this cave and walk back out."),
             L("Roran", "You looked like you needed help."),
@@ -185,7 +185,7 @@ public static class OakWoodsContentInstaller
             L("Arin", "Smart choice. Come, the cabin awaits. Your journey as a Codebreaker begins today.")
         ));
 
-        // ==================== QUEST 2: Hello Java - ENHANCED WITH MORE EXAMPLES ====================
+        // ==================== QUEST 2: Hello, Java! ====================
         list.Add(Convo("Arin_02_JavaBasics",
             L("Arin", "Welcome to my cabin. Let's begin your journey into the world of Java programming."),
             L("Roran", "I'm ready to learn."),
@@ -244,19 +244,25 @@ public static class OakWoodsContentInstaller
             L("Arin", "class MyFirstProgram { public static void main(String[] args) { System.out.println(\"I am a programmer!\"); } }"),
             L("Roran", "I see the pattern now. Class name, main method, print statement, close everything."),
             L("Arin", "Excellent! You're grasping the structure. That's the hardest part for beginners."),
-            L("Arin", "Now, practice at the Hello World Altar. Fill in the missing parts to create your first program."),
-            L("Arin", "Remember: class name with capital letter, exact main signature, println with quotes and semicolon, and close all braces.")
+            L("Arin", "Now, test your understanding at the Hello World Altar. You'll answer questions about Java basics."),
+            L("Arin", "Remember everything: class structure, the exact main signature, println syntax, and brace matching.")
         ));
 
         list.Add(Convo("Arin_02b_PostHello",
-            L("Arin", "Excellent work! Your first program prints a message."),
-            L("Roran", "So many symbols for just one sentence."),
-            L("Arin", "Symbols give structure; structure gives power. Every character matters in programming."),
+            L("Arin", "You returned from the altar! I see the light of success in your eyes, Roran."),
+            L("Roran", "Your lessons were clear. The questions tested everything you taught me."),
+            L("Arin", "Excellent work! You've passed the first true test. Your first program runs correctly."),
+            L("Arin", "So many symbols for just one sentence, you said. But now you understand why they matter."),
+            L("Roran", "Symbols give structure; structure gives power. You were right."),
+            L("Arin", "Every character serves a purpose. Missing one breaks everything. That's the nature of code."),
             L("Arin", "You've learned the foundation: classes, methods, statements, braces, and semicolons."),
-            L("Arin", "Next, we'll learn how to store values using variables and data types.")
+            L("Arin", "Now comes the challenge. Most programmers stop here. But you'll go deeper."),
+            L("Roran", "What's next?"),
+            L("Arin", "Data. Next, we'll learn how to store values using variables and data types."),
+            L("Arin", "Good. We'll continue right away — gather the Type Runes next.")
         ));
 
-        // ==================== QUEST 3: Data Types - COMPREHENSIVE LECTURE ====================
+        // ==================== QUEST 3: The Language of Types ====================
         list.Add(Convo("Arin_03_TypesLecture",
             L("Arin", "Welcome back to my cabin. Today we learn about DATA TYPES and VARIABLES—the building blocks of programming."),
             L("Roran", "What are variables?"),
@@ -335,35 +341,38 @@ public static class OakWoodsContentInstaller
         ));
 
         list.Add(Convo("Arin_03_PostTypes",
-            L("Arin", "The wards are stable again. You've mastered the fundamental types!"),
-            L("Roran", "The questions really made me think about each type carefully."),
-            L("Arin", "That's the point! Understanding when to use each type is as important as knowing they exist."),
-            L("Arin", "One missing semicolon, one wrong type, and everything breaks."),
-            L("Arin", "That's the nature of syntax—every symbol matters. Even one mistake can prevent your program from running."),
-            L("Arin", "But don't be discouraged. Every programmer makes syntax errors. You'll get better with practice."),
-            L("Arin", "Next, we'll dive deeper into Strings and learn advanced printing techniques.")
+            L("Arin", "Roran! You've returned with all four runes! The wards are stable again."),
+            L("Roran", "The rune quests forced me to think deeply about when to use each type."),
+            L("Arin", "That's exactly the point! Understanding when to use each type is as important as knowing they exist."),
+            L("Arin", "You answered each question correctly. Your understanding of types is solid."),
+            L("Arin", "One missing semicolon, one wrong type, and everything breaks. That's the nature of syntax."),
+            L("Arin", "But you didn't make those mistakes. Your mind is adapting to the way programmers think."),
+            L("Roran", "Every question made me reconsider what I thought I knew."),
+            L("Arin", "Good! Doubt and questioning lead to deeper understanding."),
+            L("Arin", "You've proven yourself again, Codebreaker. Well done — we'll move straight into strings and printing."),
+            L("Arin", "Next, we dive deeper into Strings and learn advanced printing techniques.")
         ));
 
         // ==================== QUEST 4: Strings and Printing ====================
         list.Add(Convo("Arin_04_StringsLecture",
-            L("Arin", "Welcome back. Today we master the art of STRINGS and PRINTING."),
+            L("Arin", "Welcome back, Roran. Today we master the art of STRINGS and PRINTING."),
             L("Roran", "I know strings are text, but what else should I learn?"),
             L("Arin", "Strings are more powerful than you think. Let's start with STRING LITERALS."),
             L("Arin", "A string literal is text wrapped in double quotes: \"Hello, World!\""),
             L("Arin", "You can assign it to a variable: String message = \"Welcome, traveler.\";"),
             L("Arin", "Now, what if you want to include special characters in your strings?"),
             L("Arin", "That's where ESCAPE SEQUENCES come in. They start with a backslash \\"),
-            L("Arin", "\\n creates a NEW LINE—moves to the next line."),
-            L("Arin", "Example: System.out.println(\"First line\\nSecond line\");"),
+            L("Arin", "\n creates a NEW LINE—moves to the next line."),
+            L("Arin", "Example: System.out.println(\"First line\nSecond line\");"),
             L("Arin", "This prints: First line (then goes to new line) Second line."),
-            L("Arin", "\\t creates a TAB—adds horizontal spacing."),
-            L("Arin", "Example: System.out.println(\"Name:\\tRoran\");"),
+            L("Arin", "\t creates a TAB—adds horizontal spacing."),
+            L("Arin", "Example: System.out.println(\"Name:\tRoran\");"),
             L("Arin", "This adds tab space between Name: and Roran."),
-            L("Arin", "\\\" allows you to include DOUBLE QUOTES inside a string."),
+            L("Arin", "\" allows you to include DOUBLE QUOTES inside a string."),
             L("Arin", "Example: System.out.println(\"She said, \\\"Hello!\\\" \");"),
             L("Arin", "This prints: She said, \"Hello!\""),
-            L("Arin", "\\\\ allows you to print an actual BACKSLASH."),
-            L("Arin", "Example: System.out.println(\"Path: C:\\\\Users\\\\Roran\");"),
+            L("Arin", "\\ allows you to print an actual BACKSLASH."),
+            L("Arin", "Example: System.out.println(\"Path: C:\\Users\\Roran\");"),
             L("Arin", "This prints: Path: C:\\Users\\Roran"),
             L("Roran", "So backslash is the escape character that gives special meaning to the next character."),
             L("Arin", "Precisely! Now let's talk about STRING CONCATENATION."),
@@ -385,29 +394,35 @@ public static class OakWoodsContentInstaller
             L("Arin", "Use print when you want to build output on the same line. Use println when you want each output on its own line."),
             L("Roran", "This is powerful! I can create formatted output now."),
             L("Arin", "Exactly! Strings and escape sequences let you control exactly how your text appears."),
-            L("Arin", "Now, let's practice these concepts with some exercises.")
+            L("Arin", "Now, test your understanding. Answer questions about strings and obtain the Path Barrier Key.")
         ));
 
         list.Add(Convo("Arin_04_PostStrings",
-            L("Arin", "Perfect! You've mastered string manipulation."),
+            L("Arin", "You've returned with the Path Barrier Key! Excellent, Roran."),
+            L("Roran", "The string questions were challenging. I had to think about escape sequences carefully."),
+            L("Arin", "String manipulation is one of the most practical skills a programmer has."),
             L("Roran", "I can shape messages exactly how I want them now."),
-            L("Arin", "String manipulation is essential. Nearly every program displays text to users."),
-            L("Arin", "You've learned literals, escape sequences, and concatenation. Well done!"),
-            L("Arin", "One final trial remains: the Syntax Trial, where you'll combine everything you've learned.")
+            L("Arin", "You've mastered string literals, escape sequences, and concatenation. Well done!"),
+            L("Arin", "Nearly every program displays text to users. You now know how to do it correctly."),
+            L("Arin", "You've learned four fundamental concepts: classes, types, variables, and strings."),
+            L("Arin", "But there is one final trial remaining. The greatest challenge of all."),
+            L("Roran", "What is it?"),
+            L("Arin", "The Syntax Trial. You will combine everything you've learned and prove your mastery."),
+            L("Arin", "Ten questions covering all topics. This is your path to becoming a true Codebreaker.")
         ));
 
-        // ==================== QUEST 5: Syntax Trial ====================
+        // ==================== QUEST 5: The Syntax Trial ====================
         list.Add(Convo("Arin_05_SyntaxRecap",
-            L("Arin", "Welcome back, Roran. This is your final test in Oak Woods."),
-            L("Roran", "I'm ready."),
-            L("Arin", "Let's review everything you've learned. First: THE CLASS."),
+            L("Arin", "Welcome back for the final time, Roran. This is your greatest test in Oak Woods."),
+            L("Roran", "I'm ready to prove I've learned everything."),
+            L("Arin", "Let's review everything you've mastered. First: THE CLASS."),
             L("Arin", "A class is the container for your code. Every Java program needs at least one class."),
             L("Arin", "Syntax: class ClassName { ... }"),
             L("Arin", "Class names start with a capital letter. Use descriptive names."),
             L("Arin", "Next: THE MAIN METHOD."),
             L("Arin", "This is the entry point—where program execution begins."),
             L("Arin", "Signature: public static void main(String[] args) { ... }"),
-            L("Arin", "Memorize this exact format. Every standalone Java program needs it."),
+            L("Arin", "You've written this a hundred times now. It's part of your programming DNA."),
             L("Arin", "Next: STATEMENTS."),
             L("Arin", "Statements are instructions for the computer. They go inside the main method."),
             L("Arin", "Every statement ends with a SEMICOLON ;"),
@@ -431,26 +446,37 @@ public static class OakWoodsContentInstaller
             L("Arin", "Multi-line comment: /* This can span multiple lines */"),
             L("Arin", "Use comments to explain complex code or leave notes for yourself."),
             L("Roran", "I remember all of it. Class, main, types, strings, syntax rules."),
-            L("Arin", "Excellent. Now prove it. Complete the Syntax Trial."),
-            L("Arin", "Write a complete Java program with: a class, the main method, variable declarations, string concatenation, and println statements."),
-            L("Arin", "Every brace must match. Every statement must end with a semicolon. All syntax must be perfect."),
-            L("Arin", "This is your test, Codebreaker. Show me what you've learned.")
+            L("Arin", "Excellent. But remembering and applying are two different things."),
+            L("Arin", "You will now face ten questions. They will test everything—your knowledge, your attention to detail, your understanding."),
+            L("Arin", "Every symbol matters. Every rule matters. One mistake, and you fail."),
+            L("Arin", "But I believe in you, Roran. You've proven yourself four times already."),
+            L("Roran", "I won't disappoint you."),
+            L("Arin", "I know you won't. Go now. Face the Syntax Trial and show Oak Woods the true measure of your skill."),
+            L("Arin", "Answer all ten questions correctly, and you will earn the right to deactivate the path barrier."),
+            L("Arin", "You will become a Codebreaker—one who can read and write the ancient syntax of creation itself.")
         ));
 
         list.Add(Convo("Arin_05_Epilogue",
-            L("Arin", "Remarkable! Your program compiled perfectly. You've mastered the basics of Java syntax."),
+            L("Arin", "Roran... you answered all ten questions perfectly. Your mastery is complete."),
+            L("Roran", "I proved I could do it. I understand Java now—truly understand it."),
+            L("Arin", "You've done more than understand. You've mastered the fundamentals."),
+            L("Arin", "You understand classes, methods, data types, variables, strings, and syntax rules."),
             L("Roran", "I can finally read the forest's words—the language of code."),
-            L("Arin", "You've come far in a short time. You understand classes, methods, types, strings, and syntax rules."),
-            L("Arin", "These fundamentals are your foundation. Everything else in Java builds upon them."),
+            L("Arin", "You've come far in a short time. What once seemed impossible is now second nature."),
             L("Roran", "What comes next?"),
-            L("Arin", "Beyond Oak Woods, you'll learn control flow—making decisions with if statements, repeating actions with loops."),
+            L("Arin", "Beyond Oak Woods, the world is vast and waiting for you."),
+            L("Arin", "You'll learn control flow—making decisions with if statements, repeating actions with loops."),
             L("Arin", "You'll master methods, arrays, objects, and more. But you've proven you can handle it."),
             L("Arin", "Oak Woods recognizes you now, Roran. You are officially a Codebreaker."),
-            L("Roran", "Thank you, Arin. I couldn't have done this without your guidance."),
+            L("Arin", "The path barrier will fall. Other places will call to you. Other languages will tempt you."),
+            L("Roran", "But I won't forget Oak Woods. Or you."),
+            L("Arin", "I know. And if you ever return, I'll be here, mentor to mentor."),
             L("Arin", "Syntax is your compass. Keep practicing, keep coding, and never stop learning."),
             L("Arin", "The world of programming is vast. You've taken your first steps. Walk forward with confidence."),
-            L("Roran", "I will. Thank you, mentor."),
-            L("Arin", "If fate brings you back to Oak Woods, I'll be here. For now, go forth and code, Codebreaker.")
+            L("Roran", "Thank you, Arin. For everything."),
+            L("Arin", "Thank you, Roran. For reminding me why I love teaching."),
+            L("Arin", "Farewell, Roran. Walk through the portal with pride."),
+            L("Roran", "Goodbye, mentor.")
         ));
 
         db.SetConversations(list);
