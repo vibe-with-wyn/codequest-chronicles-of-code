@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KeyCollectionTrigger
   requiredQuestId: Q4_StringsPrinting
-  requiredObjectiveTitle: Complete the String Exercises
+  requiredObjectiveTitle: Obtain the Path Barrier Key
   collectionButtonPrefab: {fileID: 451972660627812107, guid: bc8869f61f70df5439297b39b3342b9e, type: 3}
   buttonOffset: {x: 0, y: 2.5, z: 0}
   buttonFadeSpeed: 5
