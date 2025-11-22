@@ -267,7 +267,10 @@ public class DialogueManager : MonoBehaviour
             "Arin", "Remember everything: class structure, the exact main signature, println syntax, and brace matching."
         ));
 
-        list.Add(CreateConversation("Arin_02b_PostHello",
+        // ==================== QUEST 3: The Language of Types ====================
+        // MERGED: Arin_02b_PostHello + Arin_03_TypesLecture
+        list.Add(CreateConversation("Arin_03_TypesLecture",
+            // POST QUEST 2 TRANSITION (from Arin_02b_PostHello)
             "Arin", "You returned from the altar! I see the light of success in your eyes, Roran.",
             "Roran", "Your lessons were clear. The questions tested everything you taught me.",
             "Arin", "Excellent work! You've passed the first true test. Your first program runs correctly.",
@@ -277,13 +280,8 @@ public class DialogueManager : MonoBehaviour
             "Arin", "You've learned the foundation: classes, methods, statements, braces, and semicolons.",
             "Arin", "Now comes the challenge. Most programmers stop here. But you'll go deeper.",
             "Roran", "What's next?",
-            "Arin", "Data. Next, we'll learn how to store values using variables and data types.",
-            "Arin", "Good. We'll continue right away — gather the Type Runes next."
-        ));
-
-        // ==================== QUEST 3: The Language of Types ====================
-        list.Add(CreateConversation("Arin_03_TypesLecture",
-            "Arin", "Welcome back to my cabin. Today we learn about DATA TYPES and VARIABLES—the building blocks of programming.",
+            "Arin", "Data. Today we learn about DATA TYPES and VARIABLES—the building blocks of programming.",
+            // QUEST 3 LECTURE BEGINS
             "Roran", "What are variables?",
             "Arin", "Variables are containers that store information. Think of them as labeled boxes that hold different kinds of data.",
             "Arin", "Each variable has a TYPE and a NAME. The TYPE defines what kind of data it can hold. The NAME is how you identify it.",
@@ -359,7 +357,10 @@ public class DialogueManager : MonoBehaviour
             "Arin", "This will test your understanding. Go forth and prove you've mastered the types!"
         ));
 
-        list.Add(CreateConversation("Arin_03_PostTypes",
+        // ==================== QUEST 4: Strings and Printing ====================
+        // MERGED: Arin_03_PostTypes + Arin_04_StringsLecture
+        list.Add(CreateConversation("Arin_04_StringsLecture",
+            // POST QUEST 3 TRANSITION (from Arin_03_PostTypes)
             "Arin", "Roran! You've returned with all four runes! The wards are stable again.",
             "Roran", "The rune quests forced me to think deeply about when to use each type.",
             "Arin", "That's exactly the point! Understanding when to use each type is as important as knowing they exist.",
@@ -368,13 +369,8 @@ public class DialogueManager : MonoBehaviour
             "Arin", "But you didn't make those mistakes. Your mind is adapting to the way programmers think.",
             "Roran", "Every question made me reconsider what I thought I knew.",
             "Arin", "Good! Doubt and questioning lead to deeper understanding.",
-            "Arin", "You've proven yourself again, Codebreaker. Well done — we'll move straight into strings and printing.",
-            "Arin", "Next, we dive deeper into Strings and learn advanced printing techniques."
-        ));
-
-        // ==================== QUEST 4: Strings and Printing ====================
-        list.Add(CreateConversation("Arin_04_StringsLecture",
-            "Arin", "Welcome back, Roran. Today we master the art of STRINGS and PRINTING.",
+            "Arin", "You've proven yourself again, Codebreaker. Now we dive deeper into Strings and learn advanced printing techniques.",
+            // QUEST 4 LECTURE BEGINS
             "Roran", "I know strings are text, but what else should I learn?",
             "Arin", "Strings are more powerful than you think. Let's start with STRING LITERALS.",
             "Arin", "A string literal is text wrapped in double quotes: \"Hello, World!\"",
@@ -416,7 +412,10 @@ public class DialogueManager : MonoBehaviour
             "Arin", "Now, test your understanding. Answer questions about strings and obtain the Path Barrier Key."
         ));
 
-        list.Add(CreateConversation("Arin_04_PostStrings",
+        // ==================== QUEST 5: The Syntax Trial ====================
+        // MERGED: Arin_04_PostStrings + Arin_05_SyntaxRecap
+        list.Add(CreateConversation("Arin_05_SyntaxRecap",
+            // POST QUEST 4 TRANSITION (from Arin_04_PostStrings)
             "Arin", "You've returned with the Path Barrier Key! Excellent, Roran.",
             "Roran", "The string questions were challenging. I had to think about escape sequences carefully.",
             "Arin", "String manipulation is one of the most practical skills a programmer has.",
@@ -427,12 +426,9 @@ public class DialogueManager : MonoBehaviour
             "Arin", "But there is one final trial remaining. The greatest challenge of all.",
             "Roran", "What is it?",
             "Arin", "The Syntax Trial. You will combine everything you've learned and prove your mastery.",
-            "Arin", "Ten questions covering all topics. This is your path to becoming a true Codebreaker."
-        ));
-
-        // ==================== QUEST 5: The Syntax Trial ====================
-        list.Add(CreateConversation("Arin_05_SyntaxRecap",
-            "Arin", "Welcome back for the final time, Roran. This is your greatest test in Oak Woods.",
+            "Arin", "Ten questions covering all topics. This is your path to becoming a true Codebreaker.",
+            // QUEST 5 RECAP BEGINS
+            "Arin", "This is your greatest test in Oak Woods, Roran.",
             "Roran", "I'm ready to prove I've learned everything.",
             "Arin", "Let's review everything you've mastered. First: THE CLASS.",
             "Arin", "A class is the container for your code. Every Java program needs at least one class.",
