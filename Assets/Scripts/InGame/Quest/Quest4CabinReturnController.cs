@@ -628,67 +628,10 @@ public class Quest4CabinReturnController : MonoBehaviour
         
         yield return StartCoroutine(RestoreUIGradually());
         
-        // ============= PHASE 14: DISPLAY COMPLETED OBJECTIVE IN QUEST UI =============
+        // ============= PHASE 14: FINALIZE ARIN STATE =============
         if (debugMode)
         {
-            Debug.Log("[Q4Cabin] PHASE 14: Displaying completed Objective 1 in quest UI...");
-        }
-        
-        // Get QuestUIController from the UIController
-        QuestUIController questUIController = Object.FindFirstObjectByType<QuestUIController>();
-        QuestData currentQuest = QuestManager.Instance.GetCurrentQuest();
-        
-        if (currentQuest != null && questUIController != null)
-        {
-            questUIController.ShowQuestDisplay(currentQuest, autoHide: true);
-            
-            // Wait for the quest UI to display and auto-hide
-            yield return new WaitForSecondsRealtime(5.0f);
-        }
-        
-        // ============= PHASE 15: START OBJECTIVE 2 LECTURE DIALOGUE =============
-        if (debugMode)
-        {
-            Debug.Log("[Q4Cabin] PHASE 15: Starting Objective 2 lecture dialogue...");
-        }
-        
-        // Brief delay before starting next dialogue
-        yield return new WaitForSeconds(0.5f);
-        
-        if (DialogueManager.Instance != null)
-        {
-            DialogueManager.Instance.StartConversation(lectureDialogueId);
-            DialogueManager.Instance.OnConversationCompleted += OnObjective2LectureCompleted;
-        }
-        else
-        {
-            Debug.LogWarning("[Q4Cabin] DialogueManager not found. Skipping Objective 2 lecture.");
-            yield return new WaitForSeconds(2f);
-            OnObjective2LectureCompleted(lectureDialogueId);
-        }
-    }
-
-    private void OnObjective2LectureCompleted(string conversationId)
-    {
-        if (conversationId != lectureDialogueId) return;
-        
-        if (debugMode)
-        {
-            Debug.Log("[Q4Cabin] ✓ Objective 2 lecture dialogue completed!");
-        }
-        
-        if (DialogueManager.Instance != null)
-            DialogueManager.Instance.OnConversationCompleted -= OnObjective2LectureCompleted;
-        
-        StartCoroutine(HandleFinalSequence());
-    }
-
-    private IEnumerator HandleFinalSequence()
-    {
-        // ============= PHASE 16: KEEP ARIN STATIONARY =============
-        if (debugMode)
-        {
-            Debug.Log("[Q4Cabin] PHASE 16: Setting Arin to idle state at cabin...");
+            Debug.Log("[Q4Cabin] PHASE 14: Setting Arin to idle state at cabin...");
         }
         
         FinalizeArinState();
@@ -699,8 +642,6 @@ public class Quest4CabinReturnController : MonoBehaviour
         {
             Debug.Log("[Q4Cabin] ✓✓✓ Quest 4 dialogue sequence completed! Arin waiting at cabin, Objective 3 now active.");
         }
-        
-        yield break;
     }
 
     private void FinalizeArinState()
@@ -734,7 +675,9 @@ public class Quest4CabinReturnController : MonoBehaviour
         Debug.Log($"[Q4Cabin] Arin is now in idle state at cabin position: {arinAI.transform.position}");
         Debug.Log("[Q4Cabin] Arin AI disabled - will remain at cabin until Quest 4 is completed");
     }
-    
+
+    // REMOVED: OnObjective2LectureCompleted and HandleFinalSequence methods
+    // These were calling the dialogue a second time, causing duplicates
     #endregion
 
     #region Helper Methods
