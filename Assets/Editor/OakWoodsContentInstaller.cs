@@ -248,7 +248,10 @@ public static class OakWoodsContentInstaller
             L("Arin", "Remember everything: class structure, the exact main signature, println syntax, and brace matching.")
         ));
 
-        list.Add(Convo("Arin_02b_PostHello",
+        // ==================== QUEST 3: The Language of Types ====================
+        // MERGED: Arin_02b_PostHello + Arin_03_TypesLecture
+        list.Add(Convo("Arin_03_TypesLecture",
+            // POST QUEST 2 TRANSITION (from Arin_02b_PostHello)
             L("Arin", "You returned from the altar! I see the light of success in your eyes, Roran."),
             L("Roran", "Your lessons were clear. The questions tested everything you taught me."),
             L("Arin", "Excellent work! You've passed the first true test. Your first program runs correctly."),
@@ -258,13 +261,8 @@ public static class OakWoodsContentInstaller
             L("Arin", "You've learned the foundation: classes, methods, statements, braces, and semicolons."),
             L("Arin", "Now comes the challenge. Most programmers stop here. But you'll go deeper."),
             L("Roran", "What's next?"),
-            L("Arin", "Data. Next, we'll learn how to store values using variables and data types."),
-            L("Arin", "Good. We'll continue right away — gather the Type Runes next.")
-        ));
-
-        // ==================== QUEST 3: The Language of Types ====================
-        list.Add(Convo("Arin_03_TypesLecture",
-            L("Arin", "Welcome back to my cabin. Today we learn about DATA TYPES and VARIABLES—the building blocks of programming."),
+            L("Arin", "Data. Today we learn about DATA TYPES and VARIABLES—the building blocks of programming."),
+            // QUEST 3 LECTURE BEGINS
             L("Roran", "What are variables?"),
             L("Arin", "Variables are containers that store information. Think of them as labeled boxes that hold different kinds of data."),
             L("Arin", "Each variable has a TYPE and a NAME. The TYPE defines what kind of data it can hold. The NAME is how you identify it."),
@@ -340,7 +338,10 @@ public static class OakWoodsContentInstaller
             L("Arin", "This will test your understanding. Go forth and prove you've mastered the types!")
         ));
 
-        list.Add(Convo("Arin_03_PostTypes",
+        // ==================== QUEST 4: Strings and Printing ====================
+        // MERGED: Arin_03_PostTypes + Arin_04_StringsLecture
+        list.Add(Convo("Arin_04_StringsLecture",
+            // POST QUEST 3 TRANSITION (from Arin_03_PostTypes)
             L("Arin", "Roran! You've returned with all four runes! The wards are stable again."),
             L("Roran", "The rune quests forced me to think deeply about when to use each type."),
             L("Arin", "That's exactly the point! Understanding when to use each type is as important as knowing they exist."),
@@ -349,30 +350,25 @@ public static class OakWoodsContentInstaller
             L("Arin", "But you didn't make those mistakes. Your mind is adapting to the way programmers think."),
             L("Roran", "Every question made me reconsider what I thought I knew."),
             L("Arin", "Good! Doubt and questioning lead to deeper understanding."),
-            L("Arin", "You've proven yourself again, Codebreaker. Well done — we'll move straight into strings and printing."),
-            L("Arin", "Next, we dive deeper into Strings and learn advanced printing techniques.")
-        ));
-
-        // ==================== QUEST 4: Strings and Printing ====================
-        list.Add(Convo("Arin_04_StringsLecture",
-            L("Arin", "Welcome back, Roran. Today we master the art of STRINGS and PRINTING."),
+            L("Arin", "You've proven yourself again, Codebreaker. Now we dive deeper into Strings and learn advanced printing techniques."),
+            // QUEST 4 LECTURE BEGINS
             L("Roran", "I know strings are text, but what else should I learn?"),
             L("Arin", "Strings are more powerful than you think. Let's start with STRING LITERALS."),
             L("Arin", "A string literal is text wrapped in double quotes: \"Hello, World!\""),
             L("Arin", "You can assign it to a variable: String message = \"Welcome, traveler.\";"),
             L("Arin", "Now, what if you want to include special characters in your strings?"),
             L("Arin", "That's where ESCAPE SEQUENCES come in. They start with a backslash \\"),
-            L("Arin", "\n creates a NEW LINE—moves to the next line."),
-            L("Arin", "Example: System.out.println(\"First line\nSecond line\");"),
+            L("Arin", "\\n creates a NEW LINE—moves to the next line."),
+            L("Arin", "Example: System.out.println(\"First line\\nSecond line\");"),
             L("Arin", "This prints: First line (then goes to new line) Second line."),
-            L("Arin", "\t creates a TAB—adds horizontal spacing."),
-            L("Arin", "Example: System.out.println(\"Name:\tRoran\");"),
+            L("Arin", "\\t creates a TAB—adds horizontal spacing."),
+            L("Arin", "Example: System.out.println(\"Name:\\tRoran\");"),
             L("Arin", "This adds tab space between Name: and Roran."),
-            L("Arin", "\" allows you to include DOUBLE QUOTES inside a string."),
+            L("Arin", "\\\" allows you to include DOUBLE QUOTES inside a string."),
             L("Arin", "Example: System.out.println(\"She said, \\\"Hello!\\\" \");"),
             L("Arin", "This prints: She said, \"Hello!\""),
-            L("Arin", "\\ allows you to print an actual BACKSLASH."),
-            L("Arin", "Example: System.out.println(\"Path: C:\\Users\\Roran\");"),
+            L("Arin", "\\\\ allows you to print an actual BACKSLASH."),
+            L("Arin", "Example: System.out.println(\"Path: C:\\\\Users\\\\Roran\");"),
             L("Arin", "This prints: Path: C:\\Users\\Roran"),
             L("Roran", "So backslash is the escape character that gives special meaning to the next character."),
             L("Arin", "Precisely! Now let's talk about STRING CONCATENATION."),
@@ -397,7 +393,10 @@ public static class OakWoodsContentInstaller
             L("Arin", "Now, test your understanding. Answer questions about strings and obtain the Path Barrier Key.")
         ));
 
-        list.Add(Convo("Arin_04_PostStrings",
+        // ==================== QUEST 5: The Syntax Trial ====================
+        // MERGED: Arin_04_PostStrings + Arin_05_SyntaxRecap
+        list.Add(Convo("Arin_05_SyntaxRecap",
+            // POST QUEST 4 TRANSITION (from Arin_04_PostStrings)
             L("Arin", "You've returned with the Path Barrier Key! Excellent, Roran."),
             L("Roran", "The string questions were challenging. I had to think about escape sequences carefully."),
             L("Arin", "String manipulation is one of the most practical skills a programmer has."),
@@ -408,12 +407,9 @@ public static class OakWoodsContentInstaller
             L("Arin", "But there is one final trial remaining. The greatest challenge of all."),
             L("Roran", "What is it?"),
             L("Arin", "The Syntax Trial. You will combine everything you've learned and prove your mastery."),
-            L("Arin", "Ten questions covering all topics. This is your path to becoming a true Codebreaker.")
-        ));
-
-        // ==================== QUEST 5: The Syntax Trial ====================
-        list.Add(Convo("Arin_05_SyntaxRecap",
-            L("Arin", "Welcome back for the final time, Roran. This is your greatest test in Oak Woods."),
+            L("Arin", "Ten questions covering all topics. This is your path to becoming a true Codebreaker."),
+            // QUEST 5 RECAP BEGINS
+            L("Arin", "This is your greatest test in Oak Woods, Roran."),
             L("Roran", "I'm ready to prove I've learned everything."),
             L("Arin", "Let's review everything you've mastered. First: THE CLASS."),
             L("Arin", "A class is the container for your code. Every Java program needs at least one class."),
