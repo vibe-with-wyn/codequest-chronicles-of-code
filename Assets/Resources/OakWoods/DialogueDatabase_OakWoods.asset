@@ -240,7 +240,7 @@ MonoBehaviour:
     - speaker: Arin
       text: 'Remember everything: class structure, the exact main signature, println
         syntax, and brace matching.'
-  - conversationId: Arin_02b_PostHello
+  - conversationId: Arin_03_TypesLecture
     lines:
     - speaker: Arin
       text: You returned from the altar! I see the light of success in your eyes,
@@ -266,15 +266,8 @@ MonoBehaviour:
     - speaker: Roran
       text: What's next?
     - speaker: Arin
-      text: Data. Next, we'll learn how to store values using variables and data
-        types.
-    - speaker: Arin
-      text: "Good. We'll continue right away \u2014 gather the Type Runes next."
-  - conversationId: Arin_03_TypesLecture
-    lines:
-    - speaker: Arin
-      text: "Welcome back to my cabin. Today we learn about DATA TYPES and VARIABLES\u2014the
-        building blocks of programming."
+      text: "Data. Today we learn about DATA TYPES and VARIABLES\u2014the building
+        blocks of programming."
     - speaker: Roran
       text: What are variables?
     - speaker: Arin
@@ -461,7 +454,7 @@ MonoBehaviour:
     - speaker: Arin
       text: This will test your understanding. Go forth and prove you've mastered
         the types!
-  - conversationId: Arin_03_PostTypes
+  - conversationId: Arin_04_StringsLecture
     lines:
     - speaker: Arin
       text: Roran! You've returned with all four runes! The wards are stable again.
@@ -484,14 +477,8 @@ MonoBehaviour:
     - speaker: Arin
       text: Good! Doubt and questioning lead to deeper understanding.
     - speaker: Arin
-      text: "You've proven yourself again, Codebreaker. Well done \u2014 we'll move
-        straight into strings and printing."
-    - speaker: Arin
-      text: Next, we dive deeper into Strings and learn advanced printing techniques.
-  - conversationId: Arin_04_StringsLecture
-    lines:
-    - speaker: Arin
-      text: Welcome back, Roran. Today we master the art of STRINGS and PRINTING.
+      text: You've proven yourself again, Codebreaker. Now we dive deeper into Strings
+        and learn advanced printing techniques.
     - speaker: Roran
       text: I know strings are text, but what else should I learn?
     - speaker: Arin
@@ -505,29 +492,27 @@ MonoBehaviour:
     - speaker: Arin
       text: That's where ESCAPE SEQUENCES come in. They start with a backslash \
     - speaker: Arin
-      text: "\n creates a NEW LINE\u2014moves to the next line."
+      text: "\\n creates a NEW LINE\u2014moves to the next line."
     - speaker: Arin
-      text: 'Example: System.out.println("First line
-
-        Second line");'
+      text: 'Example: System.out.println("First line\nSecond line");'
     - speaker: Arin
       text: 'This prints: First line (then goes to new line) Second line.'
     - speaker: Arin
-      text: "\t creates a TAB\u2014adds horizontal spacing."
+      text: "\\t creates a TAB\u2014adds horizontal spacing."
     - speaker: Arin
-      text: "Example: System.out.println(\"Name:\tRoran\");"
+      text: 'Example: System.out.println("Name:\tRoran");'
     - speaker: Arin
       text: 'This adds tab space between Name: and Roran.'
     - speaker: Arin
-      text: '" allows you to include DOUBLE QUOTES inside a string.'
+      text: \" allows you to include DOUBLE QUOTES inside a string.
     - speaker: Arin
       text: 'Example: System.out.println("She said, \"Hello!\" ");'
     - speaker: Arin
       text: 'This prints: She said, "Hello!"'
     - speaker: Arin
-      text: \ allows you to print an actual BACKSLASH.
+      text: \\ allows you to print an actual BACKSLASH.
     - speaker: Arin
-      text: 'Example: System.out.println("Path: C:\Users\Roran");'
+      text: 'Example: System.out.println("Path: C:\\Users\\Roran");'
     - speaker: Arin
       text: 'This prints: Path: C:\Users\Roran'
     - speaker: Roran
@@ -578,7 +563,7 @@ MonoBehaviour:
     - speaker: Arin
       text: Now, test your understanding. Answer questions about strings and obtain
         the Path Barrier Key.
-  - conversationId: Arin_04_PostStrings
+  - conversationId: Arin_05_SyntaxRecap
     lines:
     - speaker: Arin
       text: You've returned with the Path Barrier Key! Excellent, Roran.
@@ -609,11 +594,8 @@ MonoBehaviour:
     - speaker: Arin
       text: Ten questions covering all topics. This is your path to becoming a true
         Codebreaker.
-  - conversationId: Arin_05_SyntaxRecap
-    lines:
     - speaker: Arin
-      text: Welcome back for the final time, Roran. This is your greatest test in
-        Oak Woods.
+      text: This is your greatest test in Oak Woods, Roran.
     - speaker: Roran
       text: I'm ready to prove I've learned everything.
     - speaker: Arin
@@ -698,61 +680,84 @@ MonoBehaviour:
     - speaker: Roran
       text: I won't disappoint you.
     - speaker: Arin
-      text: I know you won't. Go now. Face the Syntax Trial and show Oak Woods the
-        true measure of your skill.
+      text: I know you won't. The Syntax Trial awaits at the ancient altar.
     - speaker: Arin
       text: Answer all ten questions correctly, and you will earn the right to deactivate
         the path barrier.
     - speaker: Arin
       text: "You will become a Codebreaker\u2014one who can read and write the ancient
         syntax of creation itself."
-  - conversationId: Arin_05_Epilogue
-    lines:
-    - speaker: Arin
-      text: Roran... you answered all ten questions perfectly. Your mastery is complete.
     - speaker: Roran
-      text: "I proved I could do it. I understand Java now\u2014truly understand
-        it."
+      text: Before I go... I want to thank you, Arin.
     - speaker: Arin
-      text: You've done more than understand. You've mastered the fundamentals.
-    - speaker: Arin
-      text: You understand classes, methods, data types, variables, strings, and
-        syntax rules.
+      text: Thank me after you pass the trial, Roran.
     - speaker: Roran
-      text: "I can finally read the forest's words\u2014the language of code."
-    - speaker: Arin
-      text: You've come far in a short time. What once seemed impossible is now second
-        nature.
+      text: No, I need to say this now. Whether I pass or fail, you've changed my
+        life.
     - speaker: Roran
-      text: What comes next?
+      text: When I arrived in Oak Woods, I was lost. Code was meaningless symbols
+        to me.
     - speaker: Arin
-      text: Beyond Oak Woods, the world is vast and waiting for you.
-    - speaker: Arin
-      text: "You'll learn control flow\u2014making decisions with if statements,
-        repeating actions with loops."
-    - speaker: Arin
-      text: You'll master methods, arrays, objects, and more. But you've proven you
-        can handle it.
-    - speaker: Arin
-      text: Oak Woods recognizes you now, Roran. You are officially a Codebreaker.
-    - speaker: Arin
-      text: The path barrier will fall. Other places will call to you. Other languages
-        will tempt you.
+      text: And now?
     - speaker: Roran
-      text: But I won't forget Oak Woods. Or you.
-    - speaker: Arin
-      text: I know. And if you ever return, I'll be here, mentor to mentor.
-    - speaker: Arin
-      text: Syntax is your compass. Keep practicing, keep coding, and never stop
-        learning.
-    - speaker: Arin
-      text: The world of programming is vast. You've taken your first steps. Walk
-        forward with confidence.
+      text: Now I see the structure. The logic. The power behind every semicolon
+        and brace.
     - speaker: Roran
-      text: Thank you, Arin. For everything.
+      text: You've been patient with every question, thorough with every explanation.
     - speaker: Arin
-      text: Thank you, Roran. For reminding me why I love teaching.
+      text: Teaching you reminded me why I fell in love with programming in the first
+        place.
     - speaker: Arin
-      text: Farewell, Roran. Walk through the portal with pride.
+      text: Every student brings a fresh perspective. You asked the right questions,
+        never gave up.
     - speaker: Roran
-      text: Goodbye, mentor.
+      text: What comes next for me? After the trial, I mean.
+    - speaker: Arin
+      text: If you pass, the path barrier falls. You'll be free to journey beyond
+        Oak Woods.
+    - speaker: Arin
+      text: "There's a vast world of programming out there\u2014control flow, loops,
+        methods, objects, so much more."
+    - speaker: Arin
+      text: But Java syntax will always be your foundation. Everything builds upon
+        what you've learned here.
+    - speaker: Roran
+      text: I'll miss this cabin. I'll miss your lessons.
+    - speaker: Arin
+      text: And I'll miss having a student as dedicated as you.
+    - speaker: Arin
+      text: "But this is the way of mentorship\u2014the student must eventually walk
+        their own path."
+    - speaker: Roran
+      text: Will I ever see you again?
+    - speaker: Arin
+      text: Oak Woods will always be here. If you ever need to revisit the fundamentals,
+        my cabin door is open.
+    - speaker: Arin
+      text: But I suspect your journey will take you far from here.
+    - speaker: Roran
+      text: "I won't forget what you've taught me. Every rule, every concept\u2014it's
+        part of who I am now."
+    - speaker: Arin
+      text: That's all a teacher can hope for. Carry that knowledge with you, Roran.
+    - speaker: Arin
+      text: Syntax is your compass now. Let it guide you through whatever challenges
+        you face.
+    - speaker: Roran
+      text: Thank you, Arin. For everything. For believing in me when I was just
+        a confused wanderer.
+    - speaker: Arin
+      text: Thank you for reminding me why I teach. You've been an excellent student.
+    - speaker: Arin
+      text: "Now go. The Syntax Trial awaits. Show Oak Woods\u2014show yourself\u2014what
+        you've learned."
+    - speaker: Roran
+      text: I'll make you proud, mentor.
+    - speaker: Arin
+      text: You already have. Safe travels, Roran. May your code always compile without
+        errors.
+    - speaker: Roran
+      text: Farewell, Arin. I'll carry your lessons with me always.
+    - speaker: Arin
+      text: "Farewell, Codebreaker. Walk with confidence\u2014you're ready for whatever
+        comes next."

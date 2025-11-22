@@ -45,7 +45,7 @@ MonoBehaviour:
       Think about what happens when you add two pieces of text together.
     explanationOnCorrect: Correct! The + operator concatenates (joins) two strings
       together without any space between them.
-  - questionText: What does \n represent in a string?
+  - questionText: What does \\ + n represent in a string?
     choices:
     - choiceText: The letter 'n'
       isCorrect: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
       different from arrays which use .length (without parentheses).
     explanationOnCorrect: That's right! The .length() method returns the total number
       of characters in a string, including spaces.
-  - questionText: What does \t represent in Java?
+  - questionText: What does \\ + t represent in Java?
     choices:
     - choiceText: The letter 't'
       isCorrect: 0
