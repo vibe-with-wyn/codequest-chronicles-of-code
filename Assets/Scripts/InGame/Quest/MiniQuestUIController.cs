@@ -450,13 +450,15 @@ public class MiniQuestUIController : MonoBehaviour
     /// </summary>
     private string EscapeSpecialCharacters(string text)
     {
-        if (string.IsNullOrEmpty(text)) return text;
-
-        return text
-            .Replace("\\n", "\\n")  // Display literal \n
-            .Replace("\\t", "\\t")  // Display literal \t
-            .Replace("\\\"", "\\\"")  // Display literal \"
-            .Replace("\\\\", "\\\\");  // Display literal \\
+        if (string.IsNullOrEmpty(text))
+            return text;
+            
+        // Replace actual escape sequences with their literal representations for display
+        text = text.Replace("\n", "\\n");
+        text = text.Replace("\t", "\\t");
+        text = text.Replace("\r", "\\r");
+        
+        return text;
     }
 
     private void OnChoiceSelected(int choiceIndex)
