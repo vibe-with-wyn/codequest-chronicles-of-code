@@ -12,57 +12,54 @@ public class Quest3CabinReturnController : MonoBehaviour
 {
     [Header("Quest 3 Settings")]
     [Tooltip("Quest ID for Quest 3")]
-    [SerializeField] private string questId = "Q3_DataTypes";
-    
+    [SerializeField] private string questId = "Q3_Types"; // VERIFY THIS MATCHES YOUR QUEST DATA
+
     [Tooltip("Objective 1: Return to cabin")]
     [SerializeField] private string returnToCabinObjective = "Return to Arin's Cabin";
-    
+
     [Tooltip("Objective 2: Listen to lecture")]
     [SerializeField] private string lectureObjective = "Listen to Arin's Lesson: Data Types";
-    
-    [Tooltip("Dialogue conversation ID for Arin's greeting")]
-    [SerializeField] private string greetingDialogueId = "Arin_03_Greeting";
-    
+
     [Tooltip("Dialogue conversation ID for Arin's lecture")]
-    [SerializeField] private string lectureDialogueId = "Arin_03_DataTypes";
-    
+    [SerializeField] private string lectureDialogueId = "Arin_03_TypesLecture"; // FIXED: was "Arin_03_DataTypes"
+
     [Header("Conversation Settings")]
     [Tooltip("Distance Arin should be from player during conversation")]
     [SerializeField] private float conversationDistance = 5.0f;
-    
+
     [Tooltip("Speed Arin approaches player (if needed)")]
     [SerializeField] private float approachSpeed = 2.0f;
-    
+
     [Tooltip("How close Arin needs to be before stopping")]
     [SerializeField] private float stopDistance = 0.1f;
-    
+
     [Header("Distance Thresholds")]
     [Tooltip("If Arin is closer than this, FORCE move away to reach conversation distance")]
     [SerializeField] private float tooCloseThreshold = 3.0f;
-    
+
     [Tooltip("If Arin is farther than this, approach continuously until reaching conversation distance")]
     [SerializeField] private float tooFarThreshold = 7.0f;
-    
+
     [Tooltip("If Arin is THIS close (overlapping/same position), use forced separation")]
     [SerializeField] private float overlappingThreshold = 0.5f;
-    
+
     [Header("Forced Separation Settings")]
     [Tooltip("Default direction when characters overlap (1 = right, -1 = left)")]
     [SerializeField] private float defaultSeparationDirection = 1f;
-    
+
     [Header("Timing")]
     [Tooltip("Delay before starting greeting dialogue after player enters cabin")]
     [SerializeField] private float greetingDialogueDelay = 0.5f;
-    
+
     [Tooltip("Extra delay after facing each other to ensure orientation is correct")]
     [SerializeField] private float postFacingDelay = 0.3f;
-    
+
     [Header("UI References")]
     [SerializeField] private CanvasGroup uiCanvasGroup;
-    
+
     [Header("Debug")]
     [SerializeField] private bool debugMode = true;
-    
+
     private bool hasTriggered = false;
     private bool isDialogueActive = false;
     private ArinNPCAI arinAI;
@@ -71,12 +68,12 @@ public class Quest3CabinReturnController : MonoBehaviour
     private SpriteRenderer arinSprite;
     private PlayerMovement playerMovement;
     private UIController uiController;
-    
+
     // Store original physics for Arin
     private RigidbodyType2D originalArinBodyType;
     private float originalArinGravity;
     private Vector3 arinOriginalPosition; // NEW: Store Arin's position before movement
-    
+
     // UI state storage
     private bool originalInteractable;
     private bool originalBlocksRaycasts;
@@ -117,13 +114,13 @@ public class Quest3CabinReturnController : MonoBehaviour
     {
         if (hasTriggered) return;
         if (!other.CompareTag("Player")) return;
-        
+
         if (QuestManager.Instance == null)
         {
             Debug.LogError("[Q3Cabin] QuestManager not found in scene!");
             return;
         }
-        
+
         QuestData currentQuest = QuestManager.Instance.GetCurrentQuest();
         if (currentQuest == null || currentQuest.questId != questId)
         {
@@ -133,12 +130,12 @@ public class Quest3CabinReturnController : MonoBehaviour
             }
             return;
         }
-        
+
         if (debugMode)
         {
             Debug.Log($"[Q3Cabin] Player returned to cabin! Starting Quest 3 dialogue sequence...");
         }
-        
+
         hasTriggered = true;
         StartCoroutine(HandleCabinReturnSequence());
     }
@@ -150,137 +147,137 @@ public class Quest3CabinReturnController : MonoBehaviour
         {
             Debug.Log("[Q3Cabin] PHASE 1: Completing 'Return to cabin' objective...");
         }
-        
+
         QuestManager.Instance.CompleteObjectiveByTitle(returnToCabinObjective);
-        
+
         yield return new WaitForSeconds(0.5f);
-        
+
         // ============= PHASE 2: CACHE COMPONENTS =============
         if (debugMode)
         {
             Debug.Log("[Q3Cabin] PHASE 2: Caching components...");
         }
-        
+
         CacheComponents();
-        
+
         if (arinAI == null)
         {
             Debug.LogError("[Q3Cabin] Arin NPC not found! Cannot start dialogue.");
             yield break;
         }
-        
+
         Transform player = FindPlayer();
         if (player == null)
         {
             Debug.LogError("[Q3Cabin] Player not found!");
             yield break;
         }
-        
+
         // ============= PHASE 3: STORE ARIN'S ORIGINAL POSITION =============
         if (debugMode)
         {
             Debug.Log("[Q3Cabin] PHASE 3: Storing Arin's original position...");
         }
-        
+
         arinOriginalPosition = arinAI.transform.position;
         Debug.Log($"[Q3Cabin] Arin's original position: {arinOriginalPosition}");
-        
+
         // ============= PHASE 4: HIDE UI =============
         if (debugMode)
         {
             Debug.Log("[Q3Cabin] PHASE 4: Hiding UI...");
         }
-        
+
         HideUIImmediately();
         yield return new WaitForEndOfFrame();
-        
+
         // ============= PHASE 5: PREPARE ARIN FOR DIALOGUE =============
         if (debugMode)
         {
             Debug.Log("[Q3Cabin] PHASE 5: Preparing Arin for dialogue...");
         }
-        
+
         // Disable AI but keep Arin in place
         arinAI.enabled = false;
         arinRb.linearVelocity = Vector2.zero;
-        
+
         originalArinBodyType = arinRb.bodyType;
         originalArinGravity = arinRb.gravityScale;
-        
+
         arinRb.bodyType = RigidbodyType2D.Dynamic;
         arinRb.gravityScale = originalArinGravity;
-        
+
         // ============= PHASE 6: INTELLIGENT DISTANCE ADJUSTMENT =============
         if (debugMode)
         {
             Debug.Log("[Q3Cabin] PHASE 6: Adjusting Arin's position for conversation...");
         }
-        
+
         yield return StartCoroutine(AdjustArinDistanceIntelligently(player));
-        
+
         // ============= PHASE 7: ENSURE COMPLETE STOP =============
         if (debugMode)
         {
             Debug.Log("[Q3Cabin] PHASE 7: Ensuring Arin is completely stopped...");
         }
-        
+
         if (arinRb != null)
         {
             arinRb.linearVelocity = Vector2.zero;
         }
-        
+
         if (arinAnimator != null)
         {
             TrySetAnimatorBool(arinAnimator, "isMoving", false);
         }
-        
+
         yield return null;
         yield return null;
-        
+
         // ============= PHASE 8: FACE EACH OTHER =============
         if (debugMode)
         {
             Debug.Log("[Q3Cabin] PHASE 8: Characters facing each other...");
         }
-        
+
         FaceBothCharactersTogether(player);
-        
+
         yield return new WaitForSeconds(postFacingDelay);
-        
+
         // ============= PHASE 9: VERIFY FACING =============
         if (debugMode)
         {
             Debug.Log("[Q3Cabin] PHASE 9: Verifying character facing...");
         }
-        
+
         VerifyAndCorrectFacing(player);
-        
+
         // ============= PHASE 10: WAIT BEFORE DIALOGUE =============
         yield return new WaitForSeconds(greetingDialogueDelay);
-        
-        // ============= PHASE 11: START GREETING DIALOGUE =============
+
+        // ============= PHASE 11: START LECTURE DIALOGUE =============
         if (debugMode)
         {
-            Debug.Log("[Q3Cabin] PHASE 11: Starting greeting dialogue...");
+            Debug.Log("[Q3Cabin] PHASE 11: Starting lecture dialogue...");
         }
-        
+
         isDialogueActive = true;
-        
+
         if (DialogueManager.Instance != null)
         {
-            DialogueManager.Instance.StartConversation(greetingDialogueId);
-            DialogueManager.Instance.OnConversationCompleted += OnGreetingCompleted;
+            DialogueManager.Instance.StartConversation(lectureDialogueId); // Now uses correct ID
+            DialogueManager.Instance.OnConversationCompleted += OnLectureCompleted;
         }
         else
         {
-            Debug.LogWarning("[Q3Cabin] DialogueManager not found. Simulating greeting completion.");
+            Debug.LogWarning("[Q3Cabin] DialogueManager not found. Simulating lecture completion.");
             yield return new WaitForSeconds(2f);
-            OnGreetingCompleted(greetingDialogueId);
+            OnLectureCompleted(lectureDialogueId);
         }
     }
 
     #region Intelligent Distance Adjustment (Same as PostBoss)
-    
+
     private IEnumerator AdjustArinDistanceIntelligently(Transform player)
     {
         Vector3 playerPos = player.position;
@@ -498,11 +495,11 @@ public class Quest3CabinReturnController : MonoBehaviour
             TrySetAnimatorBool(arinAnimator, "isMoving", false);
         }
     }
-    
+
     #endregion
 
     #region Character Facing Logic
-    
+
     private void FaceBothCharactersTogether(Transform player)
     {
         if (arinAI == null || player == null)
@@ -514,7 +511,7 @@ public class Quest3CabinReturnController : MonoBehaviour
         Vector3 arinPosition = arinAI.transform.position;
         Vector3 playerPosition = player.position;
         float relativeX = playerPosition.x - arinPosition.x;
-        
+
         Debug.Log($"[Q3Cabin] Facing calculation:");
         Debug.Log($"  - Arin position: {arinPosition}");
         Debug.Log($"  - Player position: {playerPosition}");
@@ -526,13 +523,13 @@ public class Quest3CabinReturnController : MonoBehaviour
             arinSprite.flipX = arinShouldFaceLeft;
             Debug.Log($"  - Arin facing: {(arinShouldFaceLeft ? "LEFT" : "RIGHT")} (flipX={arinShouldFaceLeft})");
         }
-        
+
         if (playerMovement != null)
         {
             SpriteRenderer playerSprite = playerMovement.GetComponent<SpriteRenderer>();
             if (playerSprite == null)
                 playerSprite = playerMovement.GetComponentInChildren<SpriteRenderer>();
-            
+
             if (playerSprite != null)
             {
                 bool playerShouldFaceLeft = -relativeX < 0;
@@ -540,7 +537,7 @@ public class Quest3CabinReturnController : MonoBehaviour
                 Debug.Log($"  - Player facing: {(playerShouldFaceLeft ? "LEFT" : "RIGHT")} (flipX={playerShouldFaceLeft})");
             }
         }
-        
+
         Debug.Log("[Q3Cabin] ✓ Both characters oriented to face each other");
     }
 
@@ -593,48 +590,10 @@ public class Quest3CabinReturnController : MonoBehaviour
             Debug.Log("[Q3Cabin] ✓ Facing verification passed");
         }
     }
-    
+
     #endregion
 
     #region Dialogue Completion Handlers
-    
-    private void OnGreetingCompleted(string conversationId)
-    {
-        if (conversationId != greetingDialogueId) return;
-        
-        if (debugMode)
-        {
-            Debug.Log("[Q3Cabin] ✓ Greeting dialogue completed! Starting lecture dialogue...");
-        }
-        
-        if (DialogueManager.Instance != null)
-            DialogueManager.Instance.OnConversationCompleted -= OnGreetingCompleted;
-        
-        StartCoroutine(HandleLectureDialogue());
-    }
-
-    private IEnumerator HandleLectureDialogue()
-    {
-        // Small delay between greeting and lecture
-        yield return new WaitForSeconds(0.3f);
-        
-        if (debugMode)
-        {
-            Debug.Log("[Q3Cabin] Starting lecture dialogue...");
-        }
-        
-        if (DialogueManager.Instance != null)
-        {
-            DialogueManager.Instance.StartConversation(lectureDialogueId);
-            DialogueManager.Instance.OnConversationCompleted += OnLectureCompleted;
-        }
-        else
-        {
-            Debug.LogWarning("[Q3Cabin] DialogueManager not found. Simulating lecture completion.");
-            yield return new WaitForSeconds(2f);
-            OnLectureCompleted(lectureDialogueId);
-        }
-    }
 
     private void OnLectureCompleted(string conversationId)
     {
@@ -658,29 +617,29 @@ public class Quest3CabinReturnController : MonoBehaviour
         {
             Debug.Log("[Q3Cabin] PHASE 12: Completing 'Listen to lecture' objective...");
         }
-        
+
         QuestManager.Instance.CompleteObjectiveByTitle(lectureObjective);
-        
+
         yield return new WaitForSeconds(0.5f);
-        
+
         // ============= PHASE 13: RESTORE UI =============
         if (debugMode)
         {
             Debug.Log("[Q3Cabin] PHASE 13: Restoring UI...");
         }
-        
+
         yield return StartCoroutine(RestoreUIGradually());
-        
+
         // ============= PHASE 14: KEEP ARIN STATIONARY =============
         if (debugMode)
         {
             Debug.Log("[Q3Cabin] PHASE 14: Setting Arin to idle state at cabin...");
         }
-        
+
         FinalizeArinState();
-        
+
         isDialogueActive = false;
-        
+
         if (debugMode)
         {
             Debug.Log("[Q3Cabin] ✓✓✓ Quest 3 dialogue completed! Arin waiting at cabin, Objective 3 (Collect Runes) now active.");
@@ -708,21 +667,21 @@ public class Quest3CabinReturnController : MonoBehaviour
         {
             arinSprite.flipX = false;
         }
-        
+
         // CRITICAL: Keep AI disabled so Arin stays at cabin
         if (arinAI != null)
         {
             arinAI.enabled = false;
         }
-        
+
         Debug.Log($"[Q3Cabin] Arin is now in idle state at cabin position: {arinAI.transform.position}");
         Debug.Log("[Q3Cabin] Arin AI disabled - will remain at cabin until Quest 3 is completed");
     }
-    
+
     #endregion
 
     #region Helper Methods
-    
+
     private void CacheComponents()
     {
         if (arinAI == null) arinAI = Object.FindFirstObjectByType<ArinNPCAI>();
@@ -732,10 +691,10 @@ public class Quest3CabinReturnController : MonoBehaviour
             if (arinRb == null) arinRb = arinAI.GetComponent<Rigidbody2D>();
             if (arinSprite == null) arinSprite = arinAI.GetComponentInChildren<SpriteRenderer>();
         }
-        
+
         if (playerMovement == null) playerMovement = Object.FindFirstObjectByType<PlayerMovement>();
         if (uiController == null) uiController = Object.FindFirstObjectByType<UIController>();
-        
+
         if (uiCanvasGroup == null)
         {
             Canvas canvas = Object.FindFirstObjectByType<Canvas>();
@@ -759,13 +718,13 @@ public class Quest3CabinReturnController : MonoBehaviour
             originalAlpha = uiCanvasGroup.alpha;
             originalInteractable = uiCanvasGroup.interactable;
             originalBlocksRaycasts = uiCanvasGroup.blocksRaycasts;
-            
+
             uiCanvasGroup.alpha = 0f;
             uiCanvasGroup.interactable = false;
             uiCanvasGroup.blocksRaycasts = false;
-            
+
             StoreOriginalStatesAndHide();
-            
+
             if (debugMode)
             {
                 Debug.Log("[Q3Cabin] UI hidden");
@@ -779,7 +738,7 @@ public class Quest3CabinReturnController : MonoBehaviour
         {
             allImages = uiCanvasGroup.GetComponentsInChildren<UnityEngine.UI.Image>(true);
             originalImageColors = new Color[allImages.Length];
-            
+
             for (int i = 0; i < allImages.Length; i++)
             {
                 originalImageColors[i] = allImages[i].color;
@@ -790,7 +749,7 @@ public class Quest3CabinReturnController : MonoBehaviour
 
             allTexts = uiCanvasGroup.GetComponentsInChildren<TMPro.TextMeshProUGUI>(true);
             originalTextColors = new Color[allTexts.Length];
-            
+
             for (int i = 0; i < allTexts.Length; i++)
             {
                 originalTextColors[i] = allTexts[i].color;
@@ -801,7 +760,7 @@ public class Quest3CabinReturnController : MonoBehaviour
 
             allSprites = uiCanvasGroup.GetComponentsInChildren<SpriteRenderer>(true);
             originalSpriteColors = new Color[allSprites.Length];
-            
+
             for (int i = 0; i < allSprites.Length; i++)
             {
                 originalSpriteColors[i] = allSprites[i].color;
@@ -899,7 +858,7 @@ public class Quest3CabinReturnController : MonoBehaviour
     private static void TrySetAnimatorBool(Animator animator, string param, bool value)
     {
         if (animator == null || animator.runtimeAnimatorController == null) return;
-        
+
         foreach (var p in animator.parameters)
         {
             if (p.name == param && p.type == AnimatorControllerParameterType.Bool)
@@ -909,18 +868,18 @@ public class Quest3CabinReturnController : MonoBehaviour
             }
         }
     }
-    
+
     #endregion
 
     #region Debug Gizmos
-    
+
     void OnDrawGizmos()
     {
         Collider2D col = GetComponent<Collider2D>();
         if (col != null)
         {
             Gizmos.color = hasTriggered ? Color.gray : Color.green;
-            
+
             if (col is BoxCollider2D boxCol)
             {
                 Gizmos.DrawWireCube(transform.position + (Vector3)boxCol.offset, boxCol.size);
@@ -930,13 +889,13 @@ public class Quest3CabinReturnController : MonoBehaviour
                 Gizmos.DrawWireSphere(transform.position + (Vector3)circleCol.offset, circleCol.radius);
             }
         }
-        
+
         #if UNITY_EDITOR
         UnityEditor.Handles.Label(transform.position + Vector3.up * 0.5f, 
             $"QUEST 3: Cabin Return Trigger\n{returnToCabinObjective}\n{lectureObjective}", 
             new GUIStyle() { normal = new GUIStyleState() { textColor = Color.green } });
         #endif
     }
-    
+
     #endregion
 }
