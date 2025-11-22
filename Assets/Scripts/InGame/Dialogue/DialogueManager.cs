@@ -25,6 +25,10 @@ public class DialogueManager : MonoBehaviour
     [Tooltip("SpriteRenderers for decorations (auto-found if empty)")]
     [SerializeField] private SpriteRenderer[] decorationSpriteRenderers;
 
+    [Header("Display Options")]
+    [Tooltip("If true, actual newline and tab characters in dialogue lines are shown as \\n and \\t literals")]
+    [SerializeField] private bool showEscapeSequencesLiterally = false;
+
     [Header("Display Settings")]
     [SerializeField] private float fadeInDuration = 0.5f;
     [SerializeField] private float fadeOutDuration = 0.3f;
@@ -377,10 +381,10 @@ public class DialogueManager : MonoBehaviour
             "Arin", "You can assign it to a variable: String message = \"Welcome, traveler.\";",
             "Arin", "Now, what if you want to include special characters in your strings?",
             "Arin", "That's where ESCAPE SEQUENCES come in. They start with a backslash \\",
-            "Arin", "\\n creates a NEW LINE—moves to the next line.",
+            "Arin", "\\ + n creates a NEW LINE—moves to the next line.",
             "Arin", "Example: System.out.println(\"First line\\nSecond line\");",
             "Arin", "This prints: First line (then goes to new line) Second line.",
-            "Arin", "\\t creates a TAB—adds horizontal spacing.",
+            "Arin", "\\ + t creates a TAB—adds horizontal spacing.",
             "Arin", "Example: System.out.println(\"Name:\\tRoran\");",
             "Arin", "This adds tab space between Name: and Roran.",
             "Arin", "\\\" allows you to include DOUBLE QUOTES inside a string.",
@@ -452,7 +456,7 @@ public class DialogueManager : MonoBehaviour
             "Arin", "Choose meaningful names. Use camelCase for multi-word names.",
             "Arin", "Next: STRINGS AND PRINTING.",
             "Arin", "Use System.out.println() to print with a new line. Use System.out.print() to stay on same line.",
-            "Arin", "Escape sequences: \\n for new line, \\t for tab, \\\" for quotes, \\\\ for backslash.",
+            "Arin", "Escape sequences: \\ + n for new line, \\ + t for tab, \\\" for quotes, \\\\ for backslash.",
             "Arin", "Concatenate strings with the + operator: \"Hello \" + \"World\"",
             "Arin", "You can concatenate strings with numbers: \"Score: \" + 100",
             "Arin", "Finally: COMMENTS.",
@@ -721,7 +725,7 @@ public class DialogueManager : MonoBehaviour
 
         var line = current.lines[index];
         if (speakerText != null) speakerText.text = line.speaker;
-        if (bodyText != null) bodyText.text = line.text;
+        if (bodyText != null) bodyText.text = FormatBodyText(line.text);
         Debug.Log($"[{line.speaker}] {line.text}");
     }
 
@@ -730,5 +734,13 @@ public class DialogueManager : MonoBehaviour
     {
         SetupNextButtonListener();
         Debug.Log("[DialogueManager] Next button reinitialized");
+    }
+
+    private string FormatBodyText(string raw)
+    {
+        if (!showEscapeSequencesLiterally || string.IsNullOrEmpty(raw))
+            return raw;
+        // Replace actual control chars with their visible escaped forms
+        return raw.Replace("\n", "\\n").Replace("\t", "\\t").Replace("\r", "\\r");
     }
 }
