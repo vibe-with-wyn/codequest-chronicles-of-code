@@ -21,6 +21,8 @@ public class QuestManager : MonoBehaviour
     
     public static QuestManager Instance { get; private set; }
     
+    private const string FinalQuestId = "Q5_SyntaxTrial";
+    
     void Awake()
     {
         #if UNITY_EDITOR
@@ -58,7 +60,6 @@ public class QuestManager : MonoBehaviour
     
     private void InitializeQuests()
     {
-        // NEW: Ensure database is loaded before initialization
         EnsureQuestDatabase();
 
         #if UNITY_EDITOR
@@ -118,12 +119,10 @@ public class QuestManager : MonoBehaviour
         Debug.Log($"QuestManager initialized with {allQuests.Length} quests");
     }
 
-    // NEW: Auto-load quest database from Resources
     private void EnsureQuestDatabase()
     {
         if (questDatabase == null)
         {
-            // Try to load from Resources folder
             questDatabase = Resources.Load<QuestDatabase>("OakWoods/QuestDatabase_OakWoods");
 
             if (questDatabase == null)
@@ -238,9 +237,15 @@ public class QuestManager : MonoBehaviour
                     {
                         CompleteCurrentQuest();
                     }
+                    else
+                    {
+                        OnQuestUpdated?.Invoke(quest);
+                    }
                 }
-                
-                OnQuestUpdated?.Invoke(quest);
+                else
+                {
+                    OnQuestUpdated?.Invoke(quest);
+                }
             }
         }
     }
@@ -257,15 +262,46 @@ public class QuestManager : MonoBehaviour
     
     public void CompleteCurrentQuest()
     {
-        if (currentQuest != null)
+        if (currentQuest == null) return;
+
+        // CRITICAL FIX: Store reference to current quest BEFORE modifications
+        QuestData questToDisplay = currentQuest;
+        string questIdToCheck = currentQuest.questId;
+        int questIndexToCheck = currentQuestIndex;
+
+        currentQuest.CompleteQuest();
+        Debug.Log($"Quest completed: {currentQuest.questTitle}");
+        OnQuestCompleted?.Invoke(currentQuest);
+
+        // CRITICAL FIX: Use stored reference and explicit checks instead of relying on modified state
+        bool isFinalQuest =
+            questIdToCheck == FinalQuestId &&
+            string.IsNullOrEmpty(questToDisplay.nextQuestId) &&
+            questIndexToCheck == allQuests.Length - 1;
+
+        if (isFinalQuest)
         {
-            currentQuest.CompleteQuest();
-            
-            Debug.Log($"Quest completed: {currentQuest.questTitle}");
-            OnQuestCompleted?.Invoke(currentQuest);
-            
-            StartNextQuest();
+            // Show final quest completion once and DO NOT start a next quest (prevents overwriting with Quest 2)
+            if (QuestUIController.Instance != null)
+            {
+                Debug.Log("[QuestManager] Final quest completed – displaying final completion UI for Quest 5.");
+                Debug.Log($"[QuestManager] Displaying quest: {questToDisplay.questTitle} (ID: {questToDisplay.questId})");
+                QuestUIController.Instance.ShowQuestDisplay(questToDisplay, autoHide: true);
+            }
+            else
+            {
+                Debug.LogWarning("[QuestManager] QuestUIController.Instance not found - cannot display final quest completion UI.");
+            }
+
+            // End the quest chain cleanly
+            currentQuest = null;
+            currentQuestIndex = allQuests.Length; // mark as finished
+            Debug.Log("All quests completed!");
+            return;
         }
+
+        // Normal flow: proceed to next quest
+        StartNextQuest();
     }
     
     private void StartNextQuest()
@@ -273,7 +309,7 @@ public class QuestManager : MonoBehaviour
         Debug.Log("StartNextQuest called");
         Debug.Log($"Current quest nextQuestId: {currentQuest?.nextQuestId}");
         
-        if (!string.IsNullOrEmpty(currentQuest.nextQuestId))
+        if (!string.IsNullOrEmpty(currentQuest?.nextQuestId))
         {
             var nextQuest = allQuests.FirstOrDefault(q => q.questId == currentQuest.nextQuestId);
             if (nextQuest != null)
