@@ -19,6 +19,11 @@ public class FireballProjectile : MonoBehaviour
     [Tooltip("Duration of explosion animation before destruction")]
     [SerializeField] private float explosionDuration = 0.5f;
     
+    [Header("Sound Effects")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip impactSound;
+    [SerializeField] private float impactSoundVolume = 1.0f;
+    
     private int damage;
     private Vector2 direction;
     private Rigidbody2D rb;
@@ -40,12 +45,34 @@ public class FireballProjectile : MonoBehaviour
         if (animator == null)
             animator = GetComponent<Animator>();
         
+        // Auto-find AudioSource if not assigned
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+                ConfigureAudioSource();
+            }
+        }
+        
         // Configure rigidbody
         rb.gravityScale = 0f;
         rb.bodyType = RigidbodyType2D.Kinematic;
         
         // Ensure collider is trigger
         fireballCollider.isTrigger = true;
+    }
+
+    private void ConfigureAudioSource()
+    {
+        if (audioSource == null) return;
+
+        audioSource.volume = 1.0f;
+        audioSource.pitch = 1.0f;
+        audioSource.spatialBlend = 0.0f; // 2D sound
+        audioSource.loop = false;
+        audioSource.playOnAwake = false;
     }
 
     void Update()
@@ -217,6 +244,7 @@ public class FireballProjectile : MonoBehaviour
 
     /// <summary>
     /// FIXED: Trigger explosion animation and schedule destruction
+    /// NEW: Play impact sound when explosion triggers
     /// </summary>
     private void TriggerExplosion()
     {
@@ -231,6 +259,9 @@ public class FireballProjectile : MonoBehaviour
         // Disable collider to prevent multiple hits
         if (fireballCollider != null)
             fireballCollider.enabled = false;
+        
+        // Play impact sound BEFORE triggering animator
+        PlayImpactSound();
         
         // Trigger explosion animation if animator exists
         if (animator != null && HasAnimatorParameter("Explode", AnimatorControllerParameterType.Trigger))
@@ -252,6 +283,19 @@ public class FireballProjectile : MonoBehaviour
         Destroy(gameObject, explosionDuration);
         
         Debug.Log($"Fireball exploding at position {transform.position} after traveling {distanceTraveled:F2}m");
+    }
+
+    /// <summary>
+    /// NEW: Play impact sound effect when fireball hits
+    /// </summary>
+    private void PlayImpactSound()
+    {
+        if (audioSource == null || impactSound == null)
+            return;
+
+        audioSource.volume = impactSoundVolume;
+        audioSource.PlayOneShot(impactSound);
+        Debug.Log($"Fireball impact sound played: {impactSound.name}");
     }
 
     /// <summary>
