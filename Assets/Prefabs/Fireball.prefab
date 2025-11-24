@@ -115,6 +115,9 @@ MonoBehaviour:
   spriteRenderer: {fileID: 7340758710934001903}
   animator: {fileID: 798953421728018619}
   explosionDuration: 0.5
+  audioSource: {fileID: 0}
+  impactSound: {fileID: 8300000, guid: c91cb95c38ad8844b9a1c5b0489c019c, type: 3}
+  impactSoundVolume: 1
 --- !u!1 &3463342269307220864
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Oak Woods Of Syntax.unity
     guid: 11cee9f321f9ff141ba16b99244192f8
+  - enabled: 1
+    path: Assets/Scenes/Journey Pause.unity
+    guid: f135ef0d349ce374c9581ed24ef24dc6
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: c1487030605eecf4ea36ec45597070f8, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 244295abc99bf064c872b15ce4494441, type: 2}

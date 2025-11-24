@@ -18,12 +18,12 @@ TagManager:
   - Water
   - UI
   - Ground
-  - GameUI
+  - 
   - AttackIcons
   - Panel
   - Enemy
   - Player
-  - 
+  - GameUI
   - 
   - 
   - 
@@ -53,7 +53,7 @@ TagManager:
   - name: Icons
     uniqueID: 2836510415
     locked: 0
-  - name: Panel
+  - name: 
     uniqueID: 912852335
     locked: 0
   - name: Enemy
@@ -61,6 +61,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3693813649
+    locked: 0
+  - name: Panel
+    uniqueID: 2123131863
     locked: 0
   m_RenderingLayers:
   - Default
