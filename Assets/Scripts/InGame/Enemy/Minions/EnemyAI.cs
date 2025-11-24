@@ -56,6 +56,7 @@ public class EnemyAI : MonoBehaviour
     private EnemyAttackCollider enemyAttackCollider; // The script component
     private CircleCollider2D attackCollider; // The actual collider (auto-found from EnemyAttackCollider GameObject)
     private Transform animatorChild;
+    private EnemyAudioController audioController;
 
     // State Variables
     private Vector2 startPosition;
@@ -118,6 +119,24 @@ public class EnemyAI : MonoBehaviour
         }
 
         SetupEnemyAttackCollider();
+
+        // NEW: Initialize audio controller
+        InitializeAudioController();
+    }
+
+    // NEW: Audio initialization method
+    private void InitializeAudioController()
+    {
+        audioController = GetComponent<EnemyAudioController>();
+
+        if (audioController != null)
+        {
+            Debug.Log($"EnemyAudioController found on {gameObject.name}");
+        }
+        else
+        {
+            Debug.LogWarning($"EnemyAudioController not found on {gameObject.name}. Enemy will have no sound effects.");
+        }
     }
 
     private void SetupColliders()
@@ -504,6 +523,9 @@ public class EnemyAI : MonoBehaviour
             animator.SetTrigger(attackData.triggerName);
             lastAttackTime = Time.time;
 
+            // NEW: Play attack sound
+            PlayAttackSound(attackData);
+
             // NEW: Schedule delayed attack collider activation instead of immediate activation
             ScheduleDelayedAttackCollider(attackData);
 
@@ -516,6 +538,19 @@ public class EnemyAI : MonoBehaviour
             Debug.LogError($"Attack trigger '{attackData.triggerName}' not found!");
             isAttacking = false;
         }
+    }
+
+    // NEW: Audio helper method
+    private void PlayAttackSound(EnemyAttackData attackData)
+    {
+        if (audioController == null) return;
+
+        // Determine attack index from trigger name
+        int attackIndex = 1;
+        if (attackData.triggerName == "Attack2")
+            attackIndex = 2;
+
+        audioController.PlayAttackSound(attackIndex);
     }
 
     // NEW: Schedule attack collider activation with delay
@@ -620,6 +655,12 @@ public class EnemyAI : MonoBehaviour
             TransitionToState(State.Hurt);
         }
 
+        // NEW: Play hurt sound
+        if (audioController != null)
+        {
+            audioController.PlayHurtSound();
+        }
+
         if (HasAnimatorParameter("Hurt", AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger("Hurt");
@@ -664,6 +705,12 @@ public class EnemyAI : MonoBehaviour
 
     private void PerformImmediateDeathCleanup()
     {
+        // NEW: Play death sound BEFORE cleanup
+        if (audioController != null)
+        {
+            audioController.PlayDeathSound();
+        }
+
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0f;
@@ -748,7 +795,7 @@ public class EnemyAI : MonoBehaviour
         // NEW: Wait for TWO frames instead of one to ensure all rendering is complete
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
-        
+
         gameObject.SetActive(false);
         Debug.Log($"Enemy {gameObject.name} main GameObject deactivated");
     }
@@ -1194,4 +1241,20 @@ public class EnemyAI : MonoBehaviour
         }
     }
     #endregion
+
+    // Add these public methods at the end of the class for audio controller to check state
+    public bool IsPatrolling() => currentState == State.Patrol;
+    public bool IsChasing() => currentState == State.Chase;
+    public bool IsDead() => isDead;
+
+    /// <summary>
+    /// Get distance to player (useful for audio/proximity checks)
+    /// </summary>
+    public float GetDistanceToPlayer()
+    {
+        if (player == null) return float.MaxValue;
+        return Vector2.Distance(transform.position, player.position);
+    }
+
+    public Transform GetPlayerTransform() => player;
 }
