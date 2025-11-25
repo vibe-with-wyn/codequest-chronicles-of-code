@@ -83,6 +83,8 @@ public class ArinNPCAI : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Rigidbody2D rb;
 
+    private ArinAudioController audioController;
+
     [Header("Collision Settings")]
     [Tooltip("Layer for the player - Arin won't collide with player")]
     [SerializeField] private LayerMask playerLayer;
@@ -122,6 +124,7 @@ public class ArinNPCAI : MonoBehaviour
         InitializeAttackSystem();
         SetupDetectionColliders();
         ValidateAttackData();
+        InitializeAudioController();
 
         Debug.Log("Arin NPC AI initialized - intelligent positioning with attack cooldown system");
     }
@@ -150,6 +153,20 @@ public class ArinNPCAI : MonoBehaviour
 
         if (rb == null)
             Debug.LogError("Rigidbody2D not found on Arin NPC!");
+    }
+
+    private void InitializeAudioController()
+    {
+        audioController = GetComponent<ArinAudioController>();
+
+        if (audioController != null)
+        {
+            Debug.Log($"ArinAudioController found on {gameObject.name}");
+        }
+        else
+        {
+            Debug.LogWarning($"ArinAudioController not found on {gameObject.name}. Arin will have no sound effects.");
+        }
     }
 
     private void InitializeAttackSystem()
@@ -522,6 +539,12 @@ public class ArinNPCAI : MonoBehaviour
 
         isAttacking = true;
 
+        // ADD THIS: Play attack sound based on attack index (1-4)
+        if (audioController != null)
+        {
+            audioController.PlayAttackSound(selectedAttackIndex + 1); // +1 because arrays are 0-indexed but sounds are 1-5
+        }
+
         if (animator != null && HasAnimatorParameter(selectedAttack.animatorTrigger, AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger(selectedAttack.animatorTrigger);
@@ -646,6 +669,12 @@ public class ArinNPCAI : MonoBehaviour
     public void TakeHit()
     {
         Debug.Log("Arin got hit by boss - playing hurt animation!");
+
+        // ADD THIS: Play hurt sound
+        if (audioController != null)
+        {
+            audioController.PlayHurtSound();
+        }
 
         if (animator != null && HasAnimatorParameter("Hurt", AnimatorControllerParameterType.Trigger))
         {
