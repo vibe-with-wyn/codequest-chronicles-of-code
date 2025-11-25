@@ -75,6 +75,9 @@ public class CaveBossAI : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private EnemyHealth enemyHealth;
 
+    // ADD THIS:
+    private CaveBossAudioController audioController;
+
     // State Management
     private enum BossState { Idle, Chasing, Attacking, Hurt, Dead }
     private BossState currentState = BossState.Idle;
@@ -113,6 +116,9 @@ public class CaveBossAI : MonoBehaviour
         SetupDetectionColliders();
         ValidateBodyCollider();
         SetupPassthroughCollision();
+        
+        // ADD THIS:
+        InitializeAudioController();
 
         Debug.Log("NightBorne Boss AI initialized - continuous chase with passthrough collision");
     }
@@ -155,6 +161,21 @@ public class CaveBossAI : MonoBehaviour
             Debug.LogError("Animator not found on NightBorne Boss!");
         if (rb == null)
             Debug.LogError("Rigidbody2D not found on NightBorne Boss!");
+    }
+
+    // ADD THIS METHOD:
+    private void InitializeAudioController()
+    {
+        audioController = GetComponent<CaveBossAudioController>();
+
+        if (audioController != null)
+        {
+            Debug.Log($"CaveBossAudioController found on {gameObject.name}");
+        }
+        else
+        {
+            Debug.LogWarning($"CaveBossAudioController not found on {gameObject.name}. Boss will have no sound effects.");
+        }
     }
 
     private void ValidateBodyCollider()
@@ -439,6 +460,12 @@ public class CaveBossAI : MonoBehaviour
 
         string targetName = currentTarget == playerTransform ? "PLAYER" : "NPC Arin";
 
+        // ADD THIS: Play attack sound
+        if (audioController != null)
+        {
+            audioController.PlayAttackSound();
+        }
+
         if (animator != null && HasAnimatorParameter("Attack", AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger("Attack");
@@ -526,6 +553,12 @@ public class CaveBossAI : MonoBehaviour
         if (isDead) return;
 
         Debug.Log($"NightBorne taking damage: {damage} (isHurt={isHurt})");
+
+        // ADD THIS: Play hurt sound
+        if (audioController != null)
+        {
+            audioController.PlayHurtSound();
+        }
 
         if (animator != null && HasAnimatorParameter("Hurt", AnimatorControllerParameterType.Trigger))
         {
@@ -716,6 +749,12 @@ public class CaveBossAI : MonoBehaviour
         TransitionToState(BossState.Dead);
 
         Debug.Log("NightBorne Boss died! Starting death sequence...");
+
+        // ADD THIS: Play death sound
+        if (audioController != null)
+        {
+            audioController.PlayDeathSound();
+        }
 
         if (rb != null)
         {
