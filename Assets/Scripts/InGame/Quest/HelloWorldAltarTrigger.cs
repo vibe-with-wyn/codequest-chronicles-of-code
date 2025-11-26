@@ -31,16 +31,16 @@ public class HelloWorldAltarTrigger : MonoBehaviour
     [Header("Altar Activation Settings")]
     [Tooltip("Delay AFTER Quiz UI closes before triggering altar activation (seconds)")]
     [SerializeField] private float altarActivationDelay = 1f;
-    
+
     [Tooltip("Animator component for the altar (auto-found if not assigned)")]
     [SerializeField] private Animator altarAnimator;
-    
+
     [Tooltip("Trigger parameter name for altar activation animation")]
     [SerializeField] private string activationTriggerName = "Activate";
-    
+
     [Tooltip("Duration of the altar activation animation (seconds) - MUST MATCH YOUR ANIMATION LENGTH")]
     [SerializeField] private float activationAnimationDuration = 2f;
-    
+
     [Tooltip("Delay before UI restoration and Quest 3 display (seconds)")]
     [SerializeField] private float quest3DisplayDelay = 1f;
 
@@ -66,6 +66,9 @@ public class HelloWorldAltarTrigger : MonoBehaviour
     private Button startQuizButton;
     private CanvasGroup buttonCanvasGroup;
 
+    // Audio controller reference
+    private AltarAudioController audioController;
+
     void Awake()
     {
         // Ensure collider is set to trigger
@@ -75,7 +78,7 @@ public class HelloWorldAltarTrigger : MonoBehaviour
             col.isTrigger = true;
             Debug.LogWarning($"HelloWorldAltarTrigger on {gameObject.name}: Collider was not set as trigger. Fixed automatically.");
         }
-        
+
         // Auto-find altar animator if not assigned
         if (altarAnimator == null)
         {
@@ -84,7 +87,7 @@ public class HelloWorldAltarTrigger : MonoBehaviour
             {
                 altarAnimator = GetComponentInChildren<Animator>();
             }
-            
+
             if (altarAnimator != null && debugMode)
             {
                 Debug.Log($"[HelloWorldAltar] Auto-found Animator component: {altarAnimator.gameObject.name}");
@@ -130,11 +133,30 @@ public class HelloWorldAltarTrigger : MonoBehaviour
         ValidateMiniQuestData();
         InitializeStartQuizButton();
         ValidateAnimatorSetup();
+        InitializeAudioController();
     }
 
     void Update()
     {
         UpdateButtonVisibility();
+    }
+
+    // Initialize audio controller
+    private void InitializeAudioController()
+    {
+        audioController = GetComponent<AltarAudioController>();
+
+        if (audioController != null)
+        {
+            if (debugMode)
+            {
+                Debug.Log($"[HelloWorldAltar] AltarAudioController found on {gameObject.name}");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"[HelloWorldAltar] AltarAudioController not found on {gameObject.name}. Altar will have no sound effects.");
+        }
     }
 
     private void InitializeStartQuizButton()
@@ -374,16 +396,26 @@ public class HelloWorldAltarTrigger : MonoBehaviour
         {
             Debug.Log($"[HelloWorldAltar] PHASE 1 (continued): Waiting {altarActivationDelay}s before altar activation...");
         }
-        
+
         yield return new WaitForSeconds(altarActivationDelay);
 
-        // ============= PHASE 2: TRIGGER ALTAR ACTIVATION ANIMATION =============
+        // ============= PHASE 2: TRIGGER ALTAR ACTIVATION ANIMATION & SOUND =============
         if (debugMode)
         {
-            Debug.Log("[HelloWorldAltar] PHASE 2: Triggering altar activation animation...");
+            Debug.Log("[HelloWorldAltar] PHASE 2: Triggering altar activation animation and sound...");
         }
 
         TriggerAltarActivation();
+
+        // Play activation sound
+        if (audioController != null)
+        {
+            audioController.PlayActivationSound();
+            if (debugMode)
+            {
+                Debug.Log("[HelloWorldAltar] ✓ Activation sound triggered");
+            }
+        }
 
         // ============= PHASE 3: WAIT FOR ACTIVATION ANIMATION (2 seconds) =============
         if (debugMode)
@@ -391,7 +423,7 @@ public class HelloWorldAltarTrigger : MonoBehaviour
             Debug.Log($"[HelloWorldAltar] PHASE 3: Waiting {activationAnimationDuration}s for altar activation animation to complete...");
             Debug.Log("[HelloWorldAltar] UI remains HIDDEN during altar activation");
         }
-        
+
         yield return new WaitForSeconds(activationAnimationDuration);
 
         // ============= PHASE 4: WAIT 1 SECOND, THEN RESTORE GAME UI =============
@@ -399,7 +431,7 @@ public class HelloWorldAltarTrigger : MonoBehaviour
         {
             Debug.Log($"[HelloWorldAltar] PHASE 4: Altar activation complete! Waiting {quest3DisplayDelay}s before UI restoration...");
         }
-        
+
         yield return new WaitForSeconds(quest3DisplayDelay);
 
         if (debugMode)
@@ -541,7 +573,7 @@ public class HelloWorldAltarTrigger : MonoBehaviour
 
         bool hasTrigger = false;
         AnimatorControllerParameterType foundType = AnimatorControllerParameterType.Float;
-        
+
         foreach (var param in altarAnimator.parameters)
         {
             if (param.name == activationTriggerName)
@@ -565,7 +597,7 @@ public class HelloWorldAltarTrigger : MonoBehaviour
         }
 
         altarAnimator.SetTrigger(activationTriggerName);
-        
+
         if (debugMode)
         {
             Debug.Log($"[HelloWorldAltar] ✓ Triggered altar activation: '{activationTriggerName}'");
@@ -608,6 +640,12 @@ public class HelloWorldAltarTrigger : MonoBehaviour
         {
             Destroy(startQuizButtonInstance);
         }
+
+        // Clean up audio
+        if (audioController != null)
+        {
+            audioController.StopAllSounds();
+        }
     }
 
     void OnDrawGizmosSelected()
@@ -635,10 +673,11 @@ public class HelloWorldAltarTrigger : MonoBehaviour
         string animatorStatus = altarAnimator != null ? "✓" : "✗ MISSING";
         string uiStatus = gameUICanvasGroup != null ? "✓" : "✗ MISSING";
         string altarEffectStatus = altarEffectObject != null ? "✓" : "✗ MISSING";
+        string audioStatus = audioController != null ? "✓" : "✗ MISSING";
         float totalDelay = altarActivationDelay + activationAnimationDuration + quest3DisplayDelay;
-        
+
         UnityEditor.Handles.Label(transform.position + Vector3.up * 1f,
-            $"Hello World Altar [{statusText}]\n{requiredObjectiveTitle}\nAnimator: {animatorStatus} | Game UI: {uiStatus} | Altar Effect: {altarEffectStatus}\nTrigger: '{activationTriggerName}'\n\nSEQUENCE:\n1. Quiz UI Closes (MiniQuestUI)\n2. Disable Altar Effect + Wait {altarActivationDelay}s\n3. Altar Animation {activationAnimationDuration}s\n4. Wait {quest3DisplayDelay}s + Restore UI\n5. Quest 3 Displays\n\nTotal Time: {totalDelay}s",
+            $"Hello World Altar [{statusText}]\n{requiredObjectiveTitle}\nAnimator: {animatorStatus} | Game UI: {uiStatus} | Altar Effect: {altarEffectStatus} | Audio: {audioStatus}\nTrigger: '{activationTriggerName}'\n\nSEQUENCE:\n1. Quiz UI Closes (MiniQuestUI)\n2. Disable Altar Effect + Wait {altarActivationDelay}s\n3. Altar Animation + Sound {activationAnimationDuration}s\n4. Wait {quest3DisplayDelay}s + Restore UI\n5. Quest 3 Displays\n\nTotal Time: {totalDelay}s",
             new GUIStyle() { normal = new GUIStyleState() { textColor = Color.cyan } });
 #endif
     }
