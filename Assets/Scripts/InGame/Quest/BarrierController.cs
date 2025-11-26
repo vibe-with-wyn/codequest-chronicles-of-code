@@ -638,9 +638,18 @@ public class BarrierController : MonoBehaviour
             Debug.LogWarning("[Barrier] Path Barrier is null - cannot destroy");
         }
 
-        // Destroy Lightning Barrier
+        // Destroy Lightning Barrier (audio will automatically stop via OnDestroy)
         if (lightningBarrier != null)
         {
+            // Stop audio before destroying (optional - OnDestroy will handle it)
+            LightningBarrierAudioController barrierAudio = lightningBarrier.GetComponent<LightningBarrierAudioController>();
+            if (barrierAudio != null)
+            {
+                barrierAudio.StopBarrierAmbient();
+                if (debugMode)
+                    Debug.Log("[Barrier] ✓ Lightning Barrier audio stopped");
+            }
+
             Destroy(lightningBarrier);
             
             if (debugMode)
