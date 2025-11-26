@@ -3,12 +3,16 @@
 /// <summary>
 /// Lightning Barrier - Kills player on contact if barrier is still active
 /// Attached to the Lightning Barrier GameObject
+/// Now includes audio support for continuous electric crackling/humming
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class LightningBarrierDeath : MonoBehaviour
 {
     [Header("Debug")]
     [SerializeField] private bool debugMode = true;
+
+    // Audio controller reference
+    private LightningBarrierAudioController audioController;
 
     void Awake()
     {
@@ -17,6 +21,29 @@ public class LightningBarrierDeath : MonoBehaviour
         {
             col.isTrigger = true;
             Debug.LogWarning($"LightningBarrierDeath on {gameObject.name}: Collider was not set as trigger. Fixed automatically.");
+        }
+    }
+
+    void Start()
+    {
+        InitializeAudioController();
+    }
+
+    // Initialize audio controller
+    private void InitializeAudioController()
+    {
+        audioController = GetComponent<LightningBarrierAudioController>();
+
+        if (audioController != null)
+        {
+            if (debugMode)
+            {
+                Debug.Log($"[Lightning Barrier] LightningBarrierAudioController found on {gameObject.name}");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"[Lightning Barrier] LightningBarrierAudioController not found on {gameObject.name}. Barrier will have no sound effects.");
         }
     }
 
@@ -44,6 +71,18 @@ public class LightningBarrierDeath : MonoBehaviour
         }
     }
 
+    void OnDestroy()
+    {
+        // Clean up audio when barrier is destroyed
+        if (audioController != null)
+        {
+            audioController.StopAllSounds();
+            
+            if (debugMode)
+                Debug.Log("[Lightning Barrier] Audio stopped - barrier destroyed");
+        }
+    }
+
     void OnDrawGizmosSelected()
     {
         Collider2D col = GetComponent<Collider2D>();
@@ -58,8 +97,12 @@ public class LightningBarrierDeath : MonoBehaviour
         }
 
 #if UNITY_EDITOR
+        // Check if audio controller exists
+        LightningBarrierAudioController audio = GetComponent<LightningBarrierAudioController>();
+        string audioStatus = audio != null ? "✓" : "✗ MISSING";
+
         UnityEditor.Handles.Label(transform.position + Vector3.up * 1f,
-            $"⚡ LIGHTNING BARRIER ⚡\nDEATH ZONE\n\nKills player on contact\nPlayer respawns at nearest checkpoint",
+            $"⚡ LIGHTNING BARRIER ⚡\nDEATH ZONE\n\nKills player on contact\nPlayer respawns at nearest checkpoint\nAudio: {audioStatus}\n\nContinuous electric crackling sound\nPlays until barrier is destroyed",
             new GUIStyle() { normal = new GUIStyleState() { textColor = Color.red } });
 #endif
     }
