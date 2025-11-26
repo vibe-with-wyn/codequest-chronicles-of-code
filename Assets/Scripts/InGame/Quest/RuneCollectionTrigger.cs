@@ -80,6 +80,9 @@ public class RuneCollectionTrigger : MonoBehaviour
     private Color originalRuneColor;
     private Color[] originalEffectColors;
 
+    // Audio controller reference
+    private RuneAudioController audioController;
+
     void Awake()
     {
         // Ensure collider is set to trigger
@@ -187,6 +190,7 @@ public class RuneCollectionTrigger : MonoBehaviour
         CacheMiniQuestUI();
         ValidateMiniQuestData();
         InitializeCollectionButton();
+        InitializeAudioController();
         
         // Check if already collected (from saved game state)
         CheckIfAlreadyCollected();
@@ -195,6 +199,24 @@ public class RuneCollectionTrigger : MonoBehaviour
     void Update()
     {
         UpdateButtonVisibility();
+    }
+
+    // Initialize audio controller
+    private void InitializeAudioController()
+    {
+        audioController = GetComponent<RuneAudioController>();
+
+        if (audioController != null)
+        {
+            if (debugMode)
+            {
+                Debug.Log($"[Rune {runeName}] RuneAudioController found on {gameObject.name}");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"[Rune {runeName}] RuneAudioController not found on {gameObject.name}. Rune will have no sound effects.");
+        }
     }
 
     private void InitializeCollectionButton()
@@ -402,11 +424,21 @@ public class RuneCollectionTrigger : MonoBehaviour
         
         yield return new WaitForSeconds(postQuizDelay);
 
-        // ============= PHASE 2: FADE OUT RUNE AND EFFECTS (UI REMAINS HIDDEN) =============
+        // ============= PHASE 2: STOP AMBIENT SOUND & FADE OUT RUNE (UI REMAINS HIDDEN) =============
         if (debugMode)
         {
-            Debug.Log($"[Rune {runeName}] PHASE 2: Fading out rune and effects over {fadeOutDuration}s...");
+            Debug.Log($"[Rune {runeName}] PHASE 2: Stopping ambient sound and fading out rune over {fadeOutDuration}s...");
             Debug.Log($"[Rune {runeName}] UI remains HIDDEN during fade-out");
+        }
+
+        // Stop ambient looping sound
+        if (audioController != null)
+        {
+            audioController.StopAmbientLoop();
+            if (debugMode)
+            {
+                Debug.Log($"[Rune {runeName}] ✓ Ambient sound stopped");
+            }
         }
 
         yield return StartCoroutine(FadeOutRune());
@@ -658,6 +690,12 @@ public class RuneCollectionTrigger : MonoBehaviour
         {
             Destroy(collectionButtonInstance);
         }
+
+        // Clean up audio
+        if (audioController != null)
+        {
+            audioController.StopAllSounds();
+        }
     }
 
     void OnDrawGizmosSelected()
@@ -685,10 +723,11 @@ public class RuneCollectionTrigger : MonoBehaviour
         string runeAnimatorStatus = runeAnimator != null ? "✓" : "✗ MISSING";
         string effectStatus = runeEffectObject != null ? "✓" : "✗ MISSING";
         string uiStatus = gameUICanvasGroup != null ? "✓" : "✗ MISSING";
+        string audioStatus = audioController != null ? "✓" : "✗ MISSING";
         float totalTime = postQuizDelay + fadeOutDuration;
         
         UnityEditor.Handles.Label(transform.position + Vector3.up * 0.5f,
-            $"Rune of {runeName} [{statusText}]\nID: {runeId}\nAnimator: {runeAnimatorStatus} | Effect: {effectStatus} | UI: {uiStatus}\n\nSEQUENCE:\n1. Player enters → Button appears\n2. Button clicked → Quiz UI (1 question)\n3. Quiz complete → Delay {postQuizDelay}s (UI HIDDEN)\n4. Fade out {fadeOutDuration}s (UI HIDDEN)\n5. Disable rune objects\n6. Restore UI\n7. Update quest (+1/4 runes)\n\nTotal Time: {totalTime}s",
+            $"Rune of {runeName} [{statusText}]\nID: {runeId}\nAnimator: {runeAnimatorStatus} | Effect: {effectStatus} | UI: {uiStatus} | Audio: {audioStatus}\n\nSEQUENCE:\n1. Player enters → Button appears\n2. Ambient sound loops continuously\n3. Button clicked → Quiz UI (1 question)\n4. Quiz complete → Delay {postQuizDelay}s (UI HIDDEN)\n5. Stop ambient sound\n6. Fade out {fadeOutDuration}s (UI HIDDEN)\n7. Disable rune objects\n8. Restore UI\n9. Update quest (+1/4 runes)\n\nTotal Time: {totalTime}s",
             new GUIStyle() { normal = new GUIStyleState() { textColor = Color.cyan } });
 #endif
     }
