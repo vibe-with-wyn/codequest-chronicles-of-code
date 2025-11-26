@@ -492,13 +492,13 @@ MonoBehaviour:
     - speaker: Arin
       text: That's where ESCAPE SEQUENCES come in. They start with a backslash \
     - speaker: Arin
-      text: "\\n creates a NEW LINE\u2014moves to the next line."
+      text: "\\ + n creates a NEW LINE\u2014moves to the next line."
     - speaker: Arin
       text: 'Example: System.out.println("First line\nSecond line");'
     - speaker: Arin
       text: 'This prints: First line (then goes to new line) Second line.'
     - speaker: Arin
-      text: "\\t creates a TAB\u2014adds horizontal spacing."
+      text: "\\ + t creates a TAB\u2014adds horizontal spacing."
     - speaker: Arin
       text: 'Example: System.out.println("Name:\tRoran");'
     - speaker: Arin
