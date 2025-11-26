@@ -61,6 +61,7 @@ public class EvilWizardAI : MonoBehaviour
     private EvilWizardAttackCollider wizardAttackCollider;
     private CircleCollider2D attackCollider;
     private Transform animatorChild;
+    private EvilWizardAudioController audioController;
 
     // State
     private Vector3 originalPosition;
@@ -92,6 +93,7 @@ public class EvilWizardAI : MonoBehaviour
         SetupColliders();
         InitializeState();
         ValidateAttackData();
+        InitializeAudioController();
         if (debugMode) Debug.Log($"Evil Wizard AI initialized at {originalPosition}");
     }
 
@@ -123,6 +125,20 @@ public class EvilWizardAI : MonoBehaviour
         }
 
         SetupWizardAttackCollider();
+    }
+
+    private void InitializeAudioController()
+    {
+        audioController = GetComponent<EvilWizardAudioController>();
+
+        if (audioController != null)
+        {
+            if (debugMode) Debug.Log($"EvilWizardAudioController found on {gameObject.name}");
+        }
+        else
+        {
+            Debug.LogWarning($"EvilWizardAudioController not found on {gameObject.name}. Wizard will have no sound effects.");
+        }
     }
 
     private void SetupColliders()
@@ -353,6 +369,20 @@ public class EvilWizardAI : MonoBehaviour
         {
             animator.SetTrigger(currentAttackData.triggerName);
             lastAttackTime = Time.time;
+            
+            // Play appropriate attack sound based on attack type
+            if (audioController != null)
+            {
+                if (currentAttackData.triggerName == "Attack1")
+                {
+                    audioController.PlayAttack1Sound();
+                }
+                else if (currentAttackData.triggerName == "Attack2")
+                {
+                    audioController.PlayAttack2Sound();
+                }
+            }
+            
             ScheduleDelayedAttackCollider(currentAttackData);
             Invoke(nameof(ResetAttackState), 1.0f);
         }
@@ -470,6 +500,12 @@ public class EvilWizardAI : MonoBehaviour
         if (HasAnimatorParameter("Hurt", AnimatorControllerParameterType.Trigger))
             animator.SetTrigger("Hurt");
 
+        // Play hurt sound
+        if (audioController != null)
+        {
+            audioController.PlayHurtSound();
+        }
+
         EnemyHealth health = GetComponent<EnemyHealth>();
         if (health != null)
         {
@@ -498,6 +534,12 @@ public class EvilWizardAI : MonoBehaviour
 
         PerformImmediateDeathCleanup();
         TriggerDeathAnimationSafe();
+
+        // Play death sound
+        if (audioController != null)
+        {
+            audioController.PlayDeathSound();
+        }
 
         float wait = Mathf.Max(0.05f, deathAnimationDuration);
         StartCoroutine(FinalDeathRemoval(wait));
@@ -539,6 +581,12 @@ public class EvilWizardAI : MonoBehaviour
         if (attackCollider != null) attackCollider.enabled = false;
 
         DisableWizardAttackCollider();
+
+        // Stop all audio
+        if (audioController != null)
+        {
+            audioController.StopAllSounds();
+        }
 
         player = null;
         isAttacking = false;
