@@ -64,6 +64,9 @@ public class KeyCollectionTrigger : MonoBehaviour
     private Collider2D keyCollider;
     private Color originalKeyColor;
 
+    // Audio controller reference
+    private KeyAudioController audioController;
+
     void Awake()
     {
         Collider2D col = GetComponent<Collider2D>();
@@ -110,6 +113,25 @@ public class KeyCollectionTrigger : MonoBehaviour
     void Start()
     {
         InitializeButton();
+        InitializeAudioController(); // ADD THIS
+    }
+
+    // ADD THIS METHOD
+    private void InitializeAudioController()
+    {
+        audioController = GetComponent<KeyAudioController>();
+
+        if (audioController != null)
+        {
+            if (debugMode)
+            {
+                Debug.Log($"[Key] KeyAudioController found on {gameObject.name}");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"[Key] KeyAudioController not found on {gameObject.name}. Key will have no sound effects.");
+        }
     }
 
     void Update()
@@ -212,6 +234,14 @@ public class KeyCollectionTrigger : MonoBehaviour
 
         // FIX: Cache player position BEFORE starting coroutine
         cachedPlayerPosition = playerTransform.position;
+
+        // Play key collection sound
+        if (audioController != null)
+        {
+            audioController.PlayKeyCollectSound();
+            if (debugMode)
+                Debug.Log("[Key] ✓ Key collect sound triggered");
+        }
 
         StartCoroutine(KeyCollectionSequence());
     }
@@ -391,6 +421,12 @@ public class KeyCollectionTrigger : MonoBehaviour
     {
         if (buttonInstance != null)
             Destroy(buttonInstance);
+
+        // ADD THIS: Clean up audio
+        if (audioController != null)
+        {
+            audioController.StopAllSounds();
+        }
     }
 
     #endregion
