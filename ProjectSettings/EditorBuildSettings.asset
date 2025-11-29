@@ -30,7 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Journey Pause.unity
     guid: f135ef0d349ce374c9581ed24ef24dc6
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 4049ac8ce981c614db2601f193bdef79, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: c1487030605eecf4ea36ec45597070f8, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: ef613ff370b908e4e886dcf7192a0ca9, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 244295abc99bf064c872b15ce4494441, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
