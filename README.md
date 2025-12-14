@@ -1,7 +1,7 @@
-# CodeQuest: Chronicles of Code 🌲✨
+# CodeQuest: Chronicles of Code 💀
 
 [![Download APK](https://img.shields.io/badge/Download-Android%20APK-green?style=for-the-badge&logo=android)](https://github.com/vibe-with-wyn/codequest-chronicles-of-code/releases/latest)
-[![Play on itch.io](https://img.shields.io/badge/Play-itch.io-red?style=for-the-badge&logo=itch.io)](https://vibe-with-wyn.itch.io/codequest](https://vibe-with-wyn.itch.io/codequest-chronicles-of-code))
+[![Play on itch.io](https://img.shields.io/badge/Play-itch.io-red?style=for-the-badge&logo=itch.io)](https://vibe-with-wyn.itch.io/codequest-chronicles-of-code)
 [![Unity](https://img.shields.io/badge/Unity-2022.3%20LTS-blue?style=for-the-badge&logo=unity)](https://unity.com/)
 
 > **Learn Java programming through an interactive 2D platformer adventure in Oak Woods**
