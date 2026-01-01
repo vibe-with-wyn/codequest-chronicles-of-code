@@ -4,7 +4,7 @@
 [![Play on itch.io](https://img.shields.io/badge/Play-itch.io-red?style=for-the-badge&logo=itch.io)](https://vibe-with-wyn.itch.io/codequest-chronicles-of-code)
 [![Unity](https://img.shields.io/badge/Unity-2022.3%20LTS-blue?style=for-the-badge&logo=unity)](https://unity.com/)
 
-> **Learn Java programming through an interactive 2D platformer adventure in Oak Woods**
+> **Learn Java programming through an interactive 2D platformer adventure in Oak Woods !**
 
 ---
 
