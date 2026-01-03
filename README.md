@@ -141,7 +141,10 @@ If CodeQuest helped you learn Java:
 - ⭐ Star this repository
 - 🍴 Fork and contribute
 - 📢 Share with fellow learners
-- 💬 Leave feedback on [itch.io](https://vibe-with-wyn.itch.io/codequest)
+- 💬 Leave feedback on [itch.io](https://vibe-with-wyn.itch.io/codequest-chronicles-of-code)
+
+## ⚠️ Rapid Development Disclaimer
+This game was created rapidly, so it may contain small bugs or inconsistencies. If you encounter issues, please report them via [GitHub Issues](https://github.com/vibe-with-wyn/codequest-chronicles-of-code/issues).
 
 ---
 
