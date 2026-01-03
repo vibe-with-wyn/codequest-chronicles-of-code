@@ -32,7 +32,7 @@
 ## 📱 Play on Android
 
 ### Download APK
-**[📥 Download Latest Release (v1.0.0)](https://github.com/vibe-with-wyn/codequest-chronicles-of-code/releases/latest)**
+**📥 [Download Latest Release (v1.0.0)](https://github.com/vibe-with-wyn/codequest-chronicles-of-code/releases/latest)**
 
 ### Requirements
 - Android 7.0 (Nougat) or higher
@@ -51,7 +51,7 @@
 ## 🌐 Play in Browser
 
 ### WebGL Version
-**[🎮 Play Now on itch.io](https://vibe-with-wyn.itch.io/codequest-chronicles-of-code)**
+**🎮 [Play Now on itch.io](https://vibe-with-wyn.itch.io/codequest-chronicles-of-code)**
 
 - ✅ No installation required
 - ✅ Works on desktop and mobile browsers
